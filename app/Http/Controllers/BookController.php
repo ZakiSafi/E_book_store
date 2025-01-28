@@ -99,9 +99,11 @@ class BookController extends Controller
      */
     public function edit(Book $book)
     {
+        $this->authorize('update',$book);
         $categories = Category::all();
         return view('books.edit', compact('book', 'categories'));
     }
+
 
     /**
      * Update the specified resource in storage.
@@ -126,6 +128,7 @@ class BookController extends Controller
      */
     public function destroy(Book $book)
     {
+        $this->authorize('delete',$book);
         if ($book->cover_image) {
             Storage::disk('public')->delete($book->cover_image);
         }
@@ -179,19 +182,6 @@ class BookController extends Controller
         return view('books.search', compact('books', 'searchQuery','categories'));
     }
 
-
-    // public function download($id)
-    // {
-    //     $book = Book::findOrFail($id);
-
-    //     // Increment the total_downloads count
-    //     $book->downloads += 1;
-    //     // exit();
-    //     $book->save();
-    //     // Return the file to download
-    //     return Storage::download('public/' . $book->file_path);
-    //     return redirect('/books');
-    // }
     public function download($id)
     {
         $book = Book::findOrFail($id);

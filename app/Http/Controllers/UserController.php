@@ -5,23 +5,29 @@ namespace App\Http\Controllers;
 use Carbon\Carbon;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+
 
 class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
+    public function books(){
+        $user = Auth::user();
+        /** @var User $user */
+        $books = $user->books()->get();
+        return view('users.book',compact('books','user'));
+
+    }
     public function index()
     {
         // $categories = Category::take(10)->get();
         $user = Auth::user();
         $lastLoginDate = $user->last_login_at;
-        $lastUpdatedDate = $user->updated_at;
-        return view('dashboard.user', compact('user', 'lastLoginDate', 'lastUpdatedDate'));
+        return view('dashboard.user', compact('user', 'lastLoginDate'));
     }
 
     /**

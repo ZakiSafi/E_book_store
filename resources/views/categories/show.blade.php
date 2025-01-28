@@ -2,13 +2,14 @@
     <div class="min-h-[500px] flex items-center justify-center bg-gray-100">
         <div class="w-full max-w-[700px] bg-white p-6 rounded-lg shadow-lg">
             <h2 class="text-2xl font-bold text-gray-800 mb-6 text-center">{{ $category->name }}</h2>
-            <form class="space-y-4">
+            <form action="/search " method="get" class="space-y-4">
                 <!-- Search Field -->
                 <div>
                     <label for="search" class="block text-sm font-medium text-gray-700">Search (Optional)</label>
                     <input
                         type="text"
                         id="search"
+                        name = 'title'
                         placeholder="Search ..."
                         class="mt-1 block w-full p-2 border border-gray-300 rounded-md focus:ring-green-500 focus:border-green-500 text-gray-800" />
                 </div>
@@ -17,22 +18,27 @@
                     <label for="language" class="block text-sm font-medium text-gray-700">Language</label>
                     <select
                         id="language"
+                        name = 'language'
                         class="mt-1 block w-full p-2 border border-gray-300 rounded-md focus:ring-green-500 focus:border-green-500 text-gray-800">
                         <option>All Languages</option>
                         <option>English</option>
                         <option>Arabic</option>
                         <option>Pashto</option>
+                        <option>Urdu</option>
                     </select>
                 </div>
                 <!-- Category Field -->
                 <div>
                     <label for="category" class="block text-sm font-medium text-gray-700">Category</label>
-                    <input
-                        type="text"
+                    <select
                         id="category"
-                        value="Scientific books"
-                        readonly
-                        class="mt-1 block w-full p-2 border border-gray-300 bg-gray-100 rounded-md focus:ring-green-500 focus:border-green-500 text-gray-800" />
+                        name="category_id"
+                        class="mt-1 block w-full p-2 border border-gray-300 rounded-md focus:ring-green-500 focus:border-green-500 text-gray-800">
+                        <option value="">Select Category</option>
+                        @foreach ($categories as $category)
+                        <option value="{{ $category->id }}">{{ $category->name }}</option>
+                        @endforeach
+                    </select>
                 </div>
                 <!-- Buttons -->
                 <div class="flex gap-4">
@@ -58,9 +64,9 @@
                     <a href="/books/{{$book->id}}">
 
                         <img
-                        src="{{ asset('storage/' . $book->cover_image) }}"
-                        alt="{{ $book->title }}"
-                        class="object-cover w-72 h-72 rounded-lg " />
+                            src="{{ asset('storage/' . $book->cover_image) }}"
+                            alt="{{ $book->title }}"
+                            class="object-cover w-72 h-72 rounded-lg " />
                     </a>
                 </div>
                 <div class="self-start flex flex-col gap-2">

@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Bookmark extends Model
 {
-    protected $fillable = ['book_id'];
+    protected $fillable = ['book_id','user_id'];
     public function book(){
         return $this->belongsTo(Book::class);
     }

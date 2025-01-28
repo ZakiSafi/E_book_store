@@ -24,6 +24,7 @@
                         <option>English</option>
                         <option>Arabic</option>
                         <option>Pashto</option>
+                        <option>Urdu</option>
                     </select>
                 </div>
                 <!-- Category Field -->

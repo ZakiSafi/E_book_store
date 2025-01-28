@@ -36,8 +36,9 @@ class CategoryController extends Controller
      */
     public function show(string $id)
     {
+        $categories = Category::all();
         $category = Category::find($id);
-        return view ('categories.show',compact('category'));
+        return view ('categories.show',compact('category','categories'));
     }
 
     /**

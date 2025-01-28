@@ -33,6 +33,7 @@ Route::post('/login', [LoginController::class, 'store'])->name('login');
 Route::get('/register', [RegisterController::class, 'create']);
 Route::post('/register', [RegisterController::class, 'store']);
 Route::post('/logout', [LoginController::class, 'destroy'])->name('logout');
+Route::get('/user/books', [UserController::class ,'books']);
 // Route for search functionality
 Route::get('/search', [BookController::class, 'search']);
 Route::middleware(['auth', 'admin'])->group(function () {

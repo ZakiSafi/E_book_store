@@ -1,5 +1,5 @@
 <x-layout>
-    <div class="container w-full max-w-7xl p-8 grid grid-cols-3 grid-rows-[auto,auto] gap-4 mt-8">
+    <div class="container w-full max-w-7xl p-8 grid grid-cols-3  gap-4 mt-8">
 
         <!-- First div: spans first and second rows -->
         <div class=" p-4 rounded-lg shadow-lg col-span-1">
@@ -9,7 +9,7 @@
                     <span class="group-hover:border-b group-hover:border-black">Dashboard</span>
                 </a>
 
-                <a href="/users/book" class="group">
+                <a href="/user/books" class="group">
                     <i class="fa-solid fa-book text-[#666] mr-2"></i>
                     <span class="group-hover:border-b group-hover:border-black">Manage your Books</span>
                 </a>
@@ -45,26 +45,14 @@
                         Now
                         @endif
                     </p>
+
                 </div>
             </div>
         </div>
 
     </div>
 
-    <!-- Third div: spans second and third columns of second row -->
-    <div class="p-4 rounded-lg shadow-lg col-span-3">
-        <h2 class="text-2xl font-bold mb-4">Books Added by You</h2>
-        <ul class="list-disc list-inside">
-            @if ($user->books->isNotEmpty())
-            @foreach($user->books as $book)
-            <li>{{ $book->title }}</li>
-            @endforeach
-            @else
-            <p>No books yet</p>
-            @endif
-        </ul>
-    </div>
-    </div>
+
 
     <!-- Modal -->
     <div id="profileModal" class="hidden fixed inset-0 bg-gray-900 bg-opacity-50 flex justify-center items-center">

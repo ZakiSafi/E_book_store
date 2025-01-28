@@ -25,11 +25,11 @@ class LoginController extends Controller
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
 
-            // Update last_active timestamp
-            $user = Auth::user(); // Assuming your User model is App\Models\User
-            $user = User::find($user->id);
+            $user = Auth::user();
             $user->last_login_at = Carbon::now();
+            /** @var User $user */
             $user->save();
+
 
             // Check if the user is an admin
             if ($user->role === 'admin') {
