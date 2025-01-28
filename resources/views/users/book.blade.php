@@ -30,7 +30,9 @@
                 <div class="flex gap-4 p-4  rounded-lg shadow-lg">
                     <!-- Book Cover -->
                     <div>
-                        <img src="{{ asset('storage/' . $book->cover_image) }}" alt="{{ $book->title }}" class="w-32 h-32 object-cover rounded-lg">
+                        <a href="/books/{{$book->id}}">
+                            <img src="{{ asset('storage/' . $book->cover_image) }}" alt="{{ $book->title }}" class="w-32 h-32 object-cover rounded-lg">
+                        </a>
                     </div>
 
                     <!-- Book Details -->

@@ -4,6 +4,7 @@ use App\Http\Controllers\AdminController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BookController;
+use App\Http\Controllers\BookmarkController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\HomeController;
@@ -19,11 +20,9 @@ use Monolog\Handler\RollbarHandler;
 Route::resource('/', HomeController::class);
 // Resource Controllers
 Route::resource('books', BookController::class);
-Route::resource('carts', CartController::class);
 Route::resource('categories', CategoryController::class);
-Route::resource('payments', PaymentController::class);
 Route::resource('users', UserController::class)->middleware('auth');
-Route::resource('wishlists', WishlistController::class)->middleware('auth');
+Route::get('/user/books', [UserController::class ,'books']);
 //profile routes
 Route::get('/users/{id}/profile', [UserController::class, 'profile'])->name('profile.edit');
 Route::patch('/users/{id}/update', [UserController::class, 'profile_update'])->name('profile.update');
@@ -33,7 +32,11 @@ Route::post('/login', [LoginController::class, 'store'])->name('login');
 Route::get('/register', [RegisterController::class, 'create']);
 Route::post('/register', [RegisterController::class, 'store']);
 Route::post('/logout', [LoginController::class, 'destroy'])->name('logout');
-Route::get('/user/books', [UserController::class ,'books']);
+Route::middleware(['auth'])->group(function(){
+    Route::post('/bookmarks',[BookmarkController::class,'store']);
+    Route::delete('/bookmarks/{id}', [BookmarkController::class, 'destroy']);
+    Route::get('/bookmarks',[BookmarkController::class, 'index']);
+});
 // Route for search functionality
 Route::get('/search', [BookController::class, 'search']);
 Route::middleware(['auth', 'admin'])->group(function () {

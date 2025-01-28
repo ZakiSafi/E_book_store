@@ -43,7 +43,7 @@
                             <x-nav_link href="/books" :active="request()->is('books')">
                                 <i class="fa-solid fa-book mr-1"></i> Books
                             </x-nav_link>
-                            <x-nav_link href="/wishlists" :active="request()->is('wishlists')">
+                            <x-nav_link href="/bookmarks" :active="request()->is('bookmarks')">
                                 <i class="fa-solid fa-bookmark mr-1"></i>
                                 <p>
                                     Book Marks
@@ -59,7 +59,7 @@
                                 <i class="fa-solid fa-plus text-sm mt-1"></i>
                                 Upload
                             </button>
-                            <div id='add_menu' class="hidden absolute  rounded-lg text-[14px] bg-white shadow-md text-gary-700 flex flex-col gap-2 p-2 mt-2">
+                            <div id='add_menu' class="hidden absolute  rounded-lg text-[14px] bg-white shadow-md text-gary-700 flex flex-col gap-2 p-2 mt-1">
                                 <a href="/books/create" class="group">
                                     <i class="fa-solid fa-book text-[#666] mr-2"></i>
                                     <span class="group-hover:border-b group-hover:border-black group-hover:font-semibold">Add book</span>
@@ -85,13 +85,13 @@
                         </a>
                         @endguest
                         @auth
-                        <form action="/logout" method="POST" class="flex items-center">
-                            @csrf
-                            <button type="submit" class="text-white  rounded-md px-4 py-1 hover:bg-white hover:text-blue-600 flex items-center justify-center">
-                                <i class="fa-solid fa-sign-out-alt  mr-1 text-[12px] mt-1"></i>
-                                <p class="text-[14px]">Log out</p>
-                            </button>
-                        </form>
+                        <button id="dropdownButton" class="text-white rounded-md px-4 py-1 hover:bg-white hover:text-blue-600 flex items-center justify-center gap-[2px]">
+                            <i class="fa-solid fa-user text-[12px] mr-1"></i>
+                            <p class="text-[14px]">{{ Auth::user()->name }}</p>
+                            <i class="fa-solid fa-chevron-circle-down text-[12px] mt-1"></i>
+
+                        </button>
+
                         @endauth
                     </div>
 
@@ -103,53 +103,42 @@
                     <!-- Dropdown Menu -->
                     <div id="mobile-menu" class="hidden absolute top-12 right-4 z-50 bg-white bg-opacity-80 backdrop-blur-md shadow-lg rounded-lg w-48 p-4">
                         <nav class="space-y-2">
-                            <a href="/" class="block text-center px-4 py-2 text-sm font-semibold text-gray-800 hover:bg-blue-600 hover:text-white rounded">
-                                <i class="fa-solid fa-house mr-1"></i>Home
+                            <a href="/" class="block text-center px-4 py-2 text-sm font-semibold text-gray-800 hover:bg-blue-600 hover:text-white rounded flex items-center space-x-2">
+                                <i class="fa-solid fa-house flex-shrink-0 w-5"></i> <span>Home</span>
                             </a>
-                            <a href="/users" class="block text-center px-4 py-2 text-sm font-semibold text-gray-800 hover:bg-blue-600 hover:text-white rounded">
-                                <i class="fa-solid fa-tachometer-alt mr-2"></i>
-                                dashboard
+                            <a href="/users" class="block text-center px-4 py-2 text-sm font-semibold text-gray-800 hover:bg-blue-600 hover:text-white rounded flex items-center space-x-2">
+                                <i class="fa-solid fa-tachometer-alt flex-shrink-0 w-5"></i> <span>Dashboard</span>
                             </a>
-                            <a href="/books" class="block text-center px-4 py-2 text-sm font-semibold text-gray-800 hover:bg-blue-600 hover:text-white rounded">
-                                <i class="fa-solid fa-book mr-1"></i>
-                                Books
+                            <a href="/books" class="block text-center px-4 py-2 text-sm font-semibold text-gray-800 hover:bg-blue-600 hover:text-white rounded flex items-center space-x-2">
+                                <i class="fa-solid fa-book flex-shrink-0 w-5"></i> <span>Books</span>
                             </a>
-                            <a href="/index" class="block text-center px-4 py-2 text-sm font-semibold text-gray-800 hover:bg-blue-600 hover:text-white rounded">
-                                <i class="fa-solid fa-bell mr-1"></i>
-                                What's New
+                            <a href="/books/create" class="block text-center px-4 py-2 text-sm font-semibold text-gray-800 hover:bg-blue-600 hover:text-white rounded flex items-center space-x-2">
+                                <i class="fa-solid fa-book flex-shrink-0 w-5"></i> <span>Add book</span>
                             </a>
-                            <a href="/wishlists" class="block text-center px-4 py-2 text-sm font-semibold text-gray-800 hover:bg-blue-600 hover:text-white rounded">
-                                <i class="fa-solid fa-heart mr-1"></i>
-                                <span>
-                                    Wishlists
-                                </span>
-                            </a>
-                            <a href="/books/create" class="block text-center px-4 py-2 text-sm font-semibold text-gray-800 hover:bg-blue-600 hover:text-white rounded">
-                                <i class="fa-solid fa-book mr-1"></i>
-                                Add book
-                            </a><a href="/articles/create" class="block text-center px-4 py-2 text-sm font-semibold text-gray-800 hover:bg-blue-600 hover:text-white rounded">
-                                <i class="fa-solid fa-newspaper mr-1"></i>
-                                Add article
-                            </a>
-
+                            
                         </nav>
+
                         @guest
                         <div class="space-y-2">
-                            <a href="/login" class="block text-center px-4 py-2 text-sm font-semibold text-gray-800 hover:bg-blue-600 hover:text-white rounded">Log In</a>
-                            <a href="/register" class="block text-center px-4 py-2 text-sm font-semibold text-gray-800 hover:bg-blue-600 hover:text-white rounded">Register</a>
+                            <a href="/login" class="block text-center px-4 py-2 text-sm font-semibold text-gray-800 hover:bg-blue-600 hover:text-white rounded flex items-center space-x-2">
+                                <i class="fa-solid fa-sign-in-alt flex-shrink-0 w-5"></i> <span>Log In</span>
+                            </a>
+                            <a href="/register" class="block text-center px-4 py-2 text-sm font-semibold text-gray-800 hover:bg-blue-600 hover:text-white rounded flex items-center space-x-2">
+                                <i class="fa-solid fa-user-plus flex-shrink-0 w-5"></i> <span>Register</span>
+                            </a>
                         </div>
                         @endguest
+
                         @auth
                         <a href=""></a>
                         <form action="/logout" method="POST">
                             @csrf
-                            <button type="submit" class="w-full text-center px-4 py-2 text-sm font-semibold text-gray-800 hover:bg-blue-600 hover:text-white rounded">
-                                Log out
+                            <button type="submit" class="w-full text-center px-4 py-2 text-sm font-semibold text-gray-800 hover:bg-blue-600 hover:text-white rounded flex items-center space-x-2">
+                                <i class="fa-solid fa-sign-out-alt flex-shrink-0 w-5"></i> <span>Log out</span>
                             </button>
                         </form>
                         @endauth
                     </div>
-
                 </div>
 
             </div>

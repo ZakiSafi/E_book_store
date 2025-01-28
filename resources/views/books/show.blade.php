@@ -3,8 +3,21 @@
     <div class="container mx-auto w-full max-w-7xl shadow-lg p-8 ">
         <div class="w-full max-w-6xl py-4 px-12 grid grid-cols-[65%,35%] justify-center gap-8">
             <div class="bg-white shadow-lg grid grid-cols-[25%,70%] gap-5 rounded-lg p-4">
-                <div class="p-2 shadow-md w-full h-60 flex items-center ">
+                <div class="p-2  w-full flex flex-col items-center gap-4 ">
                     <img src="{{ asset('storage/' . $book->cover_image) }}" alt="{{ $book->title }}" class="w-36 h-48">
+                    @auth
+
+                    <form action="/bookmarks" method="post" href="/bookmarks">
+                        @csrf
+                        <input type="hidden" name="book_id" value="{{$book->id}}">
+                        <button type="submit" class=" text-blue-500 text-lg hover:bg-blue-500 hover:text-white font-semibold mr-1 px-4 py-1 border border-blue-500 rounded-lg transition duration-300 ease-in-out">
+                            Bookmark <i class="far fa-bookmark"></i>
+                        </button>
+
+
+                    </form>
+                    @endauth
+
                 </div>
                 <div class="flex flex-col gap-4 p-2">
                     <div>
@@ -48,10 +61,10 @@
                                     <p>{{ $book->downloads }}</p>
                     </div>
                     <div class="flex gap-6 mt-4">
-                        <a href="{{ route('book.download', ['id' => $book->id]) }}" class="bg-blue-600 py-2 px-8 text-white rounded-lg transition transition-transform hover:scale-105">
+                        <a href="{{ route('book.download', ['id' => $book->id]) }}" class="hover:text-blue-500 hover:bg-white text-lg bg-blue-500 text-white font-semibold mr-1 px-4 py-2 border border-blue-500 rounded-lg transition duration-300 ease-in-out ">
                             download
                         </a>
-                        <button class="bg-blue-600 py-2 px-12 text-white rounded-lg transition-transform hover:scale-105">
+                        <button class="hover:text-blue-500 hover:bg-white text-lg bg-blue-500 text-white font-semibold mr-1 px-4 py-2 border border-blue-500 rounded-lg transition duration-300 ease-in-out">
                             Read
                         </button>
 

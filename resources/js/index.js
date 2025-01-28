@@ -2,6 +2,7 @@ const menuBtn = document.getElementById("menu-btn");
 const mobileMenu = document.getElementById("mobile-menu");
 const upload = document.getElementById("upload");
 const addMenu = document.getElementById("add_menu");
+const dropdownButton = document.getElementById("dropdownButton");
 
 if (menuBtn && mobileMenu) {
     menuBtn.addEventListener("click", () => {
@@ -29,5 +30,9 @@ if (upload && addMenu) {
         }
     });
 }
-
+if (dropdownButton && mobileMenu) {
+    dropdownButton.addEventListener("click", function () {
+        mobileMenu.classList.toggle("hidden");
+    });
+}
 // open the picture in full view mode

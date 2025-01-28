@@ -1,6 +1,25 @@
 <x-layout>
-    <div class="w-full max-w-7xl mx-auto p-8 bg-white p-6 rounded-lg shadow-lg">
-        <div class="max-w-xl mx-auto">
+    <div class="container w-full max-w-7xl mx-auto grid grid-cols-3 gap-4 p-12 rounded-lg shadow-lg">
+        <div class="flex flex-col gap-3 h-64 w-64 text-[#666] bg-white rounded-lg text-lg col-span-1   shadow-lg p-4">
+            <a href="/users" class="group flex items-center" aria-label="Go to Dashboard">
+                <i class="fa-solid fa-tachometer-alt text-[#666] mr-2"></i>
+                <span class="group-hover:border-b group-hover:border-black">Dashboard</span>
+            </a>
+            <a href="/user/books" class="group flex items-center" aria-label="Manage Books">
+                <i class="fa-solid fa-book text-[#666] mr-2"></i>
+                <span class="group-hover:border-b group-hover:border-black">Manage your Books</span>
+            </a>
+            <a href="/users/{{ $user->id }}/profile" class="group flex items-center" aria-label="Edit Profile">
+                <i class="fa-solid fa-user text-[#666] mr-2"></i>
+                <span class="group-hover:border-b group-hover:border-black">Edit Profile</span>
+            </a>
+            <a href="/bookmarks" class="group flex items-center" aria-label="View Bookmarks">
+                <i class="fa-solid fa-bookmark text-[#666] mr-2"></i>
+                <span class="group-hover:border-b group-hover:border-black">Bookmarks</span>
+            </a>
+        </div>
+
+        <div class="max-w-xl  col-span-2 self-start">
 
             <h2 class="text-2xl font-bold mb-4">Edit Profile</h2>
 

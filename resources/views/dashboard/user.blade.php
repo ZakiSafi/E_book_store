@@ -17,6 +17,10 @@
                     <i class="fa-solid fa-user text-[#666] mr-2"></i>
                     <span class="group-hover:border-b group-hover:border-black">Edit profile</span>
                 </a>
+                <a href="/bookmarks" class="group">
+                    <i class="fa-solid fa-bookmark text-[#666] mr-2"></i>
+                    <span class="group-hover:border-b group-hover:border-black">Bookmarks</span>
+                </a>
             </div>
 
         </div>
