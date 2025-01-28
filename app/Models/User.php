@@ -49,6 +49,12 @@ class User extends Authenticatable
         return $this->belongsToMany(Book::class, 'wishlists');
     }
 
+    // relationship with bookmark
+    public function bookmarks()
+    {
+        return $this->hasMany(Bookmark::class);
+    }
+
     /**
      * The attributes that should be hidden for serialization.
      *
