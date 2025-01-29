@@ -20,7 +20,7 @@ class BookController extends Controller
      */
     public function index()
     {
-        $books = Book::latest()->simplePaginate(15);
+        $books = Book::latest()->simplePaginate(32);
         $categories = Category::all();
         // $totaldownloads = Book::sum('downloads');
         return view('books.index', compact('books', 'categories'));

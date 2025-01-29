@@ -108,14 +108,15 @@
     </div>
     <div class="container w-full mx-auto pt-4 pb-8">
         <h1 class="text-[24px] text-gray-500">Latest Books</h1>
-        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 mt-4">
+        <div class="grid grid-cols-3  lg:grid-cols-4 gap-4 mt-4">
             @foreach ($books as $book)
-            <a href="/books/{{$book->id}}" class="group transform transition-transform duration-300 hover:scale-105">
-                <div class="bg-white p-2 rounded-lg shadow-lg hover:bg-cyan-200">
-                    <img src="{{ asset('storage/' . $book->cover_image) }}" alt="{{ $book->title }}" class="w-full h-48 object-cover">
-                    <h3 class="text-md text-center font-semibold text-gray-800 truncate transition-colors duration-300 group-hover:text-white pt-4">
-                        {{$book->title}}
+            <a href="/books/{{$book->id}}" class="group transform transition-transform duration-300 hover:scale-105 mb-4">
+                <div class="flex flex-col justify-center items-center">
+                    <img src="{{ asset('storage/' . $book->cover_image) }}" alt="{{ $book->title }}" class="w-[70%] h-48 object-cover rounded-lg">
+                    <h3 class="text-md text-center font-semibold text-blue-400 transition-colors duration-300  pt-4">
+                        {{Str::limit($book->title,20)}}
                     </h3>
+                    <p class="text-sm font-semibold text-gray-800">{{Str::limit($book->author,20)}}</p>
                 </div>
             </a>
 
@@ -125,21 +126,22 @@
     </div>
     <div class="container w-full mx-auto pt-4 pb-8">
         <h1 class="text-[24px] text-gray-500">Most Downloaded</h1>
-        <div class="grid grid-cols-1 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-6 gap-4 mt-4">
+        <div class="grid grid-cols-3  lg:grid-cols-4 gap-4 mt-4">
             @foreach ($mostdownloaded as $book)
             @if($book->id && $book->cover_image)
-            <a href="/books/{{$book->id}}" class="group transform transition-transform duration-300 hover:scale-105">
-                <div class="bg-white p-2 rounded-lg shadow-lg hover:bg-cyan-200">
-                    <img src="{{ asset('storage/' . $book->cover_image) }}" alt="{{ $book->title }}" class="w-full h-48 object-cover">
-                    <h3 class="text-md font-semibold text-gray-800 truncate transition-colors duration-300 group-hover:text-white pt-4">
-                        {{$book->title}}
+            <a href="/books/{{$book->id}}" class="group transform transition-transform duration-300 hover:scale-105 mb-4">
+                <div class="flex flex-col justify-center items-center">
+                    <img src="{{ asset('storage/' . $book->cover_image) }}" alt="{{ $book->title }}" class="w-[70%] h-48 object-cover rounded-lg">
+                    <h3 class="text-md text-center font-semibold text-blue-400 transition-colors duration-300  pt-4">
+                        {{Str::limit($book->title,20)}}
                     </h3>
+                    <p class="text-sm font-semibold text-gray-800">{{Str::limit($book->author,20)}}</p>
                 </div>
             </a>
 
             @else
             <div class="bg-white p-4 rounded-lg shadow-lg">
-                <p class="text-gray-500">No data available for this book</p>
+                <p class="text-gray-500">No Books downloaded yet</p>
             </div>
             @endif
             @endforeach
