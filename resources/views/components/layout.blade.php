@@ -38,7 +38,7 @@
                             <x-nav_link href="/" :active="request()->is('/')">
                                 <i class="fa-solid fa-house mr-1"></i> Home
                             </x-nav_link>
-                            <x-nav_link href="/users" :active="request()->is('users')">
+                            <x-nav_link href="/dashboard" :active="request()->is('users')">
                                 <i class="fa-solid fa-tachometer-alt mr-2"></i> Dashboard
                             </x-nav_link>
                             <x-nav_link href="/books" :active="request()->is('books')">

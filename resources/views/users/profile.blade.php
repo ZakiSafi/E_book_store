@@ -27,7 +27,7 @@
             <div class="text-green-600 mb-4">{{ session('success') }}</div>
             @endif
 
-            <form action="/users/{{$user->id}}/update" method="POST" enctype="multipart/form-data" class="bg-white p-6 rounded-lg shadow-md w-full max-w-md">
+            <form action="/profile/{{$user->id}}/update" method="POST" enctype="multipart/form-data" class="bg-white p-6 rounded-lg shadow-md w-full max-w-md">
 
                 @csrf
                 @method('PATCH')

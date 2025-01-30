@@ -142,7 +142,7 @@ class BookController extends Controller
             Storage::disk('public')->delete($book->cover_image);
         }
         $book->delete();
-        return redirect('/books')->with('success', 'Book deleted successfully');
+        return redirect('/bookmarks')->with('success', 'Book deleted successfully');
     }
 
     public function search(Request $request)

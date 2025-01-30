@@ -56,32 +56,32 @@
             </form>
         </div>
     </div>
-    <div class="w-full max-w-[700px] mx-auto bg-white rounded-lg shadow-lg mb-2 p-2">
-        <h1 class="pb-2 font-bold text-xl  ">Search result for "{{ $searchQuery }}"</h1>
+    <div class="w-full max-w-[600px] mx-auto bg-white rounded-lg shadow-lg mb-2 p-2">
+        <h1 class="pb-2 font-semibold text-2xl text-center ">Search result for "{{ $searchQuery }}"</h1>
     </div>
     @if ($books->isEmpty())
     <div class="w-full max-w-[700px] mx-auto bg-white rounded-lg shadow-lg p-2 mb-2">
         <h1 class="pb-2 font-bold text-xl text-red-500  ">No books found!</h1>
     </div>
     @else
-    <div class="container w-full max-w-7xl grid items-center justify-center pt-2 pb-8">
-        <div class="w-full max-w-[700px] bg-white p-6 rounded-lg shadow-lg">
+    <div class="container w-full max-w-7xl mx-auto grid items-center justify-center pt-2 pb-8">
+        <div class="w-full max-w-[700px] bg-white p-4 rounded-lg shadow-lg">
             @foreach ($books as $book)
-            <div class="grid grid-cols-2 mb-8 items-center">
-                <div class="rounded-lg overflow-hidden h-48 w-30 rounded-lg">
+            <div class="grid grid-cols-2 gap-4 items-center">
+                <div class="rounded-lg overflow-hidden rounded-lg">
                     <a href="/books/{{$book->id}}">
 
                         <img
                             src="{{ asset('storage/' . $book->cover_image) }}"
                             alt="{{ $book->title }}"
-                            class="object-cover w-72 h-72 rounded-lg " />
+                            class="object-cover w-64 h-48 rounded-lg " />
                     </a>
                 </div>
                 <div class="self-start flex flex-col gap-2">
-                    <h3 class="text-xl font-bold text-gray-800">{{ $book->title }}</h3>
+                    <h3 class="text-2xl font-bold text-gray-800">{{ $book->title }}</h3>
                     <p class="text-md font-semi-bold text-gray-400">{{ $book->author }}</p>
-                    <p class="text-md text-gray-600">{{ $book->language }}</p>
-                    <p class="text-md text-gray-600">{{ $book->category->name }}</p>
+                    <p class="text-md font-semibold text-gray-600">{{ $book->language }}</p>
+                    <p class="text-md font-semibold text-gray-600">{{ $book->category->name }}</p>
                 </div>
             </div>
             @endforeach

@@ -27,7 +27,7 @@ class UserController extends Controller
         // $categories = Category::take(10)->get();
         $user = Auth::user();
         $lastLoginDate = $user->last_login_at;
-        return view('dashboard.user', compact('user', 'lastLoginDate'));
+        return view('users.dashboard', compact('user', 'lastLoginDate'));
     }
 
     /**
