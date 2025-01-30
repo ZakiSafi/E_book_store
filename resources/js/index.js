@@ -35,4 +35,3 @@ if (dropdownButton && mobileMenu) {
         mobileMenu.classList.toggle("hidden");
     });
 }
-// open the picture in full view mode

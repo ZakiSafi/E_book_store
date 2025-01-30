@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Book;
+use App\Models\Bookmark;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -20,7 +21,7 @@ class BookController extends Controller
      */
     public function index()
     {
-        $books = Book::latest()->simplePaginate(32);
+        $books = Book::latest()->simplePaginate(15);
         $categories = Category::all();
         // $totaldownloads = Book::sum('downloads');
         return view('books.index', compact('books', 'categories'));
@@ -49,7 +50,7 @@ class BookController extends Controller
             'cover_image' => 'nullable|image|max:2048', // Cover image optional
             'category_id' => 'required|exists:categories,id', // Ensure the category exists
             'book_file' => 'required|mimes:pdf|max:100000', // Validate book file (PDF, max size 2MB)
-            'release_date'=>'required|date',
+            'release_date' => 'required|date',
             'edition' => 'nullable',
 
         ]);
@@ -90,16 +91,24 @@ class BookController extends Controller
      */
     public function show(Book $book)
     {
+        $bookmark = Bookmark::where('user_id', Auth::id())
+            ->where('book_id', $book->id)
+            ->first(); // Use first() to get the first record or null
+
+        $isBookmarked = $bookmark ? true : false; // Determine if the book is bookmarked
+
         $relatedBooks = $book->relatedBooks()->get();
-        return view('books.show', compact('book', 'relatedBooks'));
+
+        return view('books.show', compact('book', 'relatedBooks', 'isBookmarked', 'bookmark'));
     }
+
 
     /**
      * Show the form for editing the specified resource.
      */
     public function edit(Book $book)
     {
-        $this->authorize('update',$book);
+        $this->authorize('update', $book);
         $categories = Category::all();
         return view('books.edit', compact('book', 'categories'));
     }
@@ -128,7 +137,7 @@ class BookController extends Controller
      */
     public function destroy(Book $book)
     {
-        $this->authorize('delete',$book);
+        $this->authorize('delete', $book);
         if ($book->cover_image) {
             Storage::disk('public')->delete($book->cover_image);
         }
@@ -159,14 +168,14 @@ class BookController extends Controller
         if ($request->filled('category')) {
             $query->whereHas('category', function ($q) use ($request) {
                 $q->where('name', 'like', '%' . $request->input('category') . '%')
-                ->orderByRaw(
-                    "CASE
+                    ->orderByRaw(
+                        "CASE
                 WHEN name = ? THEN 1
                 ELSE 2
             END ASC",
-                    [$request->input('category')]
-                )
-                ->orderByRaw("LENGTH(name) - LENGTH(REPLACE(name, ?, '')) DESC", [$request->input('category')]);
+                        [$request->input('category')]
+                    )
+                    ->orderByRaw("LENGTH(name) - LENGTH(REPLACE(name, ?, '')) DESC", [$request->input('category')]);
             });
         }
 
@@ -179,7 +188,7 @@ class BookController extends Controller
         $books = $query->get();
 
         // Return results to the appropriate view
-        return view('books.search', compact('books', 'searchQuery','categories'));
+        return view('books.search', compact('books', 'searchQuery', 'categories'));
     }
 
     public function download($id)

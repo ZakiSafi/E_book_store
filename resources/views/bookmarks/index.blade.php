@@ -50,7 +50,8 @@
                             <form action="/bookmarks/{{ $bookmark->id }}" method="POST" onsubmit="return confirm('Are you sure you want to remove this bookmark?')">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="bg-red-600 py-2 px-8 text-center text-white rounded-lg transition-transform hover:scale-105">
+                                <input type="hidden" name="redirect_url" value="/bookmarks">
+                                <button type="submit" class="bg-blue-600 py-2 px-6 text-center text-white rounded-lg transition-transform hover:scale-105">
                                     Remove bookmark
                                 </button>
                             </form>
@@ -60,7 +61,7 @@
                 @endforeach
             </div>
             @else
-            <p class="p-4 text-gray-500 text-center">No bookmarks yet.</p>
+            <h2 class="p-4 text-2xl font-semibold text-gray-700 text-center">No bookmarks yet.</h2>
             @endif
         </div>
     </div>

@@ -36,6 +36,7 @@ Route::middleware(['auth'])->group(function(){
     Route::post('/bookmarks',[BookmarkController::class,'store']);
     Route::delete('/bookmarks/{id}', [BookmarkController::class, 'destroy']);
     Route::get('/bookmarks',[BookmarkController::class, 'index']);
+
 });
 // Route for search functionality
 Route::get('/search', [BookController::class, 'search']);

@@ -4,6 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>Laravel</title>
 
@@ -115,7 +116,7 @@
                             <a href="/books/create" class="block text-center px-4 py-2 text-sm font-semibold text-gray-800 hover:bg-blue-600 hover:text-white rounded flex items-center space-x-2">
                                 <i class="fa-solid fa-book flex-shrink-0 w-5"></i> <span>Add book</span>
                             </a>
-                            
+
                         </nav>
 
                         @guest

@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
 use App\Models\Bookmark;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
@@ -27,13 +26,14 @@ class BookmarkController extends Controller
         ]);
         return back()->with('success','Successfully added to Bookmarks');
     }
-    public function destroy($id){
+    public function destroy($id,Request $request){
         $boomark = Bookmark::findOrFail($id);
         if($boomark->user_id != Auth::id()){
             abort(403, 'unautherized action');
         }
         $boomark->delete();
-        return redirect('/bookmarks');
+        $redirectUrl = $request->input('redirect_url');
+        return redirect($redirectUrl)->with('success', 'Bookmark removed successfully!');
 
     }
 }

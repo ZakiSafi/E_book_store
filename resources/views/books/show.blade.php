@@ -6,16 +6,24 @@
                 <div class="p-2  w-full flex flex-col items-center gap-4 ">
                     <img src="{{ asset('storage/' . $book->cover_image) }}" alt="{{ $book->title }}" class="w-36 h-48">
                     @auth
-
-                    <form action="/bookmarks" method="post" href="/bookmarks">
+                    @if ($bookmark)
+                    <form action="/bookmarks/{{ $bookmark->id }}" method="POST">
+                        @csrf
+                        @method('DELETE')
+                        <input type="hidden" name="redirect_url" value="/books/{{$book->id}}">
+                        <button type="submit" class=" text-blue-500 text-lg hover:bg-blue-500 hover:text-white font-semibold mr-1 px-6 py-1 border border-blue-500 rounded-lg transition duration-300 ease-in-out flex gap-1 items-center">
+                            <p>bookmarkd</p><i class="fas fa-bookmark mt-1"></i>
+                        </button>
+                    </form>
+                    @else
+                    <form action="/bookmarks" method="post">
                         @csrf
                         <input type="hidden" name="book_id" value="{{$book->id}}">
                         <button type="submit" class=" text-blue-500 text-lg hover:bg-blue-500 hover:text-white font-semibold mr-1 px-4 py-1 border border-blue-500 rounded-lg transition duration-300 ease-in-out">
                             Bookmark <i class="far fa-bookmark"></i>
                         </button>
-
-
                     </form>
+                    @endif
                     @endauth
 
                 </div>
