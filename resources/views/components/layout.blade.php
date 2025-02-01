@@ -9,8 +9,6 @@
     <link rel="icon" href="{{ asset('images/logo.jfif') }}" type="image/jfif">
 
     <link rel="preconnect" href="https://fonts.bunny.net">
-    <!-- <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" /> -->
-    <!-- <script src="https://cdn.tailwindcss.com"></script> -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <style>
@@ -38,6 +36,13 @@
                             <x-nav_link href="/" :active="request()->is('/')">
                                 <i class="fa-solid fa-house mr-1"></i> Home
                             </x-nav_link>
+                            @auth
+                            @if (Auth::user()->role === 'admin')
+                            <x-nav_link href="/admin/dashboard" :active="request()->is('admin/dashboard')">
+                                <i class="fa-solid fa-user-shield mr-1"></i> Admin Dashboard
+                            </x-nav_link>
+                            @endif
+                            @endauth
                             <x-nav_link href="/dashboard" :active="request()->is('users')">
                                 <i class="fa-solid fa-tachometer-alt mr-2"></i> Dashboard
                             </x-nav_link>
