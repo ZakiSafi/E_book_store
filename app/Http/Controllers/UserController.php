@@ -100,7 +100,7 @@ class UserController extends Controller
         }
         /** @var User $user */
         $user->save();
-        return redirect('users')->with('success', 'Profile picture updated successfully.');
+        return redirect('/dashboard')->with('success', 'Profile picture updated successfully.');
     }
     /**
      * Remove the specified resource from storage.

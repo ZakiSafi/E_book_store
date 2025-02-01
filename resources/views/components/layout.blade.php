@@ -4,13 +4,13 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>Laravel</title>
+    <title>BMA library</title>
+    <link rel="icon" href="{{ asset('images/logo.jfif') }}" type="image/jfif">
 
     <link rel="preconnect" href="https://fonts.bunny.net">
     <!-- <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" /> -->
-    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- <script src="https://cdn.tailwindcss.com"></script> -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <style>
@@ -32,7 +32,7 @@
                     <!-- Left Section -->
                     <div class="flex items-center gap-8">
                         <div>
-                            <img class="h-8 w-8" src="https://laracasts.com/images/logo/logo-triangle.svg" alt="Your Company">
+                            <img class="h-8 w-8" src="{{ asset('images/logo.jfif') }}" alt="Your Company">
                         </div>
                         <nav class="hidden md:flex items-center gap-4">
                             <x-nav_link href="/" :active="request()->is('/')">
@@ -56,22 +56,10 @@
                     <!-- Right Section -->
                     <div class=" hidden md:flex items-center space-x-2">
                         <div>
-                            <button id='upload' class="relative text-white text-[14px] hover:bg-white hover:text-blue-600 rounded-lg py-1 px-2">
+                            <a href="/books/create" class="relative text-white text-[14px] hover:bg-white hover:text-blue-600 rounded-lg py-1 px-2">
                                 <i class="fa-solid fa-plus text-sm mt-1"></i>
-                                Upload
-                            </button>
-                            <div id='add_menu' class="hidden absolute  rounded-lg text-[14px] bg-white shadow-md text-gary-700 flex flex-col gap-2 p-2 mt-1">
-                                <a href="/books/create" class="group">
-                                    <i class="fa-solid fa-book text-[#666] mr-2"></i>
-                                    <span class="group-hover:border-b group-hover:border-black group-hover:font-semibold">Add book</span>
-                                </a>
-
-                                <a href="/articles/create" class="group">
-                                    <i class="fa-solid fa-newspaper text-[#666] mr-2"></i>
-                                    <span class="group-hover:border-b group-hover:border-black">Add article</span>
-                                </a>
-                            </div>
-
+                                Upload book
+                            </a>
                         </div>
 
 
@@ -157,7 +145,7 @@
                             About Us
                         </h1>
                         <div class="text-[#666] flex flex-col gap-1">
-                            <p> Welcome to the BMA Online Library, an exclusive digital resource for the staff of Bank-e-Mili Afghan (BMA). Our library offers a wide range of free educational materials, including books, research papers, and other digital documents, all aimed at supporting the professional and personal development of our team.</p>
+                            <p> Welcome to the BMA Online Library, an exclusive digital resource for the staff of Bank-e-Mili Afghan (BMA). Our library offers a wide range of free educational digital books, all aimed at supporting the professional and personal development of our team.</p>
 
 
                         </div>

@@ -21,7 +21,7 @@ class BookController extends Controller
      */
     public function index()
     {
-        $books = Book::latest()->simplePaginate(15);
+        $books = Book::latest()->simplePaginate(16);
         $categories = Category::all();
         // $totaldownloads = Book::sum('downloads');
         return view('books.index', compact('books', 'categories'));
@@ -122,12 +122,14 @@ class BookController extends Controller
         $attributes = $request->validate([
             'title' => 'required',
             'author' => 'required',
-            'price' => 'required',
-            'description' => 'required',
-            'cover_image' => 'required',
             'category_id' => 'required',
         ]);
-        $attributes['cover_image'] = $request->file('cover_image')->store('images', 'public');
+        if ($request->hasFile('cover_image')) {
+            $attributes['cover_image'] = $request->file('cover_image')->store('cover_images');
+        } else {
+            // Use the old cover image if no new image was uploaded
+            $attributes['cover_image'] = $request->input('old_cover_image');
+        }
         $book->update($attributes);
         return redirect('/books')->with('success', 'Book updated successfully');
     }
@@ -195,10 +197,8 @@ class BookController extends Controller
     {
         $book = Book::findOrFail($id);
 
-        // Increment the downloads count
         $book->increment('downloads');
 
-        // Use the correct path for the file
         $filePath = $book->file_path;
 
         if (Storage::disk('public')->exists($filePath)) {
@@ -207,4 +207,33 @@ class BookController extends Controller
 
         return redirect()->route('books.index')->with('error', 'File not found.');
     }
+
+    public function read($id)
+    {
+        $books = Book::where('id', '!=', $id) // Exclude the current book
+            ->take(16) // Fetch only 6 books
+            ->get();;
+        $book = Book::findOrFail($id);
+
+        return view('books.read',compact('book','books'));
+    }
+    public function readPdf($id)
+    {
+        $book = Book::findOrFail($id);
+
+        // Ensure file_path exists
+        if (!$book->file_path) {
+            abort(404, 'File not found.');
+        }
+
+        // Check if the file exists in the storage
+        if (!Storage::disk('public')->exists($book->file_path)) {
+            abort(403, 'Forbidden: File not accessible.');
+        }
+
+        // Serve the PDF file
+        return response()->file(storage_path('app/public/' . $book->file_path));
+    }
+
+
 }

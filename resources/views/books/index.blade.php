@@ -27,6 +27,7 @@
                             <option>English</option>
                             <option>Arabic</option>
                             <option>Pashto</option>
+                            <option>Urdu</option>
                         </select>
                     </div>
                     <!-- Category Field -->
@@ -50,32 +51,32 @@
                         class="flex-1 bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 focus:outline-none text-sm font-medium">
                         Filter
                     </button>
-                    <button
-                        type="reset"
+                    <a
+                        href="/books"
                         class="flex-1 bg-gray-200 text-gray-700 py-2 px-4 rounded-md hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-300 focus:ring-offset-2 text-sm font-medium">
                         Reset
-                    </button>
+                    </a>
                 </div>
             </form>
         </div>
     </div>
     <div class="container w-full mx-auto pt-4 pb-8">
-        <h1 class="text-3xl font-bold text-gray-800" >Books</h1>
-            <div class="grid grid-cols-3  lg:grid-cols-4 gap-4 mt-4">
-                @foreach ($books as $book)
-                <a href="/books/{{$book->id}}" class="group transform transition-transform duration-300 hover:scale-105 mb-4">
-                    <div class="flex flex-col justify-center items-center">
-                        <img src="{{ asset('storage/' . $book->cover_image) }}" alt="{{ $book->title }}" class="w-[70%] h-48 object-cover rounded-lg">
-                        <h3 class="text-md text-center font-semibold text-blue-400 transition-colors duration-300  pt-4">
-                            {{Str::limit($book->title,20)}}
-                        </h3>
-                        <p class="text-sm font-semibold text-gray-800">{{Str::limit($book->author,20)}}</p>
-                    </div>
-                </a>
-                @endforeach
-            </div>
-            <div class="mt-4">
-                {{ $books->links() }}
-            </div>
+        <h1 class="text-3xl font-bold text-gray-800">Books</h1>
+        <div class="grid grid-cols-3  lg:grid-cols-4 gap-4 mt-4">
+            @foreach ($books as $book)
+            <a href="/books/{{$book->id}}" class="group transform transition-transform duration-300 hover:scale-105 mb-4">
+                <div class="flex flex-col justify-center items-center">
+                    <img src="{{ asset('storage/' . $book->cover_image) }}" alt="{{ $book->title }}" class="w-[70%] h-48 object-cover rounded-lg">
+                    <h3 class="text-md text-center font-semibold text-blue-400 transition-colors duration-300  pt-4">
+                        {{Str::limit($book->title,20)}}
+                    </h3>
+                    <p class="text-sm font-semibold text-gray-800">{{Str::limit($book->author,20)}}</p>
+                </div>
+            </a>
+            @endforeach
+        </div>
+        <div class="mt-4">
+            {{ $books->links() }}
+        </div>
     </div>
 </x-layout>

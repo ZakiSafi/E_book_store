@@ -112,7 +112,7 @@
             @foreach ($books as $book)
             <a href="/books/{{$book->id}}" class="group transform transition-transform duration-300 hover:scale-105 mb-4">
                 <div class="flex flex-col justify-center items-center">
-                    <img src="{{ asset('storage/' . $book->cover_image) }}" alt="{{ $book->title }}" class="w-[70%] h-48 object-cover rounded-lg">
+                    <img src="{{ asset('storage/' . $book->cover_image) }}" alt="{{ $book->title }}" class="w-[70%] h-48 object-center rounded-lg">
                     <h3 class="text-md text-center font-semibold text-blue-400 transition-colors duration-300  pt-4">
                         {{Str::limit($book->title,20)}}
                     </h3>
@@ -131,7 +131,7 @@
             @if($book->id && $book->cover_image)
             <a href="/books/{{$book->id}}" class="group transform transition-transform duration-300 hover:scale-105 mb-4">
                 <div class="flex flex-col justify-center items-center">
-                    <img src="{{ asset('storage/' . $book->cover_image) }}" alt="{{ $book->title }}" class="w-[70%] h-48 object-cover rounded-lg">
+                    <img src="{{ asset('storage/' . $book->cover_image) }}" alt="{{ $book->title }}" class="w-[70%] h-48 object-center rounded-lg">
                     <h3 class="text-md text-center font-semibold text-blue-400 transition-colors duration-300  pt-4">
                         {{Str::limit($book->title,20)}}
                     </h3>

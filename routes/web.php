@@ -35,6 +35,14 @@ Route::middleware(['auth'])->group(function(){
 // Resource Controllers
 Route::resource('books', BookController::class);
 
+// Route for search functionality
+Route::get('/search', [BookController::class, 'search']);
+
+// book download
+Route::get('/download/{id}', [BookController::class, 'download'])->name('book.download');
+Route::get('/books/{id}/read', [BookController::class, 'read']);
+Route::get('/books/{id}/read/pdf', [BookController::class, 'readPdf'])->name('books.read.pdf');
+
 Route::resource('categories', CategoryController::class);
 
 // Custom routes
@@ -54,9 +62,3 @@ Route::middleware(['auth'])->group(function(){
     Route::get('/bookmarks',[BookmarkController::class, 'index']);
 
 });
-
-// Route for search functionality
-Route::get('/search', [BookController::class, 'search']);
-
-// book download
-Route::get('/download/{id}', [BookController::class, 'download'])->name('book.download');

@@ -4,7 +4,7 @@
             <form action="/login" method="POST" enctype="multipart/form-data" class="bg-white p-6 rounded-lg shadow-md w-full max-w-md">
                 @csrf
 
-                @if ($errors->any())
+                <!-- @if ($errors->any())
                 <div class="bg-red-100 text-red-800 p-4 mb-4 rounded">
                     <ul class="list-disc list-inside">
                         @foreach ($errors->all() as $error)
@@ -12,7 +12,7 @@
                         @endforeach
                     </ul>
                 </div>
-                @endif
+                @endif -->
 
                 <div class="space-y-4">
 
@@ -40,5 +40,5 @@
             </form>
         </div>
 
-        
+
 </x-layout>

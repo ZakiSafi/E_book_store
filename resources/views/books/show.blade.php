@@ -72,9 +72,9 @@
                         <a href="{{ route('book.download', ['id' => $book->id]) }}" class="hover:text-blue-500 hover:bg-white text-lg bg-blue-500 text-white font-semibold mr-1 px-4 py-2 border border-blue-500 rounded-lg transition duration-300 ease-in-out ">
                             download
                         </a>
-                        <button class="hover:text-blue-500 hover:bg-white text-lg bg-blue-500 text-white font-semibold mr-1 px-4 py-2 border border-blue-500 rounded-lg transition duration-300 ease-in-out">
+                        <a href="/books/{{$book->id}}/read" class="hover:text-blue-500 hover:bg-white text-lg bg-blue-500 text-white font-semibold mr-1 px-4 py-2 border border-blue-500 rounded-lg transition duration-300 ease-in-out">
                             Read
-                        </button>
+                        </a>
 
                     </div>
 

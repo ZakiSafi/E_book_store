@@ -44,14 +44,14 @@
                 <div class="flex gap-4">
                     <button
                         type="submit"
-                        class="flex-1 bg-green-500 text-white py-2 px-4 rounded-md hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 text-sm font-medium">
+                        class="flex-1 bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 text-sm font-medium">
                         Filter
                     </button>
-                    <button
-                        type="reset"
+                    <a
+                        href="/books"
                         class="flex-1 bg-gray-200 text-gray-700 py-2 px-4 rounded-md hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-300 focus:ring-offset-2 text-sm font-medium">
                         Reset
-                    </button>
+                    </a>
                 </div>
             </form>
         </div>
