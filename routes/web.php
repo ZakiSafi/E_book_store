@@ -12,6 +12,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Middleware\RoleMiddleware;
 use Monolog\Handler\RollbarHandler;
@@ -26,12 +27,16 @@ Route::middleware(['auth', 'admin'])->group(function () {
 });
 
 // User
-Route::middleware(['auth'])->group(function(){
+Route::middleware(['auth','user'])->group(function(){
     Route::resource('users', UserController::class)->middleware('auth');
     Route::get('/dashboard', [UserController::class, 'index']);
     Route::get('/user/books', [UserController::class, 'books']);
-    Route::get('/profile/{id}', [UserController::class, 'profile'])->name('profile.edit');
-    Route::patch('/profile/{id}/update', [UserController::class, 'profile_update'])->name('profile.update');
+});
+
+// profile
+Route::middleware(['auth'])->group(function () {
+    Route::get('/profile', [ProfileController::class, 'profile'])->name('profile.edit');
+    Route::patch('/profile/{id}/update', [ProfileController::class, 'profile_update'])->name('profile.update');
 });
 
 // Resource Controllers

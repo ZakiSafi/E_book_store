@@ -31,10 +31,15 @@
             <h2 class="text-2xl font-bold mb-4 border-b-2">Admin Dashboard</h2>
 
             <!-- Profile Section -->
-            <div class="flex items-center space-x-4 mt-8 mb-6">
+            <div class="flex space-x-4 mt-8 mb-6">
                 <!-- Profile Picture -->
-                <div class="flex-shrink-0">
-                    <img src="https://via.placeholder.com/150" alt="Profile Picture" class="w-32 h-32 rounded-full border-2 border-gray-300">
+                <div class="flex flex-col items-center gap-2 flex-shrink-0">
+                    @if ($user->profile_picture)
+                    <img src="{{ asset('storage/profile_pictures/' . $user->profile_picture) }}" alt="Profile Picture" class="rounded-full h-24 w-24 cursor-pointer" onclick="openProfileModal()">
+                    @else
+                    <img src="{{ asset('storage/profile_pictures/default.jfif') }}" alt="Default Profile Picture" class="rounded-full h-24 w-24">
+                    @endif
+                    <a href="/profile" class="text-md bg-red-500 text-white transition-color duratino-300 hover:bg-red-600 rounded-lg px-4 py-1 ">Edit</a>
                 </div>
                 <!-- User Info -->
                 <div>

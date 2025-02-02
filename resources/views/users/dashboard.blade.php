@@ -11,7 +11,7 @@
                     <i class="fa-solid fa-book text-[#666] mr-2"></i>
                     <span class="group-hover:border-b group-hover:border-black">Manage Your Books</span>
                 </a>
-                <a href="/profile/{{ $user->id }}" class="group">
+                <a href="/profile" class="group">
                     <i class="fa-solid fa-user text-[#666] mr-2"></i>
                     <span class="group-hover:border-b group-hover:border-black">Edit Profile</span>
                 </a>
