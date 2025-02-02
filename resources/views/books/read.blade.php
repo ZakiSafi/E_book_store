@@ -1,7 +1,7 @@
 <x-layout>
     <div class="w-full min-h-screen bg-gray-100 mt-9">
         <!-- PDF Viewer Container -->
-        <div class="w-full w-[calc(100vw-90px)] h-screen md:h-[calc(100vh-100px)] sm:h-[calc(100vh-150px)] mx-auto shadow-lg overflow-hidden rounded-lg">
+        <div class=" w-[calc(100vw-100px)] h-screen md:h-[calc(100vh-100px)] sm:h-[calc(100vh-150px)] mx-auto shadow-lg overflow-hidden rounded-lg">
             <!-- Header Section -->
             <div class="w-full bg-white shadow-md flex flex-row justify-between items-center p-3 sm:p-4 rounded-t-lg">
                 <!-- Book Title -->

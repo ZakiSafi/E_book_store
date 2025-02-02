@@ -1,12 +1,13 @@
 <x-layout>
     <div class="container w-full max-w-7xl p-8 grid grid-cols-3 gap-4 mt-8">
         <!-- Sidebar -->
+        <h1 class="text-3xl font-bold font-sans col-span-3">Books Added by You</h1>
         <div class="p-4 rounded-lg shadow-lg col-span-1 h-48 bg-white">
             <div class="flex flex-col gap-3 text-[#666] text-lg">
                 <a href="/users" class="group flex items-center">
                     <i class="fa-solid fa-tachometer-alt text-[#666] mr-2"></i>
                     <span class="group-hover:border-b group-hover:border-black">Dashboard</span>
-                    
+
                 </a>
 
                 <a href="/user/books" class="group flex items-center">
@@ -26,17 +27,16 @@
         </div>
 
         <!-- Main Content -->
-        <div class="shadow-md col-span-2 p-4 bg-white">
-            <h1 class="text-3xl font-bold mb-4">Books Added by You</h1>
+        <div class="shadow-md col-span-2 p-4 bg-white rounded-lg ">
 
             @if ($books->isNotEmpty())
-            <div class="grid grid-cols-2 gap-4 p-4">
+            <div class="grid gap-4 rounded-lg">
                 @foreach ($books as $book)
-                <div class="flex gap-4 p-4  rounded-lg shadow-lg">
+                <div class="flex gap-8 p-4 items-center rounded-lg shadow-lg">
                     <!-- Book Cover -->
                     <div>
                         <a href="/books/{{$book->id}}">
-                            <img src="{{ asset('storage/' . $book->cover_image) }}" alt="{{ $book->title }}" class="w-32 h-32 object-cover rounded-lg">
+                            <img src="{{ asset('storage/' . $book->cover_image) }}" alt="{{ $book->title }}" class="w-64 h-42 object-cover rounded-lg">
                         </a>
                     </div>
 

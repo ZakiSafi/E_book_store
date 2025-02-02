@@ -30,6 +30,6 @@ class RegisterController extends Controller
         Auth::login($user);
 
         // Redirect to user dashboard with a success message
-        return redirect('/user/dashboard')->with('success', 'You are now registered and logged in.');
+        return redirect('/dashboard')->with('success', 'You are now registered and logged in.');
     }
 }

@@ -33,10 +33,10 @@ class LoginController extends Controller
 
             // Check if the user is an admin
             if ($user->role === 'admin') {
-            return redirect('admin/dashboard');
+            return redirect('/admin/dashboard');
             }
 
-            return redirect()->intended('/users');
+            return redirect()->intended('/dashboard');
         }
 
         return back()->withErrors([

@@ -3,10 +3,11 @@
 namespace App\Http\Controllers;
 
 use Carbon\Carbon;
+use App\Models\Book;
 use App\Models\User;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
 
 
@@ -17,6 +18,7 @@ class UserController extends Controller
      */
     public function books(){
         $user = Auth::user();
+
         /** @var User $user */
         $books = $user->books()->get();
         return view('users.book',compact('books','user'));
@@ -26,47 +28,19 @@ class UserController extends Controller
     {
         // $categories = Category::take(10)->get();
         $user = Auth::user();
+        $lastUploadedBook = Book::where('user_id', $user->id)
+        ->latest('created_at')
+        ->first();
         $lastLoginDate = $user->last_login_at;
-        return view('users.dashboard', compact('user', 'lastLoginDate'));
+        return view('users.dashboard', compact('user', 'lastLoginDate', 'lastUploadedBook'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
     public function show(User $user)
     {
         $user = Auth::user();
         return view('users.show',compact('user'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit()
-    {
-
-    }
-
-
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request)
     {
 
@@ -101,12 +75,5 @@ class UserController extends Controller
         /** @var User $user */
         $user->save();
         return redirect('/dashboard')->with('success', 'Profile picture updated successfully.');
-    }
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
     }
 }

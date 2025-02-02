@@ -53,11 +53,6 @@
                     Financial Analysis and Planning
                 </li>
             </a>
-            <a href="/categories/6">
-                <li class="list-none text-gray-500 bg-white p-4 rounded-lg shadow-lg hover:bg-blue-600 hover:text-white truncate">
-                    Law and Regulations
-                </li>
-            </a>
             <a href="/categories/7">
                 <li class="list-none text-gray-500 bg-white p-4 rounded-lg shadow-lg hover:bg-blue-600 hover:text-white truncate">
                     Risk Management
@@ -78,11 +73,7 @@
                     Human Resource Management
                 </li>
             </a>
-            <a href="/categories/11">
-                <li class="list-none text-gray-500 bg-white p-4 rounded-lg shadow-lg hover:bg-blue-600 hover:text-white truncate">
-                    Data Analytics and Big Data in Finance
-                </li>
-            </a>
+
             <a href="/categories/12">
                 <li class="list-none text-gray-500 bg-white p-4 rounded-lg shadow-lg hover:bg-blue-600 hover:text-white truncate">
                     Economics
@@ -93,12 +84,7 @@
                     Fraud Detection and Prevention
                 </li>
             </a>
-            <a href="/categories/14">
-                <li class="list-none text-gray-500 bg-white p-4 rounded-lg shadow-lg hover:bg-blue-600 hover:text-white truncate">
-                    International Banking
-                </li>
-            </a>
-            <a href="/categories" class="text-gray-500 bg-white p-4 rounded-lg shadow-lg hover:bg-blue-600 hover:text-white ">
+            <a href="/books" class="text-gray-500 bg-white p-4 rounded-lg shadow-lg hover:bg-blue-600 hover:text-white ">
                 Others
             </a>
         </div>

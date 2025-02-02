@@ -12,7 +12,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <style>
-        html,
         body {
             height: 100%;
             margin: 0;
@@ -41,11 +40,12 @@
                             <x-nav_link href="/admin/dashboard" :active="request()->is('admin/dashboard')">
                                 <i class="fa-solid fa-user-shield mr-1"></i> Admin Dashboard
                             </x-nav_link>
-                            @endif
-                            @endauth
+                            @else
                             <x-nav_link href="/dashboard" :active="request()->is('users')">
                                 <i class="fa-solid fa-tachometer-alt mr-2"></i> Dashboard
                             </x-nav_link>
+                            @endif
+                            @endauth
                             <x-nav_link href="/books" :active="request()->is('books')">
                                 <i class="fa-solid fa-book mr-1"></i> Books
                             </x-nav_link>
@@ -124,7 +124,6 @@
                         @endguest
 
                         @auth
-                        <a href=""></a>
                         <form action="/logout" method="POST">
                             @csrf
                             <button type="submit" class="w-full text-center px-4 py-2 text-sm font-semibold text-gray-800 hover:bg-blue-600 hover:text-white rounded flex items-center space-x-2">
@@ -150,7 +149,7 @@
                             About Us
                         </h1>
                         <div class="text-[#666] flex flex-col gap-1">
-                            <p> Welcome to the BMA Online Library, an exclusive digital resource for the staff of Bank-e-Mili Afghan (BMA). Our library offers a wide range of free educational digital books, all aimed at supporting the professional and personal development of our team.</p>
+                            <p class="font-heading"> Welcom to the BMA Online Library, an exclusive digital resource for the staff of Bank-e-Mili Afghan (BMA). Our library offers a wide range of free educational digital books, all aimed at supporting the professional and personal development of our team.</p>
 
 
                         </div>
@@ -169,7 +168,7 @@
                                 <span class="group-hover:border-b group-hover:border-black">Dashboard</span>
                             </a>
 
-                            <a href="/users/book" class="group">
+                            <a href="/user/books" class="group">
                                 <i class="fa-solid fa-book text-[#666] mr-2"></i>
                                 <span class="group-hover:border-b group-hover:border-black">Manage Books</span>
                             </a>
@@ -186,10 +185,12 @@
                             @endguest
                             @auth
 
-                            <a href="/logout" class="group">
-                                <i class="fa-solid fa-sign-out-alt text-[#666] mr-2"></i>
-                                <span class="group-hover:border-b group-hover:border-black">Log out</span>
-                            </a>
+                            <form action="/logout" method="POST">
+                                @csrf
+                                <button type="submit" class="group">
+                                    <i class="fa-solid fa-sign-out-alt text-[#666]"></i> <span class="group-hover:border-b group-hover:border-black">Log out</span>
+                                </button>
+                            </form>
                             @endauth
                         </div>
 
@@ -213,6 +214,9 @@
                             </a>
                             <a href="https://www.instagram.com" class="text-pink-600 hover:text-pink-800 ml-4 transition-transform duration-200" target="_blank">
                                 <i class="fab fa-instagram text-[#666] transform hover:scale-110"></i>
+                            </a>
+                            <a href="https://www.googl.com" class="text-pink-600 hover:text-pink-800 ml-4 transition-transform duration-200" target="_blank">
+                                <i class="fab fa-google text-[#666] transform hover:scale-110"></i>
                             </a>
                         </div>
 
