@@ -40,15 +40,18 @@
                             <x-nav_link href="/admin/dashboard" :active="request()->is('admin/dashboard')">
                                 <i class="fa-solid fa-user-shield mr-1"></i> Admin Dashboard
                             </x-nav_link>
+                            <x-nav_link href="/admin/books" :active="request()->is('/admin/books')">
+                                <i class="fa-solid fa-book mr-1"></i> Manage Books
+                            </x-nav_link>
                             @else
-                            <x-nav_link href="/dashboard" :active="request()->is('users')">
+                            <x-nav_link href="/dashboard" :active="request()->is('dashboard')">
                                 <i class="fa-solid fa-tachometer-alt mr-2"></i> Dashboard
                             </x-nav_link>
-                            @endif
-                            @endauth
                             <x-nav_link href="/books" :active="request()->is('books')">
                                 <i class="fa-solid fa-book mr-1"></i> Books
                             </x-nav_link>
+                            @endif
+                            @endauth
                             <x-nav_link href="/bookmarks" :active="request()->is('bookmarks')">
                                 <i class="fa-solid fa-bookmark mr-1"></i>
                                 <p>

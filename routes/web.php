@@ -1,32 +1,28 @@
 <?php
 
-use App\Http\Controllers\AdminController;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\AdminBookController;
+use App\Http\Controllers\AdminUserController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AdminDashboardController;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\BookDownloadController;
 use App\Http\Controllers\BookmarkController;
-use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\LoginController;
-use App\Http\Controllers\OrderController;
-use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\SearchController;
-use App\Http\Middleware\RoleMiddleware;
-use Monolog\Handler\RollbarHandler;
-
 
 Route::get('/', [HomeController::class, 'index']);
 
 //Admin
 Route::middleware(['auth', 'admin'])->group(function () {
-    Route::get('/admin/dashboard', [AdminController::class, 'index']);
-    Route::get('/admin/books', [AdminController::class, 'books'])->name('admin.books');
-    Route::get('/admin/users', [AdminController::class, 'users'])->name('admin.users');
+    Route::get('/admin/dashboard', [AdminDashboardController::class, 'index']);
+    Route::get('/admin/books', [AdminBookController::class, 'books'])->name('admin.books');
+    Route::get('/admin/users', [AdminUserController::class, 'users'])->name('admin.users');
 });
 
 // User

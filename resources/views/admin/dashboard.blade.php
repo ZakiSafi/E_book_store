@@ -76,14 +76,14 @@
                 <div class="flex gap-4">
                     <div class="bg-white p-6 rounded-lg shadow-md flex-1">
                         <h4 class="text-lg font-semibold text-gray-800">Recent Books</h4>
-                        <ul class="list-disc pl-6">
-                            2342342
+                        <ul class="text-2xl font-bold text-blue-600 pl-6">
+                           {{$booksLast2Days}}
                         </ul>
                     </div>
                     <div class="bg-white p-6 rounded-lg shadow-md flex-1">
                         <h4 class="text-lg font-semibold text-gray-800">Recent Users</h4>
-                        <ul class="list-disc pl-6">
-                            2342342
+                        <ul class="text-2xl font-bold text-blue-600 pl-6">
+                            {{ $usersLast2Days }}
                         </ul>
                     </div>
                 </div>
