@@ -12,7 +12,7 @@
                         @method('DELETE')
                         <input type="hidden" name="redirect_url" value="/books/{{$book->id}}">
                         <button type="submit" class=" text-blue-500 text-lg hover:bg-blue-500 hover:text-white font-semibold mr-1 px-6 py-1 border border-blue-500 rounded-lg transition duration-300 ease-in-out flex gap-1 items-center">
-                            <p>bookmarkd</p><i class="fas fa-bookmark mt-1"></i>
+                            <p>Bookmarked</p><i class="fas fa-bookmark mt-1"></i>
                         </button>
                     </form>
                     @else
@@ -68,7 +68,10 @@
                                     <p>Downloads:</p>
                                     <p>{{ $book->downloads }}</p>
                     </div>
+                    @auth
+
                     <div class="flex gap-6 mt-4">
+
                         <a href="{{ route('book.download', ['id' => $book->id]) }}" class="hover:text-blue-500 hover:bg-white text-lg bg-blue-500 text-white font-semibold mr-1 px-4 py-2 border border-blue-500 rounded-lg transition duration-300 ease-in-out ">
                             download
                         </a>
@@ -77,6 +80,7 @@
                         </a>
 
                     </div>
+                    @endauth
 
                     {{-- <p class="text-md"> Views: {{$book->views->view}}</p> --}}
                 </div>

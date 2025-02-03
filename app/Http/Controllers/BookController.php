@@ -121,7 +121,12 @@ class BookController extends Controller
             $attributes['cover_image'] = $request->input('old_cover_image');
         }
         $book->update($attributes);
-        return redirect('/books')->with('success', 'Book updated successfully');
+        $user = Auth::user();
+        if ($user->role === 'user') {
+
+            return redirect('/books')->with('success', 'Book updated successfully');
+        }
+        return redirect('/admin/books')->with('success', 'book deleted successfully');
     }
 
 
@@ -129,11 +134,16 @@ class BookController extends Controller
 
     public function destroy(Book $book)
     {
+        $user = Auth::user();
         $this->authorize('delete', $book);
         if ($book->cover_image) {
             Storage::disk('public')->delete($book->cover_image);
         }
         $book->delete();
-        return redirect('/bookmarks')->with('success', 'Book deleted successfully');
+        if($user->role==='user'){
+
+            return redirect('/user/books')->with('success', 'Book deleted successfully');
+        }
+        return redirect('/admin/books')->with('success','book deleted successfully');
     }
 }

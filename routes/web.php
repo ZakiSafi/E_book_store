@@ -1,20 +1,21 @@
 <?php
 
 use Illuminate\Support\Facades\Auth;
-use App\Http\Controllers\AdminBookController;
-use App\Http\Controllers\AdminUserController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\AdminDashboardController;
 use App\Http\Controllers\BookController;
-use App\Http\Controllers\BookDownloadController;
-use App\Http\Controllers\BookmarkController;
-use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\LoginController;
-use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\SearchController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\BookmarkController;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\AdminBookController;
+use App\Http\Controllers\AdminUserController;
+use App\Http\Controllers\BookDownloadController;
+use App\Http\Controllers\AdminBookmarkController;
+use App\Http\Controllers\AdminDashboardController;
 
 Route::get('/', [HomeController::class, 'index']);
 
@@ -22,18 +23,25 @@ Route::get('/', [HomeController::class, 'index']);
 Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/admin/dashboard', [AdminDashboardController::class, 'index']);
     Route::get('/admin/books', [AdminBookController::class, 'books'])->name('admin.books');
+    // Admin Users
     Route::get('/admin/users', [AdminUserController::class, 'users'])->name('admin.users');
+    Route::get('/admin/{id}', [AdminUserController::class, 'destroy'])->name('user.destroy');
+    Route::get('/user/{id}/books', [AdminUserController::class, 'books'])->name('user.books');
 });
 
 // User
-Route::middleware(['auth', 'user'])->group(function () {
+Route::middleware(['user'])->group(function () {
     Route::resource('users', UserController::class)->middleware('auth');
     Route::get('/dashboard', [UserController::class, 'index']);
     Route::get('/user/books', [UserController::class, 'books']);
 });
 
-// profile
+// Read and download books and profile route
 Route::middleware(['auth'])->group(function () {
+
+    Route::get('/download/{id}', [BookDownloadController::class, 'download'])->name('book.download');
+    Route::get('/books/{id}/read', [BookDownloadController::class, 'read']);
+    Route::get('/books/{id}/read/pdf', [BookDownloadController::class, 'readPdf'])->name('books.read.pdf');
     Route::get('/profile', [ProfileController::class, 'profile'])->name('profile.edit');
     Route::patch('/profile/{id}/update', [ProfileController::class, 'profile_update'])->name('profile.update');
 });
@@ -44,10 +52,6 @@ Route::resource('books', BookController::class);
 // Route for search functionality
 Route::get('/search', [SearchController::class, 'search']);
 
-// book download
-Route::get('/download/{id}', [BookDownloadController::class, 'download'])->name('book.download');
-Route::get('/books/{id}/read', [BookDownloadController::class, 'read']);
-Route::get('/books/{id}/read/pdf', [BookDownloadController::class, 'readPdf'])->name('books.read.pdf');
 
 Route::resource('categories', CategoryController::class);
 
