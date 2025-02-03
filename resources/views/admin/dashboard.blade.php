@@ -51,16 +51,22 @@
             <!-- Quick Stats Section -->
             <div class="mt-8 grid grid-cols-1 md:grid-cols-3 gap-4">
                 <div class="bg-white p-6 rounded-lg shadow-md">
-                    <h3 class="text-lg font-semibold text-gray-800">Total Books</h3>
-                    <p class="text-2xl font-bold text-blue-600">{{ $books }}</p>
+                    <a href="/admin/books">
+                        <h3 class="text-lg font-semibold text-gray-800">Total Books</h3>
+                        <p class="text-2xl font-bold text-blue-600">{{ $books }}</p>
+                    </a>
                 </div>
                 <div class="bg-white p-6 rounded-lg shadow-md">
-                    <h3 class="text-lg font-semibold text-gray-800">Registered Users</h3>
-                    <p class="text-2xl font-bold text-blue-600">{{$users}}</p>
+                    <a href="/admin/users">
+                        <h3 class="text-lg font-semibold text-gray-800">Registered Users</h3>
+                        <p class="text-2xl font-bold text-blue-600">{{$users}}</p>
+                    </a>
                 </div>
                 <div class="bg-white p-6 rounded-lg shadow-md">
-                    <h3 class="text-lg font-semibold text-gray-800">Total Bookmarks</h3>
-                    <p class="text-2xl font-bold text-blue-600">{{ $bookmarks }}</p>
+                    <a href="/admin/bookmarks">
+                        <h3 class="text-lg font-semibold text-gray-800">Total Bookmarks</h3>
+                        <p class="text-2xl font-bold text-blue-600">{{ $bookmarks }}</p>
+                    </a>
                 </div>
             </div>
 

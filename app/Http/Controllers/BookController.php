@@ -19,7 +19,10 @@ class BookController extends Controller
 
     public function index()
     {
-        $books = Book::latest()->simplePaginate(16);
+
+        $books = Book::where('status', Book::STATUS_APPROVED)
+            ->latest()
+            ->simplePaginate(16);
         $categories = Category::all();
 
         return view('books.index', compact('books', 'categories'));
@@ -47,6 +50,7 @@ class BookController extends Controller
             'edition' => 'nullable',
 
         ]);
+        $attributes['status'] = Book::STATUS_PENDING;
 
 
         if ($request->hasFile('cover_image')) {
@@ -132,6 +136,4 @@ class BookController extends Controller
         $book->delete();
         return redirect('/bookmarks')->with('success', 'Book deleted successfully');
     }
-
-    
 }

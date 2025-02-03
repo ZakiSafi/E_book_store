@@ -21,7 +21,7 @@
                 </div>
 
                 <div class="flex justify-between items-center gap-2 pr-2">
-                    <a href="{{ route('password.request') }}" class="hover:underline hover:text-md hover:font-semibold hover:bg-gray-200 text-black">Forgot Password?</a>
+                    <a class="hover:underline hover:text-md hover:font-semibold hover:bg-gray-200 text-black">Forgot Password?</a>
                     <a href="{{ route('register') }}" class="hover:underline hover:text-md font-semibold hover:bg-gray-200 text-black">Sign Up</a>
                 </div>
             </div>
