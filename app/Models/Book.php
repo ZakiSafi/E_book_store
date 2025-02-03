@@ -8,7 +8,10 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class Book extends Model
 {
     use HasFactory;
-    protected $fillable = ['title', 'author', 'category_id', 'cover_image', 'book_file', 'user_id', 'file_type', 'file_size', 'downloads', 'file_path', 'language','description','release_date','edition'];
+    const STATUS_APPROVED = 'approved';
+    const STATUS_PENDING = 'pending';
+    const STATUS_REJECTED = 'rejected';
+    protected $fillable = ['title', 'author', 'category_id', 'cover_image', 'book_file', 'user_id', 'file_type', 'file_size', 'downloads', 'file_path', 'language','description','release_date','edition','status'];
 
     // Relationship with category
     public function category()

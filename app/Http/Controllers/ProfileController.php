@@ -16,7 +16,7 @@ class ProfileController extends Controller
     }
 
 
-    
+
     public function profile_update(Request $request)
     {
 
@@ -43,6 +43,10 @@ class ProfileController extends Controller
         }
         /** @var User $user */
         $user->save();
+        if(Auth::user()->role ==='admin'){
+            return redirect('/admin/dashboard')->with('success', 'Profile picture updated successfully.');
+
+        }
         return redirect('/dashboard')->with('success', 'Profile picture updated successfully.');
     }
 }

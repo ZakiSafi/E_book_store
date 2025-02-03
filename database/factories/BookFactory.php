@@ -78,7 +78,8 @@ class BookFactory extends Factory
             'category_id' => Category::inRandomOrder()->first()->id ?? Category::factory(),
             'user_id' => \App\Models\User::inRandomOrder()->first()->id ?? \App\Models\User::factory(),
             'release_date' => $this->faker->date(),
-            'edition' => $this->faker->numberBetween(0,5)
+            'edition' => $this->faker->numberBetween(0,5),
+            'status'=> 'approved'
 
         ];
     }

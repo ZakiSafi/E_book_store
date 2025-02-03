@@ -3,7 +3,7 @@
         <!-- Sidebar Navigation -->
         <div class="p-4 rounded-lg shadow-lg col-span-1">
             <div class="flex flex-col gap-3 text-[#666] text-lg">
-                <a href="/admin" class="group">
+                <a href="/admin/dashboard" class="group">
                     <i class="fa-solid fa-tachometer-alt text-[#666] mr-2"></i>
                     <span class="group-hover:border-b group-hover:border-black">Dashboard</span>
                 </a>
@@ -43,8 +43,8 @@
                 </div>
                 <!-- User Info -->
                 <div>
-                    <h3 class="text-xl font-semibold text-gray-800">John Doe</h3>
-                    <p class="text-gray-600">johndoe@example.com</p>
+                    <h3 class="text-xl font-semibold text-gray-800">{{ $user->name }}</h3>
+                    <p class="text-gray-600">{{ $user->email }}</p>
                 </div>
             </div>
 
@@ -52,15 +52,15 @@
             <div class="mt-8 grid grid-cols-1 md:grid-cols-3 gap-4">
                 <div class="bg-white p-6 rounded-lg shadow-md">
                     <h3 class="text-lg font-semibold text-gray-800">Total Books</h3>
-                    <p class="text-2xl font-bold text-blue-600">23</p>
+                    <p class="text-2xl font-bold text-blue-600">{{ $books }}</p>
                 </div>
                 <div class="bg-white p-6 rounded-lg shadow-md">
                     <h3 class="text-lg font-semibold text-gray-800">Registered Users</h3>
-                    <p class="text-2xl font-bold text-blue-600">234</p>
+                    <p class="text-2xl font-bold text-blue-600">{{$users}}</p>
                 </div>
                 <div class="bg-white p-6 rounded-lg shadow-md">
                     <h3 class="text-lg font-semibold text-gray-800">Total Bookmarks</h3>
-                    <p class="text-2xl font-bold text-blue-600">234</p>
+                    <p class="text-2xl font-bold text-blue-600">{{ $bookmarks }}</p>
                 </div>
             </div>
 
@@ -87,7 +87,7 @@
             <div class="mt-8">
                 <h3 class="text-xl font-semibold text-gray-800 mb-4">Quick Actions</h3>
                 <div class="flex gap-4">
-                    <a href="/admin/books/create" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition duration-300">
+                    <a href="/books/create" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition duration-300">
                         <i class="fa-solid fa-plus mr-2"></i> Upload New Book
                     </a>
                     <a href="/admin/users" class="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition duration-300">

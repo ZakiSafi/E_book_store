@@ -79,12 +79,22 @@
                         </a>
                         @endguest
                         @auth
+                        @if (Auth::user()->role==='admin')
+                        <button id="dropdownButton" class="text-white rounded-md px-4 py-1 hover:bg-white hover:text-blue-600 flex items-center justify-center gap-[2px]">
+                            <i class="fa-solid fa-user-shield text-[12px] mr-1"></i>
+                            <p class="text-[14px]">{{ Auth::user()->name }}</p>
+                            <i class="fa-solid fa-chevron-circle-down text-[12px] mt-1"></i>
+
+                        </button>
+                        @else
                         <button id="dropdownButton" class="text-white rounded-md px-4 py-1 hover:bg-white hover:text-blue-600 flex items-center justify-center gap-[2px]">
                             <i class="fa-solid fa-user text-[12px] mr-1"></i>
                             <p class="text-[14px]">{{ Auth::user()->name }}</p>
                             <i class="fa-solid fa-chevron-circle-down text-[12px] mt-1"></i>
 
                         </button>
+                        @endif
+
 
                         @endauth
                     </div>

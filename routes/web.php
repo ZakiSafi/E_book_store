@@ -4,6 +4,7 @@ use App\Http\Controllers\AdminController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BookController;
+use App\Http\Controllers\BookDownloadController;
 use App\Http\Controllers\BookmarkController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
@@ -14,10 +15,12 @@ use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\SearchController;
 use App\Http\Middleware\RoleMiddleware;
 use Monolog\Handler\RollbarHandler;
 
-Route::get('/', [HomeController::class,'index']);
+
+Route::get('/', [HomeController::class, 'index']);
 
 //Admin
 Route::middleware(['auth', 'admin'])->group(function () {
@@ -27,7 +30,7 @@ Route::middleware(['auth', 'admin'])->group(function () {
 });
 
 // User
-Route::middleware(['auth','user'])->group(function(){
+Route::middleware(['auth', 'user'])->group(function () {
     Route::resource('users', UserController::class)->middleware('auth');
     Route::get('/dashboard', [UserController::class, 'index']);
     Route::get('/user/books', [UserController::class, 'books']);
@@ -43,12 +46,12 @@ Route::middleware(['auth'])->group(function () {
 Route::resource('books', BookController::class);
 
 // Route for search functionality
-Route::get('/search', [BookController::class, 'search']);
+Route::get('/search', [SearchController::class, 'search']);
 
 // book download
-Route::get('/download/{id}', [BookController::class, 'download'])->name('book.download');
-Route::get('/books/{id}/read', [BookController::class, 'read']);
-Route::get('/books/{id}/read/pdf', [BookController::class, 'readPdf'])->name('books.read.pdf');
+Route::get('/download/{id}', [BookDownloadController::class, 'download'])->name('book.download');
+Route::get('/books/{id}/read', [BookDownloadController::class, 'read']);
+Route::get('/books/{id}/read/pdf', [BookDownloadController::class, 'readPdf'])->name('books.read.pdf');
 
 Route::resource('categories', CategoryController::class);
 
@@ -57,15 +60,14 @@ Route::get('/login', [LoginController::class, 'create']);
 
 Route::post('/login', [LoginController::class, 'store'])->name('login');
 
-Route::get('/register', [RegisterController::class, 'create']);
+Route::get('/register', [RegisterController::class, 'create'])->name('register');
 
 Route::post('/register', [RegisterController::class, 'store']);
 
 Route::post('/logout', [LoginController::class, 'destroy'])->name('logout');
 
-Route::middleware(['auth'])->group(function(){
-    Route::post('/bookmarks',[BookmarkController::class,'store']);
+Route::middleware(['auth'])->group(function () {
+    Route::post('/bookmarks', [BookmarkController::class, 'store']);
     Route::delete('/bookmarks/{id}', [BookmarkController::class, 'destroy']);
-    Route::get('/bookmarks',[BookmarkController::class, 'index']);
-
+    Route::get('/bookmarks', [BookmarkController::class, 'index']);
 });

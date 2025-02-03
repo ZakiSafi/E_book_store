@@ -22,11 +22,15 @@
             </a>
             <a href="/admin/books" class="group flex items-center" aria-label="Manage Books">
                 <i class="fa-solid fa-book text-[#666] mr-2"></i>
-                <span class="group-hover:border-b group-hover:border-black">Manage your Books</span>
+                <span class="group-hover:border-b group-hover:border-black">Manage Books</span>
             </a>
             <a href="/admin/bookmarks" class="group flex items-center" aria-label="View Bookmarks">
                 <i class="fa-solid fa-bookmark text-[#666] mr-2"></i>
                 <span class="group-hover:border-b group-hover:border-black">Bookmarks</span>
+            </a>
+            <a href="/admin/users" class="group flex items-center" aria-label="View Bookmarks">
+                <i class="fa-solid fa-users text-[#666] mr-2"></i>
+                <span class="group-hover:border-b group-hover:border-black">Manage Users</span>
             </a>
             @endif
             @endauth
