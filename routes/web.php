@@ -24,7 +24,7 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/admin/dashboard', [AdminDashboardController::class, 'index']);
     Route::get('/admin/books', [AdminBookController::class, 'books'])->name('admin.books');
     Route::get('/admin/books/pending', [AdminBookController::class, 'pendingBooks'])->name('books.pending');
-    Route::post('/admin/books/status', [AdminBookController::class, ' updateStatus'])->name('admin.books.updateStatus');
+    Route::put('/admin/books/{id}/update-status', [AdminBookController::class, 'updateStatus'])->name('admin.books.updateStatus');
     // Admin Users
     Route::get('/admin/users', [AdminUserController::class, 'users'])->name('admin.users');
     Route::get('/admin/{id}', [AdminUserController::class, 'destroy'])->name('user.destroy');

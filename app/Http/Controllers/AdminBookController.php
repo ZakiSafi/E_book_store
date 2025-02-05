@@ -16,7 +16,16 @@ class AdminBookController extends Controller
     public function pendingBooks()
     {
         $pendingBooks = Book::where('status', 'pending')->get();
-        return view('admin.pendingBooks', compact('pendingBooks', 'total'));
+        return view('admin.pendingBooks', compact('pendingBooks'));
     }
-    public function updateStatus() {}
+    public function updateStatus(Request $request,$id) {
+        $book = Book::findOrFail($id);
+        if($request->action == 'approve'){
+            $book->update(['status'=>Book::STATUS_APPROVED]);
+        }
+        elseif($request->action =='reject'){
+            $book->update(['status' => Book::STATUS_REJECTED]);
+        }
+        return redirect()->route('books.pending');
+    }
 }

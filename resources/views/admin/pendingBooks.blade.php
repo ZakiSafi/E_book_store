@@ -26,7 +26,7 @@
         <div class="p-4 rounded-lg shadow-lg col-span-3">
             <div class="flex justify-between">
                 <h2 class="text-2xl font-bold mb-4 border-b-2">Pending Books</h2>
-               
+
             </div>
 
             <!-- Books Table Section -->

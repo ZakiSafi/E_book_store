@@ -136,14 +136,11 @@ class BookController extends Controller
     {
         $user = Auth::user();
         $this->authorize('delete', $book);
-        if ($book->cover_image) {
-            Storage::disk('public')->delete($book->cover_image);
-        }
         $book->delete();
-        if($user->role==='user'){
+        if ($user->role === 'user') {
 
             return redirect('/user/books')->with('success', 'Book deleted successfully');
         }
-        return redirect('/admin/books')->with('success','book deleted successfully');
+        return redirect('/admin/books')->with('success', 'book deleted successfully');
     }
 }
