@@ -15,10 +15,6 @@
                     <i class="fa-solid fa-users text-[#666] mr-2"></i>
                     <span class="group-hover:border-b group-hover:border-black">Manage Users</span>
                 </a>
-                <a href="/admin/bookmarks" class="group">
-                    <i class="fa-solid fa-bookmark text-[#666] mr-2"></i>
-                    <span class="group-hover:border-b group-hover:border-black">Bookmarks</span>
-                </a>
                 <a href="/admin/settings" class="group">
                     <i class="fa-solid fa-cogs text-[#666] mr-2"></i>
                     <span class="group-hover:border-b group-hover:border-black">Settings</span>
@@ -29,6 +25,13 @@
         <!-- Main Content Area -->
         <div class="p-4 rounded-lg shadow-lg col-span-2">
             <h2 class="text-2xl font-bold mb-4 border-b-2">Admin Dashboard</h2>
+            @if($pendingBooks > 0)
+            <div class="bg-yellow-500 text-white text-center py-2 px-4 rounded-lg mb-4">
+                <i class="fa-solid fa-exclamation-triangle mr-2"></i>
+                There are <strong>{{ $pendingBooks }}</strong> books pending approval!
+                <a href="{{route('books.pending')}}" class="underline font-bold">Review now</a>
+            </div>
+            @endif
 
             <!-- Profile Section -->
             <div class="flex space-x-4 mt-8 mb-6">
@@ -63,7 +66,7 @@
                     </a>
                 </div>
                 <div class="bg-white p-6 rounded-lg shadow-md">
-                    <a href="/admin/bookmarks">
+                    <a href="/admin/books">
                         <h3 class="text-lg font-semibold text-gray-800">Total Bookmarks</h3>
                         <p class="text-2xl font-bold text-blue-600">{{ $bookmarks }}</p>
                     </a>
@@ -77,7 +80,7 @@
                     <div class="bg-white p-6 rounded-lg shadow-md flex-1">
                         <h4 class="text-lg font-semibold text-gray-800">Recent Books</h4>
                         <ul class="text-2xl font-bold text-blue-600 pl-6">
-                           {{$booksLast2Days}}
+                            {{$booksLast2Days}}
                         </ul>
                     </div>
                     <div class="bg-white p-6 rounded-lg shadow-md flex-1">
@@ -99,8 +102,8 @@
                     <a href="/admin/users" class="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition duration-300">
                         <i class="fa-solid fa-users mr-2"></i> Manage Users
                     </a>
-                    <a href="/admin/bookmarks" class="bg-yellow-600 text-white px-4 py-2 rounded-lg hover:bg-yellow-700 transition duration-300">
-                        <i class="fa-solid fa-bookmark mr-2"></i> View Bookmarks
+                    <a href="/admin/books" class="bg-yellow-600 text-white px-4 py-2 rounded-lg hover:bg-yellow-700 transition duration-300">
+                        <i class="fa-solid fa-bookmark mr-2"></i> Manage Books
                     </a>
                 </div>
             </div>

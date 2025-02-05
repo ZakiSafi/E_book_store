@@ -15,7 +15,7 @@
         </div>
     </div>
     <div class="container w-full mx-auto pt-8 pb-8">
-        <div class=" w-full flex justify-between">
+        <div class=" w-full flex justify-between p-4">
             <p class="text-xl  text-[#888]">Genres</p>
             <a href="/books">
                 <span class="text-[#888]">
@@ -26,7 +26,7 @@
 
 
         </div>
-        <div class="grid grid-cols-3 gap-4 mt-4">
+        <div class="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-4">
             <a href="/categories/1">
                 <li class="list-none text-gray-500 bg-white p-4 rounded-lg shadow-lg hover:bg-blue-600 hover:text-white truncate">
                     Management and Leadership
@@ -91,14 +91,14 @@
 
 
     </div>
-    </div>
-    <div class="container w-full mx-auto pt-4 pb-8">
+
+    <div class="container w-full  mx-auto pt-4 pb-8">
         <h1 class="text-[24px] text-gray-500">Latest Books</h1>
-        <div class="grid grid-cols-3  lg:grid-cols-4 gap-4 mt-4">
+        <div class="grid grid-cols-2 md:grid-cols-3  lg:grid-cols-4 gap-4 mt-4">
             @foreach ($books as $book)
             <a href="/books/{{$book->id}}" class="group transform transition-transform duration-300 hover:scale-105 mb-4">
                 <div class="flex flex-col justify-center items-center">
-                    <img src="{{ asset('storage/' . $book->cover_image) }}" alt="{{ $book->title }}" class="w-[70%] h-48 object-center rounded-lg">
+                    <img src="{{ asset('storage/' . $book->cover_image) }}" alt="{{ $book->title }}" class="w-[70%] h-32 md:h-48 object-center rounded-lg">
                     <h3 class="text-md text-center font-semibold text-blue-400 transition-colors duration-300  pt-4">
                         {{Str::limit($book->title,20)}}
                     </h3>
@@ -112,12 +112,12 @@
     </div>
     <div class="container w-full mx-auto pt-4 pb-8">
         <h1 class="text-[24px] text-gray-500">Most Downloaded</h1>
-        <div class="grid grid-cols-3  lg:grid-cols-4 gap-4 mt-4">
+        <div class="grid grid-cols-2 md:grid-cols-3  lg:grid-cols-4 gap-4 mt-4">
             @foreach ($mostdownloaded as $book)
             @if($book->id && $book->cover_image)
             <a href="/books/{{$book->id}}" class="group transform transition-transform duration-300 hover:scale-105 mb-4">
                 <div class="flex flex-col justify-center items-center">
-                    <img src="{{ asset('storage/' . $book->cover_image) }}" alt="{{ $book->title }}" class="w-[70%] h-48 object-center rounded-lg">
+                    <img src="{{ asset('storage/' . $book->cover_image) }}" alt="{{ $book->title }}" class="w-[70%] h-32 md:h-48 object-center rounded-lg">
                     <h3 class="text-md text-center font-semibold text-blue-400 transition-colors duration-300  pt-4">
                         {{Str::limit($book->title,20)}}
                     </h3>

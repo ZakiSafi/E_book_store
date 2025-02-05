@@ -15,10 +15,6 @@
                     <i class="fa-solid fa-users text-[#666] mr-2"></i>
                     <span class="group-hover:border-b group-hover:border-black">Manage Users</span>
                 </a>
-                <a href="/admin/bookmarks" class="group">
-                    <i class="fa-solid fa-bookmark text-[#666] mr-2"></i>
-                    <span class="group-hover:border-b group-hover:border-black">Bookmarks</span>
-                </a>
                 <a href="/admin/settings" class="group">
                     <i class="fa-solid fa-cogs text-[#666] mr-2"></i>
                     <span class="group-hover:border-b group-hover:border-black">Settings</span>

@@ -25,8 +25,8 @@
         <!-- Main Content Area -->
         <div class="p-4 rounded-lg shadow-lg col-span-3">
             <div class="flex justify-between">
-                <h2 class="text-2xl font-bold mb-4 border-b-2">Manage Users</h2>
-                Total Users :{{ $totalUsers }}
+                <h2 class="text-2xl font-bold mb-4 border-b-2">Pending Books</h2>
+               
             </div>
 
             <!-- Books Table Section -->
@@ -34,45 +34,44 @@
                 <table class="min-w-full table-auto">
                     <thead>
                         <tr>
-                            <th class="px-4 py-2 text-left">Name</th>
-                            <th class="px-4 py-2 text-left">Email</th>
-                            <th class="px-4 py-2 text-left">Image</th>
-                            <th class="px-4 py-2 text-left">Books</th>
-                            <th class="px-4 py-2 text-left">Bookmarks</th>
+                            <th class="px-4 py-2 text-left">Title</th>
+                            <th class="px-4 py-2 text-left">Cover Image</th>
+                            <th class="px-4 py-2 text-left">Author</th>
+                            <th class="px-4 py-2 text-left">Uploaded By</th>
                             <th class="px-4 py-2 text-left">Actions</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($users as $user)
+                        @foreach ($pendingBooks as $book)
                         <tr class="border-b">
-                            <td class="px-4 py-2">{{ $user->name }}</td>
-                            <td class="px-4 py-2">{{$user->email }}</td>
+                            <td class="px-4 py-2">{{ $book->title }}</td>
                             <td class="px-4 py-2">
-                                <img src="{{ asset('storage/profile_pictures/' . $user->profile_picture) }}" alt="Cover Image" class="w-24 h-24 border object-cover rounded-full shrink-0 ">
-                            </td>
-
-                            <td class="px-4 py-2">
-                                <a href="{{route('user.books',$user->id)}}">
-                                    {{ $user->books->count() }}
+                                <a href="/books/{{$book->id}}">
+                                    <img src="{{ asset('storage/' . $book->cover_image) }}" alt="Cover Image" class="w-32 h-24 object-cover shrink-0 ">
                                 </a>
                             </td>
-                            <td class="px-4 py-2">{{$user->bookmarks->count()}}</td>
-
+                            <td class="px-4 py-2">{{ $book->author }}</td>
+                            <td class="px-4 py-2">{{ $book->user->name }}</td>
                             <td class="px-4 py-2 flex space-x-4">
-                                <form action="{{route('user.destroy',$user->id)}}" method="POST" class="inline-block">
+                                <form action="{{ route('admin.books.updateStatus', $book->id) }}" method="POST">
                                     @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="text-red-600 hover:text-red-800">
-                                        <i class="fa-solid fa-trash-alt"></i> Delete
+                                    @method('PUT')
+
+                                    <button type="submit" name="action" value="approve" class="bg-green-500 text-white px-3 py-1 rounded hover:bg-green-600">
+                                        Approve
+                                    </button>
+
+                                    <button type="submit" name="action" value="reject" class="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600">
+                                        Reject
                                     </button>
                                 </form>
+
                             </td>
                         </tr>
                         @endforeach
                     </tbody>
                 </table>
             </div>
-            {{ $users->links() }}
         </div>
     </div>
 </x-layout>

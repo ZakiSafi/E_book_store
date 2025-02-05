@@ -1,8 +1,8 @@
 <x-layout>
     <!-- <x-slot name='heading'>Books</x-slot> -->
     <div class="container mx-auto w-full max-w-7xl shadow-lg p-8 ">
-        <div class="w-full max-w-6xl py-4 px-12 grid grid-cols-[65%,35%] justify-center gap-8">
-            <div class="bg-white shadow-lg grid grid-cols-[25%,70%] gap-5 rounded-lg p-4">
+        <div class="w-full max-w-6xl py-4 px-12  grid sm:grid-cols-1 md:grid-cols-[65%,35%] justify-center gap-8">
+            <div class="bg-white shadow-lg grid sm:grid-cols-1 md:grid-cols-[25%,70%] gap-5 rounded-lg p-4">
                 <div class="p-2  w-full flex flex-col items-center gap-4 ">
                     <img src="{{ asset('storage/' . $book->cover_image) }}" alt="{{ $book->title }}" class="w-36 h-48">
                     @auth

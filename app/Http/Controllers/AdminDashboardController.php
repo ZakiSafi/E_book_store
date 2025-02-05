@@ -22,6 +22,7 @@ class AdminDashboardController extends Controller
             'user' => $user,
             'users' => $this->getUsersCount(),
             'books' => $this->getBooksCount(),
+            'pendingBooks' => $this->getPendingBooks(),
             'bookmarks' => $this->getBookmarksCount(),
             'booksLast2Days' => $this->getRecentBooks(2),
             'usersLast2Days' => $this->getRecentUsers(2)
@@ -46,5 +47,9 @@ class AdminDashboardController extends Controller
     private function getRecentUsers($days)
     {
         return User::where('created_at', '>=', Carbon::now()->subDays($days))->count();
+    }
+    private function getPendingBooks()
+    {
+        return Cache::remember('pendnig_books', 600, fn() => Book::where('status','pending')->count());
     }
 }

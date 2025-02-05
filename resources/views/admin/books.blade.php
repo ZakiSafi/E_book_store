@@ -15,10 +15,6 @@
                     <i class="fa-solid fa-users text-[#666] mr-2"></i>
                     <span class="group-hover:border-b group-hover:border-black">Manage Users</span>
                 </a>
-                <a href="/admin/bookmarks" class="group">
-                    <i class="fa-solid fa-bookmark text-[#666] mr-2"></i>
-                    <span class="group-hover:border-b group-hover:border-black">Bookmarks</span>
-                </a>
                 <a href="/admin/settings" class="group">
                     <i class="fa-solid fa-cogs text-[#666] mr-2"></i>
                     <span class="group-hover:border-b group-hover:border-black">Settings</span>
@@ -43,6 +39,7 @@
                             <th class="px-4 py-2 text-left">Cover Image</th>
                             <th class="px-4 py-2 text-left">Author</th>
                             <th class="px-4 py-2 text-left">Uploaded By</th>
+                            <th class="px-4 py-2 text-left">Bookmarks</th>
                             <th class="px-4 py-2 text-left">Actions</th>
                         </tr>
                     </thead>
@@ -55,6 +52,7 @@
                             </td>
                             <td class="px-4 py-2">{{ $book->author }}</td>
                             <td class="px-4 py-2">{{ $book->user->name }}</td>
+                            <td class="px-4 py-2">{{ $book->bookmarks->count() }}</td>
                             <td class="px-4 py-2 flex space-x-4">
                                 <a href="/books/{{$book->id}}/edit" class="text-blue-600 hover:text-blue-800">
                                     <i class="fa-solid fa-edit"></i> Edit

@@ -3,15 +3,23 @@
         <!-- Sidebar Navigation -->
         <div class="p-4 rounded-lg shadow-lg col-span-1 h-48 bg-white">
             <div class="flex flex-col gap-3 text-[#666] text-lg">
+                @if (Auth::user()->role =='admin')
+                <a href="/admin/dashboard" class="group flex items-center">
+                    <i class="fa-solid fa-tachometer-alt text-[#666] mr-2"></i>
+                    <span class="group-hover:border-b group-hover:border-black">Dashboard</span>
+                </a>
+                @else
                 <a href="/users" class="group flex items-center">
                     <i class="fa-solid fa-tachometer-alt text-[#666] mr-2"></i>
                     <span class="group-hover:border-b group-hover:border-black">Dashboard</span>
                 </a>
+                @endif
+                
                 <a href="/user/books" class="group flex items-center">
                     <i class="fa-solid fa-book text-[#666] mr-2"></i>
                     <span class="group-hover:border-b group-hover:border-black">Manage Your Books</span>
                 </a>
-                <a href="/users/{{ $user->id }}/profile" class="group flex items-center">
+                <a href="{{route('profile.edit')}}" class="group flex items-center">
                     <i class="fa-solid fa-user text-[#666] mr-2"></i>
                     <span class="group-hover:border-b group-hover:border-black">Edit Profile</span>
                 </a>
