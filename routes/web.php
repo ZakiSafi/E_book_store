@@ -79,19 +79,3 @@ Route::post('password/forgot', [ForgotPasswordController::class, 'sendResetLink'
 
 Route::get('password/reset/{token}', [ResetPasswordController::class, 'showForm'])->name('password.reset');
 Route::post('password/reset', [ResetPasswordController::class, 'reset'])->name('password.reset.submit');
-
-
-
-
-
-// test
-Route::get('send-test-email', function () {
-    $details = [
-        'subject' => 'Test Email',
-        'body' => 'This is a test email to verify email configuration.'
-    ];
-
-    Mail::to('zakiullah00@gamil.com')->send(new \App\Mail\TestEmail($details));
-
-    return 'Test email sent!';
-});
