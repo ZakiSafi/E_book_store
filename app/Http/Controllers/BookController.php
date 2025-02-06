@@ -50,7 +50,13 @@ class BookController extends Controller
             'edition' => 'nullable',
 
         ]);
-        $attributes['status'] = Book::STATUS_PENDING;
+        if (Auth::check() && Auth::user()->role == 'admin') {
+            $attributes['status'] = Book::STATUS_APPROVED;
+        } else {
+            $attributes['status'] = Book::STATUS_PENDING;
+        }
+
+
 
 
         if ($request->hasFile('cover_image')) {

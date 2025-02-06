@@ -50,6 +50,6 @@ class AdminDashboardController extends Controller
     }
     private function getPendingBooks()
     {
-        return Cache::remember('pendnig_books', 600, fn() => Book::where('status','pending')->count());
+        return Book::where('status','pending')->count();
     }
 }

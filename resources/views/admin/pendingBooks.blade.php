@@ -28,7 +28,7 @@
                 <h2 class="text-2xl font-bold mb-4 border-b-2">Pending Books</h2>
 
             </div>
-
+            @if ($pendingBooks->count()>0)
             <!-- Books Table Section -->
             <div class="mt-8 mb-2">
                 <table class="min-w-full table-auto">
@@ -72,6 +72,14 @@
                     </tbody>
                 </table>
             </div>
+            @else
+            <div class="flex items-center justify-center h-[70%] overflow-hidden">
+                <h1 class="text-3xl font-bold text-center"> No Books in Pending</h1>
+            </div>
+            @endif
+
+
+
         </div>
     </div>
 </x-layout>

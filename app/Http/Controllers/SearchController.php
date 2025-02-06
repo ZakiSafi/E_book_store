@@ -11,7 +11,8 @@ class SearchController extends Controller
     public function search(Request $request)
     {
 
-        $query = Book::query();
+        $query = Book::query()
+            ->where('status', Book::STATUS_APPROVED);
         $categories = Category::all();
 
 

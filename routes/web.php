@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\HomeController;
@@ -16,6 +17,8 @@ use App\Http\Controllers\AdminUserController;
 use App\Http\Controllers\BookDownloadController;
 use App\Http\Controllers\AdminBookmarkController;
 use App\Http\Controllers\AdminDashboardController;
+use App\Http\Controllers\ForgotPasswordController;
+
 
 Route::get('/', [HomeController::class, 'index']);
 
@@ -69,3 +72,22 @@ Route::get('/register', [RegisterController::class, 'create'])->name('register')
 Route::post('/register', [RegisterController::class, 'store']);
 
 Route::post('/logout', [LoginController::class, 'destroy'])->name('logout');
+// password Reset logic
+Route::get('password/forgot', [ForgotPasswordController::class, 'showForm'])->name('password.forgot');
+Route::post('password/forgot', [ForgotPasswordController::class, 'sendResetLink'])->name('password.forgot.submit');
+
+
+
+
+
+// test
+Route::get('send-test-email', function () {
+    $details = [
+        'subject' => 'Test Email',
+        'body' => 'This is a test email to verify email configuration.'
+    ];
+
+    Mail::to('zakiullah00@gamil.com')->send(new \App\Mail\TestEmail($details));
+
+    return 'Test email sent!';
+});
