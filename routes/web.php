@@ -16,6 +16,7 @@ use App\Http\Controllers\AdminBookController;
 use App\Http\Controllers\AdminUserController;
 use App\Http\Controllers\BookDownloadController;
 use App\Http\Controllers\AdminBookmarkController;
+use App\Http\Controllers\ResetPasswordController;
 use App\Http\Controllers\AdminDashboardController;
 use App\Http\Controllers\ForgotPasswordController;
 
@@ -75,6 +76,9 @@ Route::post('/logout', [LoginController::class, 'destroy'])->name('logout');
 // password Reset logic
 Route::get('password/forgot', [ForgotPasswordController::class, 'showForm'])->name('password.forgot');
 Route::post('password/forgot', [ForgotPasswordController::class, 'sendResetLink'])->name('password.forgot.submit');
+
+Route::get('password/reset/{token}', [ResetPasswordController::class, 'showForm'])->name('password.reset');
+Route::post('password/reset', [ResetPasswordController::class, 'reset'])->name('password.reset.submit');
 
 
 

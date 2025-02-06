@@ -46,9 +46,16 @@
                     <tbody>
                         @foreach ($books as $book)
                         <tr class="border-b">
-                            <td class="px-4 py-2">{{ $book->title }}</td>
                             <td class="px-4 py-2">
-                                <img src="{{ asset('storage/' . $book->cover_image) }}" alt="Cover Image" class="w-32 h-24 object-cover shrink-0 ">
+                                <a href="/books/{{ $book->id }}">
+                                    {{ $book->title }}
+                                </a>
+                            </td>
+                            <td class="px-4 py-2">
+                                <a href="/books/{{ $book->id }}">
+                                    <img src="{{ asset('storage/' . $book->cover_image) }}" alt="Cover Image" class="w-32 h-24 object-cover shrink-0 ">
+                                </a>
+
                             </td>
                             <td class="px-4 py-2">{{ $book->author }}</td>
                             <td class="px-4 py-2">{{ $book->user->name }}</td>
