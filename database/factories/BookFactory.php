@@ -75,11 +75,11 @@ class BookFactory extends Factory
             'cover_image' => $imagePath,
             'file_path' => $filePath,
             'language' => $this->faker->randomElement(['English', 'pashto', 'Dari', 'Persian', 'Urdu']),
-            'category_id' => Category::inRandomOrder()->first()->id ?? Category::factory(),
+            'category_id' => Category::inRandomOrder()->value('id') ?? 1,
             'user_id' => \App\Models\User::inRandomOrder()->first()->id ?? \App\Models\User::factory(),
             'release_date' => $this->faker->date(),
-            'edition' => $this->faker->numberBetween(0,5),
-            'status'=> 'approved'
+            'edition' => $this->faker->numberBetween(0, 5),
+            'status' => 'approved'
 
         ];
     }

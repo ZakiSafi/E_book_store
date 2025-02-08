@@ -54,33 +54,33 @@
                     Financial Analysis and Planning
                 </li>
             </a>
-            <a href="/categories/7">
+            <a href="/categories/6">
                 <li class="list-none text-gray-500 bg-white p-4 rounded-lg shadow-lg hover:bg-blue-600 hover:text-white truncate">
                     Risk Management
                 </li>
             </a>
-            <a href="/categories/8">
+            <a href="/categories/7">
                 <li class="list-none text-gray-500 bg-white p-4 rounded-lg shadow-lg hover:bg-blue-600 hover:text-white truncate">
                     Marketing and Sales
                 </li>
             </a>
-            <a href="/categories/9">
+            <a href="/categories/8">
                 <li class="list-none text-gray-500 bg-white p-4 rounded-lg shadow-lg hover:bg-blue-600 hover:text-white truncate">
                     Microfinance and Rural Banking
                 </li>
             </a>
-            <a href="/categories/10">
+            <a href="/categories/9">
                 <li class="list-none text-gray-500 bg-white p-4 rounded-lg shadow-lg hover:bg-blue-600 hover:text-white truncate">
                     Human Resource Management
                 </li>
             </a>
 
-            <a href="/categories/12">
+            <a href="/categories/10">
                 <li class="list-none text-gray-500 bg-white p-4 rounded-lg shadow-lg hover:bg-blue-600 hover:text-white truncate">
                     Economics
                 </li>
             </a>
-            <a href="/categories/13">
+            <a href="/categories/11">
                 <li class="list-none text-gray-500 bg-white p-4 rounded-lg shadow-lg hover:bg-blue-600 hover:text-white truncate">
                     Fraud Detection and Prevention
                 </li>
