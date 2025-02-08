@@ -16,6 +16,7 @@
     </div>
     <div class="container w-full mx-auto pt-8 pb-8">
         <div class=" w-full flex justify-between p-4">
+
             <p class="text-xl  text-[#888]">Genres</p>
             <a href="/books">
                 <span class="text-[#888]">

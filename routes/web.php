@@ -14,8 +14,8 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\AdminBookController;
 use App\Http\Controllers\AdminUserController;
+use App\Http\Controllers\CreateAdminController;
 use App\Http\Controllers\BookDownloadController;
-use App\Http\Controllers\AdminBookmarkController;
 use App\Http\Controllers\ResetPasswordController;
 use App\Http\Controllers\AdminDashboardController;
 use App\Http\Controllers\ForgotPasswordController;
@@ -25,7 +25,7 @@ Route::get('/', [HomeController::class, 'index']);
 
 //Admin
 Route::middleware(['auth', 'admin'])->group(function () {
-    Route::get('/admin/dashboard', [AdminDashboardController::class, 'index']);
+    Route::get('/admin/dashboard', [AdminDashboardController::class, 'index'])->name('admin.dashboard');
     Route::get('/admin/books', [AdminBookController::class, 'books'])->name('admin.books');
     Route::get('/admin/books/pending', [AdminBookController::class, 'pendingBooks'])->name('books.pending');
     Route::put('/admin/books/{id}/update-status', [AdminBookController::class, 'updateStatus'])->name('admin.books.updateStatus');
@@ -33,6 +33,9 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/admin/users', [AdminUserController::class, 'users'])->name('admin.users');
     Route::get('/admin/{id}', [AdminUserController::class, 'destroy'])->name('user.destroy');
     Route::get('/user/{id}/books', [AdminUserController::class, 'books'])->name('user.books');
+    // Admin creation form
+    Route::get('/create/admin', [CreateAdminController::class, 'createAdmin']);
+    Route::post('/store/admin', [CreateAdminController::class, 'createAdminSubmit'])->name('admin.create.submit');
 });
 
 // User
