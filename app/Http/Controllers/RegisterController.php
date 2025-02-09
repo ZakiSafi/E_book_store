@@ -13,6 +13,7 @@ class RegisterController extends Controller
         $googleUser = $request->session()->get('googleUser');
         return view('auth.register', compact('googleUser'));
     }
+
     public function store(Request $request)
     {
         $validatedData = $request->validate([
@@ -23,9 +24,6 @@ class RegisterController extends Controller
         ]);
 
         $validatedData['password'] = bcrypt($validatedData['password']);
-        if ($request->google_id) {
-            $validatedData['google_id'] = $request->google_id;
-        }
         $user = User::create($validatedData);
         Auth::login($user);
         return redirect('/dashboard')->with('success', 'Welcome to BMA Library' . $user->name);

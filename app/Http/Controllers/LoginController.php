@@ -68,11 +68,10 @@ class LoginController extends Controller
 
     public function handleGoogleCallback(Request $request)
     {
-        // $googleUser = Socialite::driver('google')->user();
-        // $user = User::where('email', $googleUser->getEmail())->first();
-        // $isLoginFlow = $request->session()->get('is_login_flow', false);
-        // $request->session()->forget('is_login_flow');
-        $googleUser = Socialite::driver('google')->user().
+        $googleUser = Socialite::driver('google')->user();
+        $user = User::where('email', $googleUser->getEmail())->first();
+        $isLoginFlow = $request->session()->get('is_login_flow', false);
+        $request->session()->forget('is_login_flow');
 
         if ($user) {
             if (!$user->google_id) {
