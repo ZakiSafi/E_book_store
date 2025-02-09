@@ -1,7 +1,7 @@
 <x-layout>
-    <div class="container w-full max-w-7xl p-8 grid grid-cols-4 gap-4 mt-8">
+    <div class="container w-full max-w-7xl p-8 grid grid-cols-1 sm:grid-cols-4 gap-4 mt-8">
         <!-- Sidebar Navigation -->
-        <div class="p-4 rounded-lg shadow-lg col-span-1 h-64 sticky top-4">
+        <div class="p-4 rounded-lg shadow-lg col-span-1 h-64 sticky top-4 sm:block hidden">
             <div class="flex flex-col gap-3 text-[#666] text-lg">
                 <a href="/admin/dashboard" class="group">
                     <i class="fa-solid fa-tachometer-alt text-[#666] mr-2"></i>
@@ -23,14 +23,14 @@
         </div>
 
         <!-- Main Content Area -->
-        <div class="p-4 rounded-lg shadow-lg col-span-3">
-            <div class="flex justify-between">
+        <div class="p-4 rounded-lg shadow-lg col-span-1 sm:col-span-3">
+            <div class="flex justify-between items-center">
                 <h2 class="text-2xl font-bold mb-4 border-b-2">Manage Books</h2>
-                Total books :{{ $totalBooks }}
+                <div class="text-sm">Total books: {{ $totalBooks }}</div>
             </div>
 
             <!-- Books Table Section -->
-            <div class="mt-8 mb-2">
+            <div class="mt-8 mb-2 overflow-x-auto">
                 <h3 class="text-xl font-semibold text-gray-800 mb-4">Books List</h3>
                 <table class="min-w-full table-auto">
                     <thead>
@@ -55,7 +55,6 @@
                                 <a href="/books/{{ $book->id }}">
                                     <img src="{{ asset('storage/' . $book->cover_image) }}" alt="Cover Image" class="w-32 h-24 object-cover shrink-0 ">
                                 </a>
-
                             </td>
                             <td class="px-4 py-2">{{ $book->author }}</td>
                             <td class="px-4 py-2">{{ $book->user->name }}</td>
