@@ -85,7 +85,7 @@ class BookController extends Controller
         Book::create($attributes);
 
 
-        return view('books.index');
+        return redirect()->route('books.index');
     }
 
 

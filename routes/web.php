@@ -42,7 +42,7 @@ Route::middleware(['auth', 'admin'])->group(function () {
 // User
 Route::middleware(['user'])->group(function () {
     Route::resource('users', UserController::class)->middleware('auth');
-    Route::get('/dashboard', [UserController::class, 'index']);
+    Route::get('/dashboard', [UserController::class, 'index'])->name('dashboard');
 });
 
 // Read and download books and profile route
@@ -86,5 +86,6 @@ Route::post('password/reset', [ResetPasswordController::class, 'reset'])->name('
 
 
 // loging user using social account
-Route::get('/login/google', [LoginController::class, 'redirectToGoogle']);
+Route::get('/login/google', [LoginController::class, 'redirectToGoogleForLogin']);
+Route::get('/signup/google', [LoginController::class, 'redirectToGoogleForSignup']);
 Route::get('/login/google/callback', [LoginController::class, 'handleGoogleCallback']);

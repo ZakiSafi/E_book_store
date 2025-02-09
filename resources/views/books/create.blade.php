@@ -1,17 +1,8 @@
 <x-layout>
     <x-slot name="heading">Create Book</x-slot>
     <div class="w-full h-auto flex justify-center items-center p-8">
-        <form action="/books" method="POST" enctype="multipart/form-data" class="w-full max-w-2xl bg-white p-6 rounded-lg shadow-md">
+        <form action="{{route('books.store')}}" method="POST" enctype="multipart/form-data" class="w-full max-w-2xl bg-white p-6 rounded-lg shadow-md">
             @csrf
-            @if ($errors->any())
-            <div class="alert alert-danger">
-                <ul>
-                    @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-            @endif
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
                 <div class="col-span-2">
                     <h2 class="font-semibold text-lg border-b">Add Book</h2>
@@ -66,9 +57,6 @@
                     <span class="text-red-500 text-sm">{{ $message }}</span>
                     @enderror
                 </div>
-
-
-                <!-- Category -->
                 <div class="flex flex-col">
                     <label for="category" class="font-medium text-gray-700">Category</label>
                     <select

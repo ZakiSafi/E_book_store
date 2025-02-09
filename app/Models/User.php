@@ -23,7 +23,7 @@ class User extends Authenticatable
      *
      * @var list<string>
      */
-    protected $fillable = ['name', 'email', 'password', 'role', 'last_login_at', 'profile_picture'];
+    protected $fillable = ['name', 'email', 'password', 'role', 'last_login_at', 'profile_picture','google_id'];
 
     // Relationship with orders
     public function orders()

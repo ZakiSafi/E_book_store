@@ -8,28 +8,26 @@ use Illuminate\Support\Facades\Auth;
 
 class RegisterController extends Controller
 {
-    public function create()
+    public function create(Request $request)
     {
-        return view('auth.register');
+        $googleUser = $request->session()->get('googleUser');
+        return view('auth.register', compact('googleUser'));
     }
-    public function store()
+    public function store(Request $request)
     {
-        $validatedData = request()->validate([
+        $validatedData = $request->validate([
             'name' => 'required',
-            'email' => 'required|email|unique:users,email', // Ensure email is unique
-            'password' => 'required|min:5|confirmed', // `confirmed` validates password and confirmation
+            'email' => 'required|email|unique:users,email',
+            'password' => 'required|min:5|confirmed',
+            'google_id' => 'nullable|string'
         ]);
 
-        // Hash the password
         $validatedData['password'] = bcrypt($validatedData['password']);
-
-        // Create the user
+        if ($request->google_id) {
+            $validatedData['google_id'] = $request->google_id;
+        }
         $user = User::create($validatedData);
-
-        // Log in the user
         Auth::login($user);
-
-        // Redirect to user dashboard with a success message
-        return redirect('/dashboard')->with('success', 'You are now registered and logged in.');
+        return redirect('/dashboard')->with('success', 'Welcome to BMA Library' . $user->name);
     }
 }

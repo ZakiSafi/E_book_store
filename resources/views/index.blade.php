@@ -1,4 +1,5 @@
 <x-layout>
+
     <div class="relative">
         <img src="{{ asset('images/library.jpg') }}" alt="cover" class="w-full h-96  object-cover">
         <div class="absolute inset-0 flex flex-col items-center justify-center text-white bg-black bg-opacity-50">

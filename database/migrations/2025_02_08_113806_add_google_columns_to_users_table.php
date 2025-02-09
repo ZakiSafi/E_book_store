@@ -11,7 +11,6 @@ class AddGoogleColumnsToUsersTable extends Migration
         Schema::table('users', function (Blueprint $table) {
             // Adding google_id and avatar columns
             $table->string('google_id')->nullable()->unique();
-            $table->string('avatar')->nullable();
         });
     }
 
@@ -19,7 +18,7 @@ class AddGoogleColumnsToUsersTable extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             // Dropping the google_id and avatar columns
-            $table->dropColumn(['google_id', 'avatar']);
+            $table->dropColumn(['google_id']);
         });
     }
 }
