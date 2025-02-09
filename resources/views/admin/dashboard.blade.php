@@ -1,8 +1,8 @@
 <x-layout>
-    <div class="container w-full max-w-7xl p-8 grid grid-cols-3 gap-4 mt-8">
+    <div class="container w-full max-w-7xl p-8 grid grid-cols-3 gap-4 mt-8 ">
         <!-- Sidebar Navigation -->
-        <div class="p-4 rounded-lg shadow-lg col-span-1">
-            <div class="flex flex-col gap-3 text-[#666] text-lg">
+        <div class="p-4 rounded-lg shadow-lg col-span-1 self-start">
+            <div class="flex flex-col gap-3 text-[#666] text-lg ">
                 <a href="/admin/dashboard" class="group">
                     <i class="fa-solid fa-tachometer-alt text-[#666] mr-2"></i>
                     <span class="group-hover:border-b group-hover:border-black">Dashboard</span>
@@ -104,6 +104,9 @@
                     </a>
                     <a href="/admin/books" class="bg-yellow-600 text-white px-4 py-2 rounded-lg hover:bg-yellow-700 transition duration-300">
                         <i class="fa-solid fa-bookmark mr-2"></i> Manage Books
+                    </a>
+                    <a href="{{ route('admin.create') }}" class="bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition duration-300">
+                        <i class="fa-solid fa-user-shield mr-2"></i> Create New Admin
                     </a>
                 </div>
             </div>

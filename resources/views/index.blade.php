@@ -28,63 +28,14 @@
 
         </div>
         <div class="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-4">
-            <a href="/categories/1">
+            @foreach ($categories as $cat )
+            <a href="/categories/{{ $cat->id }}">
                 <li class="list-none text-gray-500 bg-white p-4 rounded-lg shadow-lg hover:bg-blue-600 hover:text-white truncate">
-                    Management and Leadership
+                   {{ $cat->name }}
                 </li>
             </a>
 
-            <a href="/categories/2">
-                <li class="list-none text-gray-500 bg-white p-4 rounded-lg shadow-lg hover:bg-blue-600 hover:text-white truncate">
-                    Investment and Stock Market
-                </li>
-            </a>
-            <a href="/categories/3">
-                <li class="list-none text-gray-500 bg-white p-4 rounded-lg shadow-lg hover:bg-blue-600 hover:text-white truncate">
-                    Islamic Banking and Finance
-                </li>
-            </a>
-            <a href="/categories/4">
-                <li class="list-none text-gray-500 bg-white p-4 rounded-lg shadow-lg hover:bg-blue-600 hover:text-white truncate">
-                    Banking and Finance
-                </li>
-            </a>
-            <a href="/categories/5">
-                <li class="list-none text-gray-500 bg-white p-4 rounded-lg shadow-lg hover:bg-blue-600 hover:text-white truncate">
-                    Financial Analysis and Planning
-                </li>
-            </a>
-            <a href="/categories/6">
-                <li class="list-none text-gray-500 bg-white p-4 rounded-lg shadow-lg hover:bg-blue-600 hover:text-white truncate">
-                    Risk Management
-                </li>
-            </a>
-            <a href="/categories/7">
-                <li class="list-none text-gray-500 bg-white p-4 rounded-lg shadow-lg hover:bg-blue-600 hover:text-white truncate">
-                    Marketing and Sales
-                </li>
-            </a>
-            <a href="/categories/8">
-                <li class="list-none text-gray-500 bg-white p-4 rounded-lg shadow-lg hover:bg-blue-600 hover:text-white truncate">
-                    Microfinance and Rural Banking
-                </li>
-            </a>
-            <a href="/categories/9">
-                <li class="list-none text-gray-500 bg-white p-4 rounded-lg shadow-lg hover:bg-blue-600 hover:text-white truncate">
-                    Human Resource Management
-                </li>
-            </a>
-
-            <a href="/categories/10">
-                <li class="list-none text-gray-500 bg-white p-4 rounded-lg shadow-lg hover:bg-blue-600 hover:text-white truncate">
-                    Economics
-                </li>
-            </a>
-            <a href="/categories/11">
-                <li class="list-none text-gray-500 bg-white p-4 rounded-lg shadow-lg hover:bg-blue-600 hover:text-white truncate">
-                    Fraud Detection and Prevention
-                </li>
-            </a>
+            @endforeach
             <a href="/books" class="text-gray-500 bg-white p-4 rounded-lg shadow-lg hover:bg-blue-600 hover:text-white ">
                 Others
             </a>

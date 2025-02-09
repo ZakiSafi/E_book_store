@@ -35,8 +35,8 @@
                         name="category_id"
                         class="mt-1 block w-full p-2 border border-gray-300 rounded-md focus:ring-green-500 focus:border-green-500 text-gray-800">
                         <option value="">Select Category</option>
-                        @foreach ($categories as $category)
-                        <option value="{{ $category->id }}">{{ $category->name }}</option>
+                        @foreach ($categories as $cat)
+                        <option value="{{ $category->id }}">{{ $cat->name }}</option>
                         @endforeach
                     </select>
                 </div>

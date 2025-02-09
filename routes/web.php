@@ -19,9 +19,10 @@ use App\Http\Controllers\BookDownloadController;
 use App\Http\Controllers\ResetPasswordController;
 use App\Http\Controllers\AdminDashboardController;
 use App\Http\Controllers\ForgotPasswordController;
+use Laravel\Socialite\Facades\Socialite;
 
 
-Route::get('/', [HomeController::class, 'index']);
+Route::get('/', [HomeController::class, 'index'])->name('home');
 
 //Admin
 Route::middleware(['auth', 'admin'])->group(function () {
@@ -34,7 +35,7 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/admin/{id}', [AdminUserController::class, 'destroy'])->name('user.destroy');
     Route::get('/user/{id}/books', [AdminUserController::class, 'books'])->name('user.books');
     // Admin creation form
-    Route::get('/create/admin', [CreateAdminController::class, 'createAdmin']);
+    Route::get('/create/admin', [CreateAdminController::class, 'createAdmin'])->name('admin.create');
     Route::post('/store/admin', [CreateAdminController::class, 'createAdminSubmit'])->name('admin.create.submit');
 });
 
@@ -64,7 +65,7 @@ Route::resource('books', BookController::class);
 Route::get('/search', [SearchController::class, 'search']);
 
 
-Route::resource('categories', CategoryController::class);
+Route::get('/categories/{id}', [CategoryController::class, 'show']);
 
 // Custom routes
 Route::get('/login', [LoginController::class, 'create']);
@@ -82,3 +83,8 @@ Route::post('password/forgot', [ForgotPasswordController::class, 'sendResetLink'
 
 Route::get('password/reset/{token}', [ResetPasswordController::class, 'showForm'])->name('password.reset');
 Route::post('password/reset', [ResetPasswordController::class, 'reset'])->name('password.reset.submit');
+
+
+// loging user using social account
+Route::get('/login/google', [LoginController::class, 'redirectToGoogle']);
+Route::get('/login/google/callback', [LoginController::class, 'handleGoogleCallback']);

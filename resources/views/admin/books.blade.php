@@ -1,7 +1,7 @@
 <x-layout>
     <div class="container w-full max-w-7xl p-8 grid grid-cols-4 gap-4 mt-8">
         <!-- Sidebar Navigation -->
-        <div class="p-4 rounded-lg shadow-lg col-span-1 h-64">
+        <div class="p-4 rounded-lg shadow-lg col-span-1 h-64 sticky top-4">
             <div class="flex flex-col gap-3 text-[#666] text-lg">
                 <a href="/admin/dashboard" class="group">
                     <i class="fa-solid fa-tachometer-alt text-[#666] mr-2"></i>

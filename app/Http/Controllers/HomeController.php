@@ -8,12 +8,9 @@ use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        $categories = Category::take(8)->get();
+        $categories = Category::all();
         $books = Book::latest()->take(12)->get();
         $mostdownloaded = Book::orderBy('downloads', 'desc')->take(12)->get();
         return view('index', compact('categories', 'books', 'mostdownloaded'));

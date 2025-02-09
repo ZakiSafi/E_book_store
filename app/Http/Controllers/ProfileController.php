@@ -21,31 +21,27 @@ class ProfileController extends Controller
     {
 
         $request->validate([
-            'profile_picture' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048', // Optional validation for image
+            'profile_picture' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'name' => 'required|string|max:255',
         ]);
 
-        $user = Auth::user(); // Get the authenticated user
+        $user = Auth::user();
         $user->name = $request->name;
 
         if ($request->hasFile('profile_picture')) {
-            // Delete the old profile picture if it exists
             if ($user->profile_picture) {
                 Storage::delete('profile_pictures/' . $user->profile_picture);
             }
 
-            // Store the new profile picture
             $path = $request->file('profile_picture')->store('profile_pictures');
 
-            // Save the new profile picture path in the database
 
             $user->profile_picture = basename($path);
         }
         /** @var User $user */
         $user->save();
-        if(Auth::user()->role ==='admin'){
+        if (Auth::user()->role === 'admin') {
             return redirect('/admin/dashboard')->with('success', 'Profile picture updated successfully.');
-
         }
         return redirect('/dashboard')->with('success', 'Profile picture updated successfully.');
     }

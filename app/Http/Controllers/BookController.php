@@ -85,7 +85,7 @@ class BookController extends Controller
         Book::create($attributes);
 
 
-        return redirect()->route('books.index')->with('success', 'Book created successfully!');
+        return view('books.index');
     }
 
 

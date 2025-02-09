@@ -75,11 +75,11 @@
 
                         @guest
                         <a href="/login" class="text-white rounded-md px-4 py-1 hover:bg-white hover:text-blue-600 flex items-center justify-center transition-all">
-                            <i class="fa-solid fa-sign-out-alt mr-1 text-xs mt-1"></i>
+                            <i class="fa-solid fa-sign-out-alt mr-1 text-xs"></i>
                             <p class="text-sm">Log In</p>
                         </a>
                         <a href="/register" class="text-white rounded-md px-4 py-1 hover:bg-white hover:text-blue-600 flex items-center justify-center transition-all">
-                            <i class="fa-solid fa-user-plus mr-1 text-xs mt-1"></i>
+                            <i class="fa-solid fa-user-plus mr-1 text-xs "></i>
                             <p class="text-sm">Register</p>
                         </a>
                         @endguest
@@ -135,10 +135,10 @@
                         @guest
                         <div class="space-y-2 mt-4">
                             <a href="/login" class="block text-center px-4 py-2 text-sm font-semibold text-gray-800 hover:bg-blue-600 hover:text-white rounded flex items-center space-x-2 transition-all">
-                                <i class="fa-solid fa-sign-in-alt flex-shrink-0 w-5"></i> <span>Log In</span>
+                                <i class="fa-solid fa-sign-in-alt w-5"></i> <span>Log In</span>
                             </a>
                             <a href="/register" class="block text-center px-4 py-2 text-sm font-semibold text-gray-800 hover:bg-blue-600 hover:text-white rounded flex items-center space-x-2 transition-all">
-                                <i class="fa-solid fa-user-plus flex-shrink-0 w-5"></i> <span>Register</span>
+                                <i class="fa-solid fa-user-plus w-5"></i> <span>Register</span>
                             </a>
                         </div>
                         @endguest
@@ -147,7 +147,7 @@
                         <form action="/logout" method="POST" class="mt-4">
                             @csrf
                             <button type="submit" class="w-full text-center px-4 py-2 text-sm font-semibold text-gray-800 hover:bg-blue-600 hover:text-white rounded flex items-center space-x-2 transition-all">
-                                <i class="fa-solid fa-sign-out-alt flex-shrink-0 w-5"></i> <span>Log Out</span>
+                                <i class="fa-solid fa-sign-out-alt  w-5"></i> <span>Log Out</span>
                             </button>
                         </form>
                         @endauth
