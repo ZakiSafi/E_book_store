@@ -24,7 +24,7 @@ class LoginController extends Controller
             'password' => ['required'],
         ]);
 
-        if (Auth::attempt($credentials)) {
+        if (Auth::attempt($credentials, $request->has('remember'))) {
             $request->session()->regenerate();
 
             $user = Auth::user();
@@ -32,13 +32,13 @@ class LoginController extends Controller
             /** @var User $user */
             $user->save();
 
-
             if ($user->role === 'admin') {
                 return redirect('/admin/dashboard');
             }
 
             return redirect()->intended('/dashboard');
         }
+
 
         return back()->withErrors([
             'email' => 'The provided credentials do not match our records.',
@@ -51,6 +51,9 @@ class LoginController extends Controller
         request()->session()->regenerateToken();
         return redirect('/')->with('success', 'you have logout successfully');
     }
+
+
+    // Social login functioality
     public function redirectToGoogleForLogin()
     {
         session(['is_login_flow' => true]);

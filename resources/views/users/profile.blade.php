@@ -54,16 +54,6 @@
                 @csrf
                 @method('PATCH')
 
-                @if ($errors->any())
-                <div class="alert alert-danger">
-                    <ul>
-                        @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-                @endif
-
                 <!-- Name Field -->
                 <div class="mb-4">
                     <label for="name" class="block text-gray-700 font-semibold mb-2">Name</label>
@@ -82,7 +72,7 @@
                     @enderror
                 </div>
 
-                <button type="submit" class="bg-blue-500 text-[14px] hover:bg-blue-600 hover:text-[16px] text-white  px-2 py-2 rounded-lg">Update Profile</button>
+                <button type="submit" class="bg-blue-500 text-md hover:bg-blue-600 text-white  px-2 py-2 rounded-lg">Update Profile</button>
             </form>
         </div>
 

@@ -37,24 +37,43 @@ if (dropdownButton && mobileMenu) {
 }
 
 // Showing password input
-document.getElementById("toggle-password").addEventListener("click", function () {
+document.querySelectorAll(".toggle-password").forEach((button) => {
+    button.addEventListener("click", function () {
         const password = document.getElementById("password");
         const password_confirm = document.getElementById(
             "password_confirmation"
         );
         const icon = this.querySelector("i");
-        if (
-            password.type === "password " ||
-            password_confirm.type === "password"
-        ) {
-            password.type = "text";
-            password_confirm.type = "text";
-            icon.classList.remove("fa-eye");
-            icon.classList.add("fa-eye-slash");
-        } else {
-            password.type = "password";
-            password_confirm.type = "password";
-            icon.classList.remove("fa-eye-slash");
-            icon.classList.add("fa-eye");
+
+        // Toggle visibility for password field
+        if (password) {
+            if (password.type === "password") {
+                password.type = "text";
+                icon.classList.remove("fa-eye");
+                icon.classList.add("fa-eye-slash");
+            } else {
+                password.type = "password";
+                icon.classList.remove("fa-eye-slash");
+                icon.classList.add("fa-eye");
+            }
+        }
+
+        // Toggle visibility for password_confirm field if it exists
+        if (password_confirm) {
+            if (password_confirm.type === "password") {
+                password_confirm.type = "text";
+            } else {
+                password_confirm.type = "password";
+            }
         }
     });
+});
+
+// open pop up for profile picture
+ function openProfileModal() {
+     document.getElementById("profileModal").classList.remove("hidden");
+ }
+
+ function closeProfileModal() {
+     document.getElementById("profileModal").classList.add("hidden");
+ }
