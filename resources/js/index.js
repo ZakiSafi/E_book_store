@@ -70,10 +70,14 @@ document.querySelectorAll(".toggle-password").forEach((button) => {
 });
 
 // open pop up for profile picture
- function openProfileModal() {
-     document.getElementById("profileModal").classList.remove("hidden");
- }
+document.querySelectorAll(".popup_profile").forEach((button) => {
+    button.addEventListener("click", function () {
+        const popup = document.getElementById("profileModal");
+        if (popup.classList.contains("hidden")) {
+            popup.classList.remove("hidden");
+        } else {
+            popup.classList.add("hidden");
+        }
+    });
+});
 
- function closeProfileModal() {
-     document.getElementById("profileModal").classList.add("hidden");
- }

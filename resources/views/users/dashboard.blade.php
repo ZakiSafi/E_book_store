@@ -40,7 +40,7 @@
             <div class="flex gap-4">
                 <div>
                     @if ($user->profile_picture)
-                    <img src="{{ asset('storage/profile_pictures/' . $user->profile_picture) }}" alt="Profile Picture" class="rounded-full h-24 w-24 cursor-pointer" onclick="openProfileModal()">
+                    <img src="{{ asset('storage/profile_pictures/' . $user->profile_picture) }}" alt="Profile Picture" class="popup_profile rounded-full h-24 w-24 cursor-pointer" >
                     @else
                     <img src="{{ asset('storage/profile_pictures/default.jfif') }}" alt="Default Profile Picture" class="rounded-full h-24 w-24">
                     @endif
