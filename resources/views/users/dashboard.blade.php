@@ -40,7 +40,7 @@
             <div class="flex gap-4">
                 <div>
                     @if ($user->profile_picture)
-                    <img src="{{ asset('storage/profile_pictures/' . $user->profile_picture) }}" alt="Profile Picture" class="popup_profile rounded-full h-24 w-24 cursor-pointer" >
+                    <img src="{{ asset('storage/profile_pictures/' . $user->profile_picture) }}" alt="Profile Picture" class="popup_profile rounded-full h-24 w-24 cursor-pointer">
                     @else
                     <img src="{{ asset('storage/profile_pictures/default.jfif') }}" alt="Default Profile Picture" class="rounded-full h-24 w-24">
                     @endif
@@ -99,12 +99,12 @@
     <!-- Profile Picture Modal -->
     <div id="profileModal" class="hidden fixed inset-0 bg-gray-900 bg-opacity-50 flex justify-center items-center">
         <div class="bg-white p-6 rounded-lg w-full max-w-xl">
-            <button onclick="closeProfileModal()" class="text-xl hover:bg-red-600 hover:text-white px-2 py-1 rounded-lg transition-transform transform hover:scale-105 duration-300">Close</button>
+            <button id="close-popup" class="text-xl hover:bg-red-600 hover:text-white px-2 py-1 rounded-lg transition-transform transform hover:scale-105 duration-300">Close</button>
             <div class="flex flex-col items-center">
                 <img src="{{ asset('storage/profile_pictures/' . $user->profile_picture) }}" alt="Profile Picture" class="w-48 h-48 rounded-full mb-4">
                 <h2 class="text-2xl">{{ $user->name }}</h2>
                 <p class="mt-2">{{ $user->email }}</p>
-                <!-- Add more profile details as needed -->
+
             </div>
         </div>
     </div>

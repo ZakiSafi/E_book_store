@@ -67,7 +67,7 @@
     <div class="container w-full max-w-7xl mx-auto grid items-center justify-center pt-2 pb-8">
         <div class="w-full max-w-[700px] bg-white p-4 rounded-lg shadow-lg">
             @foreach ($books as $book)
-            <div class="grid grid-cols-2 gap-4 items-center">
+            <div class="grid grid-cols-2 gap-4 items-center p-4">
                 <div class="rounded-lg overflow-hidden rounded-lg">
                     <a href="/books/{{$book->id}}">
 

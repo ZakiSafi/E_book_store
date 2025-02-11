@@ -73,11 +73,10 @@ document.querySelectorAll(".toggle-password").forEach((button) => {
 document.querySelectorAll(".popup_profile").forEach((button) => {
     button.addEventListener("click", function () {
         const popup = document.getElementById("profileModal");
-        if (popup.classList.contains("hidden")) {
-            popup.classList.remove("hidden");
-        } else {
-            popup.classList.add("hidden");
-        }
+        popup.classList.remove("hidden");
     });
 });
-
+document.getElementById("close-popup").addEventListener("click", function () {
+    const popup = document.getElementById("profileModal");
+    popup.classList.add("hidden");
+});
