@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\BookController;
+use App\Http\Controllers\OnlineBookController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\LoginController;
@@ -59,7 +59,7 @@ Route::middleware(['auth'])->group(function () {
 });
 
 // Resource Controllers
-Route::resource('books', BookController::class);
+Route::resource('books', OnlineBookController::class);
 
 // Route for search functionality
 Route::get('/search', [SearchController::class, 'search']);

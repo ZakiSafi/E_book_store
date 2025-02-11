@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Book;
+use App\Models\OnlineBook;
 use App\Models\Category;
 use Illuminate\Http\Request;
 
@@ -11,8 +11,8 @@ class SearchController extends Controller
     public function search(Request $request)
     {
 
-        $query = Book::query()
-            ->where('status', Book::STATUS_APPROVED);
+        $query = OnlineBook::query()
+            ->where('status', OnlineBook::STATUS_APPROVED);
         $categories = Category::all();
 
 

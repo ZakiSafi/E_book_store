@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Carbon\Carbon;
-use App\Models\Book;
+use App\Models\OnlineBook;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -28,7 +28,7 @@ class UserController extends Controller
     {
         // $categories = Category::take(10)->get();
         $user = Auth::user();
-        $lastUploadedBook = Book::where('user_id', $user->id)
+        $lastUploadedBook = OnlineBook::where('user_id', $user->id)
         ->latest('created_at')
         ->first();
         $lastLoginDate = $user->last_login_at;

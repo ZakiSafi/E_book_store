@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Book;
+use App\Models\OnlineBook;
 use App\Models\Bookmark;
 use App\Models\Category;
 use Illuminate\Http\Request;
@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 
-class BookController extends Controller
+class OnlineBookController extends Controller
 {
     public function __construct()
     {
@@ -20,7 +20,7 @@ class BookController extends Controller
     public function index()
     {
 
-        $books = Book::where('status', Book::STATUS_APPROVED)
+        $books = OnlineBook::where('status', OnlineBook::STATUS_APPROVED)
             ->latest()
             ->simplePaginate(16);
         $categories = Category::all();
@@ -51,13 +51,10 @@ class BookController extends Controller
 
         ]);
         if (Auth::check() && Auth::user()->role == 'admin') {
-            $attributes['status'] = Book::STATUS_APPROVED;
+            $attributes['status'] = OnlineBook::STATUS_APPROVED;
         } else {
-            $attributes['status'] = Book::STATUS_PENDING;
+            $attributes['status'] = OnlineBook::STATUS_PENDING;
         }
-
-
-
 
         if ($request->hasFile('cover_image')) {
             $attributes['cover_image'] = $request->file('cover_image')->store('images', 'public');
@@ -82,14 +79,14 @@ class BookController extends Controller
         $attributes['downloads'] = 0;
 
 
-        Book::create($attributes);
+        OnlineBook::create($attributes);
 
 
         return redirect()->route('books.index');
     }
 
 
-    public function show(Book $book)
+    public function show(OnlineBook $book)
     {
         $bookmark = Bookmark::where('user_id', Auth::id())
             ->where('book_id', $book->id)
@@ -104,7 +101,7 @@ class BookController extends Controller
 
 
 
-    public function edit(Book $book)
+    public function edit(OnlineBook $book)
     {
         $this->authorize('update', $book);
         $categories = Category::all();
@@ -113,7 +110,7 @@ class BookController extends Controller
 
 
 
-    public function update(Request $request, Book $book)
+    public function update(Request $request, OnlineBook $book)
     {
         $attributes = $request->validate([
             'title' => 'required',
@@ -138,7 +135,7 @@ class BookController extends Controller
 
 
 
-    public function destroy(Book $book)
+    public function destroy(OnlineBook $book)
     {
         $user = Auth::user();
         $this->authorize('delete', $book);

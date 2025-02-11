@@ -12,7 +12,7 @@ class BookmarkController extends Controller
         $user = Auth::user();
 
         $bookmarks = Bookmark::where('user_id', Auth::id())
-        ->with('book')  // Eager load the related 'book' model
+        ->with('Onlinebook')  // Eager load the related 'book' model
         ->get();
 
         return view('bookmarks.index', compact('bookmarks', 'user'));

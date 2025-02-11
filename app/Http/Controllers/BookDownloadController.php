@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Book;
+use App\Models\OnlineBook;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -10,7 +10,7 @@ class BookDownloadController extends Controller
 {
     public function download($id)
     {
-        $book = Book::findOrFail($id);
+        $book = OnlineBook::findOrFail($id);
 
         $book->increment('downloads');
 
@@ -25,16 +25,16 @@ class BookDownloadController extends Controller
 
     public function read($id)
     {
-        $books = Book::where('id', '!=', $id)
+        $books = OnlineBook::where('id', '!=', $id)
             ->take(16)
             ->get();;
-        $book = Book::findOrFail($id);
+        $book = OnlineBook::findOrFail($id);
 
         return view('books.read', compact('book', 'books'));
     }
     public function readPdf($id)
     {
-        $book = Book::findOrFail($id);
+        $book = OnlineBook::findOrFail($id);
         if (!$book->file_path) {
             abort(404, 'File not found.');
         }

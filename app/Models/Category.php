@@ -12,7 +12,7 @@ class Category extends Model
     protected $fillable = ['name', 'description'];
 
     // Relationship with books
-    public function Onlinebooks()
+    public function onlineBooks()
     {
         return $this->hasMany(OnlineBook::class);
     }
