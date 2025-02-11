@@ -28,6 +28,8 @@ return new class extends Migration
             $table->string('file_type');
             $table->integer('downloads')->default(0);
             $table->foreignId('category_id')->constrained()->cascadeOnDelete(); // Category relation
+            $table->string('google_id')->nullable()->unique();
+            $table->string('status')->default('pending');
             $table->timestamps();
         });
     }

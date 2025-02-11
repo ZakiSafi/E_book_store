@@ -2,11 +2,13 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class PhysicalBook extends Model
 {
-    protected $fillable =[
+    use HasFactory;
+    protected $fillable = [
         'title',
         'author',
         'traqnslator',
@@ -16,12 +18,14 @@ class PhysicalBook extends Model
         'copies',
         'available_copies',
     ];
-    public function Borrowers(){
-        return $this->belongsToMany(User::class,'borrowed_books')
-        ->withPivot('borrowed_at','due_date','returned_at','is_returned')
-        ->withTimestamps();
+    public function Borrowers()
+    {
+        return $this->belongsToMany(User::class, 'borrowed_books')
+            ->withPivot('borrowed_at', 'due_date', 'returned_at', 'is_returned')
+            ->withTimestamps();
     }
-    public function category(){
+    public function category()
+    {
         return $this->belongsTo(Category::class);
     }
 }

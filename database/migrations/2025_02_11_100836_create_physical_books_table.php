@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('title');
             $table->string('author');
             $table->string('translator')->nullable();
+            $table->string('cover_image')->nullable();
             $table->year('publication_year')->nullable();
             $table->string('printing_house')->nullable();
             $table->string('edition')->nullable();

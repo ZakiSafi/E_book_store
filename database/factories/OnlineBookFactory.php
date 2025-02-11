@@ -2,13 +2,13 @@
 // filepath: /c:/xampp/htdocs/E_book_store/database/factories/BookFactory.php
 namespace Database\Factories;
 
-use App\Models\Book;
+use App\Models\OnlineBook;
 use App\Models\Category;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class BookFactory extends Factory
+class OnlineBookFactory extends Factory
 {
-    protected $model = Book::class;
+    protected $model = OnlineBook::class;
 
     /**
      * Define the model's default state.
