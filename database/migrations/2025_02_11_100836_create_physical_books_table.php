@@ -16,11 +16,12 @@ return new class extends Migration
             $table->string('title');
             $table->string('author');
             $table->string('translator')->nullable();
-            $table->strin('printing_house')->nullable();
+            $table->year('publication_year')->nullable();
+            $table->string('printing_house')->nullable();
             $table->string('edition')->nullable();
-            $table->string('copies');
-            $table->string('available_copies');
-            $table->foreignId('category_id')->constrained('categories');
+            $table->unsignedInteger('copies');
+            $table->unsignedInteger('available_copies');
+            $table->foreignId('category_id')->constrained('categories')->cascadeOnDelete();
             $table->timestamps();
         });
     }
