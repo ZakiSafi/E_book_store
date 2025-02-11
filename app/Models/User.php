@@ -23,33 +23,20 @@ class User extends Authenticatable
      *
      * @var list<string>
      */
-    protected $fillable = ['name', 'email', 'password', 'role', 'last_login_at', 'profile_picture','google_id'];
+    protected $fillable = ['name', 'email', 'password', 'role', 'last_login_at', 'profile_picture', 'google_id'];
 
-    // Relationship with orders
-    public function orders()
+    public function Onlinebooks()
     {
-        return $this->hasMany(Order::class);
+        return $this->hasMany(OnlineBook::class);
     }
 
-    // Relationship with books added by the user
-    public function books()
+    public function PhysicalBooks()
     {
-        return $this->hasMany(Book::class);
+        return $this->belongsToMany(PhysicalBook::class, 'borrowed_books')
+            ->withPivot('borrowed_at', 'due_date', 'returned_at', 'is_returned')
+            ->withTimestamps();
     }
 
-    // Relationship with carts (many-to-many via pivot)
-    public function booksInCart()
-    {
-        return $this->belongsToMany(Book::class, 'carts')->withPivot('quantity');
-    }
-
-    // Relationship with wishlists (many-to-many via pivot)
-    public function booksInWishlist()
-    {
-        return $this->belongsToMany(Book::class, 'wishlists');
-    }
-
-    // relationship with bookmark
     public function bookmarks()
     {
         return $this->hasMany(Bookmark::class);
@@ -75,7 +62,7 @@ class User extends Authenticatable
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
-            'last_login_at' => 'datetime', // Add this line
+            'last_login_at' => 'datetime',
         ];
     }
 }

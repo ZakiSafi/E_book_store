@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Book;
+use App\Models\OnlineBook;
 use App\Models\User;
 use App\Models\Bookmark;
 use App\Models\Cart;
@@ -34,7 +34,7 @@ class AdminDashboardController extends Controller
     }
     private function getBooksCount()
     {
-        return Cache::remember('books_count', 600, fn() => Book::count());
+        return Cache::remember('books_count', 600, fn() => OnlineBook::count());
     }
     private function getBookmarksCount()
     {
@@ -42,7 +42,7 @@ class AdminDashboardController extends Controller
     }
     private function getRecentBooks($days)
     {
-        return Book::where('created_at', '>=', Carbon::now()->subDays($days))->count();
+        return OnlineBook::where('created_at', '>=', Carbon::now()->subDays($days))->count();
     }
     private function getRecentUsers($days)
     {
@@ -50,6 +50,6 @@ class AdminDashboardController extends Controller
     }
     private function getPendingBooks()
     {
-        return Book::where('status','pending')->count();
+        return OnlineBook::where('status', 'pending')->count();
     }
 }
