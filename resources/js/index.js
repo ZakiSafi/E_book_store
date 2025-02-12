@@ -76,6 +76,7 @@ document.querySelectorAll(".popup_profile").forEach((button) => {
         popup.classList.remove("hidden");
     });
 });
+
 document.getElementById("close-popup").addEventListener("click", function () {
     const popup = document.getElementById("profileModal");
     popup.classList.add("hidden");

@@ -16,16 +16,6 @@
             height: 100%;
             margin: 0;
         }
-
-        /* Smooth transitions for hover effects */
-        .transition-all {
-            transition: all 0.3s ease;
-        }
-
-        /* Scale effect for social icons */
-        .hover-scale:hover {
-            transform: scale(1.1);
-        }
     </style>
 </head>
 
@@ -216,19 +206,19 @@
                             Follow Us
                         </h1>
                         <div class="flex gap-4 text-2xl">
-                            <a href="https://www.facebook.com" class="text-gray-600 hover:text-blue-600 transition-all hover-scale" target="_blank">
+                            <a href="https://www.facebook.com" class="text-gray-600 hover:text-blue-600 transition-all hover:scale-105" target="_blank">
                                 <i class="fab fa-facebook-f"></i>
                             </a>
-                            <a href="https://www.twitter.com" class="text-gray-600 hover:text-blue-400 transition-all hover-scale" target="_blank">
+                            <a href="https://www.twitter.com" class="text-gray-600 hover:text-blue-400 transition-all hover:scale-105" target="_blank">
                                 <i class="fab fa-twitter"></i>
                             </a>
-                            <a href="https://www.youtube.com" class="text-gray-600 hover:text-red-600 transition-all hover-scale" target="_blank">
+                            <a href="https://www.youtube.com" class="text-gray-600 hover:text-red-600 transition-all hover:scale-105" target="_blank">
                                 <i class="fab fa-youtube"></i>
                             </a>
-                            <a href="https://www.instagram.com" class="text-gray-600 hover:text-pink-600 transition-all hover-scale" target="_blank">
+                            <a href="https://www.instagram.com" class="text-gray-600 hover:text-pink-600 transition-all hover:scale-105" target="_blank">
                                 <i class="fab fa-instagram"></i>
                             </a>
-                            <a href="https://www.google.com" class="text-gray-600 hover:text-blue-600 transition-all hover-scale" target="_blank">
+                            <a href="https://www.google.com" class="text-gray-600 hover:text-blue-600 transition-all hover:scale-105" target="_blank">
                                 <i class="fab fa-google"></i>
                             </a>
                         </div>

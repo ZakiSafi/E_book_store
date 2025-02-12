@@ -20,7 +20,7 @@ class UserController extends Controller
         $user = Auth::user();
 
         /** @var User $user */
-        $books = $user->books()->get();
+        $books = $user->Onlinebooks()->get();
         return view('users.book',compact('books','user'));
 
     }

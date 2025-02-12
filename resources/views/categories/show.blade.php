@@ -58,7 +58,7 @@
     </div>
     <div class="container w-full max-w-7xl grid items-center justify-center py-8">
         <div class="w-full max-w-[700px] bg-white p-6 rounded-lg shadow-lg">
-            @foreach ($category->books as $book)
+            @foreach ($category->onlineBooks as $book)
             <div class="grid grid-cols-2 mb-8 items-center">
                 <div class="rounded-lg overflow-hidden h-48 w-30 rounded-lg">
                     <a href="/books/{{$book->id}}">

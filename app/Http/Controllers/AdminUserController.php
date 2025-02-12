@@ -11,7 +11,7 @@ class AdminUserController extends Controller
 {
     public function users()
     {
-        $users = User::with('books')->where('role', '!=', 'admin')->latest()->simplePaginate(30);
+        $users = User::with('Onlinebooks')->where('role', '!=', 'admin')->latest()->simplePaginate(30);
         $totalUsers = User::count();
         return view('admin.users', compact('users', 'totalUsers'));
     }

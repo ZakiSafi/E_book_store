@@ -53,7 +53,7 @@
 
                             <td class="px-4 py-2">
                                 <a href="{{route('user.books',$user->id)}}">
-                                    {{ $user->books->count() }}
+                                    {{ $user->Onlinebooks>count() }}
                                 </a>
                             </td>
                             <td class="px-4 py-2">{{$user->bookmarks->count()}}</td>
