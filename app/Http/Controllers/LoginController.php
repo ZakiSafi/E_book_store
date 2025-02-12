@@ -58,7 +58,7 @@ class LoginController extends Controller
     {
         session(['is_login_flow' => true]);
         return Socialite::driver('google')->redirect();
-        }
+    }
 
     public function redirectToGoogleForSignup()
     {
@@ -66,7 +66,6 @@ class LoginController extends Controller
         return Socialite::driver('google')
             ->with(['prompt' => 'select_account'])
             ->redirect();
-
     }
 
     public function handleGoogleCallback(Request $request)
@@ -81,10 +80,11 @@ class LoginController extends Controller
                 $user->update(['google_id' => $googleUser->getId()]);
             }
             Auth::login($user);
-            if($user->role === 'admin'){
+            if ($user->role === 'admin') {
                 return redirect()->route('admin.dashboard')->with('success', 'Welcome back ' . $user->name . ' to BMA Library');
+            } else {
+                return redirect()->route('dashboard')->with('success', 'Welcome back ' . $user->name . ' to BMA Library');
             }
-            return redirect()->route('dashboard')->with('success', 'Welcome back ' . $user->name . ' to BMA Library');
         } else {
             if ($isLoginFlow) {
                 return redirect()->route('register')->with('googleUser', [

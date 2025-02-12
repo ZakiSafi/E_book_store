@@ -19,6 +19,7 @@ return new class extends Migration
             $table->enum('role', ['admin', 'user'])->default('user');
             $table->timestamp('last_login_at')->nullable(); // Role-based access control
             $table->string('google_id')->nullable()->unique();
+            $table->string('profile_picture')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

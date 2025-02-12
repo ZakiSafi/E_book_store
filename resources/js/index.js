@@ -15,21 +15,6 @@ if (menuBtn && mobileMenu) {
         }
     });
 }
-if (upload && addMenu) {
-    upload.addEventListener("click", function () {
-        if (addMenu.classList.contains("hidden")) {
-            addMenu.classList.remove("hidden");
-        } else {
-            addMenu.classList.add("hidden");
-        }
-    });
-
-    document.addEventListener("click", function (event) {
-        if (!addMenu.contains(event.target) && !upload.contains(event.target)) {
-            addMenu.classList.add("hidden");
-        }
-    });
-}
 if (dropdownButton && mobileMenu) {
     dropdownButton.addEventListener("click", function () {
         mobileMenu.classList.toggle("hidden");

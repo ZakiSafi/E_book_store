@@ -14,7 +14,7 @@
                     <span class="group-hover:border-b group-hover:border-black">Dashboard</span>
                 </a>
                 @endif
-                
+
                 <a href="/user/books" class="group flex items-center">
                     <i class="fa-solid fa-book text-[#666] mr-2"></i>
                     <span class="group-hover:border-b group-hover:border-black">Manage Your Books</span>
@@ -34,11 +34,11 @@
         <div class="col-span-2 p-4 rounded-lg shadow-lg bg-white">
             <div class="mb-6">
                 <h1 class="text-3xl font-bold text-gray-800">Bookmarks</h1>
-                <p class="text-gray-500 text-md italic">Browse through your personal selection of saved books.</p>
+                <p class="text-gray-500 text-md">Browse through your personal selection of saved books.</p>
             </div>
 
             @if ($bookmarks->isNotEmpty())
-            <div class="grid grid-cols-1 gap-6">
+            <div>
                 @foreach ($bookmarks as $bookmark)
                 <div class="flex gap-4 p-2 rounded-lg shadow-md bg-gray-50 hover:shadow-lg transition-shadow duration-300">
                     <!-- Book Cover -->
@@ -51,9 +51,9 @@
                     <!-- Book Details -->
                     <div class="flex flex-col gap-4">
                         <div>
-                            <h2 class="text-2xl font-bold text-gray-800 mb-2">{{ $bookmark->book->title }}</h2>
-                            <p class="text-md text-gray-600 mb-1">Author: {{ $bookmark->book->author }}</p>
-                            <p class="text-md text-gray-600">Category: {{ $bookmark->book->category->name }}</p>
+                            <h2 class="text-2xl font-bold text-gray-800 mb-2">{{ $bookmark->onlineBook->title }}</h2>
+                            <p class="text-md text-gray-600 mb-1">Author: {{ $bookmark->onlineBook->author }}</p>
+                            <p class="text-md text-gray-600">Category: {{ $bookmark->onlineBook->category->name }}</p>
                         </div>
 
                         <!-- Action Buttons -->
@@ -80,3 +80,4 @@
         </div>
     </div>
 </x-layout>
+

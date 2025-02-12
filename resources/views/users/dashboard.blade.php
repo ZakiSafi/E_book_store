@@ -63,7 +63,7 @@
             <div class="mt-8 grid grid-cols-1 md:grid-cols-3 gap-4">
                 <div class="bg-white p-6 rounded-lg shadow-md">
                     <h3 class="text-lg font-semibold text-gray-800">Books Uploaded</h3>
-                    <p class="text-2xl font-bold text-blue-600">{{ $user->books->count() }}</p>
+                    <p class="text-2xl font-bold text-blue-600">{{ $user->Onlinebooks->count() }}</p>
                 </div>
                 <div class="bg-white p-6 rounded-lg shadow-md">
                     <h3 class="text-lg font-semibold text-gray-800">Bookmarks</h3>
@@ -73,7 +73,7 @@
                     <h3 class="text-lg font-semibold text-gray-800">Last Upload</h3>
                     <p class="text-2xl font-bold text-blue-600">
                         @if ($lastUploadedBook)
-                        {{$lastUploadedBook->created_at->setTimezone('Asia/Kabul')->diffForHumans()}}
+                        {{$lastUploadedBook->created_at->diffForHumans()}}
                         @else
                         No books uploaded yet
                         @endif
