@@ -12,7 +12,7 @@ class BookmarkController extends Controller
         $user = Auth::user();
 
         $bookmarks = Bookmark::where('user_id', Auth::id())
-        ->with('onlineBook')  // Eager load the related 'book' model
+        ->with('book')
         ->get();
 
         return view('bookmarks.index', compact('bookmarks', 'user'));
@@ -22,7 +22,7 @@ class BookmarkController extends Controller
         $request->validate(['book_id' | 'exists:books,id']);
         Bookmark::firstOrCreate([
             'user_id' => Auth::id(),
-            'book_id' => $request->book_id, // Book ID from the request
+            'book_id' => $request->book_id, 
         ]);
         return back()->with('success','Successfully added to Bookmarks');
     }

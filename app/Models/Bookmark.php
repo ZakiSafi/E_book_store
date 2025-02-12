@@ -13,7 +13,7 @@ class Bookmark extends Model
     {
         return $this->belongsTo(User::class);
     }
-    public function onlinBook()
+    public function book()
     {
         return $this->belongsTo(OnlineBook::class);
     }
