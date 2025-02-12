@@ -9,7 +9,7 @@
                     <input
                         type="text"
                         id="search"
-                        name = 'title'
+                        name='title'
                         placeholder="Search ..."
                         class="mt-1 block w-full p-2 border border-gray-300 rounded-md focus:ring-green-500 focus:border-green-500 text-gray-800" />
                 </div>
@@ -18,7 +18,7 @@
                     <label for="language" class="block text-sm font-medium text-gray-700">Language</label>
                     <select
                         id="language"
-                        name = 'language'
+                        name='language'
                         class="mt-1 block w-full p-2 border border-gray-300 rounded-md focus:ring-green-500 focus:border-green-500 text-gray-800">
                         <option>All Languages</option>
                         <option>English</option>

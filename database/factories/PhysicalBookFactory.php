@@ -56,6 +56,7 @@ class PhysicalBookFactory extends Factory
             'edition' =>$this->faker->numberBetween(1, 5),
             'copies' => $this->faker->numberBetween(1,5),
             'available_copies' => $this->faker->numberBetween(1,5),
+            'shelf_no' => $this->faker->numberBetween(1,20),
             'category_id'=> Category::inRandomOrder()->value('id') ?? 1,
         ];
     }

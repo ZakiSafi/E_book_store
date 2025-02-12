@@ -11,11 +11,13 @@ class PhysicalBook extends Model
     protected $fillable = [
         'title',
         'author',
-        'traqnslator',
+        'translator',
         'publication_year',
         'printing_house',
+        'cover_image',
         'edition',
         'copies',
+        'shelf_no',
         'available_copies',
     ];
     public function Borrowers()

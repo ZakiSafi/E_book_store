@@ -24,7 +24,7 @@ class OnlineBook extends Model
     }
     public function relatedBooks()
     {
-        return $this->category->books()->where('id', '!=', $this->id)->take(8);
+        return $this->category->onlineBooks()->where('id', '!=', $this->id)->take(8);
     }
 
     public function bookmarks()

@@ -65,7 +65,7 @@ class OnlineBookFactory extends Factory
         $filePath = 'books/' . $this->faker->randomElement($books);
 
         return [
-            'title' => $this->faker->sentence,
+            'title' => $this->faker->words(3, true),
             'author' => $this->faker->name,
             'file_type' => 'pdf',
             'description' => $this->faker->paragraph,

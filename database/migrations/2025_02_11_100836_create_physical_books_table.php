@@ -20,6 +20,7 @@ return new class extends Migration
             $table->year('publication_year')->nullable();
             $table->string('printing_house')->nullable();
             $table->string('edition')->nullable();
+            $table->string('shelf_no')->nullable();
             $table->unsignedInteger('copies');
             $table->unsignedInteger('available_copies');
             $table->foreignId('category_id')->constrained('categories')->cascadeOnDelete();
