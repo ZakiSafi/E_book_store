@@ -83,10 +83,11 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
 // User
 Route::middleware(['auth', 'user'])->prefix('user')->name('user.')->group(function () {
     Route::get('/dashboard', [UserController::class, 'index'])->name('dashboard');
-    Route::resource('users', UserController::class);
+    Route::resource('books', OnlineBookController::class);
 
     // Book Management
     Route::get('/books', [UserController::class, 'books'])->name('books');
+
 
     // Profile
     Route::get('/profile', [ProfileController::class, 'profile'])->name('profile.edit');
@@ -94,9 +95,9 @@ Route::middleware(['auth', 'user'])->prefix('user')->name('user.')->group(functi
 
     // Bookmarks
     Route::controller(BookmarkController::class)->prefix('bookmarks')->name('bookmarks.')->group(function () {
+        Route::get('/', 'index')->name('index');
         Route::post('/', 'store')->name('store');
         Route::delete('/{id}', 'destroy')->name('destroy');
-        Route::get('/', 'index')->name('index');
     });
 
     // Reading & Downloading
@@ -108,6 +109,4 @@ Route::middleware(['auth', 'user'])->prefix('user')->name('user.')->group(functi
 });
 
 // User and admin share routes
-Route::middleware('auth')->group(function () {
-    Route::resource('books', OnlineBookController::class);
-});
+Route::middleware('auth')->group(function () {});

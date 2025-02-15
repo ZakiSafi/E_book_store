@@ -1,17 +1,6 @@
 <x-layout>
     <div class="flex justify-center items-center min-h-screen bg-gray-100 p-4">
         <form action="{{ route('admin.create.submit') }}" method="POST" enctype="multipart/form-data" class="bg-white p-6 rounded-lg shadow-md w-full max-w-md">
-            @csrf
-
-            @if ($errors->any())
-            <div class="bg-red-100 text-red-800 p-4 mb-4 rounded">
-                <ul class="list-disc list-inside">
-                    @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-            @endif
 
             <div class="space-y-4">
                 <x-form.field>

@@ -35,10 +35,4 @@ class UserController extends Controller
         return view('users.dashboard', compact('user', 'lastLoginDate', 'lastUploadedBook'));
     }
 
-    public function show(User $user)
-    {
-        $user = Auth::user();
-        return view('users.show',compact('user'));
-    }
-
 }

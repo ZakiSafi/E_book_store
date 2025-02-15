@@ -9,7 +9,7 @@
                 <i class="fa-solid fa-book text-[#666] mr-2"></i>
                 <span class="group-hover:border-b group-hover:border-black">Manage Books</span>
             </a>
-            <a href="route('admin.users.index')" class="group">
+            <a href="{{ route('admin.users.index') }}" class="group">
                 <i class="fa-solid fa-users text-[#666] mr-2"></i>
                 <span class="group-hover:border-b group-hover:border-black">Manage Users</span>
             </a>

@@ -1,38 +1,18 @@
 <x-layout>
-    <div class="container w-full max-w-7xl p-8 grid grid-cols-3 gap-4 mt-8">
-        <!-- Sidebar -->
-        <div class="p-4 rounded-lg shadow-lg col-span-1 h-64">
-            <div class="flex flex-col gap-3 text-[#666] text-lg">
-                <a href="/admin/dashboard" class="group">
-                    <i class="fa-solid fa-tachometer-alt text-[#666] mr-2"></i>
-                    <span class="group-hover:border-b group-hover:border-black">Dashboard</span>
-                </a>
-                <a href="/admin/books" class="group">
-                    <i class="fa-solid fa-book text-[#666] mr-2"></i>
-                    <span class="group-hover:border-b group-hover:border-black">Manage Books</span>
-                </a>
-                <a href="/admin/users" class="group">
-                    <i class="fa-solid fa-users text-[#666] mr-2"></i>
-                    <span class="group-hover:border-b group-hover:border-black">Manage Users</span>
-                </a>
-                <a href="/admin/settings" class="group">
-                    <i class="fa-solid fa-cogs text-[#666] mr-2"></i>
-                    <span class="group-hover:border-b group-hover:border-black">Settings</span>
-                </a>
-            </div>
-        </div>
+    <div class="container w-full max-w-7xl p-8 grid grid-cols-2 gap-4 mt-8">
+
 
 
         <!-- Main Content -->
-        <div class="shadow-md col-span-2 p-4 bg-white rounded-lg ">
+        @if ($books->isNotEmpty())
+        @foreach ($books as $book)
+        <div class="shadow-md p-4 bg-white rounded-lg ">
 
-            @if ($books->isNotEmpty())
-            <div class="grid gap-4 rounded-lg">
-                @foreach ($books as $book)
-                <div class="flex gap-8 p-4 items-center rounded-lg shadow-lg">
+            <div class=" rounded-lg">
+                <div class="flex gap-8 p-4 items-center rounded-lg ">
                     <!-- Book Cover -->
                     <div>
-                        <a href="/books/{{$book->id}}">
+                        <a href="{{route('books.show', $book->id)}}">
                             <img src="{{ asset('storage/' . $book->cover_image) }}" alt="{{ $book->title }}" class="w-32 h-32 object-cover rounded-lg">
                         </a>
                     </div>
@@ -75,11 +55,12 @@
                                     </div>
                     </div>
                 </div>
-                @endforeach
             </div>
-            @else
-            <p class="p-4 text-gray-500 text-center">No books added yet.</p>
-            @endif
+
         </div>
+        @endforeach
+        @else
+        <p class="p-4 text-gray-500 text-center">No books added yet.</p>
+        @endif
     </div>
 </x-layout>

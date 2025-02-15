@@ -33,7 +33,7 @@
                                 </a>
                             </td>
                             <td class="px-4 py-2">
-                                <a href=">
+                                <a href="{{route('books.show', $book->id)}}">
                                     <img src=" {{ asset('storage/' . $book->cover_image) }}" alt="Cover Image" class="w-32 h-24 object-cover shrink-0 ">
                                 </a>
                             </td>

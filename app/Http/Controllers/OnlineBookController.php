@@ -86,7 +86,7 @@ class OnlineBookController extends Controller
     public function show(OnlineBook $book)
     {
         $bookmark = Bookmark::where('user_id', Auth::id())
-            ->where('book_id', $book->id)
+            ->where('online_book_id', $book->id)
             ->first();
 
         $isBookmarked = $bookmark ? true : false;

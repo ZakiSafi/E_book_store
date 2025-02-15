@@ -19,7 +19,7 @@ class AdminUserController extends Controller
     {
         $user = User::findOrFail($id);
         $user->delete();
-        return redirect()->route('admin.users');
+        return redirect()->route('admin.users.index');
     }
     public function books($id)
     {
