@@ -1,7 +1,7 @@
 <x-layout>
     <div class="container w-full max-w-7xl p-8 grid grid-cols-1 sm:grid-cols-4 gap-4 mt-8">
         <!-- Sidebar Navigation -->
-        <x-sidebar />
+        <x-adminSidebar />
         <!-- Main Content Area -->
         <div class="p-4 rounded-lg shadow-lg col-span-1 sm:col-span-3">
             <div class="flex justify-between items-center">
