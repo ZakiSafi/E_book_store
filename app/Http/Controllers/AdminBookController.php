@@ -26,6 +26,6 @@ class AdminBookController extends Controller
         } elseif ($request->action == 'reject') {
             $book->update(['status' => OnlineBook::STATUS_REJECTED]);
         }
-        return redirect()->route('admin.pending');
+        return redirect()->route('admin.books.pending');
     }
 }

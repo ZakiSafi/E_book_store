@@ -22,20 +22,20 @@ use App\Http\Controllers\ForgotPasswordController;
 use Laravel\Socialite\Facades\Socialite;
 // Public Routes (No Authentication)
 Route::get('/', [HomeController::class, 'index'])->name('home');
-Route::get('/books', [OnlineBookController::class, 'index']);
-Route::get('/books/{book}', [OnlineBookController::class, 'show']);
+Route::get('/books', [OnlineBookController::class, 'index'])->name('books.index');
+Route::get('/books/{book}', [OnlineBookController::class, 'show'])->name('books.show');
 Route::get('/search', [SearchController::class, 'search']);
 Route::get('/categories/{id}', [CategoryController::class, 'show']);
 
 // Authentication Routes
 Route::controller(LoginController::class)->group(function () {
-    Route::get('/login', 'create');
-    Route::post('/login', 'store')->name('login');
+    Route::get('/login', 'create')->name('login');
+    Route::post('/login', 'store')->name('login.store');
     Route::post('/logout', 'destroy')->name('logout');
 });
 Route::controller(RegisterController::class)->group(function () {
     Route::get('/register', 'create')->name('register');
-    Route::post('/register', 'store');
+    Route::post('/register', 'store')->name('register.store');
 });
 
 // Password Reset
@@ -105,4 +105,9 @@ Route::middleware(['auth', 'user'])->prefix('user')->name('user.')->group(functi
         Route::get('/books/{id}/read', 'read')->name('book.read');
         Route::get('/books/{id}/read/pdf', 'readPdf')->name('books.read.pdf');
     });
+});
+
+// User and admin share routes
+Route::middleware('auth')->group(function () {
+    Route::resource('books', OnlineBookController::class);
 });

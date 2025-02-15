@@ -8,12 +8,12 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Laravel\Socialite\Facades\Socialite;
 use Illuminate\Support\Str;
+use Monolog\Handler\RedisHandler;
 
 class LoginController extends Controller
 {
     public function create()
     {
-        // dd('hi');
         return view('auth.login');
     }
     public function store(Request $request)
@@ -29,27 +29,21 @@ class LoginController extends Controller
 
             $user = Auth::user();
             $user->last_login_at = Carbon::now();
-            /** @var User $user */
             $user->save();
 
             if ($user->role === 'admin') {
-                return redirect('/admin/dashboard');
+                return redirect()->route('admin.dashboard')->with('success', 'Welcome back ' . $user->name . ' to BMA Library');
+            } else {
+                return redirect()->route('user.dashboard')->with('success', 'Welcome back ' . $user->name . ' to BMA Library');
             }
-
-            return redirect()->intended('/dashboard');
         }
-
-
-        return back()->withErrors([
-            'email' => 'The provided credentials do not match our records.',
-        ]);
     }
     public function destroy()
     {
         Auth::logout();
         request()->session()->invalidate();
         request()->session()->regenerateToken();
-        return redirect('/')->with('success', 'you have logout successfully');
+        return redirect('/')->with('success', 'you have logged out  successfully');
     }
 
 
@@ -83,7 +77,7 @@ class LoginController extends Controller
             if ($user->role === 'admin') {
                 return redirect()->route('admin.dashboard')->with('success', 'Welcome back ' . $user->name . ' to BMA Library');
             } else {
-                return redirect()->route('dashboard')->with('success', 'Welcome back ' . $user->name . ' to BMA Library');
+                return redirect()->route('user.dashboard')->with('success', 'Welcome back ' . $user->name . ' to BMA Library');
             }
         } else {
             if ($isLoginFlow) {
@@ -101,7 +95,7 @@ class LoginController extends Controller
                     'password' => bcrypt(Str::random(24)),
                 ]);
                 Auth::login($user);
-                return redirect()->route('dashboard')->with('success', 'Welcome ' . $user->name . ' to BMA Library');
+                return redirect()->route('user.dashboard')->with('success', 'Welcome ' . $user->name . ' to BMA Library');
             }
         }
     }

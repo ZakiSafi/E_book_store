@@ -1,5 +1,15 @@
 <x-layout>
+    @if (session('success'))
+    <div id="success-message" class='bg-green-500 text-white text-center py-2'>
+        {{ session('success') }}
+    </div>
+    <script>
+        setTimeout(function() {
+            document.getElementById('success-message').style.display = 'none';
+        }, 5000);
+    </script>
 
+    @endif
     <div class="relative">
         <img src="{{ asset('images/library.jpg') }}" alt="cover" class="w-full h-96  object-cover">
         <div class="absolute inset-0 flex flex-col items-center justify-center text-white bg-black bg-opacity-50">
@@ -32,7 +42,7 @@
             @foreach ($categories as $cat )
             <a href="/categories/{{ $cat->id }}">
                 <li class="list-none text-gray-500 bg-white p-4 rounded-lg shadow-lg hover:bg-blue-600 hover:text-white truncate">
-                   {{ $cat->name }}
+                    {{ $cat->name }}
                 </li>
             </a>
 

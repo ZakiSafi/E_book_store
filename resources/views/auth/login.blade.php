@@ -6,7 +6,7 @@
                 <p class="text-gray-600 mb-6">Log in to your account to continue.</p>
             </div>
 
-            <form action="{{ route('login') }}" method="POST" class="space-y-6">
+            <form action="{{route('login.store')}}" method="POST" class="space-y-6">
                 @csrf
 
                 <!-- Email Field -->

@@ -3,15 +3,15 @@
         <!-- Sidebar Navigation -->
         <div class="p-4 rounded-lg shadow-lg col-span-1 h-64 sticky top-4 sm:block hidden">
             <div class="flex flex-col gap-3 text-[#666] text-lg">
-                <a href="/admin/dashboard" class="group">
+                <a href="{{route('admin.dashboard')}}" class="group">
                     <i class="fa-solid fa-tachometer-alt text-[#666] mr-2"></i>
                     <span class="group-hover:border-b group-hover:border-black">Dashboard</span>
                 </a>
-                <a href="/admin/books" class="group">
+                <a href="{{route('admin.books.index')}}" class="group">
                     <i class="fa-solid fa-book text-[#666] mr-2"></i>
                     <span class="group-hover:border-b group-hover:border-black">Manage Books</span>
                 </a>
-                <a href="/admin/users" class="group">
+                <a href="route('admin.users.index')" class="group">
                     <i class="fa-solid fa-users text-[#666] mr-2"></i>
                     <span class="group-hover:border-b group-hover:border-black">Manage Users</span>
                 </a>
@@ -47,12 +47,12 @@
                         @foreach ($books as $book)
                         <tr class="border-b">
                             <td class="px-4 py-2">
-                                <a href="/books/{{ $book->id }}">
+                                <a href="{{}}">
                                     {{ $book->title }}
                                 </a>
                             </td>
                             <td class="px-4 py-2">
-                                <a href="/books/{{ $book->id }}">
+                                <a href=">
                                     <img src="{{ asset('storage/' . $book->cover_image) }}" alt="Cover Image" class="w-32 h-24 object-cover shrink-0 ">
                                 </a>
                             </td>

@@ -26,9 +26,11 @@ class RegisterController extends Controller
         $validatedData['password'] = bcrypt($validatedData['password']);
         $user = User::create($validatedData);
         Auth::login($user);
-        if($user->role === 'admin'){
-            return redirect('/admin/dashboard')->with('success', 'Welcome to BMA Library' . $user->name);
+        if ($user->role === 'admin') {
+            return redirect()->route('admin.dashboard')->with('success', 'Welcome to BMA Library' . $user->name);
+        } else {
+
+            return redirect()->route('user.dashboard')->with('success', 'Welcome to BMA Library' . $user->name);
         }
-        return redirect('/dashboard')->with('success', 'Welcome to BMA Library' . $user->name);
     }
 }
