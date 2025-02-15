@@ -168,25 +168,18 @@
                             User Account
                         </h1>
                         <div class="flex flex-col gap-3 text-gray-600 text-sm">
-                            <a href="/users" class="group transition-all">
+                            @auth
+
+                            @if (Auth::user()->role === 'admin')
+                            <a href="{{route('admin.dashboard')}}" class="block text-center px-4 py-2 text-sm font-semibold text-gray-800 hover:bg-blue-600 hover:text-white rounded flex items-center space-x-2 transition-all">
+                                <i class="fa-solid fa-user-shield flex-shrink-0 w-5"></i> <span>Dashboard</span>
+                            </a>
+                            else
+                            <a href="{{rote('user.dashboard')}}" class="group transition-all">
                                 <i class="fa-solid fa-tachometer-alt mr-2"></i>
                                 <span class="group-hover:border-b group-hover:border-black">Dashboard</span>
                             </a>
-                            <a href="/user/books" class="group transition-all">
-                                <i class="fa-solid fa-book mr-2"></i>
-                                <span class="group-hover:border-b group-hover:border-black">Manage Books</span>
-                            </a>
-                            @guest
-                            <a href="/login" class="group transition-all">
-                                <i class="fa-solid fa-sign-in-alt mr-2"></i>
-                                <span class="group-hover:border-b group-hover:border-black">Login</span>
-                            </a>
-                            <a href="/register" class="group transition-all">
-                                <i class="fa-solid fa-user-plus mr-2"></i>
-                                <span class="group-hover:border-b group-hover:border-black">Register</span>
-                            </a>
-                            @endguest
-                            @auth
+                            @endif
                             <form action="/logout" method="POST">
                                 @csrf
                                 <button type="submit" class="group transition-all">
@@ -194,6 +187,21 @@
                                 </button>
                             </form>
                             @endauth
+
+                            <a href="{{route('user.books')}}" class="group transition-all">
+                                <i class="fa-solid fa-book mr-2"></i>
+                                <span class="group-hover:border-b group-hover:border-black">Manage Books</span>
+                            </a>
+                            @guest
+                            <a href="{{route('login')}}" class="group transition-all">
+                                <i class="fa-solid fa-sign-in-alt mr-2"></i>
+                                <span class="group-hover:border-b group-hover:border-black">Login</span>
+                            </a>
+                            <a href="{{route('register')}}" class="group transition-all">
+                                <i class="fa-solid fa-user-plus mr-2"></i>
+                                <span class="group-hover:border-b group-hover:border-black">Register</span>
+                            </a>
+                            @endguest
                         </div>
                     </div>
 
