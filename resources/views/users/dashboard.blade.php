@@ -11,26 +11,7 @@
     @endif
     <div class="container w-full max-w-7xl p-8 grid grid-cols-3 gap-4 mt-8">
         <!-- Sidebar Navigation -->
-        <div class="p-4 rounded-lg shadow-lg col-span-1">
-            <div class="flex flex-col gap-3 text-[#666] text-lg">
-                <a href="/users" class="group">
-                    <i class="fa-solid fa-tachometer-alt text-[#666] mr-2"></i>
-                    <span class="group-hover:border-b group-hover:border-black">Dashboard</span>
-                </a>
-                <a href="/user/books" class="group">
-                    <i class="fa-solid fa-book text-[#666] mr-2"></i>
-                    <span class="group-hover:border-b group-hover:border-black">Manage Your Books</span>
-                </a>
-                <a href="/profile" class="group">
-                    <i class="fa-solid fa-user text-[#666] mr-2"></i>
-                    <span class="group-hover:border-b group-hover:border-black">Edit Profile</span>
-                </a>
-                <a href="/bookmarks" class="group">
-                    <i class="fa-solid fa-bookmark text-[#666] mr-2"></i>
-                    <span class="group-hover:border-b group-hover:border-black">Bookmarks</span>
-                </a>
-            </div>
-        </div>
+        <x-sideBar />
 
         <!-- Main Content Area -->
         <div class="p-4 rounded-lg shadow-lg col-span-2">
@@ -85,10 +66,10 @@
             <div class="mt-8">
                 <h3 class="text-xl font-semibold text-gray-800 mb-4">Quick Actions</h3>
                 <div class="flex gap-4">
-                    <a href="/books/create" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition duration-300">
+                    <a href="{{route('user.books.create')}}" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition duration-300">
                         <i class="fa-solid fa-plus mr-2"></i> Upload Book
                     </a>
-                    <a href="/bookmarks" class="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition duration-300">
+                    <a href="{{route('user.bookmarks.index')}}" class="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition duration-300">
                         <i class="fa-solid fa-bookmark mr-2"></i> View Bookmarks
                     </a>
                 </div>

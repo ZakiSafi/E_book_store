@@ -1,45 +1,6 @@
 <x-layout>
     <div class="container w-full max-w-7xl mx-auto grid grid-cols-3 gap-4 p-12 rounded-lg shadow-lg">
-        <div class="flex flex-col gap-3 h-64 w-64 text-[#666] bg-white rounded-lg text-lg col-span-1   shadow-lg p-4">
-            @auth
-            @if (Auth::user()->role == 'user')
-            <a href="/dashboard" class="group flex items-center" aria-label="Go to Dashboard">
-                <i class="fa-solid fa-tachometer-alt text-[#666] mr-2"></i>
-                <span class="group-hover:border-b group-hover:border-black">Dashboard</span>
-            </a>
-            <a href="/user/books" class="group flex items-center" aria-label="Manage Books">
-                <i class="fa-solid fa-book text-[#666] mr-2"></i>
-                <span class="group-hover:border-b group-hover:border-black">Manage your Books</span>
-            </a>
-            <a href="/bookmarks" class="group flex items-center" aria-label="View Bookmarks">
-                <i class="fa-solid fa-bookmark text-[#666] mr-2"></i>
-                <span class="group-hover:border-b group-hover:border-black">Bookmarks</span>
-            </a>
-            @else
-            <a href="/admin/dashboard" class="group flex items-center" aria-label="Go to Dashboard">
-                <i class="fa-solid fa-tachometer-alt text-[#666] mr-2"></i>
-                <span class="group-hover:border-b group-hover:border-black">Dashboard</span>
-            </a>
-            <a href="/admin/books" class="group flex items-center" aria-label="Manage Books">
-                <i class="fa-solid fa-book text-[#666] mr-2"></i>
-                <span class="group-hover:border-b group-hover:border-black">Manage Books</span>
-            </a>
-            <a href="/admin/bookmarks" class="group flex items-center" aria-label="View Bookmarks">
-                <i class="fa-solid fa-bookmark text-[#666] mr-2"></i>
-                <span class="group-hover:border-b group-hover:border-black">Bookmarks</span>
-            </a>
-            <a href="/admin/users" class="group flex items-center" aria-label="View Bookmarks">
-                <i class="fa-solid fa-users text-[#666] mr-2"></i>
-                <span class="group-hover:border-b group-hover:border-black">Manage Users</span>
-            </a>
-            @endif
-            @endauth
-            <a href="/profile" class="group flex items-center" aria-label="Edit Profile">
-                <i class="fa-solid fa-user text-[#666] mr-2"></i>
-                <span class="group-hover:border-b group-hover:border-black">Edit Profile</span>
-            </a>
-
-        </div>
+        <x-sideBar />
 
         <div class="max-w-xl  col-span-2 self-start">
 
@@ -49,7 +10,7 @@
             <div class="text-green-600 mb-4">{{ session('success') }}</div>
             @endif
 
-            <form action="/profile/{{$user->id}}/update" method="POST" enctype="multipart/form-data" class="bg-white p-6 rounded-lg shadow-md w-full max-w-md">
+            <form action="{{route('user.profile.update',$user->id)}}" method="POST" enctype="multipart/form-data" class="bg-white p-6 rounded-lg shadow-md w-full max-w-md">
 
                 @csrf
                 @method('PATCH')

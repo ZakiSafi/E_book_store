@@ -175,12 +175,12 @@
                                 <i class="fa-solid fa-user-shield flex-shrink-0 w-5"></i> <span>Dashboard</span>
                             </a>
                             else
-                            <a href="{{rote('user.dashboard')}}" class="group transition-all">
+                            <a href="{{route('user.dashboard')}}" class="group transition-all">
                                 <i class="fa-solid fa-tachometer-alt mr-2"></i>
                                 <span class="group-hover:border-b group-hover:border-black">Dashboard</span>
                             </a>
                             @endif
-                            <form action="/logout" method="POST">
+                            <form action="{{route('logout')}}" method="POST">
                                 @csrf
                                 <button type="submit" class="group transition-all">
                                     <i class="fa-solid fa-sign-out-alt"></i> <span class="group-hover:border-b group-hover:border-black">Log Out</span>

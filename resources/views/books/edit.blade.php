@@ -1,7 +1,7 @@
 <x-layout>
     <x-slot name="heading">Edit Book</x-slot>
     <div class="w-full h-auto flex justify-center items-center p-8">
-        <form action="/books/{{$book->id}}" method="POST" enctype="multipart/form-data" class="w-full max-w-2xl bg-white p-6 rounded-lg shadow-md">
+        <form action="{{route('user.books.store',$book->id)}}" method="POST" enctype="multipart/form-data" class="w-full max-w-2xl bg-white p-6 rounded-lg shadow-md">
             @csrf
             @method('PUT')
             @if ($errors->any())
@@ -71,7 +71,7 @@
                 <!-- Cover Image -->
                 <div class="flex flex-col">
                     @if ($book->cover_image)
-                        <input type="hidden" name="old_cover_image" value="{{ $book->cover_image }}">
+                    <input type="hidden" name="old_cover_image" value="{{ $book->cover_image }}">
                     @endif
                     <label for="image" class="font-medium text-gray-700">Choose Image</label>
                     <input
@@ -103,7 +103,7 @@
                         class="bg-indigo-600 text-white py-2 px-6 rounded-md shadow-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500">
                         Update
                     </button>
-                    <a href="/books"
+                    <a href="#" onclick="window.history.back()"
                         class="bg-indigo-600 text-white py-2 px-6 rounded-md shadow-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500">
                         Back
                     </a>

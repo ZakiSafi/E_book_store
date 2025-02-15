@@ -87,7 +87,7 @@
             <div class="mt-8">
                 <h3 class="text-xl font-semibold text-gray-800 mb-4">Quick Actions</h3>
                 <div class="flex flex-col sm:flex-row gap-4">
-                    <a href="{{route('books.create')}}" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition duration-300 text-center">
+                    <a href="{{route('user.books.create')}}" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition duration-300 text-center">
                         <i class="fa-solid fa-plus mr-2"></i> Upload New Book
                     </a>
                     <a href="{{route('admin.users.index')}}" class="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition duration-300 text-center">

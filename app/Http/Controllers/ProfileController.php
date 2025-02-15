@@ -19,13 +19,14 @@ class ProfileController extends Controller
 
     public function profile_update(Request $request)
     {
-
         $request->validate([
             'profile_picture' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'name' => 'required|string|max:255',
         ]);
 
+        /** @var User $user */
         $user = Auth::user();
+
         $user->name = $request->name;
 
         if ($request->hasFile('profile_picture')) {
@@ -34,15 +35,13 @@ class ProfileController extends Controller
             }
 
             $path = $request->file('profile_picture')->store('profile_pictures');
-
-
+            // Extracts the filename from the full path  (e.g., profile_pictures/abc123.jpg becomes abc123.jpg).
             $user->profile_picture = basename($path);
         }
-        /** @var User $user */
+
         $user->save();
-        if (Auth::user()->role === 'admin') {
-            return redirect('/admin/dashboard')->with('success', 'Profile picture updated successfully.');
-        }
-        return redirect('/dashboard')->with('success', 'Profile picture updated successfully.');
+
+        $route = $user->role === 'admin' ? 'admin.dashboard' : 'user.dashboard';
+        return redirect()->route($route)->with('success', 'Profile updated successfully.');
     }
 }

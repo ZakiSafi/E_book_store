@@ -24,7 +24,7 @@ use Laravel\Socialite\Facades\Socialite;
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/books', [OnlineBookController::class, 'index'])->name('books.index');
 Route::get('/books/{book}', [OnlineBookController::class, 'show'])->name('books.show');
-Route::get('/search', [SearchController::class, 'search']);
+Route::get('/search', [SearchController::class, 'search'])->name('search');
 Route::get('/categories/{id}', [CategoryController::class, 'show']);
 
 // Authentication Routes
@@ -107,6 +107,3 @@ Route::middleware(['auth', 'user'])->prefix('user')->name('user.')->group(functi
         Route::get('/books/{id}/read/pdf', 'readPdf')->name('books.read.pdf');
     });
 });
-
-// User and admin share routes
-Route::middleware('auth')->group(function () {});

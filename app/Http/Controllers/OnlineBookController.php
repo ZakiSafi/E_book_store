@@ -124,9 +124,11 @@ class OnlineBookController extends Controller
         $user = Auth::user();
         if ($user->role === 'user') {
 
-            return redirect('/books')->with('success', 'Book updated successfully');
+            return redirect()->route('books.index')->with('success', 'Book updated successfully');
+        } else {
+
+            return redirect()->route('admin.books.index')->with('success', 'book updated successfully');
         }
-        return redirect('/admin/books')->with('success', 'book deleted successfully');
     }
 
 
@@ -139,8 +141,9 @@ class OnlineBookController extends Controller
         $book->delete();
         if ($user->role === 'user') {
 
-            return redirect('/user/books')->with('success', 'Book deleted successfully');
+            return redirect()->route('user.books')->with('success', 'Book deleted successfully');
+        } else {
+            return redirect()->route('admin.books.index')->with('success', 'book deleted successfully');
         }
-        return redirect('/admin/books')->with('success', 'book deleted successfully');
     }
 }
