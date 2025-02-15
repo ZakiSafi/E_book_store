@@ -22,10 +22,6 @@ class OnlineBook extends Model
     {
         return $this->belongsTo(User::class);
     }
-    public function relatedBooks()
-    {
-        return $this->category->onlineBooks()->where('id', '!=', $this->id)->take(8);
-    }
 
     public function bookmarks()
     {

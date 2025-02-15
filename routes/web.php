@@ -23,7 +23,7 @@ use Laravel\Socialite\Facades\Socialite;
 // Public Routes (No Authentication)
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/books', [OnlineBookController::class, 'index']);
-Route::get('/books/{id}', [OnlineBookController::class, 'show']);
+Route::get('/books/{book}', [OnlineBookController::class, 'show']);
 Route::get('/search', [SearchController::class, 'search']);
 Route::get('/categories/{id}', [CategoryController::class, 'show']);
 
@@ -102,9 +102,7 @@ Route::middleware(['auth', 'user'])->prefix('user')->name('user.')->group(functi
     // Reading & Downloading
     Route::controller(BookDownloadController::class)->group(function () {
         Route::get('/download/{id}', 'download')->name('book.download');
-        Route::get('/books/{id}/read', 'read');
+        Route::get('/books/{id}/read', 'read')->name('book.read');
         Route::get('/books/{id}/read/pdf', 'readPdf')->name('books.read.pdf');
     });
 });
-
-

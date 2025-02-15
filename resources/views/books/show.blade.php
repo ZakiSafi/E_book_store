@@ -69,10 +69,10 @@
 
                     <div class="flex justify-center  gap-6 mt-4">
 
-                        <a href="{{ route('book.download', ['id' => $book->id]) }}" class="hover:bg-blue-600 text-lg bg-blue-500 text-white font-semibold mr-1 px-4 py-2 border border-blue-500 rounded-lg transition duration-300 ease-in-out text-center basis-1/3">
+                        <a href="{{ route('user.book.download', ['id' => $book->id]) }}" class="hover:bg-blue-600 text-lg bg-blue-500 text-white font-semibold mr-1 px-4 py-2 border border-blue-500 rounded-lg transition duration-300 ease-in-out text-center basis-1/3">
                             <i class="fas fa-download"></i> download
                         </a>
-                        <a href="/books/{{$book->id}}/read" class="text-lg bg-blue-500 text-white hover:bg-blue-600 font-semibold mr-1 px-4 py-2 border border-blue-500 rounded-lg transition duration-300 ease-in-out text-center basis-1/3">
+                        <a href="{{route('user.book.read',['id' => $book->id])}}" class="text-lg bg-blue-500 text-white hover:bg-blue-600 font-semibold mr-1 px-4 py-2 border border-blue-500 rounded-lg transition duration-300 ease-in-out text-center basis-1/3">
                             Read
                         </a>
 

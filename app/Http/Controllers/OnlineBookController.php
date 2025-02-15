@@ -12,10 +12,7 @@ use Illuminate\Support\Facades\Storage;
 
 class OnlineBookController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth')->except(['index', 'show']);
-    }
+
 
     public function index()
     {
@@ -94,8 +91,8 @@ class OnlineBookController extends Controller
 
         $isBookmarked = $bookmark ? true : false;
 
-        $relatedBooks = $book->relatedBooks()->get();
-
+        // $relatedBooks = $book->relatedBooks()->get();
+        $relatedBooks = OnlineBook::with('category')->where([['category_id', $book->category_id], ['id', '!=', $book->id]])->get();
         return view('books.show', compact('book', 'relatedBooks', 'isBookmarked', 'bookmark'));
     }
 
