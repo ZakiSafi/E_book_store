@@ -14,22 +14,7 @@
     <!-- Main Container -->
     <div class="container w-full max-w-7xl p-4 md:p-8 grid grid-cols-1 md:grid-cols-3 gap-4 mt-8">
         <!-- Sidebar Navigation -->
-        <div class="p-4 rounded-lg shadow-lg md:col-span-1 self-start">
-            <div class="flex flex-col gap-3 text-[#666] text-lg">
-                <a href="{{route('admin.books.index')}}" class="group">
-                    <i class="fa-solid fa-book text-[#666] mr-2"></i>
-                    <span class="group-hover:border-b group-hover:border-black">Manage Books</span>
-                </a>
-                <a href="route('admin.users.index')" class="group">
-                    <i class="fa-solid fa-users text-[#666] mr-2"></i>
-                    <span class="group-hover:border-b group-hover:border-black">Manage Users</span>
-                </a>
-                <a href="/admin/settings" class="group">
-                    <i class="fa-solid fa-cogs text-[#666] mr-2"></i>
-                    <span class="group-hover:border-b group-hover:border-black">Settings</span>
-                </a>
-            </div>
-        </div>
+        <x-sidebar />
 
         <!-- Main Content Area -->
         <div class="p-4 rounded-lg shadow-lg md:col-span-2">
@@ -125,7 +110,6 @@
                 <img src="{{ asset('storage/profile_pictures/' . $user->profile_picture) }}" alt="Profile Picture" class="w-48 h-48 rounded-full mb-4">
                 <h2 class="text-2xl">{{ $user->name }}</h2>
                 <p class="mt-2">{{ $user->email }}</p>
-                <!-- Add more profile details as needed -->
             </div>
         </div>
     </div>

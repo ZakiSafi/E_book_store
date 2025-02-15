@@ -9,7 +9,7 @@ class AdminBookController extends Controller
 {
     public function books()
     {
-        $books = OnlineBook::with('user')->latest()->simplepaginate(20);
+        $books = OnlineBook::with('user','bookmarks')->latest()->simplepaginate(20);
         $totalBooks = OnlineBook::count();
         return view('admin.books', compact('books', 'totalBooks'));
     }
