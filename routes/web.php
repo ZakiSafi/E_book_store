@@ -3,9 +3,9 @@
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\OnlineBookController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
+use Laravel\Socialite\Facades\Socialite;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\ProfileController;
@@ -14,18 +14,23 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\AdminBookController;
 use App\Http\Controllers\AdminUserController;
+use App\Http\Controllers\OnlineBookController;
 use App\Http\Controllers\CreateAdminController;
 use App\Http\Controllers\BookDownloadController;
 use App\Http\Controllers\ResetPasswordController;
 use App\Http\Controllers\AdminDashboardController;
 use App\Http\Controllers\ForgotPasswordController;
-use Laravel\Socialite\Facades\Socialite;
+use App\Http\Controllers\AdminBorrowedBookController;
+use App\Http\Controllers\PhysicalBookController;
+
 // Public Routes (No Authentication)
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/books', [OnlineBookController::class, 'index'])->name('books.index');
 Route::get('/books/{book}', [OnlineBookController::class, 'show'])->name('books.show');
 Route::get('/search', [SearchController::class, 'search'])->name('search');
 Route::get('/categories/{id}', [CategoryController::class, 'show']);
+Route::get('/physicalBooks', [PhysicalBookController::class, 'index'])->name('physicalBooks.index');
+
 
 // Authentication Routes
 Route::controller(LoginController::class)->group(function () {
@@ -77,6 +82,22 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
     Route::controller(CreateAdminController::class)->group(function () {
         Route::get('/create', 'createAdmin')->name('create');
         Route::post('/store', 'createAdminSubmit')->name('create.submit');
+    });
+
+    //Admin borrowed books management
+    Route::controller(AdminBorrowedBookController::class)->prefix('borrowed-books')->name('borrowed-books.')->group(function () {
+        Route::get('/', 'borrowedBooks')->name('index');
+        Route::get('/{id}/return', 'returnBook')->name('return');
+        Route::get('/borrow', 'borrow')->name('borrow');
+        Route::post('/store', 'storeBorrower')->name('store')->name('store');
+    });
+    // Admin Physical Books Management
+    Route::controller(PhysicalBookController::class)->prefix('physical-books')->name('physical-books.')->group(function () {
+        Route::get('/create', 'create')->name('create');
+        Route::post('/store', 'store')->name('store');
+        Route::get('/{id}/edit', 'edit')->name('edit');
+        Route::put('/{id}/update', 'update')->name('update');
+        Route::delete('/{id}', 'destroy')->name('destroy');
     });
 });
 

@@ -11,7 +11,7 @@
 
     @endif
     <div class="relative">
-        <img src="{{ asset('images/library.jpg') }}" alt="cover" class="w-full h-96  object-cover">
+        <img src="{{ asset('images/library.jpg') }}" alt="cover" class="w-full h-[40vw]  object-cover">
         <div class="absolute inset-0 flex flex-col items-center justify-center text-white bg-black bg-opacity-50">
             <h1 class="text-4xl font-bold mb-4">BMA Library</h1>
             <form action="/search" method="GET" class="w-full max-w-md">
