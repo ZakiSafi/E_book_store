@@ -2,11 +2,10 @@
 <x-layout>
     <!-- session success message -->
     <x-session />
+    <!-- searching component -->
+    <x-search :categories="$categories" />
     <!-- main content -->
-    <div class="min-h-[500px] flex items-center justify-center bg-gray-100">
-        
-    </div>
-    <div class="container w-full mx-auto pt-4 pb-8">
+    <div class=" container w-full mx-auto pt-4 pb-8">
         <h1 class="text-3xl font-bold text-gray-800">Books</h1>
         <div class="grid grid-cols-3  lg:grid-cols-4 gap-4 mt-4">
             @foreach ($books as $book)
