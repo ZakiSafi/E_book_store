@@ -96,7 +96,7 @@ Route::middleware(['auth', 'user'])->prefix('user')->name('user.')->group(functi
     // Bookmarks
     Route::controller(BookmarkController::class)->prefix('bookmarks')->name('bookmarks.')->group(function () {
         Route::get('/', 'index')->name('index');
-        Route::post('/', 'store')->name('store');
+        Route::post('/{id}', 'store')->name('store');
         Route::delete('/{id}', 'destroy')->name('destroy');
     });
 

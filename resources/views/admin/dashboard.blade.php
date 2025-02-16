@@ -38,7 +38,7 @@
                     @else
                     <img src="{{ asset('storage/profile_pictures/default.jfif') }}" alt="Default Profile Picture" class="rounded-full h-24 w-24">
                     @endif
-                    <a href="{{'profile.edit'}}" class="text-md bg-red-500 text-white transition-color duration-300 hover:bg-red-600 rounded-lg px-4 py-1">Edit</a>
+                  
                 </div>
                 <!-- User Info -->
                 <div>

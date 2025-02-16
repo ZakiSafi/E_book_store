@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 
 class BookmarkController extends Controller
 {
+
     public function index()
     {
         $user = Auth::user();
@@ -18,23 +19,41 @@ class BookmarkController extends Controller
 
         return view('bookmarks.index', compact('bookmarks', 'user'));
     }
+
     public function store(Request $request)
     {
-        $request->validate(['online_book_id' | 'exists:books,id']);
+        // Validate the request
+        $request->validate([
+            'online_book_id' => 'required|exists:online_books,id',
+        ]);
+
+        // Create or find the bookmark
         Bookmark::firstOrCreate([
             'user_id' => Auth::id(),
-            'online_book_id' => $request->book_id,
+            'online_book_id' => $request->online_book_id,
         ]);
+
+        // Redirect back with a success message
         return back()->with('success', 'Successfully added to Bookmarks');
     }
-    public function destroy($id, Request $request)
+
+    public function destroy(Request $request)
     {
-        $boomark = Bookmark::findOrFail($id);
-        if ($boomark->user_id != Auth::id()) {
-            abort(403, 'unautherized action');
-        }
-        $boomark->delete();
-        $redirectUrl = $request->input('redirect_url');
-        return redirect($redirectUrl)->with('success', 'Bookmark removed successfully!');
+        // Validate the request
+        $request->validate([
+            'online_book_id' => 'required|exists:online_books,id',
+            'redirect_url' => 'required|string',
+        ]);
+
+        // Find the bookmark
+        $bookmark = Bookmark::where('user_id', Auth::id())
+            ->where('online_book_id', $request->online_book_id)
+            ->firstOrFail();
+
+        // Delete the bookmark
+        $bookmark->delete();
+
+        // Redirect to the specified URL
+        return redirect($request->redirect_url)->with('success', 'Bookmark removed successfully!');
     }
 }

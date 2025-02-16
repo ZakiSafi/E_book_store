@@ -11,11 +11,11 @@
 
                 <!-- Buttons for Larger Screens -->
                 <div class="hidden sm:flex gap-2">
-                    <a href="{{route('books.read.pdf',$book->id)}}"
+                    <a href="{{route('user.books.read.pdf',$book->id)}}"
                         class="bg-blue-500 hover:bg-blue-600 text-white text-sm sm:text-md font-semibold px-3 py-1.5 sm:px-4 sm:py-2 rounded-md shadow-md transition duration-300 ease-in-out transform hover:scale-105 whitespace-nowrap">
                         Open in new page <i class="fas fa-back"></i>
                     </a>
-                    <a href="/books/{{$book->id}}"
+                    <a href="#" onclick="window.history.back(); return false;"
                         class="bg-red-500 hover:bg-red-600 text-white text-sm sm:text-md font-semibold px-3 py-1.5 sm:px-4 sm:py-2 rounded-md shadow-md transition duration-300 ease-in-out transform hover:scale-105 whitespace-nowrap">
                         Back <i class="fas fa-back"></i>
                     </a>
@@ -30,11 +30,11 @@
 
                     <!-- Dropdown Menu -->
                     <div id="dropdown-menu" class="hidden absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg z-10">
-                        <a href="{{route('books.read.pdf',$book->id)}}"
+                        <a href="{{route('user.books.read.pdf',$book->id)}}"
                             class="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-500 hover:text-white transition duration-300 ease-in-out">
                             Open in new page
                         </a>
-                        <a href="/books/{{$book->id}}"
+                        <a href="#" onclick='window.history.back(); return false;'
                             class="block px-4 py-2 text-sm text-gray-700 hover:bg-red-500 hover:text-white transition duration-300 ease-in-out">
                             Back
                         </a>
@@ -45,7 +45,7 @@
 
 
             <!-- PDF Viewer -->
-            <iframe src="{{ route('books.read.pdf', $book->id) }}" class="w-full h-full overflow-hidden"></iframe>
+            <iframe src="{{ route('user.books.read.pdf', $book->id) }}" class="w-full h-full overflow-hidden"></iframe>
         </div>
 
         <!-- Other Books Section -->
@@ -53,7 +53,7 @@
             <h1 class="text-2xl font-semibold text-gray-800">Other Books</h1>
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-4">
                 @foreach ($books as $book)
-                <a href="/books/{{$book->id}}" class="group transform transition-transform duration-300 hover:scale-105 mb-4">
+                <a href="{{route('books.show',$book->id)}}" class="group transform transition-transform duration-300 hover:scale-105 mb-4">
                     <div class="flex flex-col justify-center items-center">
                         <img src="{{ asset('storage/' . $book->cover_image) }}" alt="{{ $book->title }}" class="w-[70%] h-48 object-cover rounded-lg">
                         <h3 class="text-md text-center font-semibold text-blue-400 transition-colors duration-300 pt-4">
