@@ -1,4 +1,7 @@
 <x-layout>
+    <!-- session -->
+    <x-session />
+    <!-- main content -->
     <div class="container w-full max-w-7xl p-8 grid grid-cols-4 gap-4 mt-8">
         <!-- Sidebar Navigation -->
         <x-sideBar />

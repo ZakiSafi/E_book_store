@@ -1,15 +1,7 @@
 <x-layout>
-    @if (session('success'))
-    <div id="success-message" class='bg-green-500 text-white text-center py-2'>
-        {{ session('success') }}
-    </div>
-    <script>
-        setTimeout(function() {
-            document.getElementById('success-message').style.display = 'none';
-        }, 5000);
-    </script>
-
-    @endif
+    <!-- session success message -->
+    <x-session />
+    <!-- main content -->
     <div class="relative">
         <img src="{{ asset('images/library.jpg') }}" alt="cover" class="w-full h-[40vw]  object-cover">
         <div class="absolute inset-0 flex flex-col items-center justify-center text-white bg-black bg-opacity-50">

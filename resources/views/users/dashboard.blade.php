@@ -1,14 +1,7 @@
 <x-layout>
-    @if(session('success'))
-    <div id="success-message" class="bg-green-500 text-white text-center py-2">
-        {{ session('success') }}
-    </div>
-    <script>
-        setTimeout(function() {
-            document.getElementById('success-message').style.display = 'none';
-        }, 5000);
-    </script>
-    @endif
+    <!-- session success message -->
+    <x-session />
+    <!-- main content -->
     <div class="container w-full max-w-7xl p-8 grid grid-cols-3 gap-4 mt-8">
         <!-- Sidebar Navigation -->
         <x-sideBar />

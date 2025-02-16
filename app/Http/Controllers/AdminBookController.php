@@ -9,7 +9,7 @@ class AdminBookController extends Controller
 {
     public function books()
     {
-        $books = OnlineBook::with('user','bookmarks')->latest()->simplepaginate(20);
+        $books = OnlineBook::with('user', 'bookmarks')->latest()->simplepaginate(20);
         $totalBooks = OnlineBook::count();
         return view('admin.books', compact('books', 'totalBooks'));
     }
@@ -26,6 +26,6 @@ class AdminBookController extends Controller
         } elseif ($request->action == 'reject') {
             $book->update(['status' => OnlineBook::STATUS_REJECTED]);
         }
-        return redirect()->route('admin.books.pending');
+        return redirect()->route('admin.books.pending')->with('success', 'Book status updated successfully');
     }
 }

@@ -1,7 +1,8 @@
 <x-layout>
     <div class="container w-full max-w-7xl p-8 grid grid-cols-2 gap-4 mt-8">
 
-
+        <!-- session success message -->
+        <x-session />
 
         <!-- Main Content -->
         @if ($books->isNotEmpty())

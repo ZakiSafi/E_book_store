@@ -2,13 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\PhysicalBook;
 use Illuminate\Http\Request;
 
 class PhysicalBookController extends Controller
 {
     public function index()
     {
-        //
+        $totalBooks = PhysicalBook::all()->count();
+        $physicalBooks = PhysicalBook::all();
+        return view('physical_books.index', compact('physicalBooks', 'totalBooks'));
     }
 
 

@@ -1,4 +1,7 @@
 <x-layout>
+    <!-- session success message -->
+        <x-session />
+    <!-- main content -->
     <div class="container w-full max-w-7xl mx-auto grid grid-cols-3 gap-4 p-12 rounded-lg shadow-lg">
         <x-sideBar />
 
@@ -6,9 +9,6 @@
 
             <h2 class="text-2xl font-bold mb-4">Edit Profile</h2>
 
-            @if(session('success'))
-            <div class="text-green-600 mb-4">{{ session('success') }}</div>
-            @endif
 
             <form action="{{route('user.profile.update',$user->id)}}" method="POST" enctype="multipart/form-data" class="bg-white p-6 rounded-lg shadow-md w-full max-w-md">
 

@@ -1,10 +1,7 @@
 <x-layout>
-    @if (session('success'))
-    <div class="bg-green-500 text-white py-2">
-        {{ session('success') }}
-    </div>
-
-    @endif
+    <!-- session -->
+    <x-session />
+    <!-- main content -->
     <div class="container w-full max-w-7xl p-8 grid grid-cols-1 sm:grid-cols-4 gap-4 mt-8">
         <!-- Sidebar Navigation -->
         <x-sideBar />

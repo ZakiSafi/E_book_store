@@ -1,15 +1,6 @@
 <x-layout>
-    <!-- Success Message -->
-    @if(session('success'))
-    <div id="success-message" class="bg-green-500 text-white text-center py-2">
-        {{ session('success') }}
-    </div>
-    <script>
-        setTimeout(function() {
-            document.getElementById('success-message').style.display = 'none';
-        }, 5000);
-    </script>
-    @endif
+    <!-- session success message -->
+    <x-session />
 
     <!-- Main Container -->
     <div class="container w-full max-w-7xl p-4 md:p-8 grid grid-cols-1 md:grid-cols-3 gap-4 mt-8">
@@ -38,7 +29,7 @@
                     @else
                     <img src="{{ asset('storage/profile_pictures/default.jfif') }}" alt="Default Profile Picture" class="rounded-full h-24 w-24">
                     @endif
-                  
+
                 </div>
                 <!-- User Info -->
                 <div>

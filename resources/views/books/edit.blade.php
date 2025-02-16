@@ -1,4 +1,7 @@
 <x-layout>
+    <!-- session success message -->
+    <x-session />
+    <!-- main content -->
     <x-slot name="heading">Edit Book</x-slot>
     <div class="w-full h-auto flex justify-center items-center p-8">
         <form action="{{route('user.books.store',$book->id)}}" method="POST" enctype="multipart/form-data" class="w-full max-w-2xl bg-white p-6 rounded-lg shadow-md">
