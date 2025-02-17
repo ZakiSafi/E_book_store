@@ -1,26 +1,25 @@
-<div class="min-h-[35vw] flex items-center justify-center bg-gray-100">
-    <div class="w-full max-w-[700px] bg-white p-6 rounded-lg shadow-lg">
-        <h1 class="text-2xl font-bold text-gray-800 mb-6 text-center">Books</h1>
-        <form action="{{route('search')}}" method="get" class="space-y-4">
+<div class="min-h-[35vw] flex items-center justify-center bg-gradient-to-r from-blue-400 to-blue-500">
+    <div class="w-full max-w-[700px] bg-white p-8 rounded-2xl shadow-2xl">
+        <h1 class="text-3xl font-extrabold text-gray-900 mb-6 text-center tracking-wide">📚 Explore Books</h1>
+        <form action="{{route('search')}}" method="get" class="space-y-6">
             <!-- Search Field -->
             <div>
-                <label for="search" class="block text-sm font-medium text-gray-700">Search Books</label>
+                <label for="search" class="block text-md font-semibold text-gray-700">Search Books</label>
                 <input
                     type="text"
                     id="search"
                     name="title"
-                    placeholder="Search ..."
-                    class="mt-1 block w-full p-2 border border-gray-300 rounded-md focus:ring-green-500 focus:border-green-500 text-gray-800" />
+                    placeholder="🔍 Type a book title..."
+                    class="mt-2 block w-full p-3 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 text-gray-800 shadow-sm transition duration-200 hover:shadow-md" />
             </div>
-            <!-- Language Dropdown -->
-            <div class="grid grid-cols-2 gap-2">
-
+            <!-- Language & Category -->
+            <div class="grid grid-cols-2 gap-4">
                 <div>
-                    <label for="language" class="block text-sm font-medium text-gray-700">Language</label>
+                    <label for="language" class="block text-md font-semibold text-gray-700">Language</label>
                     <select
                         id="language"
                         name="language"
-                        class="mt-1 block w-full p-2 border border-gray-300 rounded-md focus:ring-green-500 focus:border-green-500 text-gray-800">
+                        class="mt-2 block w-full p-3 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 text-gray-800 shadow-sm transition duration-200 hover:shadow-md">
                         <option>All Languages</option>
                         <option>English</option>
                         <option>Arabic</option>
@@ -28,13 +27,12 @@
                         <option>Urdu</option>
                     </select>
                 </div>
-                <!-- Category Field -->
                 <div>
-                    <label for="category" class="block text-sm font-medium text-gray-700">Category</label>
+                    <label for="category" class="block text-md font-semibold text-gray-700">Category</label>
                     <select
                         id="category"
                         name="category_id"
-                        class="mt-1 block w-full p-2 border border-gray-300 rounded-md focus:ring-green-500 focus:border-green-500 text-gray-800">
+                        class="mt-2 block w-full p-3 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 text-gray-800 shadow-sm transition duration-200 hover:shadow-md">
                         <option value="">Select Category</option>
                         @foreach ($categories as $category)
                         <option value="{{ $category->id }}">{{ $category->name }}</option>
@@ -46,13 +44,13 @@
             <div class="flex gap-4">
                 <button
                     type="submit"
-                    class="flex-1 bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 focus:outline-none text-sm font-medium">
-                    Filter
+                    class="flex-1 bg-gradient-to-r from-blue-400 to-blue-500 text-white py-3 px-4 rounded-lg hover:from-green-500 hover:to-blue-500 transition-all duration-300 font-semibold shadow-md">
+                    🔍 Filter
                 </button>
                 <a
                     href="{{ route('books.index') }}"
-                    class="flex-1 bg-gray-200 text-gray-700 py-2 px-4 rounded-md hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-300 focus:ring-offset-2 text-sm font-medium">
-                    Reset
+                    class="flex-1 bg-gray-300 text-gray-900 py-3 px-4 rounded-lg hover:bg-gray-400 transition-all duration-300 font-semibold shadow-md text-center">
+                    🔄 Reset
                 </a>
             </div>
         </form>

@@ -1,4 +1,4 @@
-<div class="p-4 rounded-lg shadow-lg col-span-1 h-auto bg-white">
+<div class="p-4 rounded-lg shadow-lg col-span-1 h-auto self-start bg-white">
     <div class="flex flex-col gap-3 text-[#666] text-lg">
         @auth
         @if (Auth::user()->role == 'admin')
