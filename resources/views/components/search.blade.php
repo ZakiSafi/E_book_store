@@ -33,7 +33,7 @@
                         id="category"
                         name="category_id"
                         class="mt-2 block w-full p-3 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 text-gray-800 shadow-sm transition duration-200 hover:shadow-md">
-                        <option value="">Select Category</option>
+                        <option >Select Category</option>
                         @foreach ($categories as $category)
                         <option value="{{ $category->id }}">{{ $category->name }}</option>
                         @endforeach

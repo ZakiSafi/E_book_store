@@ -10,48 +10,30 @@ class SearchController extends Controller
 {
     public function search(Request $request)
     {
-
-        $query = OnlineBook::query()
-            ->where('status', OnlineBook::STATUS_APPROVED);
+        $query = OnlineBook::where('status', OnlineBook::STATUS_APPROVED);
         $categories = Category::all();
 
-
+        // Filter by Title
         if ($request->filled('title')) {
-            $query->where('title', 'like', '%' . $request->input('title') . '%')
-                ->orderByRaw(
-                    "CASE
-                WHEN title = ? THEN 1
-                ELSE 2
-            END ASC",
-                    [$request->input('title')]
-                )
-                ->orderByRaw("LENGTH(title) - LENGTH(REPLACE(title, ?, '')) DESC", [$request->input('title')]);
+            $title = $request->input('title');
+            $query->where('title', 'like', "%$title%");
         }
 
-
-        if ($request->filled('category')) {
+        // Filter by Category only if it's NOT "All Categories"
+        if ($request->filled('category') && $request->input('category') !== 'Select Category') {
             $query->whereHas('category', function ($q) use ($request) {
-                $q->where('name', 'like', '%' . $request->input('category') . '%')
-                    ->orderByRaw(
-                        "CASE
-                WHEN name = ? THEN 1
-                ELSE 2
-            END ASC",
-                        [$request->input('category')]
-                    )
-                    ->orderByRaw("LENGTH(name) - LENGTH(REPLACE(name, ?, '')) DESC", [$request->input('category')]);
+                $q->where('name', $request->input('category'));
             });
         }
 
-        if ($request->filled('language')) {
+        // Filter by Language
+        if ($request->filled('language') && $request->input('language') !== 'All Languages') {
             $query->where('language', 'like', '%' . $request->input('language') . '%');
         }
 
-
-        $searchQuery = $request->input('title');
+        // Get results
         $books = $query->get();
 
-
-        return view('books.search', compact('books', 'searchQuery', 'categories'));
+        return view('books.search', compact('books', 'categories'));
     }
 }

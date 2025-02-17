@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\PhysicalBook;
 use Illuminate\Http\Request;
 
@@ -11,7 +12,8 @@ class PhysicalBookController extends Controller
     {
         $totalBooks = PhysicalBook::all()->count();
         $physicalBooks = PhysicalBook::all();
-        return view('physical_books.index', compact('physicalBooks', 'totalBooks'));
+        $categories = Category::all();
+        return view('physical_books.index', compact('physicalBooks', 'totalBooks', 'categories'));
     }
 
 

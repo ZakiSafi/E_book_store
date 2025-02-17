@@ -8,26 +8,18 @@
                 <div class="p-2 w-full flex flex-col items-center gap-4">
                     <img src="{{ asset('storage/' . $book->cover_image) }}" alt="{{ $book->title }}" class="w-36 h-48">
 
-                    @if ($bookmark)
-                    <form action="{{ route('user.bookmarks.destroy',$book->id) }}" method="POST">
+                    <form action="{{ $bookmark ? route('user.bookmarks.destroy', $book->id) : route('user.bookmarks.store', $book->id) }}" method="POST">
                         @csrf
+                        @if ($bookmark)
                         @method('DELETE')
+                        @endif
                         <input type="hidden" name="online_book_id" value="{{ $book->id }}">
                         <input type="hidden" name="redirect_url" value="/books/{{ $book->id }}">
-                        <button type="submit" class="text-blue-500 text-lg hover:bg-blue-500 hover:text-white font-semibold mr-1 px-6 py-1 border border-blue-500 rounded-lg transition duration-300 ease-in-out flex gap-1 items-center">
-                            <p>Bookmarked</p>
-                            <i class="fas fa-bookmark mt-1"></i>
+                        <button type="submit" class="text-blue-500 text-lg hover:bg-blue-500 hover:text-white font-semibold px-4 py-1 border border-blue-500 rounded-lg transition duration-300 ease-in-out">
+                            <i class="{{ $bookmark ? 'fas' : 'far' }} fa-bookmark"></i> {{ $bookmark ? 'Bookmarked' : 'Bookmark' }}
                         </button>
                     </form>
-                    @else
-                    <form action="{{ route('user.bookmarks.store',$book->id) }}" method="POST">
-                        @csrf
-                        <input type="hidden" name="online_book_id" value="{{ $book->id }}">
-                        <button type="submit" class="text-blue-500 text-lg hover:bg-blue-500 hover:text-white font-semibold mr-1 px-4 py-1 border border-blue-500 rounded-lg transition duration-300 ease-in-out">
-                            Bookmark <i class="far fa-bookmark"></i>
-                        </button>
-                    </form>
-                    @endif
+
                 </div>
                 <div class="flex flex-col gap-4 p-2">
                     <div>
@@ -70,32 +62,29 @@
                                     <p>Downloads:</p>
                                     <p>{{ $book->downloads }}</p>
                     </div>
-
-                    <div class="flex justify-center  gap-6 mt-4">
-
-                        <a href="{{ route('user.book.download', ['id' => $book->id]) }}" class="hover:bg-blue-600 text-lg bg-blue-500 text-white font-semibold mr-1 px-4 py-2 border border-blue-500 rounded-lg transition duration-300 ease-in-out text-center basis-1/3">
-                            <i class="fas fa-download mr-1"></i> download
+                    <div class="flex justify-start gap-6 mt-4">
+                        <a href="{{ route('user.book.download', ['id' => $book->id]) }}" class="bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white text-lg font-semibold px-5 py-2 rounded-lg shadow-lg flex items-center gap-2 transition duration-300 ease-in-out">
+                            <i class="fas fa-download"></i> Download
                         </a>
-                        <a href="{{route('user.book.read',['id' => $book->id])}}" class="text-lg bg-blue-500 text-white hover:bg-blue-600 font-semibold mr-1 px-4 py-2 border border-blue-500 rounded-lg transition duration-300 ease-in-out text-center basis-1/3">
-                            <i class="fas fa-book-open mr-2"></i>Read
+                        <a href="{{ route('user.book.read', ['id' => $book->id]) }}" class="bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white text-lg font-semibold px-5 py-2 rounded-lg shadow-lg flex items-center gap-2 transition duration-300 ease-in-out">
+                            <i class="fas fa-book-open"></i> Read
                         </a>
-
                     </div>
+
 
                 </div>
             </div>
             <div class="bg-white rounded-lg shadow-lg p-4">
                 <h3 class="text-xl font-bold">Related Books</h3>
-                <ul class=" grid grid-cols-2 justify-between gap-4 p-4">
+                <ul class="flex overflow-x-auto space-x-4 p-4">
                     @foreach($relatedBooks as $relatedBook)
-                    <li>
-                        <div class="p-1 rounded-lg shadow-md">
-                            <a href="{{route('books.show',$relatedBook->id)}}" class="text-lg font-semibold text-blue-600 hover:underline truncate ">
-                                <img src="{{ asset('storage/' . $relatedBook->cover_image) }}" alt="{{ $relatedBook->title }}" class="w-full h-20 bg-center rounded-lg">
-                                <p class="text-sm mt-1">
-                                    {{ Str::limit($relatedBook->title,15) }}
-                                </p>
+                    <li class="min-w-[120px]">
+                        <div class="p-2 rounded-lg shadow-md bg-gray-100 hover:bg-gray-200 transition duration-300">
+                            <a href="{{ route('books.show', $relatedBook->id) }}" class="text-lg font-semibold text-blue-600 hover:underline">
+                                <img src="{{ asset('storage/' . $relatedBook->cover_image) }}" alt="{{ $relatedBook->title }}" class="w-28 h-32 bg-center rounded-lg shadow-md">
+                                <p class="text-sm mt-1 text-center">{{ Str::limit($relatedBook->title, 15) }}</p>
                             </a>
+                        </div>
                     </li>
                     @endforeach
                 </ul>

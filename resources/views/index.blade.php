@@ -6,7 +6,7 @@
         <img src="{{ asset('images/library.jpg') }}" alt="cover" class="w-full h-[40vw]  object-cover">
         <div class="absolute inset-0 flex flex-col items-center justify-center text-white bg-black bg-opacity-50">
             <h1 class="text-4xl font-bold mb-4">BMA Library</h1>
-            <form action="/search" method="GET" class="w-full max-w-md">
+        <form action="{{route('search')}}" method="GET" class="w-full max-w-md">
                 <div class="flex justify-between bg-white rounded-full shadow-md">
                     <input type="text" name="title" placeholder="Search for books..." class="w-full py-2 px-4 rounded-l-full focus:outline-none text-black">
                     <button type="submit" class="bg-blue-500 hover:bg-blue-600 hover:font-semibold text-white py-2 px-4 rounded-r-full

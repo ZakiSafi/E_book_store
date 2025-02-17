@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="h-full bg-gray-100">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="h-full bg-gray-100 dark">
 
 <head>
     <meta charset="utf-8">
@@ -35,7 +35,10 @@
                                 <i class="fa-solid fa-house mr-1"></i> Home
                             </x-nav_link>
                             <x-nav_link href="{{route('books.index')}}" :active="request()->is('books')">
-                                <i class="fa-solid fa-book mr-1"></i> Books
+                                <i class="fa-solid fa-book mr-1"></i> Digital Books
+                            </x-nav_link>
+                            <x-nav_link href="{{route('physicalBooks.index')}}" :active="request()->is('books')">
+                                <i class="fa-solid fa-book mr-1"></i> Physical Books
                             </x-nav_link>
                             @auth
                             @if (Auth::user()->role === 'admin')
