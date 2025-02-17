@@ -12,8 +12,12 @@ class PhysicalBookController extends Controller
     {
         $totalBooks = PhysicalBook::all()->count();
         $physicalBooks = PhysicalBook::all();
+        $books = $physicalBooks->map(function ($book) {
+            $book->type = 'physical book';
+            return $book;
+        });
         $categories = Category::all();
-        return view('physical_books.index', compact('physicalBooks', 'totalBooks', 'categories'));
+        return view('physical_books.index', compact('books', 'totalBooks', 'categories'));
     }
 
 
