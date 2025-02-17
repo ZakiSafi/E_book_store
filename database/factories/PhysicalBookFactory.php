@@ -45,19 +45,19 @@ class PhysicalBookFactory extends Factory
             'book27.jfif'
 
         ];
-        $imagePath = 'physical_books_images/' .$this->faker->randomElement($images);
+        $imagePath = 'physical_books_images/' . $this->faker->randomElement($images);
         return [
-            'title' =>$this->faker->sentence(1),
-            'author' =>$this->faker->name(),
-            'translator' =>$this->faker->name(),
-            'cover_image' =>$imagePath,
-            'printing_house' =>$this->faker->company(),
-            'publication_year' =>$this->faker->year(),
-            'edition' =>$this->faker->numberBetween(1, 5),
-            'copies' => $this->faker->numberBetween(1,5),
-            'available_copies' => $this->faker->numberBetween(1,5),
-            'shelf_no' => $this->faker->numberBetween(1,20),
-            'category_id'=> Category::inRandomOrder()->value('id') ?? 1,
+            'title' => $this->faker->sentence(2),
+            'author' => $this->faker->name(),
+            'translator' => $this->faker->name(),
+            'cover_image' => $imagePath,
+            'printing_house' => $this->faker->company(),
+            'publication_year' => $this->faker->year(),
+            'edition' => $this->faker->numberBetween(1, 5),
+            'copies' => $this->faker->numberBetween(1, 5),
+            'available_copies' => $this->faker->numberBetween(1, 5),
+            'shelf_no' => $this->faker->numberBetween(1, 20),
+            'category_id' => Category::inRandomOrder()->value('id') ?? 1,
         ];
     }
 }

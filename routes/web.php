@@ -30,6 +30,7 @@ Route::get('/books/{book}', [OnlineBookController::class, 'show'])->name('books.
 Route::get('/search', [SearchController::class, 'search'])->name('search');
 Route::get('/categories/{id}', [CategoryController::class, 'show']);
 Route::get('/physicalBooks', [PhysicalBookController::class, 'index'])->name('physicalBooks.index');
+Route::get('/physicalBooks/{id}', [PhysicalBookController::class, 'show'])->name('physicalBooks.show');
 
 
 // Authentication Routes

@@ -13,7 +13,7 @@
             @if ($bookmarks->isNotEmpty())
             <div class="grid grid-cols-1 gap-4">
                 @foreach ($bookmarks as $bookmark)
-                <div class="flex gap-4 p-4 rounded-lg shadow-md bg-gradient-to-r from-gray-50 to-gray-100 hover:shadow-lg transition-shadow duration-300 transform hover:scale-105 border border-gray-200">
+                <div class="flex gap-4 p-4 rounded-lg shadow-md bg-gradient-to-r from-gray-50 to-gray-100 hover:shadow-lg transition-shadow  border border-gray-200">
                     <!-- Book Cover -->
                     <div class="flex-shrink-0 w-24 h-36">
                         <a href="{{ route('books.show',$bookmark->online_book_id) }}">

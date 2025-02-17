@@ -33,7 +33,7 @@
                         id="category"
                         name="category_id"
                         class="mt-2 block w-full p-3 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 text-gray-800 shadow-sm transition duration-200 hover:shadow-md">
-                        <option >Select Category</option>
+                        <option>Select Category</option>
                         @foreach ($categories as $category)
                         <option value="{{ $category->id }}">{{ $category->name }}</option>
                         @endforeach
@@ -44,7 +44,7 @@
             <div class="flex gap-4">
                 <button
                     type="submit"
-                    class="flex-1 bg-gradient-to-r from-blue-400 to-blue-500 text-white py-3 px-4 rounded-lg hover:from-green-500 hover:to-blue-500 transition-all duration-300 font-semibold shadow-md">
+                    class="flex-1 bg-gradient-to-r from-blue-400 to-blue-500 text-white py-3 px-4 rounded-lg hover:from-blue-500 hover:to-blue-600 transition-all duration-300 font-semibold shadow-md">
                     🔍 Filter
                 </button>
                 <a

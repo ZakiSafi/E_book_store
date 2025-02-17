@@ -35,7 +35,9 @@ class PhysicalBookController extends Controller
 
     public function show(string $id)
     {
-        //
+        $book = PhysicalBook::find($id);
+        $relatedBooks = PhysicalBook::with('category')->where([['category_id', $book->category_id], ['id', '!=', $book->id]])->get();
+        return view('physical_books.show', compact('book', 'relatedBooks'));
     }
 
 
