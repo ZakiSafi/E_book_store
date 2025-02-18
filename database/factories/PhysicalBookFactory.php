@@ -45,10 +45,12 @@ class PhysicalBookFactory extends Factory
             'book27.jfif'
 
         ];
+        $language = ['English',  'Arabic', 'Urdu', 'Pashto', 'Farsi', 'Dari'];
         $imagePath = 'physical_books_images/' . $this->faker->randomElement($images);
         return [
             'title' => $this->faker->sentence(2),
             'author' => $this->faker->name(),
+            'language' => $this->faker->randomElement($language),
             'translator' => $this->faker->name(),
             'cover_image' => $imagePath,
             'printing_house' => $this->faker->company(),

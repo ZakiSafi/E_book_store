@@ -25,9 +25,8 @@
                         <p>Release:</p>
                         <p>{{ $book->release_date }}</p>
                         <p>Edition:</p>
-                        @if ($book->edition == 0 || $book->edition == 1)
-                        <p>1<sup>st</sup></p>
-                        @elseif ($book->edition == 2)
+
+                        @if ($book->edition == 2)
                         <p>2<sup>nd</sup></p>
                         @elseif ($book->edition == 3)
                         <p>3<sup>rd</sup></p>
@@ -35,6 +34,8 @@
                         <p>4<sup>th</sup></p>
                         @elseif ($book->edition == 5)
                         <p>5<sup>th</sup></p>
+                        @else
+                        <p>{{ $book->edition }}<sup>th</sup></p>
                         @endif
                         <p>Publish_Year:</p>
                         <p>{{ $book->publication_year }}</p>

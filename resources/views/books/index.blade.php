@@ -3,7 +3,6 @@
 
 
     <div class="container w-full max-w-7xl mx-auto p-8">
-        <h1 class="text-[24px] text-gray-500">Latest Books</h1>
         <div class="w-full mx-auto grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 justify-center p-8">
             @if ($books->isEmpty())
             <div class="w-full col-span-4 bg-white rounded-lg shadow-lg p-6 text-center">

@@ -19,9 +19,10 @@ return new class extends Migration
             $table->string('cover_image');
             $table->year('publication_year');
             $table->string('printing_house');
-            $table->string('edition')->nullable()->default('1st');
+            $table->string('edition')->nullable()->default('1');
             $table->string('shelf_no');
             $table->unsignedInteger('copies');
+            $table->string('language');
             $table->unsignedInteger('available_copies')->default(0);
             $table->foreignId('category_id')->constrained('categories')->cascadeOnDelete();
             $table->timestamps();

@@ -90,6 +90,9 @@
                     <a href="{{ route('admin.create') }}" class="bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition duration-300 text-center">
                         <i class="fa-solid fa-user-shield mr-2"></i> Create New Admin
                     </a>
+                    <a href="{{ route('admin.physical-books.create') }}" class="bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition duration-300 text-center">
+                        <i class="fa-solid fa-user-shield mr-2"></i> Add Physical Book
+                    </a>
                 </div>
             </div>
         </div>

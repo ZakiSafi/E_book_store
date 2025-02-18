@@ -12,6 +12,7 @@ class PhysicalBook extends Model
         'title',
         'author',
         'translator',
+        'language',
         'publication_year',
         'printing_house',
         'cover_image',
