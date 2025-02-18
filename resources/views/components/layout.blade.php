@@ -145,13 +145,14 @@
                 </div>
             </div>
         </header>
+        <!-- session success message -->
+        <x-session />
 
-        <!-- Main Content -->
+
         <main>
             {{ $slot }}
         </main>
 
-        <!-- Footer -->
         <footer class="bg-white border-t border-gray-200">
             <div class="container mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 py-8">
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">

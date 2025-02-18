@@ -15,10 +15,11 @@ class PhysicalBook extends Model
         'publication_year',
         'printing_house',
         'cover_image',
-        'edition', 
+        'edition',
         'copies',
         'shelf_no',
         'available_copies',
+        'category_id'
     ];
     public function Borrowers()
     {

@@ -30,7 +30,25 @@ class PhysicalBookController extends Controller
 
     public function store(Request $request)
     {
-        //
+        $attributes = $request->validate([
+            'title' => 'required|string',
+            'author' => 'required|string',
+            'translator' => 'nullable|string',
+            'cover_image' => 'required|image|mimes:jfif,jpeg,png,jpg,gif|max:3072',
+            'publication_year' => 'required|integer',
+            'printing_house' => 'required|string',
+            'edition' => 'nullable|string',
+            'shelf_no' => 'required|integer',
+            'copies' => 'required|integer',
+            'language' => 'required|string',
+            'category_id' => 'required|integer',
+        ]);
+        if ($request->hasFile('cover_image')) {
+            $attributes['cover_image'] = $request->file('cover_image')->store('physical_books', 'public');
+        }
+
+        PhysicalBook::create($attributes);
+        return redirect()->route('physicalBooks.index');
     }
 
 
