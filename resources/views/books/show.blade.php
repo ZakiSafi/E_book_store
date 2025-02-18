@@ -6,7 +6,7 @@
         <div class="w-full max-w-6xl py-4 px-12  grid sm:grid-cols-1 md:grid-cols-[65%,35%] justify-center gap-8">
             <div class="bg-white shadow-lg grid sm:grid-cols-1 md:grid-cols-[25%,70%] gap-5 rounded-lg p-4">
                 <div class="p-2 w-full flex flex-col items-center gap-4">
-                    <img src="{{ asset('storage/' . $book->cover_image) }}" alt="{{ $book->title }}" class="w-36 h-48">
+                    <img src="{{ asset('storage/' . $book->cover_image) }}" alt="{{ $book->title }}" class="w-36 h-48 bg-center rounded-lg shadow-md">
 
                     <form action="{{ $bookmark ? route('user.bookmarks.destroy', $book->id) : route('user.bookmarks.store', $book->id) }}" method="POST">
                         @csrf
@@ -82,7 +82,7 @@
                         <div class="p-2 rounded-lg shadow-md bg-gray-100 hover:bg-gray-200 transition duration-300">
                             <a href="{{ route('books.show', $relatedBook->id) }}" class="text-lg font-semibold text-blue-600 hover:underline">
                                 <img src="{{ asset('storage/' . $relatedBook->cover_image) }}" alt="{{ $relatedBook->title }}" class="w-28 h-32 bg-center rounded-lg shadow-md">
-                                <p class="text-sm mt-1 text-center">{{ Str::limit($relatedBook->title, 15) }}</p>
+                                <p class="text-sm mt-1 text-center truncate">{{ Str::limit($relatedBook->title, 15) }}</p>
                             </a>
                         </div>
                     </li>

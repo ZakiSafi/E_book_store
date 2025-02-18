@@ -19,7 +19,7 @@ class OnlineBookController extends Controller
 
         $books = OnlineBook::where('status', OnlineBook::STATUS_APPROVED)
             ->latest()
-            ->simplePaginate(16);
+            ->simplePaginate(24);
         $categories = Category::all();
 
         return view('books.index', compact('books', 'categories'));

@@ -11,7 +11,7 @@ class PhysicalBookController extends Controller
     public function index()
     {
         $totalBooks = PhysicalBook::all()->count();
-        $physicalBooks = PhysicalBook::all();
+        $physicalBooks = PhysicalBook::latest()->simplePaginate(24);
         $books = $physicalBooks->map(function ($book) {
             $book->type = 'physical book';
             return $book;

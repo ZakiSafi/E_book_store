@@ -174,15 +174,21 @@
                             @auth
 
                             @if (Auth::user()->role === 'admin')
-                            <a href="{{route('admin.dashboard')}}" class="block text-center px-4 py-2 text-sm font-semibold text-gray-800 hover:bg-blue-600 hover:text-white rounded flex items-center space-x-2 transition-all">
-                                <i class="fa-solid fa-user-shield flex-shrink-0 w-5"></i> <span>Dashboard</span>
+                            <a href="{{route('admin.dashboard')}}" class="group transition-all">
+                                <i class="fa-solid fa-tachometer-alt mr-2"></i>
+                                <span class="group-hover:border-b group-hover:border-black">Dashboard</span>
                             </a>
-                            else
+
+                            @else
                             <a href="{{route('user.dashboard')}}" class="group transition-all">
                                 <i class="fa-solid fa-tachometer-alt mr-2"></i>
                                 <span class="group-hover:border-b group-hover:border-black">Dashboard</span>
                             </a>
                             @endif
+                            <a href="{{route('user.books')}}" class="group transition-all">
+                                <i class="fa-solid fa-book mr-2"></i>
+                                <span class="group-hover:border-b group-hover:border-black">Manage Your Books</span>
+                            </a>
                             <form action="{{route('logout')}}" method="POST">
                                 @csrf
                                 <button type="submit" class="group transition-all">
@@ -191,11 +197,18 @@
                             </form>
                             @endauth
 
-                            <a href="{{route('user.books')}}" class="group transition-all">
-                                <i class="fa-solid fa-book mr-2"></i>
-                                <span class="group-hover:border-b group-hover:border-black">Manage Books</span>
-                            </a>
+
                             @guest
+                            <a href="{{route('books.index')}}" class="group transition-all">
+                                <i class="fa-solid fa-book flex-shrink-0 w-5"></i>
+                                <span class="group-hover:border-b group-hover:border-black">Books</span>
+                            </a>
+                            <a href="{{route('user.bookmarks.index')}}" class="group transition-all">
+                                <i class="fa-solid fa-bookmark flex-shrink-0 w-5"></i> <span class="group-hover:border-b group-hover:border-black">Bookmarks</span>
+                            </a>
+                            <a href="{{route('user.books.create')}}" class="group transition-all">
+                                <i class="fa-solid fa-plus flex-shrink-0 w-5"></i> <span class="group-hover:border-b group-hover:border-black">Add Book</span>
+                            </a>
                             <a href="{{route('login')}}" class="group transition-all">
                                 <i class="fa-solid fa-sign-in-alt mr-2"></i>
                                 <span class="group-hover:border-b group-hover:border-black">Login</span>

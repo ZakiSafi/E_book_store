@@ -1,5 +1,4 @@
-@props(['label', 'name', 'type' => 'text', 'required' => false])
-
+@props(['label', 'name', 'type' => 'text','placeholder'=>'', 'required' => false])
 <div class="flex flex-col">
     <label for="{{ $name }}" class="font-medium text-gray-700">{{ $label }}</label>
     <input
@@ -7,6 +6,7 @@
         id="{{ $name }}"
         name="{{ $name }}"
         value="{{ old($name) }}"
+        placeholder="{{ $placeholder }}"
         {{ $required ? 'required' : '' }}
         class="mt-1 p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500" />
     @error($name)

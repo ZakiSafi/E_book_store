@@ -62,7 +62,7 @@ document.querySelectorAll(".popup_profile").forEach((button) => {
     });
 });
 
-document.getElementById("close-popup").addEventListener("click", function () {
-    const popup = document.getElementById("profileModal");
-    popup.classList.add("hidden");
-});
+// document.getElementById("close-popup").addEventListener("click", function () {
+//     const popup = document.getElementById("profileModal");
+//     popup.classList.add("hidden");
+// });
