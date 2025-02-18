@@ -1,4 +1,4 @@
-<div class="min-h-[35vw] flex items-center justify-center bg-gradient-to-r from-blue-400 to-blue-500">
+<div class="min-h-[35vw] flex items-center justify-center">
     <div class="w-full max-w-[700px] bg-white p-8 rounded-2xl shadow-2xl">
         <h1 class="text-3xl font-extrabold text-gray-900 mb-6 text-center tracking-wide">📚 Explore Books</h1>
         <form action="{{route('search')}}" method="get" class="space-y-6">

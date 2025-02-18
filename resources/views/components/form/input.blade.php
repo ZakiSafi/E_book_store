@@ -1,3 +1,15 @@
-<div class="mt-2">
-    <input {{ $attributes->merge(["class"=>"block w-full border border-black-200 rounded-md grow py-2 pl-1 px-3 text-base text-gray-900 placeholder:text-gray-400 focus:outline focus:outline-0 sm:text-sm/6"]) }}> {{$slot}}</input>
+@props(['label', 'name', 'type' => 'text', 'required' => false])
+
+<div class="flex flex-col">
+    <label for="{{ $name }}" class="font-medium text-gray-700">{{ $label }}</label>
+    <input
+        type="{{ $type }}"
+        id="{{ $name }}"
+        name="{{ $name }}"
+        value="{{ old($name) }}"
+        {{ $required ? 'required' : '' }}
+        class="mt-1 p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500" />
+    @error($name)
+    <span class="text-red-500 text-sm">{{ $message }}</span>
+    @enderror
 </div>

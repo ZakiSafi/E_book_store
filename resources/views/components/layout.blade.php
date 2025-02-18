@@ -37,7 +37,7 @@
                             <x-nav_link href="{{route('books.index')}}" :active="request()->is('books')">
                                 <i class="fa-solid fa-book mr-1"></i> Digital Books
                             </x-nav_link>
-                            <x-nav_link href="{{route('physicalBooks.index')}}" :active="request()->is('books')">
+                            <x-nav_link href="{{route('physicalBooks.index')}}" :active="request()->is('physicalBooks')">
                                 <i class="fa-solid fa-book mr-1"></i> Physical Books
                             </x-nav_link>
                             @auth
