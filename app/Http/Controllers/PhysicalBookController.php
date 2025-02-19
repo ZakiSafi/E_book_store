@@ -84,21 +84,22 @@ class PhysicalBookController extends Controller
             'language' => 'required|string',
             'category_id' => 'required|integer',
         ]);
-
         if ($request->hasFile('cover_image')) {
             $attributes['cover_image'] = $request->file('cover_image')->store('cover_image', 'public');
         } else {
-            $attributes['cover_image'] = $request->file('old_cover_image')->store('old_cover_image', 'public');
+            $attributes['cover_image'] = $request->input('old_cover_image');
         }
 
         $book->update($attributes);
+
 
         return redirect()->route('physicalBooks.index');
     }
 
 
-    public function destroy(string $id)
+    public function destroy(PhysicalBook $book)
     {
-        //
+        $book->delete();
+        return redirect()->route('admin.dashboard');
     }
 }

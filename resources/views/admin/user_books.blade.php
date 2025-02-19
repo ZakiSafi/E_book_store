@@ -43,10 +43,10 @@
 
                                     <!-- Action Buttons -->
                                     <div class="flex gap-2 mt-3">
-                                        <a href="/books/{{ $book->id }}/edit" class="bg-blue-600 py-2 px-4 text-white rounded-lg transition-transform hover:scale-105">
+                                        <a href="{{route('user.books.edit',$book->id)}}" class="bg-blue-600 py-2 px-4 text-white rounded-lg transition-transform hover:scale-105">
                                             Edit
                                         </a>
-                                        <form action="/books/{{ $book->id }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this book?')">
+                                        <form action="{{route('user.books.destroy',$book->id)}}" method="POST" onsubmit="return confirm('Are you sure you want to delete this book?')">
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" class="bg-red-600 py-2 px-4 text-white rounded-lg transition-transform hover:scale-105">

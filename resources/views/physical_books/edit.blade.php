@@ -1,7 +1,8 @@
 <x-layout>
     <div class="w-full grid justify-center items-center p-8">
-        <form action="{{ route('admin.physical-books.update',$book->id) }}" method="put" enctype="multipart/form-data" class="container mx-auto bg-white p-6 rounded-lg shadow-lg">
+        <form action="{{ route('admin.physical-books.update',$book->id) }}" method="POST" enctype="multipart/form-data" class="container mx-auto bg-white p-6 rounded-lg shadow-lg">
             @csrf
+            @method('PUT')
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div class="col-span-1 md:col-span-2">
                     <h2 class="text-lg font-semibold border-b pb-2">Edit Book</h2>
@@ -58,11 +59,11 @@
 
                 <div class="flex flex-col">
                     @if ($book->cover_image)
-                    <input type="hidden" name="old_cover_image" value="$book->cover_image">
+                    <input type="hidden" name="old_cover_image" value="{{$book->cover_image}}">
                     @endif
 
                     <label for="cover_image" class="font-medium text-gray-700">Cover Image</label>
-                    <input type="file" id="cover_image" name="cover_image" class="mt-1 border p-2 rounded-md shadow-sm focus:ring focus:border-indigo-500" required />
+                    <input type="file" id="cover_image" name="cover_image" class="mt-1 border p-2 rounded-md shadow-sm focus:ring focus:border-indigo-500" />
                     <span class="text-gray-400 text-sm">.jpg, .jpeg, .png file types allowed.</span>
                     @error('cover_image') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
                 </div>

@@ -97,8 +97,8 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
         Route::get('/create', 'create')->name('create');
         Route::post('/store', 'store')->name('store');
         Route::get('/{id}/edit', 'edit')->name('edit');
-        Route::put('/{id}/update', 'update')->name('update');
-        Route::delete('/{id}', 'destroy')->name('destroy');
+        Route::put('/{book}/update', 'update')->name('update');
+        Route::delete('/{book}', 'destroy')->name('destroy');
     });
 });
 
