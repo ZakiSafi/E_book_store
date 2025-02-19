@@ -32,6 +32,7 @@ class PhysicalBookController extends Controller
     {
         $attributes = $request->validate([
             'title' => 'required|string',
+            'description' => 'nullable|string',
             'author' => 'required|string',
             'translator' => 'nullable|string',
             'cover_image' => 'required|image|mimes:jfif,jpeg,png,jpg,gif|max:3072',
@@ -62,7 +63,9 @@ class PhysicalBookController extends Controller
 
     public function edit(string $id)
     {
-        //
+        $book = PhysicalBook::find($id);
+        $categories = Category::all();
+        return view('physical_books.edit', compact('book', 'categories'));
     }
 
     public function update(Request $request, string $id)

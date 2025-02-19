@@ -13,6 +13,12 @@ class SearchController extends Controller
         $query = OnlineBook::where('status', OnlineBook::STATUS_APPROVED);
         $categories = Category::all();
 
+        // Check if there are no filters (i.e., request is empty)
+        if (!$request->filled('title') && !$request->filled('category') && !$request->filled('language')) {
+            // Return null or an empty collection
+            return view('books.search', compact('categories'))->with('books', null);
+        }
+
         // Filter by Title
         if ($request->filled('title')) {
             $title = $request->input('title');
@@ -34,6 +40,7 @@ class SearchController extends Controller
         // Get results
         $books = $query->get();
 
+        // Return results (null if no books found)
         return view('books.search', compact('books', 'categories'));
     }
 }

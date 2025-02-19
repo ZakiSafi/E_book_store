@@ -13,36 +13,36 @@
                 <!-- Book Information -->
                 <div class="flex flex-col gap-4 p-2">
                     <div>
-                        <h2 class="text-2xl font-bold font-italic mb-1">{{ $book->title }}</h2>
-                        <p class="text-md text-gray-400">{{ $book->author }}</p>
+                        <h2 class="text-3xl font-bold italic mb-1">{{ $book->title }}</h2>
+                        <p class="text-lg text-gray-500">{{ $book->author }}</p>
                     </div>
-                    <p class="text-md text-gray-400">{{ $book->description }}</p>
-                    <div class="grid grid-cols-[80px_auto] gap-x-8 text-md font-semibold">
-                        <p>Category:</p>
-                        <p>{{ $book->category->name }}</p>
-                        <p>Language:</p>
-                        <p>{{ $book->language }}</p>
-                        <p>Release:</p>
-                        <p>{{ $book->release_date }}</p>
-                        <p>Edition:</p>
 
-                        @if ($book->edition == 2)
-                        <p>2<sup>nd</sup></p>
-                        @elseif ($book->edition == 3)
-                        <p>3<sup>rd</sup></p>
-                        @elseif ($book->edition == 4)
-                        <p>4<sup>th</sup></p>
-                        @elseif ($book->edition == 5)
-                        <p>5<sup>th</sup></p>
-                        @else
-                        <p>{{ $book->edition }}<sup>th</sup></p>
-                        @endif
-                        <p>Publish_Year:</p>
-                        <p>{{ $book->publication_year }}</p>
-                        <p>Pages:</p>
-                        <p>{{ $book->pages }}</p>
-                        <p>Publisher:</p>
-                        <p>{{ $book->publisher }}</p>
+
+                    <p class="text-md text-gray-600">{{ $book->description }}</p>
+
+                    <div class="grid grid-cols-[150px_auto] gap-y-2 gap-x-4 text-md">
+                        <p class="font-semibold text-gray-700">Translator:</p>
+                        <p class="text-gray-600">{{ $book->translator ?? 'N/A' }}</p>
+
+                        <p class="font-semibold text-gray-700">Category:</p>
+                        <p class="text-gray-600">{{ $book->category->name }}</p>
+
+                        <p class="font-semibold text-gray-700">Language:</p>
+                        <p class="text-gray-600">{{ $book->language }}</p>
+
+                        <p class="font-semibold text-gray-700">Edition:</p>
+                        <p class="text-gray-600">{{ ordinal($book->edition) }}</p>
+
+                        <p class="font-semibold text-gray-700">Publish Year:</p>
+                        <p class="text-gray-600">{{ $book->publication_year }}</p>
+
+                        <p class="font-semibold text-gray-700">Publisher:</p>
+                        <p class="text-gray-600">{{ $book->printing_house }}</p>
+
+                        <p class="font-semibold text-gray-700">Shelf No:</p>
+                        <p class="text-gray-600">{{ $book->shelf_no }}</p>
+
+
                     </div>
                 </div>
             </div>
@@ -56,7 +56,7 @@
                         <div class="p-2 rounded-lg shadow-md bg-gray-100 hover:bg-gray-200 transition duration-300">
                             <a href="{{ route('physicalBooks.show', $relatedBook->id) }}" class="text-lg font-semibold text-blue-600 hover:underline">
                                 <img src="{{ asset('storage/' . $relatedBook->cover_image) }}" alt="{{ $relatedBook->title }}" class="w-28 h-32 bg-center rounded-lg shadow-md">
-                                <p class="text-sm mt-1 text-center">{{ Str::limit($relatedBook->title, 25) }}</p>
+                                <p class="text-sm mt-1 text-center truncate">{{ Str::limit($relatedBook->title, 25) }}</p>
                             </a>
                         </div>
                     </li>

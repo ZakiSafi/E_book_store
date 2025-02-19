@@ -10,6 +10,7 @@ class PhysicalBook extends Model
     use HasFactory;
     protected $fillable = [
         'title',
+        'description',
         'author',
         'translator',
         'language',
