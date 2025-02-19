@@ -6,17 +6,17 @@
                 <div class="col-span-1 md:col-span-2">
                     <h2 class="text-lg font-semibold border-b pb-2">Add Book</h2>
                 </div>
-                <x-form.input label="Title" name="title" required />
-                <x-form.input label="Author" name="author" required />
-                <x-form.input label="Translator" placeholder="optional" name="translator" />
-                <x-form.input label="Publication Year" name="publication_year" type="number" min="1000" max="{{ date('Y') }}" required />
-                <x-form.input label="Printing House" name="printing_house" required />
+                <x-form.input label="Title" name="title" value="{{old('title')}}" required />
+                <x-form.input label="Author" name="author" value="{{old('author')}}" required />
+                <x-form.input label="Translator" placeholder="optional" name="translator" value="{{old('translator')}}" />
+                <x-form.input label="Publication Year" name="publication_year" type="number" min="1000" max="{{ date('Y') }}" value="{{old('publication_year')}}" required />
+                <x-form.input label="Printing House" name="printing_house" value="{{old('printing_house')}}" required />
                 @error('printing_house') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
-                <x-form.input label="Edition" name="edition" required />
+                <x-form.input label="Edition" name="edition" value="{{old('edition')}}" required />
                 @error('edition') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
-                <x-form.input label="Shelf No" name="shelf_no" required />
+                <x-form.input label="Shelf No" name="shelf_no" value="{{old('shelf_no')}}" required />
                 @error('shelf_no') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
-                <x-form.input label="Copies" name="copies" type="number" required min="1" />
+                <x-form.input label="Copies" name="copies" type="number" value="{{old('copies')}}" required min="1" />
                 @error('copies') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
                 <div class="flex flex-col">
                     <label for="language" class="font-medium text-gray-700">Language</label>
@@ -46,7 +46,7 @@
                 </div>
                 <div class="col-span-1 md:col-span-2 flex flex-col">
                     <label for="description" class="font-medium text-gray-700">Description</label>
-                    <textarea id="description" name="description" class="mt-1 border rounded-md p-2 min-h-32 shadow-sm focus:ring focus:border-indigo-500"></textarea>
+                    <textarea id="description" name="description" class="mt-1 border rounded-md p-2 min-h-32 shadow-sm focus:ring focus:border-indigo-500" value="{{old('description')}}"></textarea>
                     @error('description') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
                 </div>
 

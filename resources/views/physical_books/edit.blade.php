@@ -6,18 +6,31 @@
                 <div class="col-span-1 md:col-span-2">
                     <h2 class="text-lg font-semibold border-b pb-2">Edit Book</h2>
                 </div>
+
                 <x-form.input label="Title" name="title" value="{{old('title',$book->title)}}" required />
+                @error('title') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
+
                 <x-form.input label="Author" name="author" value="{{old('author',$book->author)}}" required />
+                @error('author') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
+
                 <x-form.input label="Translator" placeholder="optional" name="translator" value="{{old('translator',$book->translator)}}" />
+                @error('translator') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
+
                 <x-form.input label="Publication Year" name="publication_year" type="number" min="1000" max="{{ date('Y') }}" value="{{old('publication_year',$book->publication_year)}}" required />
-                <x-form.input label="Printing House" name="printing_house" required />
+                @error('publication_year') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
+
+                <x-form.input label="Printing House" name="printing_house" value="{{old('printing_house',$book->printing_house)}}" required />
                 @error('printing_house') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
-                <x-form.input label="Edition" name="edition" required />
+
+                <x-form.input label="Edition" name="edition" value="{{old('edition',$book->edition)}}" required />
                 @error('edition') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
-                <x-form.input label="Shelf No" name="shelf_no" required />
+
+                <x-form.input label="Shelf No" name="shelf_no" value="{{old('shelf_no',$book->shelf_no)}}" required />
                 @error('shelf_no') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
-                <x-form.input label="Copies" name="copies" type="number" required min="1" />
+
+                <x-form.input label="Copies" name="copies" type="number" value="{{old('copies',$book->copies)}}" required min="1" />
                 @error('copies') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
+
                 <div class="flex flex-col">
                     <label for="language" class="font-medium text-gray-700">Language</label>
                     <select name="language" id="language" required class="mt-1 border rounded-md p-2 shadow-sm focus:ring focus:border-indigo-500">
@@ -30,26 +43,37 @@
                     </select>
                     @error('language') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
                 </div>
+
+
                 <div class="flex flex-col">
                     <label for="category" class="font-medium text-gray-700">Category</label>
                     <select name="category_id" id="category" required class="mt-1 border rounded-md p-2 shadow-sm focus:ring focus:border-indigo-500">
                         @foreach($categories as $category)
-                        <option value="{{ $category->id }}">{{ $category->name }}</option>
+                        <option value="{{old('category_id',$book->category_id)}}">{{ $category->name }}</option>
                         @endforeach
                     </select>
                     @error('category_id') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
                 </div>
+
+
                 <div class="flex flex-col">
+                    @if ($book->cover_image)
+                    <input type="hidden" name="$book->cover_image" value="$book->cover_image">
+                    @endif
+
                     <label for="cover_image" class="font-medium text-gray-700">Cover Image</label>
                     <input type="file" id="cover_image" name="cover_image" class="mt-1 border p-2 rounded-md shadow-sm focus:ring focus:border-indigo-500" required />
                     <span class="text-gray-400 text-sm">.jpg, .jpeg, .png file types allowed.</span>
                     @error('cover_image') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
                 </div>
+
+
                 <div class="col-span-1 md:col-span-2 flex flex-col">
                     <label for="description" class="font-medium text-gray-700">Description</label>
-                    <textarea id="description" name="description" class="mt-1 border rounded-md p-2 min-h-32 shadow-sm focus:ring focus:border-indigo-500"></textarea>
+                    <textarea id="description" name="description" class="mt-1 border rounded-md p-2 min-h-32 shadow-sm focus:ring focus:border-indigo-500"> {{old('description',$book->description)}}</textarea>
                     @error('description') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
                 </div>
+
 
                 <div class="col-span-1 md:col-span-2 flex justify-start gap-4">
                     <button type="submit" class="bg-blue-500 text-white py-2 px-6 rounded-md shadow-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500">
@@ -59,6 +83,8 @@
                         <i class="fas fa-arrow-left mr-1"></i> Back
                     </a>
                 </div>
+
+
             </div>
         </form>
     </div>
