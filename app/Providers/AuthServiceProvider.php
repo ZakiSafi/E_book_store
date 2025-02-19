@@ -4,7 +4,7 @@ namespace App\Providers;
 
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
-use App\Models\Book;
+use App\Models\OnlineBook;
 use App\Policies\BookPolicy;
 
 class AuthServiceProvider extends ServiceProvider
@@ -15,7 +15,7 @@ class AuthServiceProvider extends ServiceProvider
      * @var array
      */
     protected $policies = [
-        Book::class => BookPolicy::class,
+        OnlineBook::class => BookPolicy::class,
     ];
 
     /**
@@ -26,6 +26,5 @@ class AuthServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->registerPolicies();
-
     }
 }

@@ -44,10 +44,10 @@
                             <td class="px-4 py-2">{{ $book->user->name }}</td>
                             <td class="px-4 py-2">{{ $book->bookmarks->count() }}</td>
                             <td class="px-4 py-2 flex space-x-4">
-                                <a href="{{'books.edit',$book->id}}" class="text-blue-600 hover:text-blue-800">
+                                <a href="{{route('user.books.edit',$book->id)}}" class="text-blue-600 hover:text-blue-800">
                                     <i class="fa-solid fa-edit"></i> Edit
                                 </a>
-                                <form action="{{route('books.store',$book->id)}}" method="POST" class="inline-block">
+                                <form action="{{route('user.books.destroy',$book->id)}}" method="POST" class="inline-block">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="text-red-600 hover:text-red-800">

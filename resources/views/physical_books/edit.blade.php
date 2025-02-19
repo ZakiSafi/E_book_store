@@ -1,15 +1,15 @@
 <x-layout>
     <div class="w-full grid justify-center items-center p-8">
-        <form action="{{ route('admin.physical-books.edit') }}" method="POST" enctype="multipart/form-data" class="container mx-auto bg-white p-6 rounded-lg shadow-lg">
+        <form action="{{ route('admin.physical-books.update',$book->id) }}" method="put" enctype="multipart/form-data" class="container mx-auto bg-white p-6 rounded-lg shadow-lg">
             @csrf
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div class="col-span-1 md:col-span-2">
-                    <h2 class="text-lg font-semibold border-b pb-2">Add Book</h2>
+                    <h2 class="text-lg font-semibold border-b pb-2">Edit Book</h2>
                 </div>
-                <x-form.input label="Title" name="title" required />
-                <x-form.input label="Author" name="author" required />
-                <x-form.input label="Translator" placeholder="optional" name="translator" />
-                <x-form.input label="Publication Year" name="publication_year" type="number" min="1000" max="{{ date('Y') }}" required />
+                <x-form.input label="Title" name="title" value="{{old('title',$book->title)}}" required />
+                <x-form.input label="Author" name="author" value="{{old('author',$book->author)}}" required />
+                <x-form.input label="Translator" placeholder="optional" name="translator" value="{{old('translator',$book->translator)}}" />
+                <x-form.input label="Publication Year" name="publication_year" type="number" min="1000" max="{{ date('Y') }}" value="{{old('publication_year',$book->publication_year)}}" required />
                 <x-form.input label="Printing House" name="printing_house" required />
                 @error('printing_house') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
                 <x-form.input label="Edition" name="edition" required />
@@ -21,11 +21,12 @@
                 <div class="flex flex-col">
                     <label for="language" class="font-medium text-gray-700">Language</label>
                     <select name="language" id="language" required class="mt-1 border rounded-md p-2 shadow-sm focus:ring focus:border-indigo-500">
-                        <option value="">Select a Language</option>
-                        <option value="english" {{ old('language') == 'english' ? 'selected' : '' }}>English</option>
-                        <option value="pashto" {{ old('language') == 'pashto' ? 'selected' : '' }}>Pashto</option>
-                        <option value="dari" {{ old('language') == 'dari' ? 'selected' : '' }}>Dari</option>
-                        <option value="urdu" {{ old('language') == 'urdu' ? 'selected' : '' }}>Urdu</option>
+                        <option value="english" {{ old('language', $book->language) == 'english' ? 'selected' : '' }}>English</option>
+                        <option value="pashto" {{ old('language', $book->language) == 'pashto' ? 'selected' : '' }}>Pashto</option>
+                        <option value="dari" {{ old('language', $book->language) == 'dari' ? 'selected' : '' }}>Dari</option>
+                        <option value="urdu" {{ old('language', $book->language) == 'urdu' ? 'selected' : '' }}>Urdu</option>
+                        <option value="arabic" {{ old('language', $book->language) == 'arabic' ? 'selected' : '' }}>Urdu</option>
+
                     </select>
                     @error('language') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
                 </div>
