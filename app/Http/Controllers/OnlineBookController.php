@@ -110,8 +110,8 @@ class OnlineBookController extends Controller
     public function update(Request $request, OnlineBook $book)
     {
         $attributes = $request->validate([
-            'title' => 'required',
-            'author' => 'required',
+            'title' => 'required|string',
+            'author' => 'required |string',
             'category_id' => 'required',
         ]);
         if ($request->hasFile('cover_image')) {

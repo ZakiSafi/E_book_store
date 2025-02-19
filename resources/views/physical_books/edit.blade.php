@@ -58,7 +58,7 @@
 
                 <div class="flex flex-col">
                     @if ($book->cover_image)
-                    <input type="hidden" name="$book->cover_image" value="$book->cover_image">
+                    <input type="hidden" name="old_cover_image" value="$book->cover_image">
                     @endif
 
                     <label for="cover_image" class="font-medium text-gray-700">Cover Image</label>

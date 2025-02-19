@@ -68,9 +68,32 @@ class PhysicalBookController extends Controller
         return view('physical_books.edit', compact('book', 'categories'));
     }
 
-    public function update(Request $request, string $id)
+    public function update(Request $request, PhysicalBook $book)
     {
-        //
+        $attributes = $request->validate([
+            'title' => 'required|string',
+            'description' => 'nullable|string',
+            'author' => 'required|string',
+            'translator' => 'nullable|string',
+            'cover_image' => 'nullable|image|mimes:jfif,jpeg,png,jpg,gif|max:3072',
+            'publication_year' => 'required|integer',
+            'printing_house' => 'required|string',
+            'edition' => 'nullable|string',
+            'shelf_no' => 'required|integer',
+            'copies' => 'required|integer',
+            'language' => 'required|string',
+            'category_id' => 'required|integer',
+        ]);
+
+        if ($request->hasFile('cover_image')) {
+            $attributes['cover_image'] = $request->file('cover_image')->store('cover_image', 'public');
+        } else {
+            $attributes['cover_image'] = $request->file('old_cover_image')->store('old_cover_image', 'public');
+        }
+
+        $book->update($attributes);
+
+        return redirect()->route('physicalBooks.index');
     }
 
 
