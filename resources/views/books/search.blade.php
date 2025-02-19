@@ -3,7 +3,7 @@
     <x-search :categories="$categories" />
 
     <div class="container grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 w-full max-w-7xl mx-auto p-4">
-        @if ($books->isEmpty())
+        @if (!$books || $books->isEmpty())
         <div class="w-full col-span-3 bg-white rounded-lg shadow-lg p-6 text-center">
             <h1 class="text-lg font-bold text-red-500">No books found!</h1>
         </div>

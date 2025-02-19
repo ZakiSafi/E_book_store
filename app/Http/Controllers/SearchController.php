@@ -14,7 +14,7 @@ class SearchController extends Controller
         $categories = Category::all();
 
         // Check if there are no filters (i.e., request is empty)
-        if (!$request->filled('title') && !$request->filled('category') && !$request->filled('language')) {
+        if (!$request->filled('title')) {
             // Return null or an empty collection
             return view('books.search', compact('categories'))->with('books', null);
         }
