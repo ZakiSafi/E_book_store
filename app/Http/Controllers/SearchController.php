@@ -3,44 +3,57 @@
 namespace App\Http\Controllers;
 
 use App\Models\OnlineBook;
+use App\Models\PhysicalBook;
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Collection;
 
 class SearchController extends Controller
 {
     public function search(Request $request)
     {
-        $query = OnlineBook::where('status', OnlineBook::STATUS_APPROVED);
         $categories = Category::all();
+        $title = $request->input('title');
 
-        // Check if there are no filters (i.e., request is empty)
+        // Query Online Books
+        $onlineBooksQuery = OnlineBook::where('status', OnlineBook::STATUS_APPROVED)
+            ->where('title', 'like', "%$title%");
+
+        // Query Physical Books
+        $physicalBooksQuery = PhysicalBook::where('title', 'like', "%$title%");
+
+        // If no title is entered, return just the categories
         if (!$request->filled('title')) {
-            // Return null or an empty collection
-            return view('books.search', compact('categories'))->with('books', null);
+            $onlineBooks = null;
+            $physicalBooks = null;
+            return view('books.search', compact('categories', 'onlineBooks', 'physicalBooks'));
         }
 
-        // Filter by Title
-        if ($request->filled('title')) {
-            $title = $request->input('title');
-            $query->where('title', 'like', "%$title%");
-        }
-
-        // Filter by Category only if it's NOT "All Categories"
+        // Apply Category filter
         if ($request->filled('category') && $request->input('category') !== 'Select Category') {
-            $query->whereHas('category', function ($q) use ($request) {
-                $q->where('name', $request->input('category'));
+            $category = $request->input('category');
+
+            $onlineBooksQuery->whereHas('category', function ($q) use ($category) {
+                $q->where('name', $category);
+            });
+
+            $physicalBooksQuery->whereHas('category', function ($q) use ($category) {
+                $q->where('name', $category);
             });
         }
 
-        // Filter by Language
+        // Apply Language filter
         if ($request->filled('language') && $request->input('language') !== 'All Languages') {
-            $query->where('language', 'like', '%' . $request->input('language') . '%');
+            $language = $request->input('language');
+
+            $onlineBooksQuery->where('language', 'like', "%$language%");
+            $physicalBooksQuery->where('language', 'like', "%$language%");
         }
 
-        // Get results
-        $books = $query->get();
+        // Fetch Results
+        $onlineBooks = $onlineBooksQuery->get();
+        $physicalBooks = $physicalBooksQuery->get();
 
-        // Return results (null if no books found)
-        return view('books.search', compact('books', 'categories'));
+        return view('books.search', compact('onlineBooks', 'physicalBooks', 'title', 'categories'));
     }
 }

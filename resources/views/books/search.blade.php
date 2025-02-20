@@ -2,33 +2,60 @@
     <!-- Searching Component -->
     <x-search :categories="$categories" />
 
-    <div class="container grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 w-full max-w-7xl mx-auto p-4">
-        @if (!$books || $books->isEmpty())
-        <div class="w-full col-span-3 bg-white rounded-lg shadow-lg p-6 text-center">
-            <h1 class="text-lg font-bold text-red-500">No books found!</h1>
-        </div>
-        @else
-        @foreach ($books as $book)
-        <div class="w-full h-[300px] bg-white p-3 rounded-lg shadow-md flex flex-col items-center">
-            <!-- Book Image -->
-            <a href="{{ route('books.show', $book->id) }}" class="w-full">
-                <img
-                    src="{{ asset('storage/' . $book->cover_image) }}"
-                    alt="{{ $book->title }}"
-                    class="w-full h-[150px] object-cover rounded-md" />
-            </a>
+    <div class="container w-full max-w-7xl mx-auto p-8">
+        <h1 class="text-[24px] text-gray-500">Result for Digital Books</h1>
+        <div class="w-full mx-auto grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 justify-center p-8">
+            @if ($onlineBooks && !$onlineBooks->isEmpty())
+            @foreach ($onlineBooks as $book)
+            <div class="w-full max-w-[200px]  flex flex-col items-center justify-center transform transition-transform duration-300 hover:scale-105">
+                <a href="{{ route('books.show', $book->id) }}" class="w-full">
+                    <div class="w-full flex flex-col  items-center text-center mt-2">
+                        <img src="{{ asset('storage/' . $book->cover_image) }}" alt="{{ $book->title }}" class="w-[90%] h-32 md:h-48 object-center rounded-lg mb-2">
 
-            <!-- Book Details -->
-            <div class="w-full flex flex-col items-center text-center mt-2">
-                <h3 class="text-md font-bold text-gray-800 truncate w-full">{{ Str::limit($book->title, 12) }}</h3>
-                <p class="text-sm font-semibold text-gray-500">{{ $book->author }}</p>
-                <p class="text-sm text-gray-600">{{ $book->language }}</p>
-                <p class="text-xs font-medium text-blue-500 bg-blue-100 px-2 py-1 rounded-full mt-1">
-                    {{ $book->category->name }}
-                </p>
+                        <h3 class="text-sm font-bold text-gray-800 w-full truncate">{{ Str::limit($book->title, 20) }}</h3>
+                        <p class="text-xs font-semibold text-gray-500">{{ $book->author }}</p>
+                        <p class="text-xs text-gray-600">{{ $book->language }}</p>
+                        <p class="text-[10px] font-medium text-blue-500 bg-blue-100 px-2 py-1 rounded-full mt-1">
+                            {{ $book->category->name }}
+                        </p>
+                    </div>
+                </a>
             </div>
+            @endforeach
+            @else
+            <div class="w-full col-span-4 bg-white rounded-lg shadow-lg p-6 text-center">
+                <h1 class="text-lg font-bold text-red-500">No Digital books found!</h1>
+            </div>
+            @endif
         </div>
-        @endforeach
-        @endif
+    </div>
+
+    <!-- showing results for physical books -->
+    <div class="container w-full max-w-7xl mx-auto p-8">
+        <h1 class="text-[24px] text-gray-500">Result for Physical Books</h1>
+        <div class="w-full mx-auto grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 justify-center p-8">
+            @if ($physicalBooks && !$physicalBooks->isEmpty())
+            @foreach ($physicalBooks as $book)
+            <div class="w-full max-w-[200px]  flex flex-col items-center justify-center transform transition-transform duration-300 hover:scale-105">
+                <a href="{{ route('physicalBooks.show', $book->id) }}" class="w-full">
+                    <div class="w-full flex flex-col  items-center text-center mt-2">
+                        <img src="{{ asset('storage/' . $book->cover_image) }}" alt="{{ $book->title }}" class="w-[90%] h-32 md:h-48 object-center rounded-lg mb-2">
+
+                        <h3 class="text-sm font-bold text-gray-800 w-full truncate">{{ Str::limit($book->title, 20) }}</h3>
+                        <p class="text-xs font-semibold text-gray-500">{{ $book->author }}</p>
+                        <p class="text-xs text-gray-600">{{ $book->language }}</p>
+                        <p class="text-[10px] font-medium text-blue-500 bg-blue-100 px-2 py-1 rounded-full mt-1">
+                            {{ $book->category->name }}
+                        </p>
+                    </div>
+                </a>
+            </div>
+            @endforeach
+            @else
+            <div class="w-full col-span-4 bg-white rounded-lg shadow-lg p-6 text-center">
+                <h1 class="text-lg font-bold text-red-500">No physical books found!</h1>
+            </div>
+            @endif
+        </div>
     </div>
 </x-layout>
