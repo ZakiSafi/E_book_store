@@ -36,9 +36,6 @@
                         <p class="font-semibold text-gray-700">Publish Year:</p>
                         <p class="text-gray-600">{{ $book->publication_year }}</p>
 
-                        <p class="font-semibold text-gray-700">Publisher:</p>
-                        <p class="text-gray-600">{{ $book->printing_house }}</p>
-
                         <p class="font-semibold text-gray-700">Shelf No:</p>
                         <p class="text-gray-600">{{ $book->shelf_no }}</p>
 

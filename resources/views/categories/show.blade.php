@@ -1,83 +1,73 @@
 <x-layout>
-    <div class="min-h-[500px] flex items-center justify-center bg-gray-100">
-        <div class="w-full max-w-[700px] bg-white p-6 rounded-lg shadow-lg">
-            <h2 class="text-2xl font-bold text-gray-800 mb-6 text-center">{{ $category->name }}</h2>
-            <form action="/search " method="get" class="space-y-4">
-                <!-- Search Field -->
-                <div>
-                    <label for="search" class="block text-sm font-medium text-gray-700">Search (Optional)</label>
-                    <input
-                        type="text"
-                        id="search"
-                        name='title'
-                        placeholder="Search ..."
-                        class="mt-1 block w-full p-2 border border-gray-300 rounded-md focus:ring-green-500 focus:border-green-500 text-gray-800" />
-                </div>
-                <!-- Language Dropdown -->
-                <div>
-                    <label for="language" class="block text-sm font-medium text-gray-700">Language</label>
-                    <select
-                        id="language"
-                        name='language'
-                        class="mt-1 block w-full p-2 border border-gray-300 rounded-md focus:ring-green-500 focus:border-green-500 text-gray-800">
-                        <option>All Languages</option>
-                        <option>English</option>
-                        <option>Arabic</option>
-                        <option>Pashto</option>
-                        <option>Urdu</option>
-                    </select>
-                </div>
-                <!-- Category Field -->
-                <div>
-                    <label for="category" class="block text-sm font-medium text-gray-700">Category</label>
-                    <select
-                        id="category"
-                        name="category_id"
-                        class="mt-1 block w-full p-2 border border-gray-300 rounded-md focus:ring-green-500 focus:border-green-500 text-gray-800">
-                        <option value="">Select Category</option>
-                        @foreach ($categories as $cat)
-                        <option value="{{ $category->id }}">{{ $cat->name }}</option>
-                        @endforeach
-                    </select>
-                </div>
-                <!-- Buttons -->
-                <div class="flex gap-4">
-                    <button
-                        type="submit"
-                        class="flex-1 bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 text-sm font-medium">
-                        Filter
-                    </button>
-                    <a
-                        href="/books"
-                        class="flex-1 bg-gray-200 text-gray-700 py-2 px-4 rounded-md hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-300 focus:ring-offset-2 text-sm font-medium">
-                        Reset
-                    </a>
-                </div>
-            </form>
-        </div>
-    </div>
-    <div class="container w-full max-w-7xl grid items-center justify-center py-8">
-        <div class="w-full max-w-[700px] bg-white p-6 rounded-lg shadow-lg">
-            @foreach ($category->onlineBooks as $book)
-            <div class="grid grid-cols-2 mb-8 items-center">
-                <div class="rounded-lg overflow-hidden h-48 w-30 rounded-lg">
-                    <a href="/books/{{$book->id}}">
 
-                        <img
-                            src="{{ asset('storage/' . $book->cover_image) }}"
-                            alt="{{ $book->title }}"
-                            class="object-cover w-72 h-72 rounded-lg " />
+    <x-search :categories='$categories' />
+
+    <div class="flex items-center justify-center mt-8 mb-4">
+        <h1 class="text-4xl font-extrabold  bg-gradient-to-r from-blue-400 to-blue-500 text-transparent bg-clip-text">
+            {{ $category->name }} Books
+        </h1>
+    </div>
+    <div class="min-h-[50vh] bg-gray-100">
+        <div class="container w-full max-w-7xl mx-auto p-12">
+            <h1 class="text-2xl text-gray-800 font-bold ">Digital Books</h1>
+            <div class="w-full mx-auto grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 items-center justify-center p-8">
+                @if ($category->onlineBooks && !$category->onlineBooks->isEmpty())
+                @foreach ($category->onlineBooks as $book)
+                <div class="w-full max-w-[200px]  flex flex-col items-center justify-center transform transition-transform duration-300 hover:scale-105">
+                    <a href="{{ route('books.show', $book->id) }}" class="w-full">
+                        <div class="w-full flex flex-col  items-center text-center mt-2">
+                            <img src="{{ asset('storage/' . $book->cover_image) }}" alt="{{ $book->title }}" class="w-[90%] h-32 md:h-48 object-center rounded-lg mb-2">
+
+                            <h3 class="text-sm font-bold text-gray-800 w-full truncate">{{ Str::limit($book->title, 20) }}</h3>
+                            <p class="text-xs font-semibold text-gray-500">{{ $book->author }}</p>
+                            <p class="text-xs text-gray-600">{{ $book->language }}</p>
+                            <p class="text-[10px] font-medium text-blue-500 bg-blue-100 px-2 py-1 rounded-full mt-1">
+                                {{ $book->category->name }}
+                            </p>
+                        </div>
                     </a>
                 </div>
-                <div class="self-start flex flex-col gap-2">
-                    <h3 class="text-xl font-bold text-gray-800">{{ $book->title }}</h3>
-                    <p class="text-md font-semi-bold text-gray-400">{{ $book->author }}</p>
-                    <p class="text-md text-gray-600">{{ $book->language }}</p>
-                    <p class="text-md text-gray-600">{{ $book->category->name }}</p>
+                @endforeach
+                @else
+                <div class="w-full col-span-4 bg-white rounded-lg shadow-lg p-8 text-center">
+                    <h1 class="text-lg font-bold text-red-500">No Digital books found!</h1>
                 </div>
+                @endif
             </div>
-            @endforeach
         </div>
     </div>
+    <div class="min-h-[50vh] flex items-center justify-center bg-gray-100">
+        <div class="container w-full max-w-7xl mx-auto p-12">
+            <h1 class="text-2xl text-gray-800 font-bold">physical Books</h1>
+            <div class="w-full mx-auto grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 justify-center p-8">
+                @if ($category->physicalBooks && !$category->physicalBooks->isEmpty())
+                @foreach ($category->physicalBooks as $book)
+                <div class="w-full max-w-[200px]  flex flex-col items-center justify-center transform transition-transform duration-300 hover:scale-105">
+                    <a href="{{ route('physicalBooks.show', $book->id) }}" class="w-full">
+                        <div class="w-full flex flex-col  items-center text-center mt-2">
+                            <img src="{{ asset('storage/' . $book->cover_image) }}" alt="{{ $book->title }}" class="w-[90%] h-32 md:h-48 object-center rounded-lg mb-2">
+
+                            <h3 class="text-sm font-bold text-gray-800 w-full truncate">{{ Str::limit($book->title, 20) }}</h3>
+                            <p class="text-xs font-semibold text-gray-500">{{ $book->author }}</p>
+                            <p class="text-xs text-gray-600">{{ $book->language }}</p>
+                            <p class="text-[10px] font-medium text-blue-500 bg-blue-100 px-2 py-1 rounded-full mt-1">
+                                {{ $book->category->name }}
+                            </p>
+                        </div>
+                    </a>
+                </div>
+                @endforeach
+                @else
+                <div class="w-full col-span-4 bg-white rounded-lg shadow-lg p-6 text-center">
+                    <h1 class="text-lg font-bold text-red-500">No physical books found!</h1>
+                </div>
+                @endif
+            </div>
+        </div>
+    </div>
+    <!-- physical books -->
+
+
+
 
 </x-layout>

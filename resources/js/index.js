@@ -21,6 +21,26 @@ if (dropdownButton && mobileMenu) {
     });
 }
 
+// <!-- JavaScript to Toggle Dropdown -->
+document
+    .getElementById("dropdown-toggle")
+    .addEventListener("click", function () {
+        const dropdownMenu = document.getElementById("dropdown-menu");
+        dropdownMenu.classList.toggle("hidden");
+    });
+
+// Close dropdown when clicking outside
+document.addEventListener("click", function (event) {
+    const dropdownMenu = document.getElementById("dropdown-menu");
+    const dropdownToggle = document.getElementById("dropdown-toggle");
+    if (
+        !dropdownToggle.contains(event.target) &&
+        !dropdownMenu.contains(event.target)
+    ) {
+        dropdownMenu.classList.add("hidden");
+    }
+});
+
 // Showing password input
 document.querySelectorAll(".toggle-password").forEach((button) => {
     button.addEventListener("click", function () {

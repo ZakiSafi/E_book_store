@@ -16,7 +16,7 @@
                         <input type="hidden" name="online_book_id" value="{{ $book->id }}">
                         <input type="hidden" name="redirect_url" value="/books/{{ $book->id }}">
                         <button type="submit" class="text-blue-500 text-lg hover:bg-blue-500 hover:text-white font-semibold px-2 py-1 border border-blue-500 rounded-lg transition duration-300 ease-in-out">
-                            <span>{{ $bookmark ? 'Bookmarked' : 'Bookmark' }}<i class="{{ $bookmark ? 'fas' : 'far' }} fa-bookmark mr-1"></i></span>
+                            <span>{{ $bookmark ? 'Bookmarked' : 'Bookmark' }}<i class="{{ $bookmark ? 'fas' : 'far' }} fa-bookmark ml-1"></i></span>
                         </button>
                     </form>
 
