@@ -12,7 +12,7 @@
                 <x-form.input label="Publication Year" name="publication_year" type="number" min="1000" max="{{ date('Y') }}" value="{{old('publication_year')}}" required />
                 <x-form.input label="Printing House" name="printing_house" value="{{old('printing_house')}}" required />
                 @error('printing_house') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
-                <x-form.input label="Edition" name="edition" value="{{old('edition')}}" required />
+                <x-form.input label="Edition" name="edition" value="{{old('edition')}}" />
                 @error('edition') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
                 <x-form.input label="Shelf No" name="shelf_no" value="{{old('shelf_no')}}" required />
                 @error('shelf_no') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror

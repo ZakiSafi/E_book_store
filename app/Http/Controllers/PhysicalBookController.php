@@ -47,6 +47,7 @@ class PhysicalBookController extends Controller
         if ($request->hasFile('cover_image')) {
             $attributes['cover_image'] = $request->file('cover_image')->store('physical_books', 'public');
         }
+        $attributes['available_copies'] = $request->input('copies');
 
         PhysicalBook::create($attributes);
         return redirect()->route('physicalBooks.index');
@@ -89,6 +90,9 @@ class PhysicalBookController extends Controller
         } else {
             $attributes['cover_image'] = $request->input('old_cover_image');
         }
+        $attributes['available_copies'] = $request->input('copies');
+
+
 
         $book->update($attributes);
 

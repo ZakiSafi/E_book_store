@@ -30,8 +30,15 @@
                         <p class="font-semibold text-gray-700">Language:</p>
                         <p class="text-gray-600">{{ $book->language }}</p>
 
+                        @if ($book->edition)
                         <p class="font-semibold text-gray-700">Edition:</p>
                         <p class="text-gray-600">{{ ordinal($book->edition) }}</p>
+                        @else
+                        <p class="font-semibold text-gray-700">Edition:</p>
+                        <p class="text-gray-600">1<sup>st</sup></p>
+
+                        @endif
+
 
                         <p class="font-semibold text-gray-700">Publish Year:</p>
                         <p class="text-gray-600">{{ $book->publication_year }}</p>
