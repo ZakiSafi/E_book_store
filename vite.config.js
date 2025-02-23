@@ -8,6 +8,12 @@ export default defineConfig({
             refresh: true,
         }),
     ],
+    resolve: {
+        alias: {
+            // Ensure jQuery is properly resolved
+            jquery: "jquery/dist/jquery.min.js",
+        },
+    },
     server: {
         hmr: {
             protocol: "ws",
