@@ -64,6 +64,10 @@
                     <a href="{{route('user.bookmarks.index')}}" class="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition duration-300">
                         <i class="fa-solid fa-bookmark mr-2"></i> View Bookmarks
                     </a>
+
+                    <a href="{{route('user.books')}}" class="bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition duration-300">
+                        <i class="fa-solid fa-book mr-2"></i> Manage Your Books
+                    </a>
                 </div>
             </div>
         </div>

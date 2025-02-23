@@ -5,12 +5,12 @@
     <div class="container w-full max-w-7xl mx-auto p-8">
         <h1 class="text-[24px] text-gray-500">Latest Books</h1>
         <div class="w-full mx-auto grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 justify-center p-8">
-            @if ($books->isEmpty())
+            @if ($physicalBooks->isEmpty())
             <div class="w-full col-span-4 bg-white rounded-lg shadow-lg p-6 text-center">
                 <h1 class="text-lg font-bold text-red-500">No books found!</h1>
             </div>
             @else
-            @foreach ($books as $book)
+            @foreach ($physicalBooks as $book)
             <div class="w-full max-w-[200px]  flex flex-col items-center justify-center transform transition-transform duration-300 hover:scale-105">
                 <a href="{{ route('physicalBooks.show', $book->id) }}" class="w-full">
                     <div class="w-full flex flex-col  items-center text-center mt-2">
@@ -27,6 +27,9 @@
             </div>
             @endforeach
             @endif
+        </div>
+        <div class="px-14">
+            {{$physicalBooks->links() }}
         </div>
     </div>
 </x-layout>

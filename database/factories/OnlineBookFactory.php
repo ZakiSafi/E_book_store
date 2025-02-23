@@ -53,7 +53,6 @@ class OnlineBookFactory extends Factory
             'book4.pdf',
             'book5.pdf',
             'book6.pdf',
-            'book7.pdf',
             'book8.pdf',
             'book9.pdf',
             'book11.pdf',

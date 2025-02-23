@@ -24,7 +24,6 @@ class PhysicalBookFactory extends Factory
             'book4.jfif',
             'book5.jfif',
             'book6.jfif',
-            'book7.jfif',
             'book8.jfif',
             'book9.jfif',
             'book10.jfif',

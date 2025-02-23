@@ -20,12 +20,12 @@
     <div class="container w-full mx-auto pt-8 pb-8">
         <div class=" w-full flex justify-between p-4">
 
-            <p class="text-xl  text-[#888]">Categories</p>
-            <a href="/books">
-                <span class="text-[#888]">
+            <p class="text-xl  text-gray-400">Categories</p>
+            <a href="{{route('books.index')}}" class="group">
+                <span class="text-[#888]  transition transition-all duration-300 group-hover:text-gray-700">
                     View all books
                 </span>
-                <i class="fa-solid fa-arrow-up-right-from-square text-sm text-[#888]"></i>
+                <i class="fa-solid fa-arrow-up-right-from-square hover:group text-sm text-[#888] group-hover:text-gray-700"></i>
             </a>
 
 

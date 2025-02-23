@@ -8,7 +8,7 @@
         </h1>
     </div>
     <div class="min-h-[50vh] bg-gray-100">
-        <div class="container w-full max-w-7xl mx-auto p-12">
+        <div class="container w-full max-w-7xl mx-auto px-12 py-6">
             <h1 class="text-2xl text-gray-800 font-bold ">Digital Books</h1>
             <div class="w-full mx-auto grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 items-center justify-center p-8">
                 @if ($category->onlineBooks && !$category->onlineBooks->isEmpty())
@@ -37,7 +37,7 @@
         </div>
     </div>
     <div class="min-h-[50vh] flex items-center justify-center bg-gray-100">
-        <div class="container w-full max-w-7xl mx-auto p-12">
+        <div class="container w-full max-w-7xl mx-auto px-12 py-6">
             <h1 class="text-2xl text-gray-800 font-bold">physical Books</h1>
             <div class="w-full mx-auto grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 justify-center p-8">
                 @if ($category->physicalBooks && !$category->physicalBooks->isEmpty())

@@ -78,7 +78,7 @@
 
 
             </div>
-            <div class="bg-white rounded-lg shadow-lg p-4 self-start">
+            <div class="bg-white rounded-lg shadow-lg p-6 self-start">
                 <h3 class="text-xl font-bold">Related Books</h3>
                 <ul class="flex overflow-x-auto space-x-4 p-4">
                     @foreach($relatedBooks as $relatedBook)
