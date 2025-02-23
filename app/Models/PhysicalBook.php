@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\BorrowedBook;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class PhysicalBook extends Model
 {
@@ -23,11 +24,9 @@ class PhysicalBook extends Model
         'available_copies',
         'category_id'
     ];
-    public function Borrowers()
+    public function borrowedBooks()
     {
-        return $this->belongsToMany(User::class, 'borrowed_books')
-            ->withPivot('borrowed_at', 'due_date', 'returned_at', 'is_returned')
-            ->withTimestamps();
+        return $this->hasMany(BorrowedBook::class);
     }
     public function category()
     {

@@ -3,15 +3,16 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\BorrowedBook;
+
+use Laravel\Sanctum\HasApiTokens;
 
 use Illuminate\Database\Eloquent\Model;
 
-use Illuminate\Foundation\Auth\User as Authenticatable;
-
 use Illuminate\Notifications\Notifiable;
 
-use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
@@ -24,11 +25,9 @@ class User extends Authenticatable
         return $this->hasMany(OnlineBook::class);
     }
 
-    public function PhysicalBooks()
+    public function borrowedBooks()
     {
-        return $this->belongsToMany(PhysicalBook::class, 'borrowed_books')
-            ->withPivot('borrowed_at', 'due_date', 'returned_at', 'is_returned')
-            ->withTimestamps();
+        return $this->hasMany(BorrowedBook::class);
     }
 
     public function bookmarks()
