@@ -17,9 +17,9 @@ class AdminBookController extends Controller
 
     public function physicalBooks()
     {
-        $books = PhysicalBook::all();
+        $books = PhysicalBook::latest()->simplepaginate(20);
         $totalBooks = PhysicalBook::count();
-        return view('admin.physical_books');
+        return view('admin.physical_books', compact('books', 'totalBooks'));
     }
     public function pendingBooks()
     {

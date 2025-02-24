@@ -17,14 +17,13 @@
 
                     <!-- Online and Physical Books Buttons -->
                     <div class="flex space-x-2">
-                        <a href="{{ route('admin.books.index') }}" class="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition duration-150 ease-in-out">
+                        <a href="{{ route('admin.books.index') }}" class="px-4 py-2 {{ request()->routeIs('admin.books.index') ? 'bg-blue-700' : 'bg-blue-500' }} text-white rounded-lg hover:bg-blue-600 transition duration-150 ease-in-out">
                             Online Books
                         </a>
-                        <a href="{{ route('admin.books.physicalBooks') }}" class="px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition duration-150 ease-in-out">
+                        <a href="{{ route('admin.books.physicalBooks') }}" class="px-4 py-2 {{ request()->routeIs('admin.books.physicalBooks') ? 'bg-green-700' : 'bg-green-500' }} text-white rounded-lg hover:bg-green-600 transition duration-150 ease-in-out">
                             Physical Books
                         </a>
                     </div>
-
                     <!-- Sidebar Toggle Button (Visible on all screen sizes) -->
                     <div class="relative">
                         <button id="sidebar-toggle" class="p-2 rounded-lg bg-gray-100 hover:bg-gray-200 focus:outline-none">
@@ -55,7 +54,7 @@
                         </tr>
                     </thead>
 
-                    <tbody class="bg-white divide-y divide-gray-200 ">
+                    <tbody class="bg-white divide-y divide-gray-200">
                         @foreach ($books as $book)
                         <tr class="hover:bg-gray-50 transition duration-150 ease-in-out p-2">
                             <td class="px-6 py-4 whitespace-nowrap">
