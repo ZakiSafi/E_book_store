@@ -9,8 +9,11 @@ use Illuminate\Http\Request;
 
 class AdminBorrowedBookController extends Controller
 {
-
-
+    public function index()
+    {
+        $borrowedBooks = BorrowedBook::with('user', 'book');
+        return view('borrowed_books.index');
+    }
     // Method to display the form
     public function showForm(PhysicalBook $book)
     {
@@ -40,8 +43,11 @@ class AdminBorrowedBookController extends Controller
             'due_date' => now()->addDays($dueInDays),
         ]);
 
+        // Decrement the available_copies column
+        $book->decrement('available_copies');
+
         // Redirect back with success message
-        return redirect()->route('admin.borrow-books.create')->with('success', 'Book borrowed successfully!');
+        return redirect()->route('admin.books.physicalBooks')->with('success', 'Book borrowed successfully!');
     }
     // Method to handle searching for users
     public function searchUsers(Request $request)

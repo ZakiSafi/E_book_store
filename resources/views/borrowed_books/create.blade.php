@@ -4,7 +4,7 @@
     <!-- main content -->
 
     <div class="w-full h-auto flex justify-center items-center p-8">
-        <form action="{{route('admin.borrow-books.store',$book->id)}}" method="POST" enctype="multipart/form-data" class="w-full max-w-xl bg-white p-6 rounded-lg shadow-md">
+        <form action="{{route('admin.borrow-books.store',['book'=>$book->id])}}" method="POST" enctype="multipart/form-data" class="w-full max-w-xl bg-white p-6 rounded-lg shadow-md">
             @csrf
             <div class="flex flex-col gap-4">
                 <div class="col-span-2">
