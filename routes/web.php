@@ -65,18 +65,20 @@ Route::controller(LoginController::class)->group(function () {
 Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {
     Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('dashboard');
 
-    // Books Management
+    // OnlineBooks Management
     Route::controller(AdminBookController::class)->prefix('books')->name('books.')->group(function () {
         Route::get('/', 'books')->name('index');
+        Route::get('/physicalBooks', 'physicalBooks')->name('physicalBooks');
         Route::get('/pending', 'pendingBooks')->name('pending');
         Route::put('/{id}/update-status', 'updateStatus')->name('updateStatus');
     });
+
 
     // Users Management
     Route::controller(AdminUserController::class)->prefix('users')->name('users.')->group(function () {
         Route::get('/', 'users')->name('index');
         Route::get('/{id}/books', 'books')->name('books');
-        Route::delete('/{id}', 'destroy')->name('destroy'); // Changed from GET to DELETE
+        Route::delete('/{id}', 'destroy')->name('destroy');
     });
 
     // Admin Creation
@@ -86,7 +88,7 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
     });
 
     //Admin borrowed books management
-    Route::controller(AdminBorrowedBookController::class)->prefix('borrowed-books')->name('borrowed-books.')->group(function () {
+    Route::controller(AdminBorrowedBookController::class)->name('borrow-books.')->group(function () {
         Route::get('/borrow-book',  'showForm')->name('create');
         Route::post('/borrow-book', 'store')->name('store');
         Route::get('/users/search', 'searchUsers')->name('users.search');

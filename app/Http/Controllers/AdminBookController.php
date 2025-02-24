@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\OnlineBook;
+use App\Models\PhysicalBook;
 use Illuminate\Http\Request;
 
 class AdminBookController extends Controller
@@ -12,6 +13,13 @@ class AdminBookController extends Controller
         $books = OnlineBook::with('user', 'bookmarks')->latest()->simplepaginate(20);
         $totalBooks = OnlineBook::count();
         return view('admin.books', compact('books', 'totalBooks'));
+    }
+
+    public function physicalBooks()
+    {
+        $books = PhysicalBook::all();
+        $totalBooks = PhysicalBook::count();
+        return view('admin.physical_books');
     }
     public function pendingBooks()
     {

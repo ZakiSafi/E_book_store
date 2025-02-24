@@ -17,7 +17,7 @@ return new class extends Migration
             $table->foreignId('book_id')->constrained('physical_books')->cascadeOnDelete();
             $table->date('borrowed_at');
             $table->date('due_date');
-            $table->date('returned_at');
+            $table->date('returned_at')->nullable();
             $table->boolean('is_returned')->default(false);
             $table->timestamps();
         });
