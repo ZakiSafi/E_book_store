@@ -16,9 +16,14 @@
             message.classList.remove('opacity-100');
             message.classList.add('opacity-0');
 
-            // Remove the message from the DOM after fad   ing out (optional)
+            // Remove the message from the DOM after fading out (optional)
             setTimeout(() => message.style.display = 'none', 500);
         }, 2000);
     });
 </script>
+
+@php
+// Forget the session message after displaying it
+session()->forget('success');
+@endphp
 @endif

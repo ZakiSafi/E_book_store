@@ -21,7 +21,7 @@
 
 <body class="font-sans antialiased">
     <div>
-        <!-- Header -->
+
         <header class="w-full z-50 bg-gradient-to-r from-blue-500 to-blue-600 shadow-lg relative">
             <div class="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                 <div class="flex h-16 items-center justify-between">
@@ -113,12 +113,6 @@
                                 <i class="fa-solid fa-tachometer-alt flex-shrink-0 w-5"></i> <span>Dashboard</span>
                             </a>
                             @endif
-                            <form action="/logout" method="POST" class="mt-4">
-                                @csrf
-                                <button type="submit" class="w-full text-center px-4 py-2 text-sm font-semibold text-gray-800 hover:bg-blue-600 hover:text-white rounded flex items-center space-x-2 transition-all">
-                                    <i class="fa-solid fa-sign-out-alt  w-5"></i> <span>Log Out</span>
-                                </button>
-                            </form>
                             @endauth
                             <a href="{{route('books.index')}}" class="block text-center px-4 py-2 text-sm font-semibold text-gray-800 hover:bg-blue-600 hover:text-white rounded flex items-center space-x-2 transition-all">
                                 <i class="fa-solid fa-book flex-shrink-0 w-5"></i> <span>Books</span>
@@ -129,6 +123,14 @@
                             <a href="{{route('user.bookmarks.index')}}" class="block text-center px-4 py-2 text-sm font-semibold text-gray-800 hover:bg-blue-600 hover:text-white rounded flex items-center space-x-2 transition-all">
                                 <i class="fa-solid fa-bookmark flex-shrink-0 w-5"></i> <span>Bookmarks</span>
                             </a>
+                            @auth
+                            <form action="/logout" method="POST" class="mt-4">
+                                @csrf
+                                <button type="submit" class="w-full text-center px-4 py-2 text-sm font-semibold text-gray-800 hover:bg-blue-600 hover:text-white rounded flex items-center space-x-2 transition-all">
+                                    <i class="fa-solid fa-sign-out-alt  w-5"></i> <span>Log Out</span>
+                                </button>
+                            </form>
+                            @endauth
                         </nav>
 
                         @guest

@@ -37,6 +37,7 @@ class LoginController extends Controller
                 return redirect()->route('user.dashboard')->with('success', 'Welcome back ' . $user->name . ' to BMA Library');
             }
         }
+        return redirect()->route('login')->with('error', 'Invalid credentials');
     }
     public function destroy()
     {
