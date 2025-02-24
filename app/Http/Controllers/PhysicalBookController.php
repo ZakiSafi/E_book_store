@@ -100,6 +100,6 @@ class PhysicalBookController extends Controller
     public function destroy(PhysicalBook $book)
     {
         $book->delete();
-        return redirect()->route('admin.dashboard');
+        return redirect()->route('admin.books.physicalBooks')->with('success', 'deleted book' . $book->title . ' successfully');
     }
 }

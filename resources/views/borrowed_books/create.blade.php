@@ -4,7 +4,7 @@
     <!-- main content -->
 
     <div class="w-full h-auto flex justify-center items-center p-8">
-        <form action="{{route('admin.borrow-books.store')}}" method="POST" enctype="multipart/form-data" class="w-full max-w-xl bg-white p-6 rounded-lg shadow-md">
+        <form action="{{route('admin.borrow-books.store',$book->id)}}" method="POST" enctype="multipart/form-data" class="w-full max-w-xl bg-white p-6 rounded-lg shadow-md">
             @csrf
             <div class="flex flex-col gap-4">
                 <div class="col-span-2">
@@ -28,10 +28,28 @@
                 </div>
                 <!-- Selecting a book -->
                 <div class="flex flex-col">
+                    <label for="book_id" class="font-medium text-gray-700">Book Name: </label>
+                    <input
+                        type="hidden"
+                        name="book_id"
+                        id="book_id"
+                        value='{{$book->id}}'
+                        required>
+                    <input
+                        type="text"
+                        value='{{$book->title}}'
+                        disabled
+                        class="mt-1 block w-full rounded-md border border-gray-300 bg-white px-2 py-1 shadow-sm focus:ring-indigo-500 focus:border-indigo-500">
+                    @error('book_id')
+                    <span class="text-red-500 text-sm">{{ $message }}</span>
+                    @enderror
+                </div>
+                <!-- <div class="flex flex-col">
                     <label for="book_id" class="font-medium text-gray-700">Select Book:</label>
                     <select
                         name="book_id"
                         id="book_id"
+                        value='{{$book->title}}'
                         required
                         class="mt-1 block w-full rounded-md border border-gray-300 bg-white px-2 py-1 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 select2">
 
@@ -41,7 +59,7 @@
                     @error('book_id')
                     <span class="text-red-500 text-sm">{{ $message }}</span>
                     @enderror
-                </div>
+                </div> -->
                 <!-- Due Date -->
                 <div class="flex flex-col">
                     <label for="due_in_days" class="font-medium text-gray-700">Due Date:</label>
@@ -116,41 +134,6 @@
                 }
             });
 
-            // Initialize Select2 for book search
-            $('#book_id').select2({
-                ajax: {
-                    url: "{{ route('admin.borrow-books.books.search') }}",
-                    dataType: 'json',
-                    delay: 250,
-                    data: function(params) {
-                        return {
-                            q: params.term, // Search term
-                        };
-                    },
-                    processResults: function(data) {
-                        return {
-                            results: data.map(function(book) {
-                                return {
-                                    id: book.id,
-                                    text: book.title + ' by ' + book.author
-                                };
-                            })
-                        };
-                    },
-                    cache: true
-                },
-                placeholder: 'Search for a book',
-                minimumInputLength: 0,
-                templateResult: function(data) {
-                    if (data.loading) {
-                        return data.text;
-                    }
-                    return data.text;
-                },
-                templateSelection: function(data) {
-                    return data.text;
-                }
-            });
         });
     </script>
     @endpush

@@ -70,20 +70,28 @@
                             <td class="px-6 py-4 whitespace-nowrap text-gray-700">{{ $book->author }}</td>
                             <td class="px-6 py-4 whitespace-nowrap text-gray-700">{{ $book->user->name }}</td>
                             <td class="px-6 py-4 whitespace-nowrap text-gray-700">{{ $book->bookmarks->count() }}</td>
-                            <td class="px-6 py-4 whitespace-nowrap">
-                                <div class="flex space-x-4">
-                                    <a href="{{route('user.books.edit',$book->id)}}" class="text-blue-600 hover:text-blue-800 transition duration-150 ease-in-out">
-                                        <i class="fa-solid fa-edit"></i> Edit
+                            <td class="px-6 py-4 whitespace-nowrap relative">
+                                <div class="action-toggle cursor-pointer">
+                                    <p class="text-gray-700">action <i class="fa-solid fa-chevron-circle-down text-xs mt-1 text-gray-700"></i></p>
+                                </div>
+
+                                <div class="action-sideBar grid grid-cols-[20px,auto] justify-center items-center absolute z-50 right-4 bg-white shadow-md p-2 rounded-md hidden">
+                                    <i class="fa-solid fa-edit text-sm text-blue-600"></i>
+                                    <a href="{{ route('user.books.edit', $book->id) }}" class="text-blue-600 hover:text-blue-800 text-sm transition duration-150 ease-in-out">
+                                        Edit
                                     </a>
-                                    <form action="{{route('user.books.destroy',$book->id)}}" method="POST" class="inline-block">
+                                    <i class="fa-solid fa-trash-alt text-sm text-red-600"></i>
+                                    <form action="{{ route('user.books.destroy', $book->id) }}" method="POST" class="inline-block">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" class="text-red-600 hover:text-red-800 transition duration-150 ease-in-out">
-                                            <i class="fa-solid fa-trash-alt"></i> Delete
+                                        <button type="submit" class="text-red-600 hover:text-red-800 text-sm transition duration-150 ease-in-out">
+                                            Delete
                                         </button>
                                     </form>
+
                                 </div>
                             </td>
+
                         </tr>
                         @endforeach
                     </tbody>
@@ -93,20 +101,4 @@
         </div>
     </div>
 
-    <!-- JavaScript to handle sidebar toggle -->
-    <script>
-        const sidebarToggle = document.getElementById('sidebar-toggle');
-        const sidebarDropdown = document.getElementById('sidebar-dropdown');
-
-        sidebarToggle.addEventListener('click', () => {
-            sidebarDropdown.classList.toggle('hidden');
-        });
-
-        // Close dropdown when clicking outside
-        document.addEventListener('click', (e) => {
-            if (!sidebarToggle.contains(e.target) && !sidebarDropdown.contains(e.target)) {
-                sidebarDropdown.classList.add('hidden');
-            }
-        });
-    </script>
 </x-layout>

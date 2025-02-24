@@ -12,14 +12,15 @@ class AdminBorrowedBookController extends Controller
 
 
     // Method to display the form
-    public function showForm()
+    public function showForm(PhysicalBook $book)
     {
-        return view('borrowed_books.create');
+
+        return view('borrowed_books.create', compact('book'));
     }
 
     // Method to handle storing the borrowed book
 
-    public function store(Request $request)
+    public function store(Request $request, PhysicalBook $book)
     {
         // Validate input
         $request->validate([
@@ -34,7 +35,7 @@ class AdminBorrowedBookController extends Controller
         // Store the borrowed book
         BorrowedBook::create([
             'user_id' => $request->user_id,
-            'book_id' => $request->book_id,
+            'book_id' => $book->id,
             'borrowed_at' => now(),
             'due_date' => now()->addDays($dueInDays),
         ]);
@@ -53,14 +54,14 @@ class AdminBorrowedBookController extends Controller
         return response()->json($users);
     }
 
-    // Method to handle searching for books
-    public function searchBooks(Request $request)
-    {
-        $search = $request->get('q');
-        $books = PhysicalBook::where('title', 'like', "%{$search}%")
-            ->limit(20)
-            ->get();
+    // // Method to handle searching for books
+    // public function searchBooks(Request $request)
+    // {
+    //     $search = $request->get('q');
+    //     $books = PhysicalBook::where('title', 'like', "%{$search}%")
+    //         ->limit(20)
+    //         ->get();
 
-        return response()->json($books);
-    }
+    //     return response()->json($books);
+    // }
 }
