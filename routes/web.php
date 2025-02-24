@@ -65,7 +65,7 @@ Route::controller(LoginController::class)->group(function () {
 Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {
     Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('dashboard');
 
-    // OnlineBooks Management
+    // Books Management
     Route::controller(AdminBookController::class)->prefix('books')->name('books.')->group(function () {
         Route::get('/', 'books')->name('index');
         Route::get('/physicalBooks', 'physicalBooks')->name('physicalBooks');
