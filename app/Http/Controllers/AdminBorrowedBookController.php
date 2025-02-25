@@ -32,6 +32,16 @@ class AdminBorrowedBookController extends Controller
             'due_in_days' => 'required|integer|min:1',
         ]);
 
+        // Check if the user has already borrowed this book
+        $alreadyBorrowed = BorrowedBook::where('user_id', $request->user_id)
+            ->where('book_id', $book->id)
+            ->whereNull('returned_at')
+            ->exists();
+
+        if ($alreadyBorrowed) {
+            return redirect()->route('admin.physical-books.create')->withErrors(['error' => 'You have already borrowed this book.']);
+        }
+
         // Convert due_in_days to an integer
         $dueInDays = (int) $request->due_in_days;
 

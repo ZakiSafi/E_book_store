@@ -149,6 +149,7 @@
         </header>
         <!-- session success message -->
         <x-session />
+        <x-session-error />
 
 
         <main>
