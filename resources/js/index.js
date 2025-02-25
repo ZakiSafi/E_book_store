@@ -21,28 +21,6 @@ if (dropdownButton && mobileMenu) {
     });
 }
 
-// <!-- JavaScript to Toggle Dropdown -->
-// if (dorpdown-toggle && dropdown-menu) {
-//     document
-//         .getElementById("dropdown-toggle")
-//         .addEventListener("click", function () {
-//             const dropdownMenu = document.getElementById("dropdown-menu");
-//             dropdownMenu.classList.toggle("hidden");
-//         });
-// }
-
-// // Close dropdown when clicking outside
-// document.addEventListener("click", function (event) {
-//     const dropdownMenu = document.getElementById("dropdown-menu");
-//     const dropdownToggle = document.getElementById("dropdown-toggle");
-//     if (
-//         !dropdownToggle.contains(event.target) &&
-//         !dropdownMenu.contains(event.target)
-//     ) {
-//         dropdownMenu.classList.add("hidden");
-//     }
-// });
-
 // Showing password input
 document.querySelectorAll(".toggle-password").forEach((button) => {
     button.addEventListener("click", function () {
@@ -84,7 +62,10 @@ document.querySelectorAll(".popup_profile").forEach((button) => {
     });
 });
 
-// document.getElementById("close-popup").addEventListener("click", function () {
-//     const popup = document.getElementById("profileModal");
-//     popup.classList.add("hidden");
-// });
+const closePopupBtn = document.getElementById("close-popup");
+if (closePopupBtn) {
+    closePopupBtn.addEventListener("click", function () {
+        const popup = document.getElementById("profileModal");
+        popup.classList.add("hidden");
+    });
+}

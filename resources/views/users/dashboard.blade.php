@@ -73,16 +73,9 @@
         </div>
     </div>
 
-    <!-- Profile Picture Modal -->
-    <div id="profileModal" class="hidden fixed inset-0 bg-gray-900 bg-opacity-50 flex justify-center items-center">
-        <div class="bg-white p-6 rounded-lg w-full max-w-xl">
-            <button id="close-popup" class="text-xl hover:bg-red-600 hover:text-white px-2 py-1 rounded-lg transition-transform transform hover:scale-105 duration-300">Close</button>
-            <div class="flex flex-col items-center">
-                <img src="{{ asset('storage/profile_pictures/' . $user->profile_picture) }}" alt="Profile Picture" class="w-48 h-48 rounded-full mb-4">
-                <h2 class="text-2xl">{{ $user->name }}</h2>
-                <p class="mt-2">{{ $user->email }}</p>
-
-            </div>
-        </div>
-    </div>
+    <x-profile-popup>
+        <img src="{{ asset('storage/' . $user->profile_picture) }}" alt="Profile Picture" class="w-48 h-48 rounded-full mb-4">
+        <h2 class="text-2xl">{{ $user->name }}</h2>
+        <p class="mt-2">{{ $user->email }}</p>
+    </x-profile-popup>
 </x-layout>

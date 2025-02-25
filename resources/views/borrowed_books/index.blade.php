@@ -55,12 +55,12 @@
                                 </a>
                             </td>
                             <td class=" whitespace-nowrap">
-                                <a href="{{route('books.show', $book->book->id)}}">
+                                <a href="{{route('physicalBooks.show', $book->book->id)}}">
                                     <img src="{{ asset('storage/' . $book->book->cover_image) }}" alt="Cover Image" class="w-32 h-32 object-cover rounded-lg shadow-sm hover:shadow-md transition-shadow duration-200">
                                 </a>
                             </td>
                             <td class="flex flex-col items-center justify-center px-6 py-4 whitespace-nowrap text-gray-700">
-                                <img src="{{ asset('storage/' . $book->user->profile_picture) }}" alt="profile picture " class="w-16 h-16 object-cover rounded-full shadow-sm hover:shadow-md transition-shadow duration-200">
+                                <img src="{{ asset('storage/' .  $book->user->profile_picture) }}" alt="Profile Picture" class="popup_profile rounded-full h-20 w-20 shadow-sm hover:shadow-md cursor-pointer">
                                 {{ $book->user->name }}
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap text-gray-700">{{ $book->borrowed_at }}</td>
@@ -88,6 +88,13 @@
                             </td>
 
                         </tr>
+                        <!-- profile picture popup -->
+                        <x-profile-popup>
+                            <img src="{{ asset('storage/' . $book->user->profile_picture) }}" alt="Profile Picture" class="w-48 h-48 rounded-full mb-4">
+                            <h2 class="text-2xl">{{ $book->user->name }}</h2>
+                            <p class="mt-2">{{ $book->user->email }}</p>
+                        </x-profile-popup>
+
                         @endforeach
                     </tbody>
                 </table>

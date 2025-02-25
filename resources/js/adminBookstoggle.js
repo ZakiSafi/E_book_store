@@ -1,9 +1,11 @@
 const sidebarToggle = document.getElementById("sidebar-toggle");
 const sidebarDropdown = document.getElementById("sidebar-dropdown");
 
-sidebarToggle.addEventListener("click", () => {
-    sidebarDropdown.classList.toggle("hidden");
-});
+if (sidebarToggle) {
+    sidebarToggle.addEventListener("click", () => {
+        sidebarDropdown.classList.toggle("hidden");
+    });
+}
 
 // Close dropdown when clicking outside
 document.addEventListener("click", (e) => {
