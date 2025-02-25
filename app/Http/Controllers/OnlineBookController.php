@@ -91,8 +91,15 @@ class OnlineBookController extends Controller
 
         $isBookmarked = $bookmark ? true : false;
 
-        // $relatedBooks = $book->relatedBooks()->get();
-        $relatedBooks = OnlineBook::with('category')->where([['category_id', $book->category_id], ['id', '!=', $book->id]])->get();
+
+        $relatedBooks = OnlineBook::with('category')
+            ->where('category_id', $book->category_id)
+            ->where('id', '!=', $book->id)
+            ->orWhere(function ($query) use ($book) {
+                $query->where('title', 'like', '%' . $book->title . '%')
+                    ->where('id', '!=', $book->id);
+            })
+            ->get();
         return view('books.show', compact('book', 'relatedBooks', 'isBookmarked', 'bookmark'));
     }
 

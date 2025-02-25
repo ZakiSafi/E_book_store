@@ -53,7 +53,17 @@ class PhysicalBookController extends Controller
     public function show(string $id)
     {
         $book = PhysicalBook::find($id);
-        $relatedBooks = PhysicalBook::with('category')->where([['category_id', $book->category_id], ['id', '!=', $book->id]])->get();
+        if (!$book) {
+            return redirect()->route('physicalBooks.index')->with('error', 'Book not found');
+        }
+        $relatedBooks = PhysicalBook::with('category')
+            ->where('category_id', $book->category_id)
+            ->where('id', '!=', $book->id)
+            ->orWhere(function ($query) use ($book) {
+                $query->where('title', 'like', '%' . $book->title . '%')
+                    ->where('id', '!=', $book->id);
+            })
+            ->get();
         return view('physical_books.show', compact('book', 'relatedBooks'));
     }
 
