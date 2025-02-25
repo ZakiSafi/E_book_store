@@ -1,12 +1,11 @@
-<!-- session -->
 @if (session('error'))
-<div id="message" class="fixed top-13 left-0 right-0 bg-red-500 text-white p-4 text-center rounded-lg shadow-lg opacity-0 transition-opacity duration-500 ease-in-out w-full">
+<div id="error-message" class="fixed top-13 left-0 right-0 bg-red-500 text-white p-4 text-center rounded-b-lg shadow-lg opacity-0 transition-opacity duration-500 ease-in-out w-full">
     {{ session('error') }}
 </div>
 
 <script>
     document.addEventListener("DOMContentLoaded", function() {
-        let message = document.getElementById('message');
+        let message = document.getElementById('error-message');
 
         // Fade in effect
         message.classList.remove('opacity-0');

@@ -12,8 +12,10 @@ class AdminBorrowedBookController extends Controller
     public function index()
     {
         $borrowedBooks = BorrowedBook::with('user', 'book');
-        return view('borrowed_books.index');
+        return view('borrowed_books.index', compact('borrowedBooks'));
     }
+
+
     // Method to display the form
     public function showForm(PhysicalBook $book)
     {
@@ -21,7 +23,7 @@ class AdminBorrowedBookController extends Controller
         return view('borrowed_books.create', compact('book'));
     }
 
-    // Method to handle storing the borrowed book
+
 
     public function store(Request $request, PhysicalBook $book)
     {
@@ -32,6 +34,11 @@ class AdminBorrowedBookController extends Controller
             'due_in_days' => 'required|integer|min:1',
         ]);
 
+        // Check if the book is available
+        if ($book->available_copies <= 0) {
+            return redirect()->back()->with(['error' => 'Sorry, the book is not available.']);
+        }
+
         // Check if the user has already borrowed this book
         $alreadyBorrowed = BorrowedBook::where('user_id', $request->user_id)
             ->where('book_id', $book->id)
@@ -39,10 +46,9 @@ class AdminBorrowedBookController extends Controller
             ->exists();
 
         if ($alreadyBorrowed) {
-            return redirect()->route('admin.physical-books.create')->withErrors(['error' => 'You have already borrowed this book.']);
+            return redirect()->back()->with(['error' => 'You have already borrowed this book.']);
         }
 
-        // Convert due_in_days to an integer
         $dueInDays = (int) $request->due_in_days;
 
         // Store the borrowed book
@@ -57,8 +63,10 @@ class AdminBorrowedBookController extends Controller
         $book->decrement('available_copies');
 
         // Redirect back with success message
-        return redirect()->route('admin.books.physicalBooks')->with('success', 'Book borrowed successfully!');
+        return redirect()->back()->with('success', 'Book borrowed successfully!');
     }
+
+
     // Method to handle searching for users
     public function searchUsers(Request $request)
     {
