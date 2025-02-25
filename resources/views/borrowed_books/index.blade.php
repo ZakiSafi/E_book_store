@@ -16,12 +16,12 @@
                     </div>
 
 
-                    <!-- Sidebar Toggle Button (Visible on all screen sizes) -->
+                    <!-- Sidebar Toggle Button  -->
                     <div class="relative">
                         <button id="sidebar-toggle" class="p-2 rounded-lg bg-gray-100 hover:bg-gray-200 focus:outline-none">
                             <i class="fa-solid fa-bars text-gray-600"></i>
                         </button>
-                        <!-- Sidebar Dropdown (Hidden by default) -->
+                        <!-- Sidebar Dropdown -->
                         <div id="sidebar-dropdown" class="absolute right-0 mt-2 w-64 bg-white  hidden z-50">
                             <div class="p-4">
                                 <x-sideBar />
@@ -59,8 +59,13 @@
                                     <img src="{{ asset('storage/' . $book->book->cover_image) }}" alt="Cover Image" class="w-32 h-32 object-cover rounded-lg shadow-sm hover:shadow-md transition-shadow duration-200">
                                 </a>
                             </td>
-                            <td class="flex flex-col items-center justify-center px-6 py-4 whitespace-nowrap text-gray-700">
+                            <td class="flex flex-col items-center justify-center gap-y-2 px-6 py-4 whitespace-nowrap text-gray-700">
+                                @if ($book->user->profile_picture)
                                 <img src="{{ asset('storage/' .  $book->user->profile_picture) }}" alt="Profile Picture" class="popup_profile rounded-full h-20 w-20 shadow-sm hover:shadow-md cursor-pointer">
+                                @else
+                                <img src="{{ asset('storage/profile_pictures/' . 'default.png') }}" alt="Profile Picture" class="popup_profile rounded-full h-20 w-20 shadow-sm hover:shadow-md cursor-pointer">
+                                @endif
+
                                 {{ $book->user->name }}
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap text-gray-700">{{ $book->borrowed_at }}</td>

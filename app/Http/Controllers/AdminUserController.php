@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\BorrowedBook;
 use App\Models\OnlineBook;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -24,6 +25,7 @@ class AdminUserController extends Controller
     public function books($id)
     {
         $books = OnlineBook::where('user_id', $id)->get();
-        return view('admin.user_books', compact('books'));
+        $borrowedBooks = BorrowedBook::where('user_id', $id)->get();
+        return view('admin.user_books', compact('books', 'borrowedBooks'));
     }
 }

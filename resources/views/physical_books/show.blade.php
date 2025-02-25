@@ -7,7 +7,7 @@
             <div class="bg-white shadow-lg grid sm:grid-cols-1 md:grid-cols-[25%,70%] gap-5 rounded-lg p-4">
                 <!-- Book Cover Image -->
                 <div class="p-2 w-full flex flex-col items-center gap-4">
-                    <img src="{{ asset('storage/' . $book->cover_image) }}" alt="{{ $book->title }}" class="w-36 h-48  rounded-lg shadow-md">
+                    <img src="{{ asset('storage/' . $book->cover_image) }}" alt="{{ $book->title }}" class="w-36 h-48 rounded-lg shadow-md">
                 </div>
 
                 <!-- Book Information -->
@@ -15,8 +15,15 @@
                     <div>
                         <h2 class="text-3xl font-bold italic mb-1">{{ $book->title }}</h2>
                         <p class="text-lg text-gray-500">{{ $book->author }}</p>
+                        <!-- Availability Badge -->
+                        <div class="mt-2">
+                            @if ($book->available_copies > 0)
+                            <span class="bg-green-100 text-green-800 text-sm font-semibold px-3 py-1 rounded-full">Available</span>
+                            @else
+                            <span class="bg-red-100 text-red-800 text-sm font-semibold px-3 py-1 rounded-full">Not Available</span>
+                            @endif
+                        </div>
                     </div>
-
 
                     <p class="text-md text-gray-600">{{ $book->description }}</p>
 
@@ -36,7 +43,6 @@
                         @else
                         <p class="font-semibold text-gray-700">Edition:</p>
                         <p class="text-gray-600">1<sup>st</sup></p>
-
                         @endif
 
 
@@ -45,8 +51,6 @@
 
                         <p class="font-semibold text-gray-700">Shelf No:</p>
                         <p class="text-gray-600">{{ $book->shelf_no }}</p>
-
-
                     </div>
                 </div>
             </div>
