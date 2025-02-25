@@ -22,7 +22,7 @@
                 <!-- Profile Picture -->
                 <div class="flex flex-col items-center gap-2 flex-shrink-0">
                     @if ($user->profile_picture)
-                    <img src="{{ asset('storage/profile_pictures/' . $user->profile_picture) }}" alt="Profile Picture" class="popup_profile rounded-full h-24 w-24 cursor-pointer">
+                    <img src="{{ asset('storage/' . $user->profile_picture) }}" alt="Profile Picture" class="popup_profile rounded-full h-24 w-24 cursor-pointer">
                     @else
                     <img src="{{ asset('storage/profile_pictures/default.jfif') }}" alt="Default Profile Picture" class="rounded-full h-24 w-24">
                     @endif

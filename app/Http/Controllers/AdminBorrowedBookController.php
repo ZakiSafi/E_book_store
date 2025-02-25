@@ -11,7 +11,7 @@ class AdminBorrowedBookController extends Controller
 {
     public function index()
     {
-        $borrowedBooks = BorrowedBook::with('user', 'book');
+        $borrowedBooks = BorrowedBook::with('user', 'book')->latest()->simplePaginate(5);
         return view('borrowed_books.index', compact('borrowedBooks'));
     }
 

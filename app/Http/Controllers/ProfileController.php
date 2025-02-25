@@ -31,12 +31,12 @@ class ProfileController extends Controller
 
         if ($request->hasFile('profile_picture')) {
             if ($user->profile_picture) {
-                Storage::delete('profile_pictures/' . $user->profile_picture);
+                Storage::delete($user->profile_picture);
             }
 
-            $path = $request->file('profile_picture')->store('profile_pictures');
+            $path = $request->file('profile_picture')->store('profile_pictures', 'public');
             // Extracts the filename from the full path  (e.g., profile_pictures/abc123.jpg becomes abc123.jpg).
-            $user->profile_picture = basename($path);
+            $user->profile_picture = $path;
         }
 
         $user->save();

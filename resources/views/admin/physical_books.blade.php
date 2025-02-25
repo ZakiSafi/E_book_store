@@ -25,11 +25,11 @@
 
                     <!-- Sidebar Toggle Button (Visible on all screen sizes) -->
                     <div class="relative">
-                        <button id="sidebar-toggle" class="p-2 rounded-lg bg-gray-100 hover:bg-gray-200 focus:outline-none">
+                        <button id="sidebar-toggle" class="text-lg px-2 py-1 rounded-md bg-gray-100 hover:bg-gray-200 focus:outline-none">
                             <i class="fa-solid fa-bars text-gray-600"></i>
                         </button>
                         <!-- Sidebar Dropdown (Hidden by default) -->
-                        <div id="sidebar-dropdown" class="absolute right-0 mt-2 w-64 bg-white rounded-lg shadow-lg hidden">
+                        <div id="sidebar-dropdown" class="absolute right-0  w-64 hidden z-50">
                             <div class="p-4">
                                 <x-sideBar />
                             </div>

@@ -84,7 +84,7 @@
                         class="bg-blue-500 text-white py-2 px-6 rounded-md shadow-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500">
                         <i class="fas fa-save mr-1"></i>Save
                     </button>
-                    <a href="#" onclick="window.history.back(); return false;" class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition duration-300">
+                    <a href="{{route('admin.borrow-books.index')}}" class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition duration-300">
                         <i class="fas fa-arrow-left mr-1"></i> Back
                     </a>
                 </div>
