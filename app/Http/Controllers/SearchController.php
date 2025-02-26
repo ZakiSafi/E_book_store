@@ -10,8 +10,6 @@ use App\Models\PhysicalBook;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 
-use function Pest\Laravel\castAsJson;
-
 class SearchController extends Controller
 {
     public function search(Request $request)
@@ -66,33 +64,35 @@ class SearchController extends Controller
         $query = $request->input('query');
         $searchType = $request->input('search_type');
         $results = [];
+
         switch ($searchType) {
             case 'Users':
-                $results = User::where('name', 'like', '%{$query}%')
-                    ->orWhere('email', 'like', '%{$query}%')
+                $results = User::where('name', 'like', "%$query%")
+                    ->orWhere('email', 'like', "%$query%")
                     ->get();
                 break;
 
             case 'Online Books':
-                $results = OnlineBook::where('title', 'like', '%{$query}%')
-                    ->orWhere('author', 'like', '{$query}')
+                $results = OnlineBook::where('title', 'like', "%$query%")
+                    ->orWhere('author', 'like', "%$query%")
                     ->get();
                 break;
 
             case 'Physical Books':
-                $results = PhysicalBook::wehre('title', 'like', '%{$query}%')
-                    ->orWhere('author', 'like', '%{$query}%')
+                $results = PhysicalBook::where('title', 'like', "%$query%")
+                    ->orWhere('author', 'like', "%$query%")
                     ->get();
                 break;
 
             case 'Borrowed Books':
                 $results = BorrowedBook::whereHas('book', function ($q) use ($query) {
-                    $q->where('title', 'like', '%{$query}%');
+                    $q->where('title', 'like', "%$query%");
                 })
                     ->orWhereHas('user', function ($q) use ($query) {
-                        $q->where('name', 'like', '%{$query}%');
+                        $q->where('name', 'like', "%$query%");
                     })
                     ->get();
+                break;
 
             default:
                 $results = collect();

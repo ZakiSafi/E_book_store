@@ -82,7 +82,7 @@ class AdminBorrowedBookController extends Controller
         $book->increment('available_copies');
 
         // Redirect back with success message
-        return redirect()->back()->with('success', 'Borrowed book returned successfully!');
+        return redirect()->route('admin.borrow-books.index')->with('success', 'Borrowed book returned successfully!');
     }
 
 

@@ -36,6 +36,7 @@
                             <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Email</th>
                             <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Image</th>
                             <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Books</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Borrowed Books</th>
                             <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Bookmarks</th>
                             <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
                         </tr>
@@ -61,6 +62,14 @@
                                     {{ $user->Onlinebooks->count() }}
                                 </a>
                             </td>
+
+
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <a href="{{ route('admin.users.books', $user->id) }}" class="text-blue-600 hover:text-blue-800 font-medium">
+                                    {{ $user->borrowedBooks->count() }}
+                                </a>
+                            </td>
+
 
                             <td class="px-6 py-4 whitespace-nowrap">{{ $user->bookmarks->count() }}</td>
 

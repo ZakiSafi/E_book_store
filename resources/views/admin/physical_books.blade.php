@@ -40,14 +40,15 @@
             <div class="mt-8 mb-4 ">
                 <h3 class="text-2xl font-semibold text-gray-800 mb-6">Books List</h3>
                 <table class="min-w-full divide-y divide-gray-200">
-                    <thead class="bg-gray-50">
+                    <thead class="bg-gray-50 sticky top-0  w-full">
                         <tr>
                             <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Title</th>
                             <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Cover Image</th>
                             <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Author</th>
                             <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Language</th>
                             <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Shelf No</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Available copies</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Total Copies</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Available Copies</th>
                             <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
                         </tr>
                     </thead>
@@ -65,9 +66,10 @@
                                     <img src="{{ asset('storage/' . $book->cover_image) }}" alt="Cover Image" class="w-32 h-32 object-cover rounded-lg shadow-sm hover:shadow-md transition-shadow duration-200">
                                 </a>
                             </td>
-                            <td class="px-6 py-4 text-center whitespace-nowrap text-gray-700">{{ $book->author }}</td>
+                            <td class="px-6 py-4 text-center whitespace-nowrap text-gray-700">{{ Str::limit($book->author,15) }}</td>
                             <td class="px-6 py-4 text-center whitespace-nowrap text-gray-700">{{ $book->language }}</td>
                             <td class="px-6 py-4 text-center whitespace-nowrap text-gray-700">{{ $book->shelf_no }}</td>
+                            <td class="px-6 py-4 text-center whitespace-nowrap text-gray-700">{{ $book->copies }}</td>
                             <td class="px-6 py-4 text-center whitespace-nowrap text-gray-700">{{ $book->available_copies }}</td>
 
                             <td class="px-6 py-4 whitespace-nowrap relative">
