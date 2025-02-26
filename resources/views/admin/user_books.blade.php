@@ -95,22 +95,7 @@
                                 <p class="text-md text-gray-500">Due Date: {{ $borrowedBook->due_date }}</p>
                                 <hr>
 
-                                <!-- Remaining Days or Overdue Message -->
-                                @php
-                                $dueDate = \Carbon\Carbon::parse($borrowedBook->due_date);
-                                $currentDate = \Carbon\Carbon::now();
-                                $daysRemaining = $currentDate->diffInDays($dueDate, false); // false = no absolute value
-                                @endphp
-
-                                @if ($daysRemaining > 0)
-                                <p class="text-md text-green-600 bg-green-100 p-2 rounded-lg">
-                                    Remaining Days: {{ ceil($daysRemaining) }} days
-                                </p>
-                                @else
-                                <p class="text-md text-red-600 bg-red-100 p-2 rounded-lg">
-                                    Overdue by {{ abs(ceil($daysRemaining)) }} days
-                                </p>
-                                @endif
+                                <x-remaining-days-message :dueDate="$borrowedBook->due_date" />
                                 <hr>
 
                                 <!-- Action Buttons -->
