@@ -10,16 +10,18 @@ class AdminBookController extends Controller
 {
     public function books()
     {
+        $searchType = 'onlinBooks';
         $books = OnlineBook::with('user', 'bookmarks')->latest()->simplepaginate(20);
         $totalBooks = OnlineBook::count();
-        return view('admin.books', compact('books', 'totalBooks'));
+        return view('admin.books', compact('books', 'totalBooks', 'searchType'));
     }
 
     public function physicalBooks()
     {
+        $searchType = 'physicalBooks';
         $books = PhysicalBook::latest()->simplepaginate(20);
         $totalBooks = PhysicalBook::count();
-        return view('admin.physical_books', compact('books', 'totalBooks'));
+        return view('admin.physical_books', compact('books', 'totalBooks', 'searchType'));
     }
     public function pendingBooks()
     {

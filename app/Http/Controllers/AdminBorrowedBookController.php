@@ -12,8 +12,9 @@ class AdminBorrowedBookController extends Controller
 {
     public function index()
     {
+        $searchType = 'borrowedBooks';
         $borrowedBooks = BorrowedBook::with('user', 'book')->whereNull('returned_at')->latest()->simplePaginate(5);
-        return view('borrowed_books.index', compact('borrowedBooks'));
+        return view('borrowed_books.index', compact('borrowedBooks', 'searchType'));
     }
 
 

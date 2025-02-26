@@ -12,9 +12,10 @@ class AdminUserController extends Controller
 {
     public function users()
     {
+        $searchType = 'user';
         $users = User::with('Onlinebooks')->where('role', '!=', 'admin')->latest()->simplePaginate(30);
         $totalUsers = User::count();
-        return view('admin.users', compact('users', 'totalUsers'));
+        return view('admin.users', compact('users', 'totalUsers', 'searchType'));
     }
     public function destroy($id)
     {

@@ -56,4 +56,8 @@ class SearchController extends Controller
 
         return view('books.search', compact('onlineBooks', 'physicalBooks', 'title', 'categories'));
     }
+
+    public function adminSearch (){
+        
+    }
 }
