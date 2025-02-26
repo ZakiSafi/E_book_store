@@ -28,7 +28,6 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/books', [OnlineBookController::class, 'index'])->name('books.index');
 Route::get('/books/{book}', [OnlineBookController::class, 'show'])->name('books.show');
 Route::get('/search', [SearchController::class, 'search'])->name('search');
-Route::get('/adminSearch', [SearchController::class, 'adminSearch'])->name('adminSearch');
 Route::get('/categories/{id}', [CategoryController::class, 'show']);
 Route::get('/physical-books', [PhysicalBookController::class, 'index'])->name('physicalBooks.index');
 Route::get('/physical-books/{id}', [PhysicalBookController::class, 'show'])->name('physicalBooks.show');
@@ -64,6 +63,10 @@ Route::controller(LoginController::class)->group(function () {
 
 //Admin
 Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {
+    // Admin search controller
+    Route::get('/adminSearch', [SearchController::class, 'adminSearch'])->name('adminSearch');
+
+    // Admin Dashboard
     Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('dashboard');
 
     // Books Management
