@@ -92,6 +92,7 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
         Route::get('/borrow-books/index', 'index')->name('index');
         Route::get('/borrow-book/{book}', 'showForm')->name('create');
         Route::post('/borrow-book/{book}', 'store')->name('store');
+        Route::put('/borrow-book/{id}/update', 'update')->name('update');
         Route::get('/users/search', 'searchUsers')->name('users.search');
         Route::get('/books/search', 'searchBooks')->name('books.search');
     });

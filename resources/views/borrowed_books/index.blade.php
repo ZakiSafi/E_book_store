@@ -15,7 +15,6 @@
                         <i class="fa-solid fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
                     </div>
 
-
                     <!-- Sidebar Toggle Button  -->
                     <div class="relative">
                         <button id="sidebar-toggle" class="p-2 rounded-lg bg-gray-100 hover:bg-gray-200 focus:outline-none">
@@ -33,7 +32,6 @@
 
             <!-- Books Table Section -->
             <div class="mt-8 mb-4 overflow-x-auto">
-
                 <table class="min-w-full divide-y divide-gray-200">
                     <thead class="bg-gray-50">
                         <tr>
@@ -89,9 +87,17 @@
                                         </button>
                                     </form>
 
+                                    <!-- Mark as Returned Form -->
+                                    <i class="fa-solid fa-check text-sm text-green-600"></i>
+                                    <form action="{{ route('admin.borrow-books.update', $book->id) }}" method="POST" class="inline-block">
+                                        @csrf
+                                        @method('PUT')
+                                        <button type="submit" class="text-green-600 hover:text-green-800 text-sm transition duration-150 ease-in-out">
+                                            Mark as Returned
+                                        </button>
+                                    </form>
                                 </div>
                             </td>
-
                         </tr>
                         <!-- profile picture popup -->
                         <x-profile-popup>
@@ -99,12 +105,10 @@
                             <h2 class="text-2xl">{{ $book->user->name }}</h2>
                             <p class="mt-2">{{ $book->user->email }}</p>
                         </x-profile-popup>
-
                         @endforeach
                     </tbody>
                 </table>
             </div>
         </div>
     </div>
-
 </x-layout>

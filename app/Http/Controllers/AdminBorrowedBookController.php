@@ -5,13 +5,14 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\BorrowedBook;
 use App\Models\PhysicalBook;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class AdminBorrowedBookController extends Controller
 {
     public function index()
     {
-        $borrowedBooks = BorrowedBook::with('user', 'book')->latest()->simplePaginate(5);
+        $borrowedBooks = BorrowedBook::with('user', 'book')->whereNull('returned_at')->latest()->simplePaginate(5);
         return view('borrowed_books.index', compact('borrowedBooks'));
     }
 
@@ -64,6 +65,23 @@ class AdminBorrowedBookController extends Controller
 
         // Redirect back with success message
         return redirect()->back()->with('success', 'Book borrowed successfully!');
+    }
+
+    public function update($id)
+    {
+        // Validate input
+        $borrowedBook = BorrowedBook::findOrFail($id);
+
+        $borrowedBook->update([
+            'is_returned' => true,
+            'returned_ate' => now(),
+        ]);
+
+        $book = PhysicalBook::find($borrowedBook->book_id);
+        $book->increment('available_copies');
+
+        // Redirect back with success message
+        return redirect()->back()->with('success', 'Borrowed book returned successfully!');
     }
 
 
