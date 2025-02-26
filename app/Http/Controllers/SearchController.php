@@ -2,11 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\BorrowedBook;
+use App\Models\User;
+use App\Models\Category;
 use App\Models\OnlineBook;
 use App\Models\PhysicalBook;
-use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
+
+use function Pest\Laravel\castAsJson;
 
 class SearchController extends Controller
 {
@@ -57,7 +61,44 @@ class SearchController extends Controller
         return view('books.search', compact('onlineBooks', 'physicalBooks', 'title', 'categories'));
     }
 
-    public function adminSearch (){
-        
+    public function adminSearch(Request $request)
+    {
+        $query = $request->input('query');
+        $searchType = $request->input('search_type');
+        $results = [];
+        switch ($searchType) {
+            case 'Users':
+                $results = User::where('name', 'like', '%{$query}%')
+                    ->orWhere('email', 'like', '%{$query}%')
+                    ->get();
+                break;
+
+            case 'Online Books':
+                $results = OnlineBook::where('title', 'like', '%{$query}%')
+                    ->orWhere('author', 'like', '{$query}')
+                    ->get();
+                break;
+
+            case 'Physical Books':
+                $results = PhysicalBook::wehre('title', 'like', '%{$query}%')
+                    ->orWhere('author', 'like', '%{$query}%')
+                    ->get();
+                break;
+
+            case 'Borrowed Books':
+                $results = BorrowedBook::whereHas('book', function ($q) use ($query) {
+                    $q->where('title', 'like', '%{$query}%');
+                })
+                    ->orWhereHas('user', function ($q) use ($query) {
+                        $q->where('name', 'like', '%{$query}%');
+                    })
+                    ->get();
+
+            default:
+                $results = collect();
+                break;
+        }
+
+        return view('admin.searchResult', compact('results', 'query', 'searchType'));
     }
 }
