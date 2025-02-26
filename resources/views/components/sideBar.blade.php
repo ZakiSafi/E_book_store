@@ -9,7 +9,7 @@
         </a>
 
         <i class="fa-solid fa-book text-[#666] mr-2"></i>
-        <a href="{{route('admin.books.index')}}" class="group">
+        <a href="{{route('admin.books.physicalBooks')}}" class="group">
             <span class="group-hover:border-b group-hover:border-black">Manage Books</span>
         </a>
 

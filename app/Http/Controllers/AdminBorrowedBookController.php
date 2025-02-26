@@ -74,7 +74,7 @@ class AdminBorrowedBookController extends Controller
 
         $borrowedBook->update([
             'is_returned' => true,
-            'returned_ate' => now(),
+            'returned_at' => now(),
         ]);
 
         $book = PhysicalBook::find($borrowedBook->book_id);
