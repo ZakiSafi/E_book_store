@@ -21,7 +21,10 @@ class AdminBorrowedBookController extends Controller
     public function history()
     {
         $searchType = 'Borrowed Books History';
-        $borrowedBooks = BorrowedBook::with('user', 'book')->latest()->simplePaginate(5);
+        $borrowedBooks = BorrowedBook::with('user', 'book')
+            ->where('borrowed_at', '>=', Carbon::now()->subMonth())
+            ->latest()
+            ->simplePaginate(10);
         return view('borrowed_books.history', compact('borrowedBooks', 'searchType'));
     }
 
@@ -100,6 +103,34 @@ class AdminBorrowedBookController extends Controller
         $book->increment('available_copies');
 
         return redirect()->route('admin.borrow-books.index')->with('success', 'Borrowed book returned successfully!');
+    }
+
+
+    // notify user for overdue books
+    public function notifyOverdueUsers()
+    {
+        $overdueBooks = BorrowedBook::with('user', 'book')
+            ->whereNull('returned_at')
+            ->where('due_date', '<', now())
+            ->get();
+
+        foreach ($overdueBooks as $borrowedBook) {
+            // Send notification to the user
+            // Example: Mail::to($borrowedBook->user->email)->send(new OverdueBookNotification($borrowedBook));
+        }
+
+        return redirect()->back()->with('success', 'Notifications sent successfully!');
+    }
+
+
+    // method to show statistics about the borrowed books
+    public function statistics()
+    {
+        $totalBorrowed = BorrowedBook::count();
+        $totalOverdue = BorrowedBook::whereNull('returned_at')->where('due_date', '<', now())->count();
+        $totalReturned = BorrowedBook::whereNotNull('returned_at')->count();
+
+        return view('borrowed_books.statistics', compact('totalBorrowed', 'totalOverdue', 'totalReturned'));
     }
 
 

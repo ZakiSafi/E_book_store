@@ -94,11 +94,11 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
     //Admin borrowed books management
     Route::controller(AdminBorrowedBookController::class)->name('borrow-books.')->group(function () {
         Route::get('/borrow-books/index', 'index')->name('index');
+        Route::get('borrowed-books/history', 'history')->name('history');
         Route::get('/borrow-book/{book}', 'showForm')->name('create');
         Route::post('/borrow-book/{book}', 'store')->name('store');
         Route::put('/borrow-book/{id}/update', 'update')->name('update');
         Route::get('/users/search', 'searchUsers')->name('users.search');
-        Route::get('/books/search', 'searchBooks')->name('books.search');
     });
     // Admin Physical Books Management
     Route::controller(PhysicalBookController::class)->prefix('physical-books')->name('physical-books.')->group(function () {
