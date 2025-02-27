@@ -82,6 +82,18 @@ class SearchController extends Controller
 
             case 'Borrowed Books':
                 $results = BorrowedBook::whereHas('book', function ($q) use ($query) {
+                    $q->where('title', 'like', "%$query%")
+                        ->whereNull('returned_at');
+                })
+                    ->orWhereHas('user', function ($q) use ($query) {
+                        $q->where('name', 'like', "%$query%")
+                            ->whereNull('returned_at');
+                    })
+                    ->get();
+                break;
+
+            case 'Borrowed Books history':
+                $results = BorrowedBook::whereHas('book', function ($q) use ($query) {
                     $q->where('title', 'like', "%$query%");
                 })
                     ->orWhereHas('user', function ($q) use ($query) {
@@ -89,6 +101,7 @@ class SearchController extends Controller
                     })
                     ->get();
                 break;
+
 
             default:
                 $results = collect();

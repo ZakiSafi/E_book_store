@@ -61,10 +61,10 @@
                                 @endif
                                 {{ $book->user->name }}
                             </td>
-                            <td class="px-6 py-4 whitespace-nowrap text-gray-700">{{ $book->borrowed_at->format('Y-m-d') }}</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-gray-700">{{ $book->due_date->format('Y-m-d') }}</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-gray-700">{{ $book->borrowed_at }}</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-gray-700">{{ $book->due_date }}</td>
                             <td class="px-6 py-4 whitespace-nowrap text-gray-700">
-                                {{ $book->returned_at ? $book->returned_at->format('Y-m-d') : 'Not Returned' }}
+                                {{ $book->returned_at ? $book->returned_at : 'Not Returned' }}
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap relative">
                                 <div class="action-toggle cursor-pointer">
