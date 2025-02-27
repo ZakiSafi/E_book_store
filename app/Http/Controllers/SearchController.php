@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Models\Category;
 use App\Models\OnlineBook;
 use App\Models\PhysicalBook;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 
@@ -92,12 +93,15 @@ class SearchController extends Controller
                     ->get();
                 break;
 
-            case 'Borrowed Books history':
+            case 'Borrowed Books History':
+
                 $results = BorrowedBook::whereHas('book', function ($q) use ($query) {
-                    $q->where('title', 'like', "%$query%");
+                    $q->where('title', 'like', "%$query%")
+                        ->where('returned_at', '>=', now()->subMonth());
                 })
                     ->orWhereHas('user', function ($q) use ($query) {
-                        $q->where('name', 'like', "%$query%");
+                        $q->where('name', 'like', "%$query%")
+                            ->where('returned_at', '>=', now()->subMonth());
                     })
                     ->get();
                 break;
@@ -107,7 +111,6 @@ class SearchController extends Controller
                 $results = collect();
                 break;
         }
-
         return view('admin.searchResult', compact('results', 'query', 'searchType'));
     }
 }

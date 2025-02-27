@@ -13,8 +13,7 @@ class AdminBookController extends Controller
         $searchType = 'Online Books';
         $books = OnlineBook::with('user', 'bookmarks')->latest()->simplepaginate(20);
         $totalBooks = OnlineBook::count();
-        return view('a
-        dmin.books', compact('books', 'totalBooks', 'searchType'));
+        return view('admin.books', compact('books', 'totalBooks', 'searchType'));
     }
 
     public function physicalBooks()

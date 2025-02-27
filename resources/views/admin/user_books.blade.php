@@ -77,7 +77,7 @@
                         <div class="flex gap-8 p-4 items-center rounded-lg">
                             <!-- Book Cover -->
                             <div>
-                                <a href="{{ route('books.show', $borrowedBook->book->id) }}">
+                                <a href="{{ route('physicalBooks.show', $borrowedBook->book->id) }}">
                                     <img src="{{ asset('storage/' . $borrowedBook->book->cover_image) }}" alt="{{ $borrowedBook->book->title }}" class="w-32 h-32 object-cover rounded-lg">
                                 </a>
                             </div>

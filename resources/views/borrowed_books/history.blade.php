@@ -8,7 +8,9 @@
                 <h2 class="text-3xl font-bold text-gray-800 border-b-2 border-blue-500 pb-2">Borrowed Books History</h2>
                 <div class="flex items-center space-x-4">
                     <!-- Search Bar -->
+
                     <x-admin-search :value="$searchType" />
+
 
                     <!-- Sidebar Toggle Button  -->
                     <div class="relative">
@@ -44,7 +46,7 @@
                         @foreach ($borrowedBooks as $book)
                         <tr class="hover:bg-gray-50 transition duration-150 ease-in-out p-2">
                             <td class="px-6 py-4 whitespace-nowrap">
-                                <a href="{{ route('books.show', $book->book->id) }}" class="text-blue-600 hover:text-blue-800 font-medium">
+                                <a href="{{ route('physicalBooks.show', $book->book->id) }}" class="text-blue-600 hover:text-blue-800 font-medium">
                                     {{ $book->book->title }}
                                 </a>
                             </td>

@@ -70,10 +70,14 @@
                                 </div>
 
                                 <div class="action-sideBar grid grid-cols-[20px,auto] justify-center items-center absolute z-50 right-4 bg-white shadow-md p-2 rounded-md hidden">
+
+
                                     <i class="fa-solid fa-edit text-sm text-blue-600"></i>
                                     <a href="#" class="text-blue-600 hover:text-blue-800 text-sm transition duration-150 ease-in-out">
                                         Edit
                                     </a>
+
+
                                     <i class="fa-solid fa-trash-alt text-sm text-red-600"></i>
                                     <form action="#" method="POST" class="inline-block">
                                         @csrf
@@ -81,6 +85,17 @@
                                         <button type="submit" class="text-red-600 hover:text-red-800 text-sm transition duration-150 ease-in-out">
                                             Delete
                                         </button>
+                                    </form>
+
+
+                                    <i class="fa-solid fa-trash-alt text-sm text-red-600"></i>
+                                    <form action="{{ route('admin.borrow-books.extend', $book->id) }}" method="POST">
+                                        @csrf
+                                        <div class="form-group">
+                                            <label for="additional_days">Additional Days</label>
+                                            <input type="number" name="additional_days" class="form-control" min="1" required>
+                                        </div>
+                                        <button type="submit" class="btn btn-primary">Extend Due Date</button>
                                     </form>
 
                                     <!-- Mark as Returned Form -->
@@ -107,4 +122,5 @@
             </div>
         </div>
     </div>
+
 </x-layout>

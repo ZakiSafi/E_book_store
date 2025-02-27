@@ -98,6 +98,7 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
         Route::get('/borrow-book/{book}', 'showForm')->name('create');
         Route::post('/borrow-book/{book}', 'store')->name('store');
         Route::put('/borrow-book/{id}/update', 'update')->name('update');
+        Route::put('/borrow-book/extendDueDate/{id}', 'extendDueDate')->name('extend');
         Route::get('/users/search', 'searchUsers')->name('users.search');
     });
     // Admin Physical Books Management
