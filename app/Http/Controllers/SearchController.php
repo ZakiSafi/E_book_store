@@ -17,21 +17,17 @@ class SearchController extends Controller
         $categories = Category::all();
         $title = $request->input('title');
 
-        // Query Online Books
         $onlineBooksQuery = OnlineBook::where('status', OnlineBook::STATUS_APPROVED)
             ->where('title', 'like', "%$title%");
 
-        // Query Physical Books
         $physicalBooksQuery = PhysicalBook::where('title', 'like', "%$title%");
 
-        // If no title is entered, return just the categories
         if (!$request->filled('title')) {
             $onlineBooks = null;
             $physicalBooks = null;
             return view('books.search', compact('categories', 'onlineBooks', 'physicalBooks'));
         }
 
-        // Apply Category filter
         if ($request->filled('category') && $request->input('category') !== 'Select Category') {
             $category = $request->input('category');
 

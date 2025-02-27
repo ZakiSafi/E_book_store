@@ -45,13 +45,28 @@
                         <p class="text-gray-600">1<sup>st</sup></p>
                         @endif
 
-
                         <p class="font-semibold text-gray-700">Publish Year:</p>
                         <p class="text-gray-600">{{ $book->publication_year }}</p>
 
                         <p class="font-semibold text-gray-700">Shelf No:</p>
                         <p class="text-gray-600">{{ $book->shelf_no }}</p>
                     </div>
+                    @auth
+                    @if (Auth::user()->role === 'admin')
+                    <!-- Action Buttons -->
+                    <div class="flex gap-4 mt-4">
+                        <a href="{{ route('admin.borrow-books.create', $book->id) }}" class="flex items-center bg-blue-500 text-white px-4 py-2 rounded-lg shadow hover:bg-blue-600 transition duration-300">
+                            <i class="fas fa-book-reader mr-2"></i>
+                            Borrow
+                        </a>
+                        <a href="{{ route('admin.physical-books.edit', $book->id) }}" class="flex items-center bg-yellow-500 text-white px-4 py-2 rounded-lg shadow hover:bg-yellow-600 transition duration-300">
+                            <i class="fas fa-edit mr-2"></i>
+                            Edit
+                        </a>
+                    </div>
+                    @endif
+                    @endauth
+
                 </div>
             </div>
 

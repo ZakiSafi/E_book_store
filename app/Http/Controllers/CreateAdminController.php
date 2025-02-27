@@ -27,6 +27,6 @@ class CreateAdminController extends Controller
         User::create($validated);
 
         // Redirect or show a success message
-        return redirect()->route('admin.dashboard')->with('status', 'New admin user created successfully!');
+        return redirect()->route('admin.dashboard')->with('success', 'New admin user created successfully!');
     }
 }

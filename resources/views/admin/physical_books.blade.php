@@ -79,7 +79,7 @@
 
                                 <div class="action-sideBar grid grid-cols-[20px,auto] justify-center items-center absolute z-50 right-4 bg-white shadow-md p-2 rounded-md hidden">
                                     <i class="fa-solid fa-edit text-sm text-blue-600"></i>
-                                    <a href="{{ route('user.books.edit', $book->id) }}" class="text-blue-600 hover:text-blue-800 text-sm transition duration-150 ease-in-out">
+                                    <a href="{{ route('admin.physical-books.edit', $book->id) }}" class="text-blue-600 hover:text-blue-800 text-sm transition duration-150 ease-in-out">
                                         Edit
                                     </a>
                                     <i class="fa-solid fa-trash-alt text-sm text-red-600"></i>

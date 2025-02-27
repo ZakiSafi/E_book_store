@@ -1,4 +1,4 @@
-@props(['label', 'name', 'type' => 'text','placeholder'=>'','value' => '', 'required' => false])
+@props(['label' => '', 'name', 'type' => 'text','placeholder'=>'','value' => '', 'required' => false])
 <div class="flex flex-col">
     <label for="{{ $name }}" class="font-medium text-gray-700">{{ $label }}</label>
     <input

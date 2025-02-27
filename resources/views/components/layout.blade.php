@@ -94,55 +94,74 @@
                     <!-- Mobile Dropdown Menu -->
                     <div id="mobile-menu" class="hidden absolute top-16 right-4 z-50 bg-white bg-opacity-90 backdrop-blur-md shadow-lg rounded-lg w-48 p-4">
                         <nav class="space-y-2">
-                            <a href="{{route('home')}}" class="block text-center px-4 py-2 text-sm font-semibold text-gray-800 hover:bg-blue-600 hover:text-white rounded flex items-center space-x-2 transition-all">
+
+                            <a href="{{route('home')}}" class="block text-center px-4 text-sm font-semibold text-gray-800 hover:bg-blue-600 hover:text-white rounded flex items-center space-x-2 transition-all">
                                 <i class="fa-solid fa-house flex-shrink-0 w-5"></i> <span>Home</span>
                             </a>
+
                             @auth
                             @if (Auth::user()->role === 'admin')
-                            <a href="{{route('admin.dashboard')}}" class="block text-center px-4 py-2 text-sm font-semibold text-gray-800 hover:bg-blue-600 hover:text-white rounded flex items-center space-x-2 transition-all">
+                            <a href="{{route('admin.dashboard')}}" class="block text-center px-4  text-sm font-semibold text-gray-800 hover:bg-blue-600 hover:text-white rounded flex items-center space-x-2 transition-all">
                                 <i class="fa-solid fa-user-shield flex-shrink-0 w-5"></i> <span>Dashboard</span>
                             </a>
-                            <a href="{{route('admin.books.index')}}" class="block text-center px-4 py-2 text-sm font-semibold text-gray-800 hover:bg-blue-600 hover:text-white rounded flex items-center space-x-2 transition-all">
+
+
+                            <a href="{{route('admin.books.index')}}" class="block text-center px-4  text-sm font-semibold text-gray-800 hover:bg-blue-600 hover:text-white rounded flex items-center space-x-2 transition-all">
                                 <i class="fa-solid fa-book flex-shrink-0 w-5"></i> <span>Manage Books</span>
                             </a>
-                            <a href="{{route('admin.users.index')}}" class="block text-center px-4 py-2 text-sm font-semibold text-gray-800 hover:bg-blue-600 hover:text-white rounded flex items-center space-x-2 transition-all">
+
+
+                            <a href="{{route('admin.users.index')}}" class="block text-center px-4  text-sm font-semibold text-gray-800 hover:bg-blue-600 hover:text-white rounded flex items-center space-x-2 transition-all">
                                 <i class="fa-solid fa-users flex-shrink-0 w-5"></i> <span>Manage Users</span>
                             </a>
+
+
                             @else
-                            <a href="{{route('user.dashboard')}}" class="block text-center px-4 py-2 text-sm font-semibold text-gray-800 hover:bg-blue-600 hover:text-white rounded flex items-center space-x-2 transition-all">
+                            <a href="{{route('user.dashboard')}}" class="block text-center px-4  text-sm font-semibold text-gray-800 hover:bg-blue-600 hover:text-white rounded flex items-center space-x-2 transition-all">
                                 <i class="fa-solid fa-tachometer-alt flex-shrink-0 w-5"></i> <span>Dashboard</span>
                             </a>
+
+
                             @endif
                             @endauth
-                            <a href="{{route('books.index')}}" class="block text-center px-4 py-2 text-sm font-semibold text-gray-800 hover:bg-blue-600 hover:text-white rounded flex items-center space-x-2 transition-all">
+                            <a href="{{route('books.index')}}" class="block text-center px-4  text-sm font-semibold text-gray-800 hover:bg-blue-600 hover:text-white rounded flex items-center space-x-2 transition-all">
                                 <i class="fa-solid fa-book flex-shrink-0 w-5"></i> <span>Books</span>
                             </a>
-                            <a href="{{route('user.books.create')}}" class="block text-center px-4 py-2 text-sm font-semibold text-gray-800 hover:bg-blue-600 hover:text-white rounded flex items-center space-x-2 transition-all">
+
+
+                            <a href="{{route('user.books.create')}}" class="block text-center px-4  text-sm font-semibold text-gray-800 hover:bg-blue-600 hover:text-white rounded flex items-center space-x-2 transition-all">
                                 <i class="fa-solid fa-plus flex-shrink-0 w-5"></i> <span>Add Book</span>
                             </a>
-                            <a href="{{route('user.bookmarks.index')}}" class="block text-center px-4 py-2 text-sm font-semibold text-gray-800 hover:bg-blue-600 hover:text-white rounded flex items-center space-x-2 transition-all">
+
+
+                            <a href="{{route('user.bookmarks.index')}}" class="block text-center px-4  text-sm font-semibold text-gray-800 hover:bg-blue-600 hover:text-white rounded flex items-center space-x-2 transition-all">
                                 <i class="fa-solid fa-bookmark flex-shrink-0 w-5"></i> <span>Bookmarks</span>
                             </a>
+
+
                             @auth
                             <form action="/logout" method="POST" class="mt-4">
                                 @csrf
-                                <button type="submit" class="w-full text-center px-4 py-2 text-sm font-semibold text-gray-800 hover:bg-blue-600 hover:text-white rounded flex items-center space-x-2 transition-all">
+                                <button type="submit" class="w-full text-center px-4  text-sm font-semibold text-gray-800 hover:bg-blue-600 hover:text-white rounded flex items-center space-x-2 transition-all">
                                     <i class="fa-solid fa-sign-out-alt  w-5"></i> <span>Log Out</span>
                                 </button>
                             </form>
                             @endauth
-                        </nav>
 
-                        @guest
-                        <div class="space-y-2 mt-4">
-                            <a href="{{route('login')}}" class="block text-center px-4 py-2 text-sm font-semibold text-gray-800 hover:bg-blue-600 hover:text-white rounded flex items-center space-x-2 transition-all">
+
+                            @guest
+                            <a href="{{route('login')}}" class="block text-center px-4  text-sm font-semibold text-gray-800 hover:bg-blue-600 hover:text-white rounded flex items-center space-x-2 transition-all">
                                 <i class="fa-solid fa-sign-in-alt w-5"></i> <span>Log In</span>
                             </a>
-                            <a href="{{route('register')}}" class="block text-center px-4 py-2 text-sm font-semibold text-gray-800 hover:bg-blue-600 hover:text-white rounded flex items-center space-x-2 transition-all">
+
+                            
+                            <a href="{{route('register')}}" class="block text-center px-4  text-sm font-semibold text-gray-800 hover:bg-blue-600 hover:text-white rounded flex items-center space-x-2 transition-all">
                                 <i class="fa-solid fa-user-plus w-5"></i> <span>Register</span>
                             </a>
-                        </div>
-                        @endguest
+                            @endguest
+                        </nav>
+
+
                     </div>
                 </div>
             </div>

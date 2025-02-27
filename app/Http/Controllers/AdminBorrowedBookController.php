@@ -96,15 +96,4 @@ class AdminBorrowedBookController extends Controller
 
         return response()->json($users);
     }
-
-    // // Method to handle searching for books
-    // public function searchBooks(Request $request)
-    // {
-    //     $search = $request->get('q');
-    //     $books = PhysicalBook::where('title', 'like', "%{$search}%")
-    //         ->limit(20)
-    //         ->get();
-
-    //     return response()->json($books);
-    // }
 }
