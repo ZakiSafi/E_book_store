@@ -18,6 +18,14 @@ class AdminBorrowedBookController extends Controller
     }
 
 
+    public function history()
+    {
+        $searchType = 'Borrowed Books History';
+        $borrowedBooks = BorrowedBook::with('user', 'book')->latest()->simplePaginate(5);
+        return view('borrowed_books.history', compact('borrowedBooks', 'searchType'));
+    }
+
+
     // Method to display the form
     public function showForm(PhysicalBook $book)
     {
@@ -29,19 +37,16 @@ class AdminBorrowedBookController extends Controller
 
     public function store(Request $request, PhysicalBook $book)
     {
-        // Validate input
         $request->validate([
             'user_id' => 'required|exists:users,id',
             'book_id' => 'required|exists:physical_books,id',
             'due_in_days' => 'required|integer|min:1',
         ]);
 
-        // Check if the book is available
         if ($book->available_copies <= 0) {
             return redirect()->back()->with(['error' => 'Sorry, the book is not available.']);
         }
 
-        // Check if the user has already borrowed this book
         $alreadyBorrowed = BorrowedBook::where('user_id', $request->user_id)
             ->where('book_id', $book->id)
             ->whereNull('returned_at')
@@ -53,7 +58,6 @@ class AdminBorrowedBookController extends Controller
 
         $dueInDays = (int) $request->due_in_days;
 
-        // Store the borrowed book
         BorrowedBook::create([
             'user_id' => $request->user_id,
             'book_id' => $book->id,
@@ -61,16 +65,30 @@ class AdminBorrowedBookController extends Controller
             'due_date' => now()->addDays($dueInDays),
         ]);
 
-        // Decrement the available_copies column
         $book->decrement('available_copies');
 
-        // Redirect back with success message
         return redirect()->back()->with('success', 'Book borrowed successfully!');
     }
 
+
+    public function extendDueDate(Request $request, $id)
+    {
+        $request->validate([
+            'additional_days' => 'required|integer|min:1',
+        ]);
+
+        $borrowedBook = BorrowedBook::findOrFail($id);
+        $borrowedBook->update([
+            'due_date' => $borrowedBook->due_date->addDays($request->additional_days),
+        ]);
+
+        return redirect()->back()->with('success', 'Due date extended successfully!');
+    }
+
+
+
     public function update($id)
     {
-        // Validate input
         $borrowedBook = BorrowedBook::findOrFail($id);
 
         $borrowedBook->update([
@@ -81,9 +99,9 @@ class AdminBorrowedBookController extends Controller
         $book = PhysicalBook::find($borrowedBook->book_id);
         $book->increment('available_copies');
 
-        // Redirect back with success message
         return redirect()->route('admin.borrow-books.index')->with('success', 'Borrowed book returned successfully!');
     }
+
 
 
     // Method to handle searching for users

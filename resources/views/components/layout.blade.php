@@ -111,6 +111,11 @@
                             </a>
 
 
+                            <a href="{{route('admin.borrow-books.index')}}" class="block text-center pl-4  text-sm font-semibold text-gray-800 hover:bg-blue-600 hover:text-white rounded flex items-center space-x-2 transition-all">
+                                <i class="fa-solid fa-book-reader flex-shrink-0 w-5"></i> <span>Borrowed Books</span>
+                            </a>
+
+
                             <a href="{{route('admin.users.index')}}" class="block text-center px-4  text-sm font-semibold text-gray-800 hover:bg-blue-600 hover:text-white rounded flex items-center space-x-2 transition-all">
                                 <i class="fa-solid fa-users flex-shrink-0 w-5"></i> <span>Manage Users</span>
                             </a>
@@ -154,7 +159,7 @@
                                 <i class="fa-solid fa-sign-in-alt w-5"></i> <span>Log In</span>
                             </a>
 
-                            
+
                             <a href="{{route('register')}}" class="block text-center px-4  text-sm font-semibold text-gray-800 hover:bg-blue-600 hover:text-white rounded flex items-center space-x-2 transition-all">
                                 <i class="fa-solid fa-user-plus w-5"></i> <span>Register</span>
                             </a>
