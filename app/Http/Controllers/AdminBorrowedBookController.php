@@ -82,7 +82,7 @@ class AdminBorrowedBookController extends Controller
 
         $borrowedBook = BorrowedBook::findOrFail($id);
         $borrowedBook->update([
-            'due_date' => $borrowedBook->due_date->addDays($request->additional_days),
+            'due_date' => $borrowedBook->due_date->addDays((int)$request->additional_days),
         ]);
 
         return redirect()->back()->with('success', 'Due date extended successfully!');
@@ -103,6 +103,22 @@ class AdminBorrowedBookController extends Controller
         $book->increment('available_copies');
 
         return redirect()->route('admin.borrow-books.index')->with('success', 'Borrowed book returned successfully!');
+    }
+
+
+    // Deleting a borrow book record
+    public function destroy($id)
+    {
+        $borrowedBook = BorrowedBook::findOrFail($id);
+
+        if (is_null($borrowedBook->returned_at)) {
+            $book = PhysicalBook::find($borrowedBook->book_id);
+            $book->increment('available_copies');
+        }
+
+        $borrowedBook->delete();
+
+        return redirect()->route('admin.borrow-books.index')->with('success', 'Borrowed book record deleted successfully!');
     }
 
 

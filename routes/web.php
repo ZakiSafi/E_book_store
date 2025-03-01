@@ -93,12 +93,13 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
 
     //Admin borrowed books management
     Route::controller(AdminBorrowedBookController::class)->name('borrow-books.')->group(function () {
-        Route::get('/borrow-books/index', 'index')->name('index');
         Route::get('borrowed-books/history', 'history')->name('history');
+        Route::get('/borrow-books/index', 'index')->name('index');
         Route::get('/borrow-book/{book}', 'showForm')->name('create');
         Route::post('/borrow-book/{book}', 'store')->name('store');
         Route::put('/borrow-book/{id}/update', 'update')->name('update');
-        Route::put('/borrow-book/extendDueDate/{id}', 'extendDueDate')->name('extend');
+        Route::delete('/borrow-book/{id}/delete', 'destroy')->name('delete');
+        Route::post('/borrow-book/extendDueDate/{id}', 'extendDueDate')->name('extend');
         Route::get('/users/search', 'searchUsers')->name('users.search');
     });
     // Admin Physical Books Management

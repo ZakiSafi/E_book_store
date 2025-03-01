@@ -15,4 +15,10 @@ class BorrowedBook extends Model
     {
         return $this->belongsTo(PhysicalBook::class);
     }
+
+    protected $casts = [
+        'borrowed_at' => 'datetime',
+        'due_date' => 'datetime',
+        'returned_at' => 'datetime',
+    ];
 }
