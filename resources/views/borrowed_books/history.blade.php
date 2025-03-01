@@ -28,26 +28,26 @@
             </div>
 
             <!-- Books Table Section -->
-            <div class="mt-8 mb-4 overflow-x-auto">
+            <div class="mt-8 mb-4 ">
                 <table class="min-w-full divide-y divide-gray-200">
                     <thead class="bg-gray-50">
                         <tr>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Title</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Cover Image</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Borrowed By</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Borrow Date</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Due Date</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Returned At</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                            <th class="py-3 text-left text-center text-xs font-medium text-gray-500 uppercase tracking-wider">Title</th>
+                            <th class="px-6 py-3 text-left text-center text-xs font-medium text-gray-500 uppercase tracking-wider">Cover Image</th>
+                            <th class="px-2 py-3 text-left text-center text-xs font-medium text-gray-500 uppercase tracking-wider">Borrowed By</th>
+                            <th class="px-2 py-3 text-left text-center text-xs font-medium text-gray-500 uppercase tracking-wider">Borrow Date</th>
+                            <th class="px-2 py-3 text-left text-center text-xs font-medium text-gray-500 uppercase tracking-wider">Due Date</th>
+                            <th class="px-2 py-3 text-left text-center text-xs font-medium text-gray-500 uppercase tracking-wider">Returned At</th>
+                            <th class="px-2 py-3 text-left text-center text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
                         </tr>
                     </thead>
 
                     <tbody class="bg-white divide-y divide-gray-200">
                         @foreach ($borrowedBooks as $book)
                         <tr class="hover:bg-gray-50 transition duration-150 ease-in-out p-2">
-                            <td class="px-6 py-4 whitespace-nowrap">
-                                <a href="{{ route('physicalBooks.show', $book->book->id) }}" class="text-blue-600 hover:text-blue-800 font-medium">
-                                    {{ $book->book->title }}
+                            <td class="px-6 text-center py-4 whitespace-nowrap">
+                                <a href="{{ route('physicalBooks.show', $book->book->id) }}" class="text-blue-600  hover:text-blue-800 font-medium">
+                                    {{Str::limit( $book->book->title, 15) }}
                                 </a>
                             </td>
                             <td class="whitespace-nowrap">
@@ -55,7 +55,7 @@
                                     <img src="{{ asset('storage/' . $book->book->cover_image) }}" alt="Cover Image" class="w-32 h-32 object-cover rounded-lg shadow-sm hover:shadow-md transition-shadow duration-200">
                                 </a>
                             </td>
-                            <td class="flex flex-col items-center justify-center gap-y-2 px-6 py-4 whitespace-nowrap text-gray-700">
+                            <td class="flex flex-col items-center justify-center gap-y-2 px-6 text-center py-4 whitespace-nowrap text-gray-700">
                                 @if ($book->user->profile_picture)
                                 <img src="{{ asset('storage/' . $book->user->profile_picture) }}" alt="Profile Picture" class="popup_profile rounded-full h-20 w-20 shadow-sm hover:shadow-md cursor-pointer">
                                 @else
@@ -63,28 +63,27 @@
                                 @endif
                                 {{ $book->user->name }}
                             </td>
-                            <td class="px-6 py-4 whitespace-nowrap text-gray-700">{{ $book->borrowed_at }}</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-gray-700">{{ $book->due_date }}</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-gray-700">
+                            <td class="px-6 text-center py-4 whitespace-nowrap text-gray-700">{{ $book->borrowed_at }}</td>
+                            <td class="px-6 text-center py-4 whitespace-nowrap text-gray-700">{{ $book->due_date }}</td>
+                            <td class="px-6 text-center py-4 whitespace-nowrap text-gray-700">
                                 {{ $book->returned_at ? $book->returned_at : 'Not Returned' }}
                             </td>
-                            <td class="px-6 py-4 whitespace-nowrap relative">
+                            <td class="px-6 text-center py-4 whitespace-nowrap relative">
                                 <div class="action-toggle cursor-pointer">
                                     <p class="text-gray-700">action <i class="fa-solid fa-chevron-circle-down text-xs mt-1 text-gray-700"></i></p>
                                 </div>
 
-                                <div class="action-sideBar grid grid-cols-[20px,auto] justify-center items-center absolute z-50 right-4 bg-white shadow-md p-2 rounded-md hidden">
+                                <div class="action-sideBar grid grid-cols-[20px,auto] justify-center items-center absolute z-50 right-2 bg-white shadow-md p-2 rounded-md hidden">
                                     <!-- Mark as Returned Form (if not already returned) -->
-                                    @if (!$book->returned_at)
-                                    <i class="fa-solid fa-check text-sm text-green-600"></i>
-                                    <form action="{{ route('admin.borrow-books.update', $book->id) }}" method="POST" class="inline-block">
+
+                                    <i class="fa-solid fa-trash text-sm text-red-600"></i>
+                                    <form action="{{ route('admin.borrow-books.delete', $book->id) }}" method="POST" class="inline-block">
                                         @csrf
-                                        @method('PUT')
-                                        <button type="submit" class="text-green-600 hover:text-green-800 text-sm transition duration-150 ease-in-out">
-                                            Mark as Returned
+                                        @method('delete')
+                                        <button type="submit" class="text-red-600 hover:text-red-800 text-sm transition duration-150 ease-in-out">
+                                            delete
                                         </button>
                                     </form>
-                                    @endif
                                 </div>
                             </td>
                         </tr>

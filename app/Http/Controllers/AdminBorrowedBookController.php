@@ -118,7 +118,7 @@ class AdminBorrowedBookController extends Controller
 
         $borrowedBook->delete();
 
-        return redirect()->route('admin.borrow-books.index')->with('success', 'Borrowed book record deleted successfully!');
+        return redirect()->back()->with('success', 'Borrowed book record deleted successfully!');
     }
 
 
