@@ -10,16 +10,16 @@
 
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+
     <style>
-        body {
-            height: 100%;
-            margin: 0;
-        }
+        
     </style>
 </head>
 
 <body class="font-sans antialiased">
+
     <div>
 
         <header class="w-full z-50 bg-gradient-to-r from-blue-500 to-blue-600 shadow-lg relative">

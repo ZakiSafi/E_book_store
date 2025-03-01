@@ -4,6 +4,14 @@ const upload = document.getElementById("upload");
 const addMenu = document.getElementById("add_menu");
 const dropdownButton = document.getElementById("dropdownButton");
 
+// Remove Loading Screen
+window.addEventListener("load", function () {
+    var load_screen = document.getElementById("load_screen");
+    if (load_screen) {
+        load_screen.remove(); // Safely remove the loading screen
+    }
+});
+
 if (menuBtn && mobileMenu) {
     menuBtn.addEventListener("click", () => {
         if (mobileMenu.classList.contains("hidden")) {

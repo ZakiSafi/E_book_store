@@ -1,4 +1,20 @@
 <x-layout>
+    <!-- Loading Screen -->
+    <div id="remove-loader">
+        <div id="load_screen" class="fixed inset-0 z-[999999] bg-[#ecefff]">
+            <div class="flex justify-center h-screen">
+                <div class="self-center text-center">
+                    <!-- Spinner -->
+                    <div class="spinner">
+                        <div class="double-bounce1 bg-[#304aca]"></div>
+                        <div class="double-bounce2 bg-[#304aca]"></div>
+                    </div>
+                    <!-- Loading Text -->
+                    <h1 class="text-2xl font-bold text-[#304aca] mt-4">Loading...</h1>
+                </div>
+            </div>
+        </div>
+    </div>
     <!-- session success message -->
     <x-session />
     <!-- main content -->

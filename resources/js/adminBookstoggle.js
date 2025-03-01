@@ -7,13 +7,16 @@ if (sidebarToggle) {
     });
 }
 
-// Close dropdown when clicking outside
-document.addEventListener("click", (e) => {
-    if (
-        !sidebarToggle.contains(e.target) &&
-        !sidebarDropdown.contains(e.target)
-    ) {
-        sidebarDropdown.classList.add("hidden");
+document.addEventListener("DOMContentLoaded", () => {
+    if (sidebarToggle && sidebarDropdown) {
+        document.addEventListener("click", (e) => {
+            if (
+                !sidebarToggle.contains(e.target) &&
+                !sidebarDropdown.contains(e.target)
+            ) {
+                sidebarDropdown.classList.add("hidden");
+            }
+        });
     }
 });
 

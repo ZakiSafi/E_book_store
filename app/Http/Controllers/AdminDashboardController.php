@@ -24,8 +24,8 @@ class AdminDashboardController extends Controller
             'books' => $this->getBooksCount(),
             'pendingBooks' => $this->getPendingBooks(),
             'bookmarks' => $this->getBookmarksCount(),
-            'booksLast2Days' => $this->getRecentBooks(2),
-            'usersLast2Days' => $this->getRecentUsers(2)
+            'booksLast2Days' => $this->getRecentBooks(10),
+            'usersLast2Days' => $this->getRecentUsers(10)
         ]);
     }
     private function getUsersCount()
