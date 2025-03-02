@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <title>BMA Library</title>
-    <link rel="icon" href="{{ asset('images/logo.jfif') }}" type="image/jfif">
+    <link rel="icon" href="{{ asset('storage/logos/bma.png') }}" type="image/jfif">
 
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
@@ -14,7 +14,7 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
     <style>
-        
+
     </style>
 </head>
 
@@ -28,7 +28,7 @@
                     <!-- Left Section -->
                     <div class="flex items-center gap-8">
                         <div>
-                            <img class="h-8 w-8" src="{{ asset('images/logo.jfif') }}" alt="BMA Library Logo">
+                            <img class="h-12 w-full" src="{{ asset('storage/logos/BMALogo.png') }}" alt="BMA Library Logo">
                         </div>
                         <nav class="hidden md:flex items-center gap-4">
                             <x-nav_link href="{{route('home')}}" :active="request()->is('/')">
@@ -181,77 +181,100 @@
         </main>
 
         <footer class="bg-white border-t border-gray-200">
-            <div class="container mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 py-8">
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div class="container mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 py-12">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
                     <!-- About Us -->
-                    <div class="max-w-md text-sm p-4">
-                        <h1 class="inline-block font-bold text-2xl border-b-2 mb-2 text-gray-800">
+                    <div class="max-w-md">
+                        <h1 class="font-bold text-2xl border-b-2 border-gray-300 pb-2 mb-4 text-gray-800">
                             About Us
                         </h1>
-                        <div class="text-gray-600 flex flex-col gap-1">
+                        <div class="text-gray-600 text-sm leading-relaxed">
                             <p>Welcome to the BMA Online Library, an exclusive digital resource for the staff of Bank-e-Mili Afghan (BMA). Our library offers a wide range of free educational digital books, all aimed at supporting the professional and personal development of our team.</p>
                         </div>
                     </div>
 
                     <!-- User Account -->
                     <div>
-                        <h1 class="inline-block font-bold text-2xl border-b-2 mb-2 text-gray-800">
+                        <h1 class="font-bold text-2xl border-b-2 border-gray-300 pb-2 mb-4 text-gray-800">
                             User Account
                         </h1>
                         <div class="flex flex-col gap-3 text-gray-600 text-sm">
                             @auth
-
                             @if (Auth::user()->role === 'admin')
-                            <a href="{{route('admin.dashboard')}}" class="group transition-all">
-                                <i class="fa-solid fa-tachometer-alt mr-2"></i>
-                                <span class="group-hover:border-b group-hover:border-black">Dashboard</span>
+                            <a href="{{ route('admin.dashboard') }}" class="group flex items-center transition-all hover:text-blue-600">
+                                <i class="fa-solid fa-chart-line mr-2 w-5"></i>
+                                <span class="group-hover:border-b group-hover:border-blue-600">Admin Dashboard</span>
                             </a>
-
+                            <a href="{{ route('admin.books.physicalBooks') }}" class="group flex items-center transition-all hover:text-blue-600">
+                                <i class="fa-solid fa-book-open mr-2 w-5"></i>
+                                <span class="group-hover:border-b group-hover:border-blue-600">Manage Books</span>
+                            </a>
+                            <a href="{{ route('admin.users.index') }}" class="group flex items-center transition-all hover:text-blue-600">
+                                <i class="fa-solid fa-users-cog mr-2 w-5"></i>
+                                <span class="group-hover:border-b group-hover:border-blue-600">Manage Users</span>
+                            </a>
                             @else
-                            <a href="{{route('user.dashboard')}}" class="group transition-all">
-                                <i class="fa-solid fa-tachometer-alt mr-2"></i>
-                                <span class="group-hover:border-b group-hover:border-black">Dashboard</span>
+                            <a href="{{ route('user.dashboard') }}" class="group flex items-center transition-all hover:text-blue-600">
+                                <i class="fa-solid fa-tachometer-alt mr-2 w-5"></i>
+                                <span class="group-hover:border-b group-hover:border-blue-600">Dashboard</span>
                             </a>
                             @endif
-                            <a href="{{route('user.books')}}" class="group transition-all">
-                                <i class="fa-solid fa-book mr-2"></i>
-                                <span class="group-hover:border-b group-hover:border-black">Manage Your Books</span>
+                            <a href="{{ route('user.profile.edit') }}" class="group flex items-center transition-all hover:text-blue-600">
+                                <i class="fa-solid fa-user-edit mr-2 w-5"></i>
+                                <span class="group-hover:border-b group-hover:border-blue-600">Edit Profile</span>
                             </a>
-                            <form action="{{route('logout')}}" method="POST">
+                            <form action="{{ route('logout') }}" method="POST">
                                 @csrf
-                                <button type="submit" class="group transition-all">
-                                    <i class="fa-solid fa-sign-out-alt"></i> <span class="group-hover:border-b group-hover:border-black">Log Out</span>
+                                <button type="submit" class="group flex items-center transition-all hover:text-blue-600">
+                                    <i class="fa-solid fa-sign-out-alt mr-2 w-5"></i>
+                                    <span class="group-hover:border-b group-hover:border-blue-600">Log Out</span>
                                 </button>
                             </form>
                             @endauth
 
-
                             @guest
-                            <a href="{{route('books.index')}}" class="group transition-all">
-                                <i class="fa-solid fa-book flex-shrink-0 w-5"></i>
-                                <span class="group-hover:border-b group-hover:border-black">Books</span>
+                            <a href="{{ route('login') }}" class="group flex items-center transition-all hover:text-blue-600">
+                                <i class="fa-solid fa-sign-in-alt mr-2 w-5"></i>
+                                <span class="group-hover:border-b group-hover:border-blue-600">Login</span>
                             </a>
-                            <a href="{{route('user.bookmarks.index')}}" class="group transition-all">
-                                <i class="fa-solid fa-bookmark flex-shrink-0 w-5"></i> <span class="group-hover:border-b group-hover:border-black">Bookmarks</span>
-                            </a>
-                            <a href="{{route('user.books.create')}}" class="group transition-all">
-                                <i class="fa-solid fa-plus flex-shrink-0 w-5"></i> <span class="group-hover:border-b group-hover:border-black">Add Book</span>
-                            </a>
-                            <a href="{{route('login')}}" class="group transition-all">
-                                <i class="fa-solid fa-sign-in-alt mr-2"></i>
-                                <span class="group-hover:border-b group-hover:border-black">Login</span>
-                            </a>
-                            <a href="{{route('register')}}" class="group transition-all">
-                                <i class="fa-solid fa-user-plus mr-2"></i>
-                                <span class="group-hover:border-b group-hover:border-black">Register</span>
+                            <a href="{{ route('register') }}" class="group flex items-center transition-all hover:text-blue-600">
+                                <i class="fa-solid fa-user-plus mr-2 w-5"></i>
+                                <span class="group-hover:border-b group-hover:border-blue-600">Register</span>
                             </a>
                             @endguest
                         </div>
                     </div>
 
+                    <!-- Quick Links -->
+                    <div>
+                        <h1 class="font-bold text-2xl border-b-2 border-gray-300 pb-2 mb-4 text-gray-800">
+                            Quick Links
+                        </h1>
+                        <div class="flex flex-col gap-3 text-gray-600 text-sm">
+                            <a href="{{ route('books.index') }}" class="group flex items-center transition-all hover:text-blue-600">
+                                <i class="fa-solid fa-book mr-2 w-5"></i>
+                                <span class="group-hover:border-b group-hover:border-blue-600">Browse Books</span>
+                            </a>
+                            <a href="{{ route('user.bookmarks.index') }}" class="group flex items-center transition-all hover:text-blue-600">
+                                <i class="fa-solid fa-bookmark mr-2 w-5"></i>
+                                <span class="group-hover:border-b group-hover:border-blue-600">Bookmarks</span>
+                            </a>
+
+                            <a href="{{ route('user.books.create') }}" class="group flex items-center transition-all hover:text-blue-600">
+                                <i class="fa-solid fa-plus-circle mr-2 w-5"></i>
+                                <span class="group-hover:border-b group-hover:border-blue-600">Add Book</span>
+                            </a>
+
+                            <a href="{{ route('user.books.create') }}" class="group flex items-center transition-all hover:text-blue-600">
+                                <i class="fa-solid fa-plus-circle mr-2 w-5"></i>
+                                <span class="group-hover:border-b group-hover:border-blue-600">Add Book</span>
+                            </a>
+                        </div>
+                    </div>
+
                     <!-- Follow Us -->
                     <div>
-                        <h1 class="inline-block font-bold text-2xl border-b-2 mb-2 text-gray-800">
+                        <h1 class="font-bold text-2xl border-b-2 border-gray-300 pb-2 mb-4 text-gray-800">
                             Follow Us
                         </h1>
                         <div class="flex gap-4 text-2xl">
@@ -266,9 +289,6 @@
                             </a>
                             <a href="https://www.instagram.com" class="text-gray-600 hover:text-pink-600 transition-all hover:scale-105" target="_blank">
                                 <i class="fab fa-instagram"></i>
-                            </a>
-                            <a href="https://www.google.com" class="text-gray-600 hover:text-blue-600 transition-all hover:scale-105" target="_blank">
-                                <i class="fab fa-google"></i>
                             </a>
                         </div>
                     </div>

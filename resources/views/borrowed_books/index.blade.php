@@ -105,7 +105,11 @@
                         </tr>
                         <!-- profile picture popup -->
                         <x-profile-popup>
-                            <img src="{{ asset('storage/' . $book->user->profile_picture) }}" alt="Profile Picture" class="w-48 h-48 rounded-full mb-4">
+                            @if ($book->user->profile_picture)
+                            <img src="{{ asset('storage/' . $book->user->profile_picture) }}" alt="Profile Picture" class="popup_profile rounded-full h-20 w-20 shadow-sm hover:shadow-md cursor-pointer">
+                            @else
+                            <img src="{{ asset('storage/profile_pictures/default.png') }}" alt="Profile Picture" class="popup_profile rounded-full h-20 w-20 shadow-sm hover:shadow-md cursor-pointer">
+                            @endif
                             <h2 class="text-2xl">{{ $book->user->name }}</h2>
                             <p class="mt-2">{{ $book->user->email }}</p>
                         </x-profile-popup>
