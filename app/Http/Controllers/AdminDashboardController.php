@@ -6,6 +6,7 @@ use App\Models\OnlineBook;
 use App\Models\User;
 use App\Models\Bookmark;
 use App\Models\Cart;
+use App\Models\PhysicalBook;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -21,7 +22,8 @@ class AdminDashboardController extends Controller
         return view('admin.dashboard', [
             'user' => $user,
             'users' => $this->getUsersCount(),
-            'books' => $this->getBooksCount(),
+            'digitalBooks' => $this->getDigitalBooksCount(),
+            'physicalBooks' => $this->getPhysicalBooksCount(),
             'pendingBooks' => $this->getPendingBooks(),
             'bookmarks' => $this->getBookmarksCount(),
             'booksLast2Days' => $this->getRecentBooks(10),
@@ -32,10 +34,16 @@ class AdminDashboardController extends Controller
     {
         return Cache::remember('users_count', 600, fn() => User::count());
     }
-    private function getBooksCount()
+    private function getDigitalBooksCount()
     {
-        return Cache::remember('books_count', 600, fn() => OnlineBook::count());
+        return Cache::remember('on_books_count', 600, fn() => OnlineBook::count());
     }
+
+    private function getPhysicalBooksCount()
+    {
+        return Cache::remember('ph_books_count', 600, fn() => PhysicalBook::count());
+    }
+
     private function getBookmarksCount()
     {
         return Cache::remember('users_count', 600, fn() => Bookmark::count());

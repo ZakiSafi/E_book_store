@@ -2,26 +2,25 @@
     <div class="flex min-h-screen">
         <!-- Sidebar -->
         <aside class="w-64 bg-gradient-to-b from-blue-600 to-blue-700 text-white shadow-lg">
-            <div class="p-6">
-                <h2 class="text-2xl font-bold">Admin Panel</h2>
-            </div>
-            <nav class="mt-6">
-                <ul class="space-y-1">
-                    <!-- Dashboard -->
-                    <li>
-                        <a href="{{ route('admin.dashboard') }}" class="flex items-center p-3 hover:bg-blue-500/90 transition-all duration-300 rounded-lg mx-2">
-                            <i class="fa-solid fa-tachometer-alt mr-3"></i> Dashboard
-                        </a>
-                    </li>
+
+            <nav class="p-4">
+                <div class="flex items-center space-x-4 p-4 bg-blue-800 rounded-lg shadow-lg">
+                    <img src="{{ asset('storage/'.$user->profile_picture) }}" alt="profile picture" class="h-16 w-16 rounded-full border-2 border-white shadow-md">
+                    <div>
+                        <h2 class="text-lg font-semibold">{{ $user->name }}</h2>
+                        <p class="text-[10px] text-blue-200 truncate">{{ $user->email }}</p>
+                    </div>
+                </div>
+                <ul class="space-y-1 mt-4">
 
                     <!-- Manage Users with Submenu -->
                     <li class="relative" onmouseenter="toggleSubmenu('userSubmenu', true)" onmouseleave="toggleSubmenu('userSubmenu', false)">
-                        <a href="#" class="flex items-center p-3 hover:bg-blue-500/90 transition-all duration-300 rounded-lg mx-2">
+                        <p class="flex items-center p-3 hover:bg-blue-500/90 transition-all duration-300 rounded-lg mx-2">
                             <i class="fa-solid fa-users mr-3"></i> Manage Users
                             <i id="userChevron" class="fa-solid fa-chevron-right ml-auto text-sm transition-transform duration-300"></i>
-                        </a>
+                        </p>
                         <ul id="userSubmenu" class="pl-8 mt-1 space-y-1 bg-blue-700/90 rounded-lg shadow-lg overflow-hidden max-h-0 transition-all duration-300">
-                            <li>
+                            <li class="mt-1">
                                 <a href="{{ route('admin.users.index') }}" class="flex items-center p-2 hover:bg-blue-600/90 transition-all duration-300 rounded-lg text-sm">
                                     <i class="fa-solid fa-list mr-3"></i> View All Users
                                 </a>
@@ -36,12 +35,12 @@
 
                     <!-- Manage Books with Submenu -->
                     <li class="relative" onmouseenter="toggleSubmenu('bookSubmenu', true)" onmouseleave="toggleSubmenu('bookSubmenu', false)">
-                        <a href="#" class="flex items-center p-3 hover:bg-blue-500/90 transition-all duration-300 rounded-lg mx-2">
+                        <p class="flex items-center p-3 hover:bg-blue-500/90 transition-all duration-300 rounded-lg mx-2">
                             <i class="fa-solid fa-book mr-3"></i> Manage Books
                             <i id="bookChevron" class="fa-solid fa-chevron-right ml-auto text-sm transition-transform duration-300"></i>
-                        </a>
+                        </p>
                         <ul id="bookSubmenu" class="pl-8 mt-1 space-y-1 bg-blue-700/90 rounded-lg shadow-lg overflow-hidden max-h-0 transition-all duration-300">
-                            <li>
+                            <li class="mt-1">
                                 <a href="{{ route('admin.books.index') }}" class="flex items-center p-2 hover:bg-blue-600/90 transition-all duration-300 rounded-lg text-sm">
                                     <i class="fa-solid fa-file-pdf mr-3"></i> Digital Books
                                 </a>
@@ -66,12 +65,12 @@
 
                     <!-- Borrowed Books with Submenu -->
                     <li class="relative" onmouseenter="toggleSubmenu('borrowedSubmenu', true)" onmouseleave="toggleSubmenu('borrowedSubmenu', false)">
-                        <a href="#" class="flex items-center p-3 hover:bg-blue-500/90 transition-all duration-300 rounded-lg mx-2">
+                        <p class="flex items-center p-3 hover:bg-blue-500/90 transition-all duration-300 rounded-lg mx-2">
                             <i class="fa-solid fa-exchange-alt mr-3"></i> Borrowed Books
                             <i id="borrowedChevron" class="fa-solid fa-chevron-right ml-auto text-sm transition-transform duration-300"></i>
-                        </a>
+                        </p>
                         <ul id="borrowedSubmenu" class="pl-8 mt-1 space-y-1 bg-blue-700/90 rounded-lg shadow-lg overflow-hidden max-h-0 transition-all duration-300">
-                            <li>
+                            <li class="mt-1">
                                 <a href="{{ route('admin.borrow-books.index') }}" class="flex items-center p-2 hover:bg-blue-600/90 transition-all duration-300 rounded-lg text-sm">
                                     <i class="fa-solid fa-list mr-3"></i> Current Borrowed Books
                                 </a>
@@ -84,12 +83,7 @@
                         </ul>
                     </li>
 
-                    <!-- Settings -->
-                    <li>
-                        <a href="#" class="flex items-center p-3 hover:bg-blue-500/90 transition-all duration-300 rounded-lg mx-2">
-                            <i class="fa-solid fa-cogs mr-3"></i> Settings
-                        </a>
-                    </li>
+                   
                 </ul>
             </nav>
         </aside>
@@ -100,22 +94,33 @@
         <!-- Main Content -->
         <main class="flex-1 bg-gray-100 p-8">
             <!-- Quick Stats -->
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
                 <div class="bg-white p-6 rounded-lg shadow-md">
                     <div class="flex items-center gap-4">
                         <i class="fa-solid fa-users text-3xl text-blue-600"></i>
                         <div>
                             <p class="text-gray-600 text-sm">Total Users</p>
-                            <p class="text-2xl font-bold">1,234</p>
+                            <p class="text-2xl font-bold">{{$users}}</p>
                         </div>
                     </div>
                 </div>
+
                 <div class="bg-white p-6 rounded-lg shadow-md">
                     <div class="flex items-center gap-4">
                         <i class="fa-solid fa-book text-3xl text-green-600"></i>
                         <div>
-                            <p class="text-gray-600 text-sm">Total Books</p>
-                            <p class="text-2xl font-bold">5,678</p>
+                            <p class="text-gray-600 text-sm">Digital Books</p>
+                            <p class="text-2xl font-bold">{{$digitalBooks}}</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <div class="flex items-center gap-4">
+                        <i class="fa-solid fa-book text-3xl text-green-600"></i>
+                        <div>
+                            <p class="text-gray-600 text-sm">Physical Books</p>
+                            <p class="text-2xl font-bold">{{$physicalBooks}}</p>
                         </div>
                     </div>
                 </div>
@@ -128,15 +133,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="bg-white p-6 rounded-lg shadow-md">
-                    <div class="flex items-center gap-4">
-                        <i class="fa-solid fa-dollar-sign text-3xl text-yellow-600"></i>
-                        <div>
-                            <p class="text-gray-600 text-sm">Revenue</p>
-                            <p class="text-2xl font-bold">$12,345</p>
-                        </div>
-                    </div>
-                </div>
+                
             </div>
 
             <!-- Graphs and Analytics -->
