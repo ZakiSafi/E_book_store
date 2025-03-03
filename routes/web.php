@@ -22,6 +22,8 @@ use App\Http\Controllers\AdminDashboardController;
 use App\Http\Controllers\ForgotPasswordController;
 use App\Http\Controllers\AdminBorrowedBookController;
 use App\Http\Controllers\PhysicalBookController;
+use App\Http\Controllers\ChartController;
+
 
 // Public Routes (No Authentication)
 Route::get('/', [HomeController::class, 'index'])->name('home');
@@ -139,3 +141,6 @@ Route::middleware(['auth', 'user'])->prefix('user')->name('user.')->group(functi
         Route::get('/books/{id}/read/pdf', 'readPdf')->name('books.read.pdf');
     });
 });
+
+
+

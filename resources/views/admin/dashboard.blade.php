@@ -127,94 +127,16 @@
                 </div>
             </div>
 
-            <!-- Graphs and Analytics -->
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-                <div>
-                    <div class="bg-white rounded-lg shadow-lg p-6">
-                        <!-- Widget Heading -->
-                        <div class="mb-4">
-                            <h5 class="text-xl font-bold text-gray-800">Recent Activities</h5>
-                        </div>
+            <!-- Books Borrowed Chart -->
+            <div class="bg-white p-6 rounded-lg shadow-md mb-6">
+                <h3 class="text-xl font-bold mb-4">Books Borrowed Per Month</h3>
+                <canvas id="booksBorrowedChart"></canvas>
+            </div>
 
-                        <!-- Timeline -->
-                        <div class="space-y-4">
-                            <!-- Timeline Item - Primary -->
-                            <div class="flex items-start relative">
-                                <!-- Dot -->
-                                <div class="w-3 h-3 bg-blue-600 border-2 border-blue-200 rounded-full absolute left-0 top-2"></div>
-                                <!-- Text -->
-                                <div class="ml-6 flex-1">
-                                    <p class="text-sm text-gray-600">Updated Server Logs</p>
-                                    <span class="absolute left-6 text-xs bg-red-500 text-white px-2 py-1 rounded opacity-0 hover:opacity-100 transition-opacity">Pending</span>
-                                    <p class="text-xs text-gray-500 mt-1">Just Now</p>
-                                </div>
-                            </div>
-
-                            <!-- Timeline Item - Success -->
-                            <div class="flex items-start relative">
-                                <!-- Dot -->
-                                <div class="w-3 h-3 bg-green-500 border-2 border-green-200 rounded-full absolute left-0 top-2"></div>
-                                <!-- Text -->
-                                <div class="ml-6 flex-1">
-                                    <p class="text-sm text-gray-600">Send Mail to HR and Admin</p>
-                                    <span class="absolute left-6 text-xs bg-green-500 text-white px-2 py-1 rounded opacity-0 hover:opacity-100 transition-opacity">Completed</span>
-                                    <p class="text-xs text-gray-500 mt-1">2 min ago</p>
-                                </div>
-                            </div>
-
-                            <!-- Timeline Item - Danger -->
-                            <div class="flex items-start relative">
-                                <!-- Dot -->
-                                <div class="w-3 h-3 bg-red-500 border-2 border-red-200 rounded-full absolute left-0 top-2"></div>
-                                <!-- Text -->
-                                <div class="ml-6 flex-1">
-                                    <p class="text-sm text-gray-600">Backup Files EOD</p>
-                                    <span class="absolute left-6 text-xs bg-red-500 text-white px-2 py-1 rounded opacity-0 hover:opacity-100 transition-opacity">Pending</span>
-                                    <p class="text-xs text-gray-500 mt-1">14:00</p>
-                                </div>
-                            </div>
-
-                            <!-- Timeline Item - Dark -->
-                            <div class="flex items-start relative">
-                                <!-- Dot -->
-                                <div class="w-3 h-3 bg-gray-700 border-2 border-gray-400 rounded-full absolute left-0 top-2"></div>
-                                <!-- Text -->
-                                <div class="ml-6 flex-1">
-                                    <p class="text-sm text-gray-600">Collect documents from Sara</p>
-                                    <span class="absolute left-6 text-xs bg-green-500 text-white px-2 py-1 rounded opacity-0 hover:opacity-100 transition-opacity">Completed</span>
-                                    <p class="text-xs text-gray-500 mt-1">16:00</p>
-                                </div>
-                            </div>
-
-                            <!-- Timeline Item - Warning -->
-                            <div class="flex items-start relative">
-                                <!-- Dot -->
-                                <div class="w-3 h-3 bg-yellow-500 border-2 border-yellow-200 rounded-full absolute left-0 top-2"></div>
-                                <!-- Text -->
-                                <div class="ml-6 flex-1">
-                                    <p class="text-sm text-gray-600">Conference call with Marketing Manager</p>
-                                    <span class="absolute left-6 text-xs bg-blue-500 text-white px-2 py-1 rounded opacity-0 hover:opacity-100 transition-opacity">In Progress</span>
-                                    <p class="text-xs text-gray-500 mt-1">17:00</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- View All Button -->
-                        <div class="text-center mt-6">
-                            <button class="text-blue-600 font-semibold hover:text-blue-700 transition-colors">
-                                View All
-                                <svg xmlns="http://www.w3.org/2000/svg" class="inline-block w-4 h-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-                                </svg>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-                <div class="bg-white p-6 rounded-lg shadow-md">
-                    <h3 class="text-xl font-bold mb-4">Most Borrowed Books</h3>
-
-                    <canvas id="barChart"></canvas> <!-- Bar Chart -->
-                </div>
+            <!-- Books Downloaded Chart -->
+            <div class="bg-white p-6 rounded-lg shadow-md">
+                <h3 class="text-xl font-bold mb-4">Books Downloaded Per Month</h3>
+                <canvas id="booksDownloadedChart"></canvas>
             </div>
 
             <!-- Recent Activity -->
@@ -276,5 +198,75 @@
                 }
             });
         });
+
+        const options = {
+            chart: {
+                height: "100%",
+                maxWidth: "100%",
+                type: "area",
+                fontFamily: "Inter, sans-serif",
+                dropShadow: {
+                    enabled: false,
+                },
+                toolbar: {
+                    show: false,
+                },
+            },
+            tooltip: {
+                enabled: true,
+                x: {
+                    show: false,
+                },
+            },
+            fill: {
+                type: "gradient",
+                gradient: {
+                    opacityFrom: 0.55,
+                    opacityTo: 0,
+                    shade: "#1C64F2",
+                    gradientToColors: ["#1C64F2"],
+                },
+            },
+            dataLabels: {
+                enabled: false,
+            },
+            stroke: {
+                width: 6,
+            },
+            grid: {
+                show: false,
+                strokeDashArray: 4,
+                padding: {
+                    left: 2,
+                    right: 2,
+                    top: 0
+                },
+            },
+            series: [{
+                name: "New users",
+                data: [6500, 6418, 6456, 6526, 6356, 6456],
+                color: "#1A56DB",
+            }, ],
+            xaxis: {
+                categories: ['01 February', '02 February', '03 February', '04 February', '05 February', '06 February', '07 February'],
+                labels: {
+                    show: false,
+                },
+                axisBorder: {
+                    show: false,
+                },
+                axisTicks: {
+                    show: false,
+                },
+            },
+            yaxis: {
+                show: false,
+            },
+        }
+
+        if (document.getElementById("area-chart") && typeof ApexCharts !== 'undefined') {
+            const chart = new ApexCharts(document.getElementById("area-chart"), options);
+            chart.render();
+        }
     </script>
 </x-layout>
