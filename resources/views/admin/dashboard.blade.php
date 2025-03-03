@@ -83,7 +83,7 @@
                         </ul>
                     </li>
 
-                   
+
                 </ul>
             </nav>
         </aside>
@@ -129,11 +129,11 @@
                         <i class="fa-solid fa-exchange-alt text-3xl text-purple-600"></i>
                         <div>
                             <p class="text-gray-600 text-sm">Active Borrowings</p>
-                            <p class="text-2xl font-bold">123</p>
+                            <p class="text-2xl font-bold">{{$borrowedBooks}}</p>
                         </div>
                     </div>
                 </div>
-                
+
             </div>
 
             <!-- Graphs and Analytics -->

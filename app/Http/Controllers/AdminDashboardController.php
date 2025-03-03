@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\OnlineBook;
 use App\Models\User;
 use App\Models\Bookmark;
+use App\Models\BorrowedBook;
 use App\Models\Cart;
 use App\Models\PhysicalBook;
 use Carbon\Carbon;
@@ -27,7 +28,8 @@ class AdminDashboardController extends Controller
             'pendingBooks' => $this->getPendingBooks(),
             'bookmarks' => $this->getBookmarksCount(),
             'booksLast2Days' => $this->getRecentBooks(10),
-            'usersLast2Days' => $this->getRecentUsers(10)
+            'usersLast2Days' => $this->getRecentUsers(10),
+            'borrowedBooks' =>$this->getCurrentBorrowedBooks(),
         ]);
     }
     private function getUsersCount()
@@ -59,5 +61,10 @@ class AdminDashboardController extends Controller
     private function getPendingBooks()
     {
         return OnlineBook::where('status', 'pending')->count();
+    }
+
+    private function getCurrentBorrowedBooks()
+    {
+        return BorrowedBook::whereNull('returned_at')->count();
     }
 }
