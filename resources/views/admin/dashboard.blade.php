@@ -15,7 +15,7 @@
 
                     <!-- Manage Users with Submenu -->
                     <li class="relative" onmouseenter="toggleSubmenu('userSubmenu', true)" onmouseleave="toggleSubmenu('userSubmenu', false)">
-                        <p class="flex items-center p-3 hover:bg-blue-500/90 transition-all duration-300 rounded-lg mx-2">
+                        <p class="flex items-center cursor-pointer p-3 hover:bg-blue-500/90 transition-all duration-300 rounded-lg mx-2">
                             <i class="fa-solid fa-users mr-3"></i> Manage Users
                             <i id="userChevron" class="fa-solid fa-chevron-right ml-auto text-sm transition-transform duration-300"></i>
                         </p>
@@ -35,7 +35,7 @@
 
                     <!-- Manage Books with Submenu -->
                     <li class="relative" onmouseenter="toggleSubmenu('bookSubmenu', true)" onmouseleave="toggleSubmenu('bookSubmenu', false)">
-                        <p class="flex items-center p-3 hover:bg-blue-500/90 transition-all duration-300 rounded-lg mx-2">
+                        <p class="flex items-center cursor-pointer p-3 hover:bg-blue-500/90 transition-all duration-300 rounded-lg mx-2">
                             <i class="fa-solid fa-book mr-3"></i> Manage Books
                             <i id="bookChevron" class="fa-solid fa-chevron-right ml-auto text-sm transition-transform duration-300"></i>
                         </p>
@@ -65,7 +65,7 @@
 
                     <!-- Borrowed Books with Submenu -->
                     <li class="relative" onmouseenter="toggleSubmenu('borrowedSubmenu', true)" onmouseleave="toggleSubmenu('borrowedSubmenu', false)">
-                        <p class="flex items-center p-3 hover:bg-blue-500/90 transition-all duration-300 rounded-lg mx-2">
+                        <p class="flex items-center cursor-pointer p-3 hover:bg-blue-500/90 transition-all duration-300 rounded-lg mx-2">
                             <i class="fa-solid fa-exchange-alt mr-3"></i> Borrowed Books
                             <i id="borrowedChevron" class="fa-solid fa-chevron-right ml-auto text-sm transition-transform duration-300"></i>
                         </p>
@@ -95,42 +95,45 @@
         <main class="flex-1 bg-gray-100 p-8">
             <!-- Quick Stats -->
             <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
-                <div class="bg-white p-6 rounded-lg shadow-md">
-                    <div class="flex items-center gap-4">
-                        <i class="fa-solid fa-users text-3xl text-blue-600"></i>
+
+                <a href="{{route('admin.users.index')}}">
+                    <div class="flex items-center gap-4 group cursor-pointer bg-white hover:bg-blue-600 p-6 rounded-lg shadow-md transition-all duration-300">
+
+                        <i class="fa-solid fa-users text-3xl text-blue-600 group-hover:text-white transition-all duration-300"></i>
                         <div>
-                            <p class="text-gray-600 text-sm">Total Users</p>
-                            <p class="text-2xl font-bold">{{$users}}</p>
+                            <p class="text-gray-600 text-sm group-hover:text-white transition-all duration-300">Total Users</p>
+                            <p class="text-2xl font-bold group-hover:text-white transition-all duration-300">{{$users}}</p>
                         </div>
+                    </div>
+                </a>
+
+
+                <a href="{{route('admin.books.index')}}">
+
+                    <div class="flex items-center gap-4 group cursor-pointer bg-white hover:bg-blue-600 p-6 rounded-lg shadow-md transition-all duration-300">
+                        <i class="fa-solid fa-book text-3xl text-green-600 group-hover:text-white transition-all duration-300"></i>
+                        <div>
+                            <p class="text-gray-600 text-sm group-hover:text-white transition-all duration-300">Digital Books </p>
+                            <p class="text-2xl font-bold group-hover:text-white transition-all duration-300">{{$digitalBooks}}</p>
+                        </div>
+                    </div>
+                </a>
+
+
+                <div class="flex items-center gap-4 group cursor-pointer bg-white hover:bg-blue-600 p-6 rounded-lg shadow-md transition-all duration-300">
+                    <i class="fa-solid fa-book text-3xl text-green-600 group-hover:text-white transition-all duration-300"></i>
+                    <div>
+                        <p class="text-gray-600 text-sm group-hover:text-white transition-all duration-300">Physical Books </p>
+                        <p class="text-2xl font-bold group-hover:text-white transition-all duration-300">{{$physicalBooks}}</p>
                     </div>
                 </div>
 
-                <div class="bg-white p-6 rounded-lg shadow-md">
-                    <div class="flex items-center gap-4">
-                        <i class="fa-solid fa-book text-3xl text-green-600"></i>
-                        <div>
-                            <p class="text-gray-600 text-sm">Digital Books</p>
-                            <p class="text-2xl font-bold">{{$digitalBooks}}</p>
-                        </div>
-                    </div>
-                </div>
 
-                <div class="bg-white p-6 rounded-lg shadow-md">
-                    <div class="flex items-center gap-4">
-                        <i class="fa-solid fa-book text-3xl text-green-600"></i>
-                        <div>
-                            <p class="text-gray-600 text-sm">Physical Books</p>
-                            <p class="text-2xl font-bold">{{$physicalBooks}}</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="bg-white p-6 rounded-lg shadow-md">
-                    <div class="flex items-center gap-4">
-                        <i class="fa-solid fa-exchange-alt text-3xl text-purple-600"></i>
-                        <div>
-                            <p class="text-gray-600 text-sm">Active Borrowings</p>
-                            <p class="text-2xl font-bold">{{$borrowedBooks}}</p>
-                        </div>
+                <div class="flex items-center gap-4 group cursor-pointer bg-white hover:bg-blue-600 p-6 rounded-lg shadow-md transition-all duration-300">
+                    <i class="fa-solid fa-exchange-alt text-3xl text-purple-600 group-hover:text-white transition-all duration-300"></i>
+                    <div>
+                        <p class="text-gray-600 text-sm group-hover:text-white transition-all duration-300">Active Borrowings</p>
+                        <p class="text-2xl font-bold group-hover:text-white transition-all duration-300">{{$borrowedBooks}}</p>
                     </div>
                 </div>
 
@@ -221,6 +224,7 @@
                 </div>
                 <div class="bg-white p-6 rounded-lg shadow-md">
                     <h3 class="text-xl font-bold mb-4">Most Borrowed Books</h3>
+
                     <canvas id="barChart"></canvas> <!-- Bar Chart -->
                 </div>
             </div>

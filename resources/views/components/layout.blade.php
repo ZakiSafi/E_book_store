@@ -26,8 +26,12 @@
             <div class="flex h-16 items-center justify-between">
                 <!-- Left Section -->
                 <div class="flex items-center gap-8">
-                    <div>
-                        <img class="h-12 w-full" src="{{ asset('storage/logos/BMALogo.png') }}" alt="BMA Library Logo">
+                    <div class="flex items-center gap-2">
+                        <img class="h-12 w-12" src="{{ asset('storage/logos/bma.png') }}" alt="BMA Library Logo">
+                        <div class="text-white text-sm font-semibold">
+                            <p>افغان ملی بانک</p>
+                            <p>BANK-E-MILIE AFGHAN</p>
+                        </div>
                     </div>
                     <nav class="hidden md:flex items-center gap-4">
                         <x-nav_link href="{{route('home')}}" :active="request()->is('/')">

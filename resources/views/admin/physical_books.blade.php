@@ -38,7 +38,7 @@
 
             <!-- Books Table Section -->
             <div class="mt-8 mb-4 ">
-                <h3 class="text-2xl font-semibold text-gray-800 mb-6">Books List</h3>
+                <h3 class="text-2xl font-semibold text-gray-800 mb-6">Physical Books List</h3>
                 <table class="min-w-full divide-y divide-gray-200">
                     <thead class="bg-gray-50 sticky top-0  w-full">
                         <tr>

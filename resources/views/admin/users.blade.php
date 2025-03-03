@@ -73,7 +73,7 @@
 
                             <td class="px-6 py-4 whitespace-nowrap">{{ $user->bookmarks->count() }}</td>
 
-                            <td class="px-6 py-4 whitespace-nowrap flex space-x-4">
+                            <td class="px-6 py-4 whitespace-nowrap text-center">
                                 <form action="{{ route('admin.users.destroy', $user->id) }}" method="POST" class="inline-block" onsubmit="return confirm('Are you sure you want to delete this user?');">
                                     @csrf
                                     @method('DELETE')
