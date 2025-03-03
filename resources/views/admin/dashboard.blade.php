@@ -14,8 +14,8 @@
                 <ul class="space-y-1 mt-4">
 
                     <!-- Manage Users with Submenu -->
-                    <li class="relative" onmouseenter="toggleSubmenu('userSubmenu', true)" onmouseleave="toggleSubmenu('userSubmenu', false)">
-                        <p class="flex items-center cursor-pointer p-3 hover:bg-blue-500/90 transition-all duration-300 rounded-lg mx-2">
+                    <li class="relative">
+                        <p class="flex items-center cursor-pointer p-3 hover:bg-blue-500/90 transition-all duration-300 rounded-lg mx-2" onclick="toggleSubmenu('userSubmenu')">
                             <i class="fa-solid fa-users mr-3"></i> Manage Users
                             <i id="userChevron" class="fa-solid fa-chevron-right ml-auto text-sm transition-transform duration-300"></i>
                         </p>
@@ -26,7 +26,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="#" class="flex items-center p-2 hover:bg-blue-600/90 transition-all duration-300 rounded-lg text-sm">
+                                <a href="{{route('register')}}" class="flex items-center p-2 hover:bg-blue-600/90 transition-all duration-300 rounded-lg text-sm">
                                     <i class="fa-solid fa-user-plus mr-3"></i> Add New User
                                 </a>
                             </li>
@@ -34,8 +34,8 @@
                     </li>
 
                     <!-- Manage Books with Submenu -->
-                    <li class="relative" onmouseenter="toggleSubmenu('bookSubmenu', true)" onmouseleave="toggleSubmenu('bookSubmenu', false)">
-                        <p class="flex items-center cursor-pointer p-3 hover:bg-blue-500/90 transition-all duration-300 rounded-lg mx-2">
+                    <li class="relative">
+                        <p class="flex items-center cursor-pointer p-3 hover:bg-blue-500/90 transition-all duration-300 rounded-lg mx-2" onclick="toggleSubmenu('bookSubmenu')">
                             <i class="fa-solid fa-book mr-3"></i> Manage Books
                             <i id="bookChevron" class="fa-solid fa-chevron-right ml-auto text-sm transition-transform duration-300"></i>
                         </p>
@@ -64,8 +64,8 @@
                     </li>
 
                     <!-- Borrowed Books with Submenu -->
-                    <li class="relative" onmouseenter="toggleSubmenu('borrowedSubmenu', true)" onmouseleave="toggleSubmenu('borrowedSubmenu', false)">
-                        <p class="flex items-center cursor-pointer p-3 hover:bg-blue-500/90 transition-all duration-300 rounded-lg mx-2">
+                    <li class="relative">
+                        <p class="flex items-center cursor-pointer p-3 hover:bg-blue-500/90 transition-all duration-300 rounded-lg mx-2" onclick="toggleSubmenu('borrowedSubmenu')">
                             <i class="fa-solid fa-exchange-alt mr-3"></i> Borrowed Books
                             <i id="borrowedChevron" class="fa-solid fa-chevron-right ml-auto text-sm transition-transform duration-300"></i>
                         </p>
@@ -82,23 +82,19 @@
                             </li>
                         </ul>
                     </li>
-
-
                 </ul>
+                <a href="{{route('admin.create')}}" class="flex items-center cursor-pointer p-3 hover:bg-blue-500/90 transition-all duration-300 rounded-lg mx-2">
+                    <i class="fa-solid fa-plus mr-3"></i> Create New Admin
+                </a>
             </nav>
         </aside>
-
-
-
 
         <!-- Main Content -->
         <main class="flex-1 bg-gray-100 p-8">
             <!-- Quick Stats -->
             <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
-
                 <a href="{{route('admin.users.index')}}">
                     <div class="flex items-center gap-4 group cursor-pointer bg-white hover:bg-blue-600 p-6 rounded-lg shadow-md transition-all duration-300">
-
                         <i class="fa-solid fa-users text-3xl text-blue-600 group-hover:text-white transition-all duration-300"></i>
                         <div>
                             <p class="text-gray-600 text-sm group-hover:text-white transition-all duration-300">Total Users</p>
@@ -106,10 +102,7 @@
                         </div>
                     </div>
                 </a>
-
-
                 <a href="{{route('admin.books.index')}}">
-
                     <div class="flex items-center gap-4 group cursor-pointer bg-white hover:bg-blue-600 p-6 rounded-lg shadow-md transition-all duration-300">
                         <i class="fa-solid fa-book text-3xl text-green-600 group-hover:text-white transition-all duration-300"></i>
                         <div>
@@ -118,8 +111,6 @@
                         </div>
                     </div>
                 </a>
-
-
                 <div class="flex items-center gap-4 group cursor-pointer bg-white hover:bg-blue-600 p-6 rounded-lg shadow-md transition-all duration-300">
                     <i class="fa-solid fa-book text-3xl text-green-600 group-hover:text-white transition-all duration-300"></i>
                     <div>
@@ -127,8 +118,6 @@
                         <p class="text-2xl font-bold group-hover:text-white transition-all duration-300">{{$physicalBooks}}</p>
                     </div>
                 </div>
-
-
                 <div class="flex items-center gap-4 group cursor-pointer bg-white hover:bg-blue-600 p-6 rounded-lg shadow-md transition-all duration-300">
                     <i class="fa-solid fa-exchange-alt text-3xl text-purple-600 group-hover:text-white transition-all duration-300"></i>
                     <div>
@@ -136,12 +125,11 @@
                         <p class="text-2xl font-bold group-hover:text-white transition-all duration-300">{{$borrowedBooks}}</p>
                     </div>
                 </div>
-
             </div>
 
             <!-- Graphs and Analytics -->
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-                <div class=" p-5">
+                <div>
                     <div class="bg-white rounded-lg shadow-lg p-6">
                         <!-- Widget Heading -->
                         <div class="mb-4">
@@ -262,17 +250,31 @@
         </main>
     </div>
     <script>
-        function toggleSubmenu(submenuId, isOpen) {
+        function toggleSubmenu(submenuId) {
             const submenu = document.getElementById(submenuId);
             const chevron = document.getElementById(submenuId.replace('Submenu', 'Chevron'));
 
-            if (isOpen) {
+            if (submenu.style.maxHeight) {
+                submenu.style.maxHeight = null; // Collapse submenu
+                chevron.classList.replace('fa-chevron-down', 'fa-chevron-right');
+            } else {
                 submenu.style.maxHeight = submenu.scrollHeight + "px"; // Expand submenu
                 chevron.classList.replace('fa-chevron-right', 'fa-chevron-down');
-            } else {
-                submenu.style.maxHeight = "0"; // Collapse submenu
-                chevron.classList.replace('fa-chevron-down', 'fa-chevron-right');
             }
         }
+
+        document.addEventListener('click', function(event) {
+            const submenus = ['userSubmenu', 'bookSubmenu', 'borrowedSubmenu'];
+            submenus.forEach(submenuId => {
+                const submenu = document.getElementById(submenuId);
+                const chevron = document.getElementById(submenuId.replace('Submenu', 'Chevron'));
+                const submenuParent = submenu.closest('li');
+
+                if (!submenuParent.contains(event.target)) {
+                    submenu.style.maxHeight = null; // Collapse submenu
+                    chevron.classList.replace('fa-chevron-down', 'fa-chevron-right');
+                }
+            });
+        });
     </script>
 </x-layout>

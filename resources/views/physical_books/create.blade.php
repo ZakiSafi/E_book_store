@@ -6,7 +6,7 @@
                 <div class="col-span-1 md:col-span-2">
                     <h2 class="text-lg font-semibold border-b pb-2">Add Book</h2>
                 </div>
-                <x-form.input label="Title" name="title" value="{{old('title')}}" required />
+                <x-form.input label="Book Name" name="title" value="{{old('title')}}" required />
                 <x-form.input label="Author" name="author" value="{{old('author')}}" required />
                 <x-form.input label="Translator" placeholder="optional" name="translator" value="{{old('translator')}}" />
                 <x-form.input label="Publication Year" name="publication_year" type="number" min="1000" max="{{ date('Y') }}" value="{{old('publication_year')}}" required />

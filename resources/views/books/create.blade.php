@@ -12,7 +12,7 @@
                 </div>
                 <!-- Title -->
                 <div class="flex flex-col">
-                    <label for="title" class="font-medium text-gray-700">Title</label>
+                    <label for="title" class="font-medium text-gray-700">Book Name</label>
                     <input
                         type="text"
                         id="title"

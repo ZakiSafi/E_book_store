@@ -10,8 +10,10 @@
 
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts@3.46.0/dist/apexcharts.min.js"></script>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <link href="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.css" rel="stylesheet" />
+
 
     <style>
 
@@ -28,7 +30,7 @@
                 <div class="flex items-center gap-8">
                     <div class="flex items-center gap-2">
                         <img class="h-12 w-12" src="{{ asset('storage/logos/bma.png') }}" alt="BMA Library Logo">
-                        <div class="text-white text-sm font-semibold">
+                        <div class="text-white text-[12px] font-semibold">
                             <p>افغان ملی بانک</p>
                             <p>BANK-E-MILIE AFGHAN</p>
                         </div>
@@ -38,10 +40,10 @@
                             <i class="fa-solid fa-house mr-1"></i> Home
                         </x-nav_link>
                         <x-nav_link href="{{route('books.index')}}" :active="request()->is('books')">
-                            <i class="fa-solid fa-book mr-1"></i> Digital Books
+                            <i class="fa-solid fa-file-pdf mr-1"></i> Digital Books
                         </x-nav_link>
                         <x-nav_link href="{{route('physicalBooks.index')}}" :active="request()->is('physical-books')">
-                            <i class="fa-solid fa-book mr-1"></i> Physical Books
+                            <i class="fa-solid fa-book-open mr-1"></i> Physical Books
                         </x-nav_link>
                         @auth
                         @if (Auth::user()->role === 'admin')
@@ -95,81 +97,85 @@
                 </button>
 
                 <!-- Mobile Dropdown Menu -->
-                <div id="mobile-menu" class="hidden absolute top-16 right-4 z-50 bg-white bg-opacity-90 backdrop-blur-md shadow-lg rounded-lg w-48 p-4">
-                    <nav class="space-y-2">
-
-                        <a href="{{route('home')}}" class="block text-center px-4 text-sm font-semibold text-gray-800 hover:bg-blue-600 hover:text-white rounded flex items-center space-x-2 transition-all">
+                <div id="mobile-menu" class="hidden absolute top-16 right-4 z-50 bg-gradient-to-br from-blue-50 to-purple-50 backdrop-blur-md shadow-lg rounded-lg w-56 p-4">
+                    <nav class="space-y-2 font-sans">
+                        <!-- Home Link -->
+                        <a href="{{route('home')}}" class="block text-center px-4 text-sm font-semibold text-gray-800 hover:bg-gradient-to-r hover:from-blue-600 hover:to-purple-600 hover:text-white rounded-lg flex items-center space-x-2 transition-all duration-300">
                             <i class="fa-solid fa-house flex-shrink-0 w-5"></i> <span>Home</span>
                         </a>
 
                         @auth
                         @if (Auth::user()->role === 'admin')
-                        <a href="{{route('admin.dashboard')}}" class="block text-center px-4  text-sm font-semibold text-gray-800 hover:bg-blue-600 hover:text-white rounded flex items-center space-x-2 transition-all">
+                        <!-- Admin Dashboard -->
+                        <a href="{{route('admin.dashboard')}}" class="block text-center px-4 text-sm font-semibold text-gray-800 hover:bg-gradient-to-r hover:from-blue-600 hover:to-purple-600 hover:text-white rounded-lg flex items-center space-x-2 transition-all duration-300">
                             <i class="fa-solid fa-user-shield flex-shrink-0 w-5"></i> <span>Dashboard</span>
                         </a>
 
-
-                        <a href="{{route('admin.books.index')}}" class="block text-center px-4  text-sm font-semibold text-gray-800 hover:bg-blue-600 hover:text-white rounded flex items-center space-x-2 transition-all">
+                        <!-- Manage Digital Books -->
+                        <a href="{{route('admin.books.index')}}" class="block text-center px-4 text-sm font-semibold text-gray-800 hover:bg-gradient-to-r hover:from-blue-600 hover:to-purple-600 hover:text-white rounded-lg flex items-center space-x-2 transition-all duration-300">
                             <i class="fa-solid fa-book flex-shrink-0 w-5"></i> <span>Manage Books</span>
                         </a>
 
-
-                        <a href="{{route('admin.borrow-books.index')}}" class="block text-center pl-4  text-sm font-semibold text-gray-800 hover:bg-blue-600 hover:text-white rounded flex items-center space-x-2 transition-all">
+                        <!-- Borrowed Digital Books -->
+                        <a href="{{route('admin.borrow-books.index')}}" class="block text-center px-4 text-sm font-semibold text-gray-800 hover:bg-gradient-to-r hover:from-blue-600 hover:to-purple-600 hover:text-white rounded-lg flex items-center space-x-2 transition-all duration-300">
                             <i class="fa-solid fa-book-reader flex-shrink-0 w-5"></i> <span>Borrowed Books</span>
                         </a>
 
-
-                        <a href="{{route('admin.users.index')}}" class="block text-center px-4  text-sm font-semibold text-gray-800 hover:bg-blue-600 hover:text-white rounded flex items-center space-x-2 transition-all">
+                        <!-- Manage Users -->
+                        <a href="{{route('admin.users.index')}}" class="block text-center px-4 text-sm font-semibold text-gray-800 hover:bg-gradient-to-r hover:from-blue-600 hover:to-purple-600 hover:text-white rounded-lg flex items-center space-x-2 transition-all duration-300">
                             <i class="fa-solid fa-users flex-shrink-0 w-5"></i> <span>Manage Users</span>
                         </a>
 
-
                         @else
-                        <a href="{{route('user.dashboard')}}" class="block text-center px-4  text-sm font-semibold text-gray-800 hover:bg-blue-600 hover:text-white rounded flex items-center space-x-2 transition-all">
+                        <!-- User Dashboard -->
+                        <a href="{{route('user.dashboard')}}" class="block text-center px-4 text-sm font-semibold text-gray-800 hover:bg-gradient-to-r hover:from-blue-600 hover:to-purple-600 hover:text-white rounded-lg flex items-center space-x-2 transition-all duration-300">
                             <i class="fa-solid fa-tachometer-alt flex-shrink-0 w-5"></i> <span>Dashboard</span>
                         </a>
-
-
                         @endif
                         @endauth
-                        <a href="{{route('books.index')}}" class="block text-center px-4  text-sm font-semibold text-gray-800 hover:bg-blue-600 hover:text-white rounded flex items-center space-x-2 transition-all">
-                            <i class="fa-solid fa-book flex-shrink-0 w-5"></i> <span>Books</span>
+
+                        <!-- Digital Books -->
+                        <a href="{{route('books.index')}}" class="block text-center px-4 text-sm font-semibold text-gray-800 hover:bg-gradient-to-r hover:from-blue-600 hover:to-purple-600 hover:text-white rounded-lg flex items-center space-x-2 transition-all duration-300">
+                            <i class="fa-solid fa-file-pdf flex-shrink-0 w-5"></i> <span>Digital Books</span>
                         </a>
 
+                        <!-- Physical Books -->
+                        <a href="{{route('physicalBooks.index')}}" class="block text-center px-4 text-sm font-semibold text-gray-800 hover:bg-gradient-to-r hover:from-blue-600 hover:to-purple-600 hover:text-white rounded-lg flex items-center space-x-2 transition-all duration-300">
+                            <i class="fa-solid fa-book-open flex-shrink-0 w-5"></i> <span>Physical Books</span>
+                        </a>
 
-                        <a href="{{route('user.books.create')}}" class="block text-center px-4  text-sm font-semibold text-gray-800 hover:bg-blue-600 hover:text-white rounded flex items-center space-x-2 transition-all">
+                        <!-- Add Book -->
+                        <a href="{{route('user.books.create')}}" class="block text-center px-4 text-sm font-semibold text-gray-800 hover:bg-gradient-to-r hover:from-blue-600 hover:to-purple-600 hover:text-white rounded-lg flex items-center space-x-2 transition-all duration-300">
                             <i class="fa-solid fa-plus flex-shrink-0 w-5"></i> <span>Add Book</span>
                         </a>
 
-
-                        <a href="{{route('user.bookmarks.index')}}" class="block text-center px-4  text-sm font-semibold text-gray-800 hover:bg-blue-600 hover:text-white rounded flex items-center space-x-2 transition-all">
+                        <!-- Bookmarks -->
+                        <a href="{{route('user.bookmarks.index')}}" class="block text-center px-4 text-sm font-semibold text-gray-800 hover:bg-gradient-to-r hover:from-blue-600 hover:to-purple-600 hover:text-white rounded-lg flex items-center space-x-2 transition-all duration-300">
                             <i class="fa-solid fa-bookmark flex-shrink-0 w-5"></i> <span>Bookmarks</span>
                         </a>
 
-
                         @auth
+                        <!-- Log Out -->
                         <form action="/logout" method="POST" class="mt-4">
                             @csrf
-                            <button type="submit" class="w-full text-center px-4  text-sm font-semibold text-gray-800 hover:bg-blue-600 hover:text-white rounded flex items-center space-x-2 transition-all">
-                                <i class="fa-solid fa-sign-out-alt  w-5"></i> <span>Log Out</span>
+                            <button type="submit" class="w-full text-center px-4 text-sm font-semibold text-gray-800 hover:bg-gradient-to-r hover:from-blue-600 hover:to-purple-600 hover:text-white rounded-lg flex items-center space-x-2 transition-all duration-300">
+                                <i class="fa-solid fa-sign-out-alt w-5"></i> <span>Log Out</span>
                             </button>
                         </form>
                         @endauth
 
-
                         @guest
-                        <a href="{{route('login')}}" class="block text-center px-4  text-sm font-semibold text-gray-800 hover:bg-blue-600 hover:text-white rounded flex items-center space-x-2 transition-all">
+                        <!-- Log In -->
+                        <a href="{{route('login')}}" class="block text-center px-4 text-sm font-semibold text-gray-800 hover:bg-gradient-to-r hover:from-blue-600 hover:to-purple-600 hover:text-white rounded-lg flex items-center space-x-2 transition-all duration-300">
                             <i class="fa-solid fa-sign-in-alt w-5"></i> <span>Log In</span>
                         </a>
 
-
-                        <a href="{{route('register')}}" class="block text-center px-4  text-sm font-semibold text-gray-800 hover:bg-blue-600 hover:text-white rounded flex items-center space-x-2 transition-all">
+                        <!-- Register -->
+                        <a href="{{route('register')}}" class="block text-center px-4 text-sm font-semibold text-gray-800 hover:bg-gradient-to-r hover:from-blue-600 hover:to-purple-600 hover:text-white rounded-lg flex items-center space-x-2 transition-all duration-300">
                             <i class="fa-solid fa-user-plus w-5"></i> <span>Register</span>
                         </a>
                         @endguest
                     </nav>
-
-
                 </div>
             </div>
         </div>
@@ -299,6 +305,7 @@
         </div>
     </footer>
     @stack('scripts')
+    <script src="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.js"></script>
 </body>
 
 </html>
