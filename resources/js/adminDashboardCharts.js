@@ -7,7 +7,6 @@ async function fetchChartData(url) {
 async function initializeChart(chartId, url, label) {
     const { labels, data } = await fetchChartData(url);
 
-
     const ctx = document.getElementById(chartId).getContext("2d");
 
     // Gradient for the chart background
@@ -156,3 +155,37 @@ document.addEventListener("DOMContentLoaded", () => {
         "Books Downloaded"
     );
 });
+
+const sidebar = document.querySelector("aside");
+const footer = document.querySelector("footer");
+const header = document.querySelector("header");
+
+if (!sidebar || !footer || !header) {
+    console.error("Sidebar, footer, or header not found in the DOM.");
+} else {
+    const observer = new IntersectionObserver(
+        ([entry]) => {
+            if (entry.target === footer) {
+                // Footer reached
+                if (entry.isIntersecting) {
+                    sidebar.classList.add("at-footer");
+                    sidebar.classList.remove("sticky"); // Remove sticky class when footer reaches
+                } else {
+                    sidebar.classList.add("sticky");
+                    sidebar.classList.remove("at-footer");
+                }
+            } else if (entry.target === header) {
+                // Header reached (for sticky behavior)
+                if (entry.isIntersecting) {
+                    sidebar.classList.remove("sticky"); // Remove sticky class when header is visible
+                } else {
+                    sidebar.classList.add("sticky"); // Make sidebar sticky when header is not visible
+                }
+            }
+        },
+        { rootMargin: "0px", threshold: 0 }
+    );
+
+    observer.observe(footer);
+    observer.observe(header);
+}

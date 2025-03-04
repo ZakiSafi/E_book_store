@@ -1,0 +1,40 @@
+.chart-container {
+    margin-bottom: 40px;
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+}
+/* Sidebar Default (Fixed to the top) */
+aside {
+  position: relative; /* Normal flow */
+  top: 0;
+  bottom: auto;
+  height: auto; /* Let the sidebar grow with content */
+  overflow-y: auto;
+  transition: all 0.3s ease-in-out;
+  z-index: 1000; /* Ensure it’s above content */
+}
+
+/* Sticky Sidebar When Scrolled */
+aside.sticky {
+  position: sticky;
+  top: 0;
+  height: 100vh; /* Full viewport height */
+  z-index: 1000;
+}
+
+/* When Sidebar Reaches Footer */
+aside.at-footer {
+  position: sticky !important;
+  top: 0;
+  bottom: auto;
+  height: 100vh; /* Full viewport height */
+  z-index: 1000;
+
+}
+
+/* Prevent Sidebar from Overlapping Footer */
+footer {
+  position: relative;
+}

@@ -108,7 +108,7 @@
         </aside>
 
         <!-- Main Content -->
-        <main class="flex-1 bg-gray-100 p-8">
+        <main class="flex-1 bg-gray-100 p-8 ">
             <!-- Quick Stats -->
             <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
                 <a href="{{route('admin.users.index')}}">

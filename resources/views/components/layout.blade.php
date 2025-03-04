@@ -21,13 +21,7 @@
             background-color: #f9fafb;
         }
 
-        .chart-container {
-            margin-bottom: 40px;
-            background-color: #fff;
-            border-radius: 12px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            padding: 20px;
-        }
+
     </style>
     </style>
 </head>
