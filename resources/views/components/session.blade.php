@@ -1,5 +1,5 @@
 @if (session('success'))
-<div id="message" class="fixed top-13 left-0 right-0 bg-green-500 text-white p-4 text-center rounded-b-sm shadow-lg opacity-0 transition-opacity duration-500 ease-in-out w-full">
+<div id="message" class="fixed top-13 left-0 right-0 bg-green-500 text-white p-4 text-center rounded-b-sm shadow-lg opacity-0 transition-opacity duration-500 ease-in-out w-full z-100">
     {{ session('success') }}
 </div>
 

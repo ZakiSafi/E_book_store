@@ -142,5 +142,8 @@ Route::middleware(['auth', 'user'])->prefix('user')->name('user.')->group(functi
     });
 });
 
-
-
+// Api routes
+Route::prefix('api')->group(function () {
+    Route::get('/books-borrowed', [ChartController::class, 'getBooksBorrowedData']);
+    Route::get('/books-downloaded', [ChartController::class, 'getBooksDownloadedData']);
+});

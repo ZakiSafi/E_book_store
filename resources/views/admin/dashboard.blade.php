@@ -5,7 +5,25 @@
 
             <nav class="p-4">
                 <div class="flex items-center space-x-4 p-4 bg-blue-800 rounded-lg shadow-lg">
-                    <img src="{{ asset('storage/'.$user->profile_picture) }}" alt="profile picture" class="h-16 w-16 rounded-full border-2 border-white shadow-md">
+                    <div class="relative">
+                        <!-- Profile Picture -->
+                        <img
+                            src="{{ asset('storage/'.$user->profile_picture) }}"
+                            alt="profile picture"
+                            class="h-16 w-16 rounded-full border-2 border-white shadow-lg transition-transform transform hover:scale-105 duration-300">
+
+                        <!-- Edit Icon -->
+                        <a
+                            href="{{ route('user.profile.edit', $user->id) }}"
+                            class="absolute bottom-0 right-0 bg-blue-600 rounded-full shadow-md transition-transform transform hover:scale-110 duration-300 text-center"
+                            aria-label="Edit Profile"
+                            style="transform: translate(25%, 25%);"
+                            title = 'Edit profile'
+                            >
+                            <i class="fa-solid fa-edit text-white text-xs mx-1.5" style="line-height: 2;"></i>
+
+                        </a>
+                    </div>
                     <div>
                         <h2 class="text-lg font-semibold">{{ $user->name }}</h2>
                         <p class="text-[10px] text-blue-200 truncate">{{ $user->email }}</p>
@@ -128,14 +146,13 @@
             </div>
 
             <!-- Books Borrowed Chart -->
-            <div class="bg-white p-6 rounded-lg shadow-md mb-6">
-                <h3 class="text-xl font-bold mb-4">Books Borrowed Per Month</h3>
+            <div class="chart-container">
                 <canvas id="booksBorrowedChart"></canvas>
             </div>
 
+
             <!-- Books Downloaded Chart -->
-            <div class="bg-white p-6 rounded-lg shadow-md">
-                <h3 class="text-xl font-bold mb-4">Books Downloaded Per Month</h3>
+            <div class="chart-container">
                 <canvas id="booksDownloadedChart"></canvas>
             </div>
 
@@ -198,75 +215,5 @@
                 }
             });
         });
-
-        const options = {
-            chart: {
-                height: "100%",
-                maxWidth: "100%",
-                type: "area",
-                fontFamily: "Inter, sans-serif",
-                dropShadow: {
-                    enabled: false,
-                },
-                toolbar: {
-                    show: false,
-                },
-            },
-            tooltip: {
-                enabled: true,
-                x: {
-                    show: false,
-                },
-            },
-            fill: {
-                type: "gradient",
-                gradient: {
-                    opacityFrom: 0.55,
-                    opacityTo: 0,
-                    shade: "#1C64F2",
-                    gradientToColors: ["#1C64F2"],
-                },
-            },
-            dataLabels: {
-                enabled: false,
-            },
-            stroke: {
-                width: 6,
-            },
-            grid: {
-                show: false,
-                strokeDashArray: 4,
-                padding: {
-                    left: 2,
-                    right: 2,
-                    top: 0
-                },
-            },
-            series: [{
-                name: "New users",
-                data: [6500, 6418, 6456, 6526, 6356, 6456],
-                color: "#1A56DB",
-            }, ],
-            xaxis: {
-                categories: ['01 February', '02 February', '03 February', '04 February', '05 February', '06 February', '07 February'],
-                labels: {
-                    show: false,
-                },
-                axisBorder: {
-                    show: false,
-                },
-                axisTicks: {
-                    show: false,
-                },
-            },
-            yaxis: {
-                show: false,
-            },
-        }
-
-        if (document.getElementById("area-chart") && typeof ApexCharts !== 'undefined') {
-            const chart = new ApexCharts(document.getElementById("area-chart"), options);
-            chart.render();
-        }
     </script>
 </x-layout>

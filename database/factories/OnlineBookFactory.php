@@ -69,7 +69,7 @@ class OnlineBookFactory extends Factory
             'file_type' => 'pdf',
             'description' => $this->faker->paragraph,
             'book_file' => $this->faker->randomElement($books),
-            'downloads' => $this->faker->numberBetween(0, 1000),
+            'downloads' => $this->faker->numberBetween(0, 2),
             'file_size' => $this->faker->numberBetween(1000, 10000),
             'cover_image' => $imagePath,
             'file_path' => $filePath,

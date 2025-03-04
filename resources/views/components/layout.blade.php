@@ -10,12 +10,25 @@
 
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/apexcharts@3.46.0/dist/apexcharts.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
     <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9fafb;
+        }
 
+        .chart-container {
+            margin-bottom: 40px;
+            background-color: #fff;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+    </style>
     </style>
 </head>
 
@@ -63,8 +76,8 @@
 
                 <!-- Right Section -->
                 <div class="hidden md:flex items-center space-x-2">
-                    <div>
-                        <a href="{{route('user.books.create')}}" class="relative text-white text-sm hover:bg-white hover:text-blue-600 rounded-lg py-1 px-2 transition-all">
+                    <div class="bg-green-500 p-1 rounded-lg shadow-md transition-transform transform hover:scale-105 hover:bg-green-600">
+                        <a href="{{route('user.books.create')}}" class="relative text-white text-sm  rounded-lg py-1 px-2 transition-all">
                             <i class="fa-solid fa-plus text-sm mt-1"></i>
                             Upload Book
                         </a>
@@ -82,7 +95,7 @@
                     @endguest
 
                     @auth
-                    <button id="dropdownButton" class="text-white rounded-md px-4 py-1 hover:bg-white hover:text-blue-600 flex items-center justify-center gap-1 transition-all">
+                    <button id="dropdownButton" class="text-white rounded-md px-4 py-2 hover:bg-white hover:text-blue-600 flex items-center justify-center gap-1 transition-all">
                         <i class="fa-solid fa-user text-xs mr-1"></i>
                         <p class="text-sm">{{ Auth::user()->name }}</p>
                         <i class="fa-solid fa-chevron-circle-down text-xs mt-1"></i>
@@ -303,6 +316,7 @@
             </div>
         </div>
     </footer>
+
     @stack('scripts')
 </body>
 

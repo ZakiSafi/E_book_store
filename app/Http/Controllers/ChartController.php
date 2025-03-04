@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use Carbon\Carbon;
-use App\Models\OnlineBook;
-use App\Models\BorrowedBook;
 use Illuminate\Http\Request;
+use App\Models\BorrowedBook;
+use App\Models\OnlineBook;
+use Carbon\Carbon;
 
 class ChartController extends Controller
 {
@@ -13,16 +13,16 @@ class ChartController extends Controller
     {
         // Fetch data for books borrowed per month
         $data = BorrowedBook::selectRaw('MONTH(created_at) as month, COUNT(*) as count')
-        ->whereYear('created_at', Carbon::now()->year)
-        ->groupBy('month')
-        ->orderBy('month')
-        ->get();
+            ->whereYear('created_at', Carbon::now()->year)
+            ->groupBy('month')
+            ->orderBy('month')
+            ->get();
 
         // Format the data for the chart
         $labels = [];
         $counts = [];
         for ($i = 1; $i <= 12; $i++) {
-            $labels[] = Carbon::createFromDate(null, $i)->format('F');
+            $labels[] = Carbon::create()->month($i)->format('F');
             $counts[] = $data->where('month', $i)->first()->count ?? 0;
         }
 
@@ -30,7 +30,6 @@ class ChartController extends Controller
             'labels' => $labels,
             'data' => $counts,
         ]);
-        dd($data);
     }
 
     public function getBooksDownloadedData()
@@ -54,7 +53,5 @@ class ChartController extends Controller
             'labels' => $labels,
             'data' => $downloads,
         ]);
-        dd($data);
     }
-
 }
