@@ -198,7 +198,6 @@ document.addEventListener("DOMContentLoaded", () => {
             model.classList.toggle("hidden");
         }
     });
-
 });
 
 // // Close Modal when clicking outside
@@ -208,4 +207,37 @@ close.addEventListener("click", function () {
     if (modal) {
         modal.classList.add("hidden");
     }
+});
+
+// toggle submenu of aside element
+
+function toggleSubmenu(submenuId) {
+    const submenu = document.getElementById(submenuId);
+    const chevron = document.getElementById(
+        submenuId.replace("Submenu", "Chevron")
+    );
+
+    if (submenu.style.maxHeight) {
+        submenu.style.maxHeight = null; // Collapse submenu
+        chevron.classList.replace("fa-chevron-down", "fa-chevron-right");
+    } else {
+        submenu.style.maxHeight = submenu.scrollHeight + "px"; // Expand submenu
+        chevron.classList.replace("fa-chevron-right", "fa-chevron-down");
+    }
+}
+
+document.addEventListener("click", function (event) {
+    const submenus = ["userSubmenu", "bookSubmenu", "borrowedSubmenu"];
+    submenus.forEach((submenuId) => {
+        const submenu = document.getElementById(submenuId);
+        const chevron = document.getElementById(
+            submenuId.replace("Submenu", "Chevron")
+        );
+        const submenuParent = submenu.closest("li");
+
+        if (!submenuParent.contains(event.target)) {
+            submenu.style.maxHeight = null; // Collapse submenu
+            chevron.classList.replace("fa-chevron-down", "fa-chevron-right");
+        }
+    });
 });
