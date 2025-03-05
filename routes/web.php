@@ -71,6 +71,10 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
     // Admin Dashboard
     Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('dashboard');
 
+    // creating new category
+    Route::post('/category/store', [CategoryController::class, 'store'])->name('category.store');
+
+
     // Books Management
     Route::controller(AdminBookController::class)->prefix('books')->name('books.')->group(function () {
         Route::get('/', 'books')->name('index');

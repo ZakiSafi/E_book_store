@@ -29,7 +29,8 @@ class AdminDashboardController extends Controller
             'bookmarks' => $this->getBookmarksCount(),
             'booksLast2Days' => $this->getRecentBooks(10),
             'usersLast2Days' => $this->getRecentUsers(10),
-            'borrowedBooks' =>$this->getCurrentBorrowedBooks(),
+            'borrowedBooks' => $this->getCurrentBorrowedBooks(),
+            'overDueBooks' => $this->getOverdueBooks(),
         ]);
     }
     private function getUsersCount()
@@ -60,11 +61,16 @@ class AdminDashboardController extends Controller
     }
     private function getPendingBooks()
     {
-        return OnlineBook::where('status', 'pending')->count();
+        return OnlineBook::where('status', 'pending')->get();
     }
 
     private function getCurrentBorrowedBooks()
     {
         return BorrowedBook::whereNull('returned_at')->count();
+    }
+
+    private function getOverdueBooks()
+    {
+        return BorrowedBook::where('due_date', '<=', Carbon::now())->whereNull('returned_at')->get();
     }
 }

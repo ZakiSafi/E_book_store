@@ -10,8 +10,8 @@ class HomeController extends Controller
 {
     public function index()
     {
-        $categories = Category::all();
-        $books = OnlineBook::latest()->take(12)->get();
+        $categories = Category::all()->take(14);
+        $books = OnlineBook::latest()->take(16)->get();
         $mostdownloaded = OnlineBook::orderBy('downloads', 'desc')->take(12)->get();
         return view('index', compact('categories', 'books', 'mostdownloaded'));
     }

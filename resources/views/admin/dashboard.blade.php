@@ -15,12 +15,11 @@
                         <!-- Edit Icon -->
                         <a
                             href="{{ route('user.profile.edit', $user->id) }}"
-                            class="absolute bottom-0 right-0 bg-blue-600 rounded-full shadow-md transition-transform transform hover:scale-110 duration-300 text-center"
+                            class="absolute bottom-0 right-0 bg-green-600 rounded-lg  shadow-md transition-transform transform hover:scale-110 duration-300 text-center"
                             aria-label="Edit Profile"
-                            style="transform: translate(25%, 25%);"
-                            title = 'Edit profile'
-                            >
-                            <i class="fa-solid fa-edit text-white text-xs mx-1.5" style="line-height: 2;"></i>
+                            style="transform: translate(25%, 5%);"
+                            title='Edit profile'>
+                            <i class="fa-solid fa-edit text-white text-xs mx-1.5 "></i>
 
                         </a>
                     </div>
@@ -102,14 +101,62 @@
                     </li>
                 </ul>
                 <a href="{{route('admin.create')}}" class="flex items-center cursor-pointer p-3 hover:bg-blue-500/90 transition-all duration-300 rounded-lg mx-2">
-                    <i class="fa-solid fa-plus mr-3"></i> Create New Admin
+                    <i class="fa-solid fa-user-shield mr-3"></i> Create New Admin
                 </a>
+                <!-- Button to Open Modal -->
+                <button id="openModal" class="flex items-center cursor-pointer p-3 hover:bg-blue-500/90 transition-all duration-300 rounded-lg mx-2">
+                    <i class="fa-solid fa-folder-plus mr-3"></i> Create Category
+                </button>
             </nav>
         </aside>
 
         <!-- Main Content -->
         <main class="flex-1 bg-gray-100 p-8 ">
-            <!-- Quick Stats -->
+            <!-- Alerts Section (Conditional) -->
+            @if ($overDueBooks->count() > 0 || $pendingBooks->count() > 0)
+            <div class="mb-8">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <!-- Overdue Books -->
+                    @if ($overDueBooks->count() > 0)
+                    <div class="bg-red-100 p-4 rounded-lg shadow-md">
+                        <div class="flex items-center gap-4">
+                            <i class="fa-solid fa-exclamation-circle text-3xl text-red-600"></i>
+                            <div>
+                                <p class="text-red-600 font-semibold">Overdue Books</p>
+                                <p class="text-gray-600 text-sm">{{ $overDueBooks->count() }} books are overdue.</p>
+                            </div>
+                        </div>
+                        <ul class="mt-2 space-y-1">
+                            @foreach ($overDueBooks as $book)
+                            <li class="text-sm text-gray-600">
+                                <i class="fa-solid fa-book mr-2"></i>{{ $book->title }} (Due: {{ $book->due_date }})
+                            </li>
+                            @endforeach
+                        </ul>
+                    </div>
+                    @endif
+
+                    <!-- Pending Books -->
+                    @if ($pendingBooks->count() > 0)
+                    <div class="bg-yellow-100 p-4 rounded-lg shadow-md">
+                        <div class="flex items-center gap-4">
+                            <i class="fa-solid fa-clock text-3xl text-yellow-600"></i>
+                            <div>
+                                <p class="text-yellow-600 font-semibold">Pending Books</p>
+                                @if ($pendingBooks->count() == 1)
+                                <p class="text-gray-600 text-sm">{{ $pendingBooks->count() }} book is pending to be approved!</p>
+                                @else
+                                <p class="text-gray-600 text-sm">{{ $pendingBooks->count() }} books are pending to be approved!</p>
+                                @endif
+                                <a href="{{route('admin.books.pending')}}" class="text-yellow-600 hover:text-yellow-700 text-sm border-b border-yellow-600 hover:border-yellow-700">check it</a>
+
+                            </div>
+                        </div>
+                    </div>
+                    @endif
+                </div>
+            </div>
+            @endif <!-- Quick Stats -->
             <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
                 <a href="{{route('admin.users.index')}}">
                     <div class="flex items-center gap-4 group cursor-pointer bg-white hover:bg-blue-600 p-6 rounded-lg shadow-md transition-all duration-300">
@@ -183,6 +230,34 @@
                             <li>Borrowing 2</li>
                             <li>Borrowing 3</li>
                         </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- category cretion popup -->
+            <!-- Modal -->
+            <div id="categoryModal" class="fixed inset-0 z-50 hidden overflow-y-auto">
+                <div class="flex items-center justify-center min-h-screen px-4 pt-4 pb-20 text-center sm:block sm:p-0">
+                    <!-- Modal Overlay -->
+                    <div class="fixed inset-0 transition-opacity bg-black bg-opacity-50"></div>
+
+                    <!-- Modal Content -->
+                    <div class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
+                        <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+                            <h3 class="text-lg font-bold mb-4">Create New Category</h3>
+                            <!-- Form -->
+                            <form action="{{ route('admin.category.store') }}" method="POST" class="max-w-lg mx-auto">
+                                @csrf
+                                <div class="mb-4">
+                                    <label for="name" class="block text-gray-700 text-sm font-bold mb-2">Category Name:</label>
+                                    <input type="text" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="name" name="name" required>
+                                </div>
+                                <div class="flex justify-end">
+                                    <button type="button" id="closePopup" class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mr-2">Cancel</button>
+                                    <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Create Category</button>
+                                </div>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>

@@ -189,3 +189,23 @@ if (!sidebar || !footer || !header) {
     observer.observe(footer);
     observer.observe(header);
 }
+
+// pop up for category creation
+document.addEventListener("DOMContentLoaded", () => {
+    const model = document.getElementById("categoryModal");
+    document.getElementById("openModal").addEventListener("click", function () {
+        if (model) {
+            model.classList.toggle("hidden");
+        }
+    });
+
+});
+
+// // Close Modal when clicking outside
+const close = document.querySelector("#closePopup");
+close.addEventListener("click", function () {
+    const modal = document.getElementById("categoryModal");
+    if (modal) {
+        modal.classList.add("hidden");
+    }
+});
