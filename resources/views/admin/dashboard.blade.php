@@ -112,6 +112,51 @@
 
         <!-- Main Content -->
         <main class="flex-1 bg-gray-100 p-8 ">
+
+            <!-- categories and book shelfs -->
+            <div class="flex gap-16 w-full max-w-5xl">
+                <!-- Categories Button -->
+                <div id="categoriesButton" class="cursor-pointer mb-8 w-full p-4 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-all duration-300">
+                    Books Categories
+                </div>
+
+                <!-- Shelves Button -->
+                <div id="shelvesButton" class="cursor-pointer mb-8 w-full p-4 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-all duration-300">
+                    Books Shelves
+                </div>
+            </div>
+
+            <!-- Categories Bar -->
+            <div id="categoriesBar" class="hidden my-8 w-full max-w-5xl bg-gray-100 p-4 rounded-lg shadow-md">
+                <h3 class="text-lg font-bold mb-4">Categories</h3>
+                <div class="flex flex-wrap gap-2">
+                    @foreach ($categories as $cat)
+                    <a href="/categories/{{ $cat->id }}">
+                        <li class="list-none bg-blue-200 text-blue-800 px-3 py-1 rounded-full text-sm transition-all duration-300 hover:bg-blue-300 hover:text-blue-900 hover:shadow-md">
+                            {{ $cat->name }}
+                        </li>
+                    </a>
+                    @endforeach
+                </div>
+
+            </div>
+
+            <!-- Shelves Bar -->
+            <div id="shelvesBar" class="hidden my-8 w-full max-w-5xl bg-gray-100 p-4 rounded-lg shadow-md">
+                <h3 class="text-lg font-bold mb-4">Shelves</h3>
+                <div class="flex flex-wrap gap-2">
+                    @foreach ($shelfs as $shelf)
+                    <a href="{{route('admin.books.shelfs', $shelf->shelf_no)}}">
+                        <span class="bg-green-200 text-green-800 px-3 py-1 rounded-full text-sm">{{ $shelf->shelf_no }}</span>
+
+                    </a>
+                    @endforeach
+                </div>
+            </div>
+
+
+
+
             <!-- Quick Stats -->
             <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
 
@@ -238,5 +283,24 @@
             </div>
         </main>
     </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const categoriesButton = document.getElementById('categoriesButton');
+            const shelvesButton = document.getElementById('shelvesButton');
+            const categoriesBar = document.getElementById('categoriesBar');
+            const shelvesBar = document.getElementById('shelvesBar');
 
+            // Show Categories Bar and hide Shelves Bar
+            categoriesButton.addEventListener('click', () => {
+                categoriesBar.classList.toggle('hidden');
+                shelvesBar.classList.add('hidden');
+            });
+
+            // Show Shelves Bar and hide Categories Bar
+            shelvesButton.addEventListener('click', () => {
+                shelvesBar.classList.toggle('hidden');
+                categoriesBar.classList.add('hidden');
+            });
+        });
+    </script>
 </x-layout>

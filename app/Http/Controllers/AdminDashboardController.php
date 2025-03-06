@@ -78,7 +78,10 @@ class AdminDashboardController extends Controller
     }
     private function getShelfNumbers()
     {
-        return PhysicalBook::select('shelf_no')->distinct()->orderBy('shelf_no', 'asc')->get();
+        return PhysicalBook::select('shelf_no')
+            ->distinct()
+            ->orderByRaw('CAST(shelf_no AS UNSIGNED) ASC')
+            ->get();
     }
     private function getCategories(){
         return Category::all();

@@ -37,6 +37,14 @@ class AdminBookController extends Controller
         return view('admin.dueBooks',compact('dueBooks'));
     }
 
+    public function bookShelfs($shelf_no)
+    {
+        // Get books that belong to the given shelf number
+        $books = PhysicalBook::where('shelf_no', $shelf_no)->paginate(10);
+
+        return view('admin.bookShelf', compact('shelf_no', 'books'));
+    }
+
 
     public function updateStatus(Request $request, $id)
     {

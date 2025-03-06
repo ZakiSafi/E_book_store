@@ -81,6 +81,7 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
         Route::get('/physicalBooks', 'physicalBooks')->name('physicalBooks');
         Route::get('/pending', 'pendingBooks')->name('pending');
         Route::get('/dueBooks', 'dueBooks')->name('dueBooks');
+        Route::get('/shelf/{shelf_no}','bookShelfs')->name('shelfs');
         Route::put('/{id}/update-status', 'updateStatus')->name('updateStatus');
     });
 
