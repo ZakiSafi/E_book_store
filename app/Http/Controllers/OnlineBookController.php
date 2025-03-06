@@ -79,7 +79,11 @@ class OnlineBookController extends Controller
         OnlineBook::create($attributes);
 
 
-        return redirect()->route('books.index');
+        if (Auth::user()->role == 'admin') {
+            return redirect()->route('books.index')->with('success', 'Book successfully added.');
+        } else {
+            return redirect()->route('books.index')->with('success', 'Book added successfully and is pending approval by admin.');
+        }
     }
 
 

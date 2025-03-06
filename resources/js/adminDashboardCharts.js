@@ -1,32 +1,39 @@
 async function fetchChartData(url) {
-    const response = await fetch(url);
-    const data = await response.json();
-    return data;
+    try {
+        const response = await fetch(url);
+        if (!response.ok)
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        return await response.json();
+    } catch (error) {
+        console.error("Error fetching chart data:", error);
+        return { labels: [], data: [] }; // Return empty data to prevent crashes
+    }
 }
 
 async function initializeChart(chartId, url, label) {
+    const chartElement = document.getElementById(chartId);
+    if (!chartElement) return; // Prevent errors if the chart does not exist
+
     const { labels, data } = await fetchChartData(url);
+    const ctx = chartElement.getContext("2d");
 
-    const ctx = document.getElementById(chartId).getContext("2d");
-
-    // Gradient for the chart background
     const gradient = ctx.createLinearGradient(0, 0, 0, 400);
-    gradient.addColorStop(0, "rgba(99, 102, 241, 0.3)"); // Indigo with transparency
-    gradient.addColorStop(1, "rgba(99, 102, 241, 0)"); // Fade out
+    gradient.addColorStop(0, "rgba(99, 102, 241, 0.3)");
+    gradient.addColorStop(1, "rgba(99, 102, 241, 0)");
 
     new Chart(ctx, {
-        type: "line", // You can change this to 'bar' or 'area' for a different look
+        type: "line",
         data: {
             labels: labels,
             datasets: [
                 {
                     label: label,
                     data: data,
-                    borderColor: "#6366f1", // Indigo
+                    borderColor: "#6366f1",
                     backgroundColor: gradient,
                     fill: true,
-                    tension: 0.4, // Smooth curves
-                    pointRadius: 5, // Larger points
+                    tension: 0.4,
+                    pointRadius: 5,
                     pointBackgroundColor: "#6366f1",
                     pointBorderColor: "#fff",
                     pointHoverRadius: 7,
@@ -39,109 +46,35 @@ async function initializeChart(chartId, url, label) {
         options: {
             responsive: true,
             maintainAspectRatio: false,
-            layout: {
-                padding: {
-                    top: 30,
-                    right: 20,
-                    bottom: 20,
-                    left: 20,
-                },
-            },
             scales: {
-                x: {
-                    grid: {
-                        display: false,
-                    },
-                    ticks: {
-                        color: "#6b7280", // Gray for ticks
-                        font: {
-                            family: "Poppins, sans-serif",
-                            size: 12,
-                            weight: "500",
-                        },
-                    },
-                },
+                x: { grid: { display: false }, ticks: { color: "#6b7280" } },
                 y: {
-                    beginAtZero: true, // Start Y-axis from 0
-                    grid: {
-                        color: "#e5e7eb", // Light gray grid lines
-                    },
-                    ticks: {
-                        color: "#6b7280", // Gray for ticks
-                        font: {
-                            family: "Poppins, sans-serif",
-                            size: 12,
-                            weight: "500",
-                        },
-                        // Format large numbers (e.g., 16000 -> 16K)
-                        callback: function (value) {
-                            if (value >= 1000) {
-                                return (value / 1000).toFixed(1) + "K";
-                            }
-                            return value;
-                        },
-                    },
+                    beginAtZero: true,
+                    grid: { color: "#e5e7eb" },
+                    ticks: { color: "#6b7280" },
                 },
             },
             plugins: {
                 legend: {
                     display: true,
                     position: "top",
-                    labels: {
-                        color: "#374151", // Dark gray for legend
-                        font: {
-                            family: "Poppins, sans-serif",
-                            size: 14,
-                            weight: "600",
-                        },
-                    },
+                    labels: { color: "#374151" },
                 },
                 tooltip: {
-                    backgroundColor: "#1e293b", // Dark tooltip background
-                    titleColor: "#f3f4f6", // Light text for title
-                    bodyColor: "#f3f4f6", // Light text for body
-                    titleFont: {
-                        family: "Poppins, sans-serif",
-                        size: 14,
-                    },
-                    bodyFont: {
-                        family: "Poppins, sans-serif",
-                        size: 12,
-                    },
-                    padding: 10,
-                    cornerRadius: 6,
-                    // Format tooltip values (e.g., 16000 -> 16,000)
-                    callbacks: {
-                        label: function (context) {
-                            let label = context.dataset.label || "";
-                            if (label) {
-                                label += ": ";
-                            }
-                            if (context.parsed.y !== null) {
-                                label += new Intl.NumberFormat().format(
-                                    context.parsed.y
-                                );
-                            }
-                            return label;
-                        },
-                    },
+                    backgroundColor: "#1e293b",
+                    titleColor: "#f3f4f6",
+                    bodyColor: "#f3f4f6",
                 },
             },
-            animation: {
-                duration: 1000, // Smooth animation
-                easing: "easeInOutQuart", // Smooth easing
-            },
+            animation: { duration: 1000, easing: "easeInOutQuart" },
         },
     });
 }
 
-// Initialize the charts
 document.addEventListener("DOMContentLoaded", () => {
-    // Set a fixed height for the chart containers
-    const chartContainers = document.querySelectorAll(".chart-container");
-    chartContainers.forEach((container) => {
-        container.style.height = "400px"; // Adjust height as needed
-        container.style.width = "100%"; // Full width
+    document.querySelectorAll(".chart-container").forEach((container) => {
+        container.style.height = "400px";
+        container.style.width = "100%";
     });
 
     initializeChart(
@@ -156,31 +89,19 @@ document.addEventListener("DOMContentLoaded", () => {
     );
 });
 
+// Sidebar Sticky Behavior
 const sidebar = document.querySelector("aside");
 const footer = document.querySelector("footer");
 const header = document.querySelector("header");
 
-if (!sidebar || !footer || !header) {
-    console.error("Sidebar, footer, or header not found in the DOM.");
-} else {
+if (sidebar && footer && header) {
     const observer = new IntersectionObserver(
         ([entry]) => {
             if (entry.target === footer) {
-                // Footer reached
-                if (entry.isIntersecting) {
-                    sidebar.classList.add("at-footer");
-                    sidebar.classList.remove("sticky"); // Remove sticky class when footer reaches
-                } else {
-                    sidebar.classList.add("sticky");
-                    sidebar.classList.remove("at-footer");
-                }
+                sidebar.classList.toggle("at-footer", entry.isIntersecting);
+                sidebar.classList.toggle("sticky", !entry.isIntersecting);
             } else if (entry.target === header) {
-                // Header reached (for sticky behavior)
-                if (entry.isIntersecting) {
-                    sidebar.classList.remove("sticky"); // Remove sticky class when header is visible
-                } else {
-                    sidebar.classList.add("sticky"); // Make sidebar sticky when header is not visible
-                }
+                sidebar.classList.toggle("sticky", !entry.isIntersecting);
             }
         },
         { rootMargin: "0px", threshold: 0 }
@@ -190,54 +111,69 @@ if (!sidebar || !footer || !header) {
     observer.observe(header);
 }
 
-// pop up for category creation
+// Modal Handling
 document.addEventListener("DOMContentLoaded", () => {
-    const model = document.getElementById("categoryModal");
-    document.getElementById("openModal").addEventListener("click", function () {
-        if (model) {
-            model.classList.toggle("hidden");
-        }
-    });
-});
-
-// // Close Modal when clicking outside
-const close = document.querySelector("#closePopup");
-close.addEventListener("click", function () {
     const modal = document.getElementById("categoryModal");
-    if (modal) {
-        modal.classList.add("hidden");
+    const openModalBtn = document.getElementById("openModal");
+    const closeModalBtn = document.getElementById("closePopup");
+
+    if (openModalBtn && modal) {
+        openModalBtn.addEventListener("click", () =>
+            modal.classList.toggle("hidden")
+        );
+    }
+
+    if (closeModalBtn && modal) {
+        closeModalBtn.addEventListener("click", () =>
+            modal.classList.add("hidden")
+        );
     }
 });
 
-// toggle submenu of aside element
-
+// Submenu Toggle
 function toggleSubmenu(submenuId) {
     const submenu = document.getElementById(submenuId);
     const chevron = document.getElementById(
         submenuId.replace("Submenu", "Chevron")
     );
 
-    if (submenu.style.maxHeight) {
-        submenu.style.maxHeight = null; // Collapse submenu
-        chevron.classList.replace("fa-chevron-down", "fa-chevron-right");
-    } else {
-        submenu.style.maxHeight = submenu.scrollHeight + "px"; // Expand submenu
-        chevron.classList.replace("fa-chevron-right", "fa-chevron-down");
+    if (submenu && chevron) {
+        const isOpen = submenu.style.maxHeight;
+        submenu.style.maxHeight = isOpen ? null : submenu.scrollHeight + "px";
+        chevron.classList.replace(
+            isOpen ? "fa-chevron-down" : "fa-chevron-right",
+            isOpen ? "fa-chevron-right" : "fa-chevron-down"
+        );
     }
 }
 
-document.addEventListener("click", function (event) {
-    const submenus = ["userSubmenu", "bookSubmenu", "borrowedSubmenu"];
-    submenus.forEach((submenuId) => {
-        const submenu = document.getElementById(submenuId);
-        const chevron = document.getElementById(
-            submenuId.replace("Submenu", "Chevron")
-        );
-        const submenuParent = submenu.closest("li");
+document.addEventListener("DOMContentLoaded", function () {
+    document.querySelectorAll(".submenu-toggle").forEach((toggle) => {
+        toggle.addEventListener("click", function () {
+            const submenuId = this.getAttribute("data-submenu-id");
+            if (submenuId) toggleSubmenu(submenuId);
+        });
+    });
 
-        if (!submenuParent.contains(event.target)) {
-            submenu.style.maxHeight = null; // Collapse submenu
-            chevron.classList.replace("fa-chevron-down", "fa-chevron-right");
-        }
+    document.addEventListener("click", function (event) {
+        ["userSubmenu", "bookSubmenu", "borrowedSubmenu"].forEach(
+            (submenuId) => {
+                const submenu = document.getElementById(submenuId);
+                const chevron = document.getElementById(
+                    submenuId.replace("Submenu", "Chevron")
+                );
+                if (
+                    submenu &&
+                    chevron &&
+                    !submenu.closest("li").contains(event.target)
+                ) {
+                    submenu.style.maxHeight = null;
+                    chevron.classList.replace(
+                        "fa-chevron-down",
+                        "fa-chevron-right"
+                    );
+                }
+            }
+        );
     });
 });

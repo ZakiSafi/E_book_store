@@ -7,7 +7,7 @@
         <!-- User Books Section -->
         @if ($books->isNotEmpty())
         <div class="col-span-2">
-            <h2 class="text-3xl font-bold text-gray-800 border-b-2 border-blue-500 pb-2 mb-6">User Books</h2>
+            <h2 class="text-3xl inline-block font-bold text-gray-800 border-b-4 border-blue-500 pb-2 mb-6">User Books</h2>
             <div class="grid grid-cols-2 gap-4">
                 @foreach ($books as $book)
                 <div class="shadow-md p-4 bg-white rounded-lg">
@@ -69,7 +69,7 @@
         <!-- Borrowed Books Section -->
         @if ($borrowedBooks->isNotEmpty())
         <div class="col-span-2">
-            <h2 class="text-3xl font-bold text-gray-800 border-b-2 border-blue-500 pb-2 mb-6">Borrowed Books</h2>
+            <h2 class="text-3xl inline-block font-bold text-gray-800 border-b-4 border-blue-500 pb-2 mb-6">Borrowed Books</h2>
             <div class="grid grid-cols-2 gap-4">
                 @foreach ($borrowedBooks as $borrowedBook)
                 <div class="shadow-md p-4 bg-white rounded-lg">
@@ -90,9 +90,9 @@
                                 <hr>
                                 <p class="text-md text-gray-500">Borrowed By: {{ $borrowedBook->user->name }}</p>
                                 <hr>
-                                <p class="text-md text-gray-500">Borrow Date: {{ $borrowedBook->borrowed_at }}</p>
+                                <p class="text-md text-gray-500">Borrow Date: {{ $borrowedBook->borrowed_at->format('Y-m-d') }}</p>
                                 <hr>
-                                <p class="text-md text-gray-500">Due Date: {{ $borrowedBook->due_date }}</p>
+                                <p class="text-md text-gray-500">Due Date: {{ $borrowedBook->due_date->format('Y-m-d') }}</p>
                                 <hr>
 
                                 <x-remaining-days-message :dueDate="$borrowedBook->due_date" />

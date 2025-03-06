@@ -15,7 +15,7 @@
                         <!-- Edit Icon -->
                         <a
                             href="{{ route('user.profile.edit', $user->id) }}"
-                            class="absolute bottom-0 right-0 bg-green-600 rounded-lg  shadow-md transition-transform transform hover:scale-110 duration-300 text-center"
+                            class="absolute bottom-0 right-0 bg-blue-400 rounded-lg  shadow-md transition-transform transform hover:scale-110 duration-300 text-center"
                             aria-label="Edit Profile"
                             style="transform: translate(25%, 5%);"
                             title='Edit profile'>
@@ -32,7 +32,7 @@
 
                     <!-- Manage Users with Submenu -->
                     <li class="relative">
-                        <p class="flex items-center cursor-pointer p-3 hover:bg-blue-500/90 transition-all duration-300 rounded-lg mx-2" onclick="toggleSubmenu('userSubmenu')">
+                        <p class="flex items-center cursor-pointer p-3 hover:bg-blue-500/90 transition-all duration-300 rounded-lg mx-2 submenu-toggle" data-submenu-id="userSubmenu">
                             <i class="fa-solid fa-users mr-3"></i> Manage Users
                             <i id="userChevron" class="fa-solid fa-chevron-right ml-auto text-sm transition-transform duration-300"></i>
                         </p>
@@ -52,7 +52,7 @@
 
                     <!-- Manage Books with Submenu -->
                     <li class="relative">
-                        <p class="flex items-center cursor-pointer p-3 hover:bg-blue-500/90 transition-all duration-300 rounded-lg mx-2" onclick="toggleSubmenu('bookSubmenu')">
+                        <p class="flex items-center cursor-pointer p-3 hover:bg-blue-500/90 transition-all duration-300 rounded-lg mx-2 submenu-toggle" data-submenu-id="bookSubmenu">
                             <i class="fa-solid fa-book mr-3"></i> Manage Books
                             <i id="bookChevron" class="fa-solid fa-chevron-right ml-auto text-sm transition-transform duration-300"></i>
                         </p>
@@ -82,8 +82,8 @@
 
                     <!-- Borrowed Books with Submenu -->
                     <li class="relative">
-                        <p class="flex items-center cursor-pointer p-3 hover:bg-blue-500/90 transition-all duration-300 rounded-lg mx-2" onclick="toggleSubmenu('borrowedSubmenu')">
-                            <i class="fa-solid fa-exchange-alt mr-3"></i> Borrowed Books
+                        <p class="flex items-center cursor-pointer p-3 hover:bg-blue-500/90 transition-all duration-300 rounded-lg mx-2 submenu-toggle" data-submenu-id="borrowedSubmenu">
+                            <i class=" fa-solid fa-exchange-alt mr-3"></i> Borrowed Books
                             <i id="borrowedChevron" class="fa-solid fa-chevron-right ml-auto text-sm transition-transform duration-300"></i>
                         </p>
                         <ul id="borrowedSubmenu" class="pl-8 mt-1 space-y-1 bg-blue-700/90 rounded-lg shadow-lg overflow-hidden max-h-0 transition-all duration-300">
@@ -112,6 +112,49 @@
 
         <!-- Main Content -->
         <main class="flex-1 bg-gray-100 p-8 ">
+            <!-- Quick Stats -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+
+                <a href="{{route('admin.users.index')}}">
+                    <div class="flex items-center gap-4 group cursor-pointer bg-white hover:bg-blue-600 p-6 rounded-lg shadow-md transition-all duration-300">
+                        <i class="fa-solid fa-users text-3xl text-blue-600 group-hover:text-white transition-all duration-300"></i>
+                        <div>
+                            <p class="text-gray-600 text-sm group-hover:text-white transition-all duration-300">Total Users</p>
+                            <p class="text-2xl font-bold group-hover:text-white transition-all duration-300">{{$users}}</p>
+                        </div>
+                    </div>
+                </a>
+
+                <a href="{{route('admin.books.index')}}">
+                    <div class="flex items-center gap-4 group cursor-pointer bg-white hover:bg-blue-600 p-6 rounded-lg shadow-md transition-all duration-300">
+                        <i class="fa-solid fa-book text-3xl text-green-600 group-hover:text-white transition-all duration-300"></i>
+                        <div>
+                            <p class="text-gray-600 text-sm group-hover:text-white transition-all duration-300">Digital Books </p>
+                            <p class="text-2xl font-bold group-hover:text-white transition-all duration-300">{{$digitalBooks}}</p>
+                        </div>
+                    </div>
+                </a>
+
+                <a href="{{route('admin.books.physicalBooks')}}">
+                    <div class="flex items-center gap-4 group cursor-pointer bg-white hover:bg-blue-600 p-6 rounded-lg shadow-md transition-all duration-300">
+                        <i class="fa-solid fa-book text-3xl text-green-600 group-hover:text-white transition-all duration-300"></i>
+                        <div>
+                            <p class="text-gray-600 text-sm group-hover:text-white transition-all duration-300">Physical Books </p>
+                            <p class="text-2xl font-bold group-hover:text-white transition-all duration-300">{{$physicalBooks}}</p>
+                        </div>
+                    </div>
+                </a>
+
+                <a href="{{route('admin.borrow-books.index')}}">
+                    <div class="flex items-center gap-4 group cursor-pointer bg-white hover:bg-blue-600 p-6 rounded-lg shadow-md transition-all duration-300">
+                        <i class="fa-solid fa-exchange-alt text-3xl text-purple-600 group-hover:text-white transition-all duration-300"></i>
+                        <div>
+                            <p class="text-gray-600 text-sm group-hover:text-white transition-all duration-300">Active Borrowings</p>
+                            <p class="text-2xl font-bold group-hover:text-white transition-all duration-300">{{$borrowedBooks}}</p>
+                        </div>
+                    </div>
+                </a>
+            </div>
             <!-- Alerts Section (Conditional) -->
             @if ($overDueBooks->count() > 0 || $pendingBooks->count() > 0)
             <div class="mb-8">
@@ -156,41 +199,7 @@
                     @endif
                 </div>
             </div>
-            @endif <!-- Quick Stats -->
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
-                <a href="{{route('admin.users.index')}}">
-                    <div class="flex items-center gap-4 group cursor-pointer bg-white hover:bg-blue-600 p-6 rounded-lg shadow-md transition-all duration-300">
-                        <i class="fa-solid fa-users text-3xl text-blue-600 group-hover:text-white transition-all duration-300"></i>
-                        <div>
-                            <p class="text-gray-600 text-sm group-hover:text-white transition-all duration-300">Total Users</p>
-                            <p class="text-2xl font-bold group-hover:text-white transition-all duration-300">{{$users}}</p>
-                        </div>
-                    </div>
-                </a>
-                <a href="{{route('admin.books.index')}}">
-                    <div class="flex items-center gap-4 group cursor-pointer bg-white hover:bg-blue-600 p-6 rounded-lg shadow-md transition-all duration-300">
-                        <i class="fa-solid fa-book text-3xl text-green-600 group-hover:text-white transition-all duration-300"></i>
-                        <div>
-                            <p class="text-gray-600 text-sm group-hover:text-white transition-all duration-300">Digital Books </p>
-                            <p class="text-2xl font-bold group-hover:text-white transition-all duration-300">{{$digitalBooks}}</p>
-                        </div>
-                    </div>
-                </a>
-                <div class="flex items-center gap-4 group cursor-pointer bg-white hover:bg-blue-600 p-6 rounded-lg shadow-md transition-all duration-300">
-                    <i class="fa-solid fa-book text-3xl text-green-600 group-hover:text-white transition-all duration-300"></i>
-                    <div>
-                        <p class="text-gray-600 text-sm group-hover:text-white transition-all duration-300">Physical Books </p>
-                        <p class="text-2xl font-bold group-hover:text-white transition-all duration-300">{{$physicalBooks}}</p>
-                    </div>
-                </div>
-                <div class="flex items-center gap-4 group cursor-pointer bg-white hover:bg-blue-600 p-6 rounded-lg shadow-md transition-all duration-300">
-                    <i class="fa-solid fa-exchange-alt text-3xl text-purple-600 group-hover:text-white transition-all duration-300"></i>
-                    <div>
-                        <p class="text-gray-600 text-sm group-hover:text-white transition-all duration-300">Active Borrowings</p>
-                        <p class="text-2xl font-bold group-hover:text-white transition-all duration-300">{{$borrowedBooks}}</p>
-                    </div>
-                </div>
-            </div>
+            @endif
 
             <!-- Books Borrowed Chart -->
             <div class="chart-container">
@@ -201,37 +210,6 @@
             <!-- Books Downloaded Chart -->
             <div class="chart-container">
                 <canvas id="booksDownloadedChart"></canvas>
-            </div>
-
-            <!-- Recent Activity -->
-            <div class="bg-white p-6 rounded-lg shadow-md">
-                <h3 class="text-xl font-bold mb-4">Recent Activity</h3>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    <div>
-                        <h4 class="text-lg font-semibold mb-2">Recent Users</h4>
-                        <ul class="text-gray-600">
-                            <li>User 1</li>
-                            <li>User 2</li>
-                            <li>User 3</li>
-                        </ul>
-                    </div>
-                    <div>
-                        <h4 class="text-lg font-semibold mb-2">Recent Books</h4>
-                        <ul class="text-gray-600">
-                            <li>Book 1</li>
-                            <li>Book 2</li>
-                            <li>Book 3</li>
-                        </ul>
-                    </div>
-                    <div>
-                        <h4 class="text-lg font-semibold mb-2">Recent Borrowings</h4>
-                        <ul class="text-gray-600">
-                            <li>Borrowing 1</li>
-                            <li>Borrowing 2</li>
-                            <li>Borrowing 3</li>
-                        </ul>
-                    </div>
-                </div>
             </div>
 
             <!-- category cretion popup -->
@@ -263,5 +241,5 @@
             </div>
         </main>
     </div>
-   
+
 </x-layout>

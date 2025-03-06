@@ -38,20 +38,15 @@
                         <img class="h-12 w-12" src="{{ asset('storage/logos/bma.png') }}" alt="BMA Library Logo">
                         <div class="text-white text-[12px] font-semibold">
                             <p>افغان ملی بانک</p>
-                            <p>BANK-E-MILIE AFGHAN</p>
+                            <p>BANK-E-MILLIE AFGHAN</p>
                         </div>
                     </div>
                     <nav class="hidden md:flex items-center gap-4">
                         <x-nav_link href="{{route('home')}}" :active="request()->is('/')">
                             <i class="fa-solid fa-house mr-1"></i> Home
                         </x-nav_link>
-                        <x-nav_link href="{{route('books.index')}}" :active="request()->is('books')">
-                            <i class="fa-solid fa-file-pdf mr-1"></i> Digital Books
-                        </x-nav_link>
-                        <x-nav_link href="{{route('physicalBooks.index')}}" :active="request()->is('physical-books')">
-                            <i class="fa-solid fa-book-open mr-1"></i> Physical Books
-                        </x-nav_link>
-                        @auth
+
+                         @auth
                         @if (Auth::user()->role === 'admin')
                         <x-nav_link href="{{route('admin.dashboard')}}" :active="request()->is('admin/dashboard')">
                             <i class="fa-solid fa-user-shield mr-1"></i> Dashboard
@@ -62,6 +57,15 @@
                         </x-nav_link>
                         @endif
                         @endauth
+
+                        <x-nav_link href="{{route('books.index')}}" :active="request()->is('books')">
+                            <i class="fa-solid fa-file-pdf mr-1"></i> Digital Books
+                        </x-nav_link>
+
+                        <x-nav_link href="{{route('physicalBooks.index')}}" :active="request()->is('physical-books')">
+                            <i class="fa-solid fa-book-open mr-1"></i> Physical Books
+                        </x-nav_link>
+
                         <x-nav_link href="{{route('user.bookmarks.index')}}" :active="request()->is('bookmarks')">
                             <i class="fa-solid fa-bookmark mr-1"></i> Bookmarks
                         </x-nav_link>
@@ -69,8 +73,8 @@
                 </div>
 
                 <!-- Right Section -->
-                <div class="hidden md:flex items-center space-x-2">
-                    <div class="bg-green-500 p-1 rounded-lg shadow-md transition-transform transform hover:scale-105 hover:bg-green-600">
+                <div class="hidden md:flex items-center">
+                    <div class="bg-green-500 p-1 rounded-lg shadow-md transition-transform transform hover:scale-105 hover:bg-green-600 mr-6">
                         <a href="{{route('user.books.create')}}" class="relative text-white text-sm  rounded-lg py-1 px-2 transition-all">
                             <i class="fa-solid fa-plus text-sm mt-1"></i>
                             Upload Book
@@ -78,11 +82,11 @@
                     </div>
 
                     @guest
-                    <a href="{{route('login')}}" class="text-white rounded-md px-4 py-1 hover:bg-white hover:text-blue-600 flex items-center justify-center transition-all">
+                    <a href="{{route('login')}}" class="text-white rounded-md px-2 py-1 hover:bg-white hover:text-blue-600 flex items-center justify-center transition-all">
                         <i class="fa-solid fa-sign-out-alt mr-1 text-xs"></i>
                         <p class="text-sm">Log In</p>
                     </a>
-                    <a href="{{route('register')}}" class="text-white rounded-md px-4 py-1 hover:bg-white hover:text-blue-600 flex items-center justify-center transition-all">
+                    <a href="{{route('register')}}" class="text-white rounded-md px-2 py-1 hover:bg-white hover:text-blue-600 flex items-center justify-center transition-all">
                         <i class="fa-solid fa-user-plus mr-1 text-xs "></i>
                         <p class="text-sm">Register</p>
                     </a>
@@ -204,7 +208,7 @@
                         About Us
                     </h1>
                     <div class="text-gray-600 text-sm leading-relaxed">
-                        <p>Welcome to the BMA Online Library, an exclusive digital resource for the staff of Bank-e-Mili Afghan (BMA). Our library offers a wide range of free educational digital books, all aimed at supporting the professional and personal development of our team.</p>
+                        <p>Welcome to the BMA Online Library, an exclusive digital resource for the staff of Bank-e-Millie Afghan (BMA). Our library offers a wide range of free educational digital books, all aimed at supporting the professional and personal development of our team.</p>
                     </div>
                 </div>
 
@@ -277,12 +281,12 @@
 
                         <a href="{{ route('user.books.create') }}" class="group flex items-center transition-all hover:text-blue-600">
                             <i class="fa-solid fa-plus-circle mr-2 w-5"></i>
-                            <span class="group-hover:border-b group-hover:border-blue-600">Add Book</span>
+                            <span class="group-hover:border-b group-hover:border-blue-600">Add digital Book</span>
                         </a>
 
-                        <a href="{{ route('user.books.create') }}" class="group flex items-center transition-all hover:text-blue-600">
+                        <a href="{{ route('admin.physical-books.create') }}" class="group flex items-center transition-all hover:text-blue-600">
                             <i class="fa-solid fa-plus-circle mr-2 w-5"></i>
-                            <span class="group-hover:border-b group-hover:border-blue-600">Add Book</span>
+                            <span class="group-hover:border-b group-hover:border-blue-600">Add physical Book</span>
                         </a>
                     </div>
                 </div>
