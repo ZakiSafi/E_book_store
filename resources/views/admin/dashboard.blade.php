@@ -166,16 +166,13 @@
                             <i class="fa-solid fa-exclamation-circle text-3xl text-red-600"></i>
                             <div>
                                 <p class="text-red-600 font-semibold">Overdue Books</p>
-                                <p class="text-gray-600 text-sm">{{ $overDueBooks->count() }} books are overdue.</p>
+
+                                <p class="text-gray-600 text-sm">{{ $overDueBooks->count() > 1 ? $overDueBooks->count() . " books are overdue." : $overDueBooks->count() . " book is overdue." }} </p>
+                                <a href="{{route('admin.books.dueBooks')}}" class="text-red-600 hover:text-red-700 text-sm border-b border-red-600 hover:border-red-700">check it</a>
                             </div>
+
                         </div>
-                        <ul class="mt-2 space-y-1">
-                            @foreach ($overDueBooks as $book)
-                            <li class="text-sm text-gray-600">
-                                <i class="fa-solid fa-book mr-2"></i>{{ $book->title }} (Due: {{ $book->due_date }})
-                            </li>
-                            @endforeach
-                        </ul>
+
                     </div>
                     @endif
 

@@ -64,7 +64,7 @@
 
                 <!-- Due Date -->
                 <div class="flex flex-col">
-                    <label for="due_in_days" class="font-medium text-gray-700">Due Date:</label>
+                    <label for="due_in_days" class="font-medium text-gray-700">Return days:</label>
                     <input
                         type="number"
                         name="due_in_days"

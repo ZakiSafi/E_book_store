@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Models\Bookmark;
 use App\Models\BorrowedBook;
 use App\Models\Cart;
+use App\Models\Category;
 use App\Models\PhysicalBook;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -31,6 +32,8 @@ class AdminDashboardController extends Controller
             'usersLast2Days' => $this->getRecentUsers(10),
             'borrowedBooks' => $this->getCurrentBorrowedBooks(),
             'overDueBooks' => $this->getOverdueBooks(),
+            'shelfs' => $this->getShelfNumbers(),
+            'categories' => $this->getCategories(),
         ]);
     }
     private function getUsersCount()
@@ -72,5 +75,12 @@ class AdminDashboardController extends Controller
     private function getOverdueBooks()
     {
         return BorrowedBook::where('due_date', '<=', Carbon::now())->whereNull('returned_at')->get();
+    }
+    private function getShelfNumbers()
+    {
+        return PhysicalBook::select('shelf_no')->distinct()->orderBy('shelf_no', 'asc')->get();
+    }
+    private function getCategories(){
+        return Category::all();
     }
 }

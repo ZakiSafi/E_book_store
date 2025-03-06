@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\BorrowedBook;
 use App\Models\OnlineBook;
 use App\Models\PhysicalBook;
 use Illuminate\Http\Request;
@@ -23,11 +24,20 @@ class AdminBookController extends Controller
         $totalBooks = PhysicalBook::count();
         return view('admin.physical_books', compact('books', 'totalBooks', 'searchType'));
     }
+
+
     public function pendingBooks()
     {
         $pendingBooks = OnlineBook::where('status', 'pending')->get();
         return view('admin.pendingBooks', compact('pendingBooks'));
     }
+
+    public function dueBooks(){
+        $dueBooks = BorrowedBook::where('due_date', '<', now())->whereNull('returned_at')->get();
+        return view('admin.dueBooks',compact('dueBooks'));
+    }
+
+
     public function updateStatus(Request $request, $id)
     {
         $book = OnlineBook::findOrFail($id);

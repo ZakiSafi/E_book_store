@@ -80,6 +80,7 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
         Route::get('/', 'books')->name('index');
         Route::get('/physicalBooks', 'physicalBooks')->name('physicalBooks');
         Route::get('/pending', 'pendingBooks')->name('pending');
+        Route::get('/dueBooks', 'dueBooks')->name('dueBooks');
         Route::put('/{id}/update-status', 'updateStatus')->name('updateStatus');
     });
 
