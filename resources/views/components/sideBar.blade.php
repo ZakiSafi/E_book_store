@@ -13,9 +13,14 @@
             <span class="group-hover:border-b group-hover:border-black">Manage Books</span>
         </a>
 
-        <i class="fa-solid fa-book text-[#666] mr-2"></i>
+        <i class="fa-solid fa-book-open text-[#666] mr-2"></i>
         <a href="{{route('admin.borrow-books.index')}}" class="group">
             <span class="group-hover:border-b group-hover:border-black">Borrowed Books</span>
+        </a>
+
+        <i class="fa-solid fa-history text-[#666] mr-2"></i>
+        <a href="{{route('admin.borrow-books.history')}}" class="group">
+            <span class="group-hover:border-b group-hover:border-black">Borrowed History</span>
         </a>
 
         <i class="fa-solid fa-users text-[#666] mr-2"></i>

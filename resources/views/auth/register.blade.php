@@ -12,9 +12,29 @@
 
                 <x-form.input label="Email Address" name="email" type="email" :value="old('email', $googleUser['email'] ?? '' )" required />
 
-                <x-form.input label="Password" name="password" type="password" required />
+                <!-- Password Field with Eye Icon -->
+                <div class="space-y-2">
+                    <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
+                    <div class="relative">
+                        <input type="password" id="password" name="password" required
+                            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                        <button type="button" aria-label="Show password" class="toggle-password absolute top-3 right-2">
+                            <i class="fas fa-eye text-sm text-gray-400"></i>
+                        </button>
+                    </div>
+                </div>
 
-                <x-form.input label="Confirm Password" name="password_confirmation" type="password" required />
+                <!-- Confirm Password Field with Eye Icon -->
+                <div class="space-y-2">
+                    <label for="password_confirmation" class="block text-sm font-medium text-gray-700">Confirm Password</label>
+                    <div class="relative">
+                        <input type="password" id="password_confirmation" name="password_confirmation" required
+                            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                        <button type="button" aria-label="Show password" class="toggle-password absolute top-3 right-2">
+                            <i class="fas fa-eye text-sm text-gray-400"></i>
+                        </button>
+                    </div>
+                </div>
 
                 <input type="hidden" name="google_id" value="{{ $googleUser['google_id'] ?? '' }}">
             </div>

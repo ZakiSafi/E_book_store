@@ -24,7 +24,7 @@ class AdminBorrowedBookController extends Controller
         $borrowedBooks = BorrowedBook::with('user', 'book')
             ->where('borrowed_at', '>=', Carbon::now()->subMonth())
             ->latest()
-            ->simplePaginate(10);
+            ->simplePaginate(15);
         return view('borrowed_books.history', compact('borrowedBooks', 'searchType'));
     }
 
