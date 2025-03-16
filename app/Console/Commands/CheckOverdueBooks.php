@@ -34,10 +34,16 @@ class CheckOverdueBooks extends Command
             ->get();
 
         foreach ($overdueBooks as $borrowedBook) {
-            // send notification to the user via email
-            Mail::to($borrowedBook->user->email)->send(new OverdueBookNotification($borrowedBook));
+            try {
+                // Send notification to the user via email
+                Mail::to($borrowedBook->user->email)->send(new OverdueBookNotification($borrowedBook));
+            } catch (\Exception $e) {
+                // Log the error and retry later
+                \Log::error('Failed to send email to ' . $borrowedBook->user->email . ': ' . $e->getMessage());
+                continue;
+            }
         }
-        $this->info('Notifications sent successfully!');
 
+        $this->info('Notifications sent successfully!');
     }
 }

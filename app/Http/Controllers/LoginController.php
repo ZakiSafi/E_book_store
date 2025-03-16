@@ -18,7 +18,6 @@ class LoginController extends Controller
     }
     public function store(Request $request)
     {
-
         $credentials = $request->validate([
             'email' => ['required', 'email'],
             'password' => ['required'],
@@ -27,16 +26,26 @@ class LoginController extends Controller
         if (Auth::attempt($credentials, $request->has('remember'))) {
             $request->session()->regenerate();
 
+            // Get the authenticated user
             $user = Auth::user();
-            $user->last_login_at = Carbon::now();
+
+            // Move the current login time to the last login time
+            $user->last_login_at = $user->current_login_at;
+
+            // Update the current login time to the current time
+            $user->current_login_at = Carbon::now();
+
+            // Save the changes
             $user->save();
 
+            // Redirect based on user role
             if ($user->role === 'admin') {
                 return redirect()->route('admin.dashboard')->with('success', 'Welcome back ' . $user->name . ' to BMA Library');
             } else {
                 return redirect()->route('user.dashboard')->with('success', 'Welcome back ' . $user->name . ' to BMA Library');
             }
         }
+
         return redirect()->route('login')->with('error', 'Invalid credentials');
     }
     public function destroy()

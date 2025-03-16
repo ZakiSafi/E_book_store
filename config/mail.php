@@ -39,11 +39,11 @@ return [
 
         'smtp' => [
             'transport' => 'smtp',
-            'host' => env('MAIL_HOST', 'sandbox.smtp.mailtrap.io'),
-            'port' => env('MAIL_PORT', 587),
-            'encryption' => env('MAIL_ENCRYPTION', 'tls'),
-            'username' => env('MAIL_USERNAME', 'c530e266e4f6b7'),
-            'password' => env('MAIL_PASSWORD', '91dce6fe33c509'),
+            'host' => env('MAIL_HOST', 'smtp.office365.com'), // Outlook SMTP host
+            'port' => env('MAIL_PORT', 587), // Outlook SMTP port
+            'encryption' => env('MAIL_ENCRYPTION', 'tls'), // Encryption for Outlook
+            'username' => env('MAIL_USERNAME', 'yourname@yourdomain.com'), // Your Outlook email
+            'password' => env('MAIL_PASSWORD', 'your_outlook_password'), // Your Outlook password or app password
             'timeout' => null,
             'auth_mode' => null,
         ],
@@ -54,10 +54,6 @@ return [
 
         'postmark' => [
             'transport' => 'postmark',
-            // 'message_stream_id' => env('POSTMARK_MESSAGE_STREAM_ID'),
-            // 'client' => [
-            //     'timeout' => 5,
-            // ],
         ],
 
         'resend' => [
@@ -94,11 +90,6 @@ return [
             ],
         ],
 
-        'from' => [
-            'address' => env('MAIL_FROM_ADDRESS', 'zakiullahsafi00@gmail.com'),
-            'name' => env('MAIL_FROM_NAME', 'BMA library'),
-        ],
-
     ],
 
     /*
@@ -113,8 +104,8 @@ return [
     */
 
     'from' => [
-        'address' => env('MAIL_FROM_ADDRESS', 'hello@example.com'),
-        'name' => env('MAIL_FROM_NAME', 'Example'),
+        'address' => env('MAIL_FROM_ADDRESS', 'zakiullahsafi00@gmail.com'), // Your Outlook email
+        'name' => env('MAIL_FROM_NAME', 'BMA Library'), // Your desired sender name
     ],
 
 ];
