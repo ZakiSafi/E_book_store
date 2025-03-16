@@ -201,7 +201,7 @@
                 </a>
             </div>
             <!-- Alerts Section (Conditional) -->
-            @if ($overDueBooks->count() > 0 || $pendingBooks->count() > 0)
+            @if ($overDueBooks->count() > 0 || $pendingBooks->count() > 0 || $requestForBorrowingBook->count() > 0)
             <div class="mb-8">
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <!-- Overdue Books -->
@@ -234,6 +234,25 @@
                                 <p class="text-gray-600 text-sm">{{ $pendingBooks->count() }} books are pending to be approved!</p>
                                 @endif
                                 <a href="{{route('admin.books.pending')}}" class="text-yellow-600 hover:text-yellow-700 text-sm border-b border-yellow-600 hover:border-yellow-700">check it</a>
+
+                            </div>
+                        </div>
+                    </div>
+                    @endif
+
+                    <!--  -->
+                    @if ($requestForBorrowingBook->count() > 0)
+                    <div class="bg-yellow-100 p-4 rounded-lg shadow-md">
+                        <div class="flex items-center gap-4">
+                            <i class="fa-solid fa-clock text-3xl text-yellow-600"></i>
+                            <div>
+                                <p class="text-yellow-600 font-semibold">Pending Book Borrow Requests</p>
+                                @if ($requestForBorrowingBook->count() == 1)
+                                <p class="text-gray-600 text-sm">{{ $requestForBorrowingBook->count() }} request for borrowing a book!</p>
+                                @else
+                                <p class="text-gray-600 text-sm">{{ $requestForBorrowingBook->count() }} requests for borrowing books!</p>
+                                @endif
+                                <a href="{{route('admin.borrow-books.borrowRequests')}}" class="text-yellow-600 hover:text-yellow-700 text-sm border-b border-yellow-600 hover:border-yellow-700">check it</a>
 
                             </div>
                         </div>

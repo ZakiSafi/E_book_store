@@ -30,6 +30,7 @@
                 <table class="min-w-full divide-y divide-gray-200">
                     <thead class="bg-gray-50">
                         <tr>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Admin</th>
                             <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Title</th>
                             <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Cover Image</th>
                             <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Borrowed By</th>
@@ -42,8 +43,10 @@
                     <tbody class="bg-white divide-y divide-gray-200">
                         @foreach ($borrowedBooks as $book)
                         <tr class="hover:bg-gray-50 transition duration-150 ease-in-out p-2">
+                            <td class="px-6 py-4 whitespace-nowrap text-gray-700">{{ $book->admin->name}}</td>
+
                             <td class="px-6 py-4 whitespace-nowrap">
-                                <a href="{{ route('books.show', $book->book->id) }}" class="text-blue-600 hover:text-blue-800 font-medium">
+                                <a href="{{ route('physicalBooks.show', $book->book->id) }}" class="text-blue-600 hover:text-blue-800 font-medium">
                                     {{ $book->book->title }}
                                 </a>
                             </td>

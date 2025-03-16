@@ -81,7 +81,7 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
         Route::get('/physicalBooks', 'physicalBooks')->name('physicalBooks');
         Route::get('/pending', 'pendingBooks')->name('pending');
         Route::get('/dueBooks', 'dueBooks')->name('dueBooks');
-        Route::get('/shelf/{shelf_no}','bookShelfs')->name('shelfs');
+        Route::get('/shelf/{shelf_no}', 'bookShelfs')->name('shelfs');
         Route::put('/{id}/update-status', 'updateStatus')->name('updateStatus');
     });
 
@@ -101,14 +101,16 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
 
     //Admin borrowed books management
     Route::controller(AdminBorrowedBookController::class)->name('borrow-books.')->group(function () {
+        Route::get('/borrowed-book/borrowRequests', 'borrowRequests')->name('borrowRequests');
         Route::get('borrowed-books/history', 'history')->name('history');
         Route::get('/borrow-books/index', 'index')->name('index');
-        Route::get('/borrow-book/{book}', 'showForm')->name('create');
-        Route::post('/borrow-book/{book}', 'store')->name('store');
         Route::put('/borrow-book/{id}/update', 'update')->name('update');
         Route::delete('/borrow-book/{id}/delete', 'destroy')->name('delete');
         Route::post('/borrow-book/extendDueDate/{id}', 'extendDueDate')->name('extend');
         Route::get('/users/search', 'searchUsers')->name('users.search');
+        Route::get('/borrowed-book/{book}', 'showForm')->name('create');
+
+
     });
     // Admin Physical Books Management
     Route::controller(PhysicalBookController::class)->prefix('physical-books')->name('physical-books.')->group(function () {
@@ -146,10 +148,25 @@ Route::middleware(['auth', 'user'])->prefix('user')->name('user.')->group(functi
         Route::get('/books/{id}/read', 'read')->name('book.read');
         Route::get('/books/{id}/read/pdf', 'readPdf')->name('books.read.pdf');
     });
+
+    // borrowed book store
+    Route::post('/borrow-book/{book}', [AdminBorrowedBookController::class, 'store'])->name('borrow-book.store');
 });
 
 // Api routes
 Route::prefix('api')->group(function () {
     Route::get('/books-borrowed', [ChartController::class, 'getBooksBorrowedData']);
     Route::get('/books-downloaded', [ChartController::class, 'getBooksDownloadedData']);
+});
+
+
+// filepath: c:\xampp\htdocs\E_book_store\routes\web.php
+
+Route::get('/send-test-email', function () {
+    Mail::raw('This is a test email', function ($message) {
+        $message->to('test@example.com')
+                ->subject('Test Email');
+    });
+
+    return 'Test email sent!';
 });

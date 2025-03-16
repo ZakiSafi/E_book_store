@@ -82,7 +82,7 @@ class OnlineBookController extends Controller
         if (Auth::user()->role == 'admin') {
             return redirect()->route('books.index')->with('success', 'Book successfully added.');
         } else {
-            return redirect()->route('books.index')->with('success', 'Book added successfully and is pending approval by admin.');
+            return redirect()->route('books.index')->with('success', 'Your contributed book has been recieved and pending approval by admin');
         }
     }
 

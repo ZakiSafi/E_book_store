@@ -51,21 +51,46 @@
                         <p class="font-semibold text-gray-700">Shelf No:</p>
                         <p class="text-gray-600">{{ $book->shelf_no }}</p>
                     </div>
-                    @auth
-                    @if (Auth::user()->role === 'admin')
+
                     <!-- Action Buttons -->
                     <div class="flex gap-4 mt-4">
+                        @auth
+                        @if (Auth::user()->role === 'admin')
                         <a href="{{ route('admin.borrow-books.create', $book->id) }}" class="flex items-center bg-blue-500 text-white px-4 py-2 rounded-lg shadow hover:bg-blue-600 transition duration-300">
                             <i class="fas fa-book-reader mr-2"></i>
-                            Borrow
+                            Borrow admin
                         </a>
+                        @elseif( Auth::user()->role === 'user')
+                        <form action="{{ route('user.borrow-book.store',['book' => $book->id]) }}" method="POST" class="flex items-center bg-blue-500 text-white px-4 py-2 rounded-lg shadow hover:bg-blue-600 transition duration-300">
+                            @csrf
+                            <input
+                                type="hidden"
+                                name="user_id"
+                                value='{{Auth::user()->id}}'>
+
+                            <input
+                                type="hidden"
+                                name="book_id"
+                                value='{{$book->id}}'>
+                            <input
+                                type="hidden"
+                                name="due_in_days"
+                                value="1"
+                                min="1" />
+                            <i class="fas fa-book-reader mr-2"></i>
+                            <button type="submit">Borrow</button>
+
+
+                        </form>
+
+                        @endif
+                        @endauth
+
                         <a href="{{ route('admin.physical-books.edit', $book->id) }}" class="flex items-center bg-yellow-500 text-white px-4 py-2 rounded-lg shadow hover:bg-yellow-600 transition duration-300">
                             <i class="fas fa-edit mr-2"></i>
                             Edit
                         </a>
                     </div>
-                    @endif
-                    @endauth
 
                 </div>
             </div>

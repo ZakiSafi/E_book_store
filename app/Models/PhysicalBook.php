@@ -28,6 +28,13 @@ class PhysicalBook extends Model
     {
         return $this->hasMany(BorrowedBook::class);
     }
+
+    public function borrowRequests()
+    {
+        return $this->hasMany(BorrowRequest::class);
+    }
+
+
     public function category()
     {
         return $this->belongsTo(Category::class);

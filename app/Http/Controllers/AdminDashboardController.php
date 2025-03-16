@@ -34,25 +34,26 @@ class AdminDashboardController extends Controller
             'overDueBooks' => $this->getOverdueBooks(),
             'shelfs' => $this->getShelfNumbers(),
             'categories' => $this->getCategories(),
+            'requestForBorrowingBook' => $this->requestForBorrowingBook()
         ]);
     }
     private function getUsersCount()
     {
-        return Cache::remember('users_count', 600, fn() => User::count());
+        return User::count();
     }
     private function getDigitalBooksCount()
     {
-        return Cache::remember('on_books_count', 600, fn() => OnlineBook::count());
+        return OnlineBook::count();
     }
 
     private function getPhysicalBooksCount()
     {
-        return Cache::remember('ph_books_count', 600, fn() => PhysicalBook::count());
+        return PhysicalBook::count();
     }
 
     private function getBookmarksCount()
     {
-        return Cache::remember('users_count', 600, fn() => Bookmark::count());
+        return Bookmark::count();
     }
     private function getRecentBooks($days)
     {
@@ -85,5 +86,10 @@ class AdminDashboardController extends Controller
     }
     private function getCategories(){
         return Category::all();
+    }
+
+    private function requestForBorrowingBook(){
+        return BorrowedBook::where('status', 'pending')->get();
+
     }
 }

@@ -82,8 +82,8 @@
                     </div>
 
                     @guest
-                    <a href="{{route('login')}}" class="text-white rounded-md px-2 py-1 hover:bg-white hover:text-blue-600 flex items-center justify-center transition-all">
-                        <i class="fa-solid fa-sign-out-alt mr-1 text-xs"></i>
+                    <a href="{{route('login')}}" class="text-white rounded-md px-2 py-1 hover:bg-white hover:text-blue-600 flex items-center justify-center gap-1 transition-all">
+                        <i class="fa-solid fa-sign-out-alt text-xs mt-0.5"></i>
                         <p class="text-sm">Log In</p>
                     </a>
                     <a href="{{route('register')}}" class="text-white rounded-md px-2 py-1 hover:bg-white hover:text-blue-600 flex items-center justify-center transition-all">
