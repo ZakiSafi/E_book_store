@@ -27,7 +27,7 @@
 
                     <p class="text-md text-gray-600">{{ $book->description }}</p>
 
-                    <div class="grid grid-cols-[150px_auto] gap-y-2 gap-x-4 text-md">
+                    <div class="grid grid-cols-[100px_auto] gap-y-2 gap-x-4 text-md">
                         <p class="font-semibold text-gray-700">Translator:</p>
                         <p class="text-gray-600">{{ $book->translator ?? 'N/A' }}</p>
 
@@ -60,8 +60,13 @@
                             <i class="fas fa-book-reader mr-2"></i>
                             Borrow admin
                         </a>
+                        <a href="{{ route('admin.physical-books.edit', $book->id) }}" class="flex items-center bg-yellow-500 text-white px-4 py-2 rounded-lg shadow hover:bg-yellow-600 transition duration-300">
+                            <i class="fas fa-edit mr-2"></i>
+                            Edit
+                        </a>
                         @elseif( Auth::user()->role === 'user')
-                        <form action="{{ route('user.borrow-book.store',['book' => $book->id]) }}" method="POST" class="flex items-center bg-blue-500 text-white px-4 py-2 rounded-lg shadow hover:bg-blue-600 transition duration-300">
+                        <!-- sending request for borrowing book  -->
+                        <form action="{{route('user.borrow-request.store',$book->id)}}" method="POST" class="flex items-center bg-blue-500 text-white px-4 py-2 rounded-lg shadow hover:bg-blue-600 transition duration-300">
                             @csrf
                             <input
                                 type="hidden"
@@ -72,24 +77,14 @@
                                 type="hidden"
                                 name="book_id"
                                 value='{{$book->id}}'>
-                            <input
-                                type="hidden"
-                                name="due_in_days"
-                                value="1"
-                                min="1" />
                             <i class="fas fa-book-reader mr-2"></i>
                             <button type="submit">Borrow</button>
-
-
                         </form>
 
                         @endif
                         @endauth
 
-                        <a href="{{ route('admin.physical-books.edit', $book->id) }}" class="flex items-center bg-yellow-500 text-white px-4 py-2 rounded-lg shadow hover:bg-yellow-600 transition duration-300">
-                            <i class="fas fa-edit mr-2"></i>
-                            Edit
-                        </a>
+
                     </div>
 
                 </div>

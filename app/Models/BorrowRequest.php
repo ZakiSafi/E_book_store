@@ -12,12 +12,12 @@ class BorrowRequest extends Model
     protected $fillable = ['user_id','book_id','status'];
 
     public function user(){
-        $this->belongsTo(User::class);
+        return $this->belongsTo(User::class);
     }
 
     public function book()
     {
-        $this->belongsTo(PhysicalBook::class);
+        return $this->belongsTo(PhysicalBook::class);
     }
 }
 

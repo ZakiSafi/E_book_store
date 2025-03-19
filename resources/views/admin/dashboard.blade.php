@@ -252,7 +252,7 @@
                                 @else
                                 <p class="text-gray-600 text-sm">{{ $requestForBorrowingBook->count() }} requests for borrowing books!</p>
                                 @endif
-                                <a href="{{route('admin.borrow-books.borrowRequests')}}" class="text-yellow-600 hover:text-yellow-700 text-sm border-b border-yellow-600 hover:border-yellow-700">check it</a>
+                                <a href="{{route('admin.borrow-request.index')}}" class="text-yellow-600 hover:text-yellow-700 text-sm border-b border-yellow-600 hover:border-yellow-700">check it</a>
 
                             </div>
                         </div>

@@ -6,6 +6,7 @@ use App\Models\OnlineBook;
 use App\Models\User;
 use App\Models\Bookmark;
 use App\Models\BorrowedBook;
+use App\Models\BorrowRequest;
 use App\Models\Cart;
 use App\Models\Category;
 use App\Models\PhysicalBook;
@@ -89,7 +90,7 @@ class AdminDashboardController extends Controller
     }
 
     private function requestForBorrowingBook(){
-        return BorrowedBook::where('status', 'pending')->get();
+        return BorrowRequest::where('status', 'pending')->get();
 
     }
 }

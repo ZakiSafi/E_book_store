@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
 use Laravel\Socialite\Facades\Socialite;
+use App\Http\Controllers\ChartController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\ProfileController;
@@ -17,12 +18,12 @@ use App\Http\Controllers\AdminUserController;
 use App\Http\Controllers\OnlineBookController;
 use App\Http\Controllers\CreateAdminController;
 use App\Http\Controllers\BookDownloadController;
+use App\Http\Controllers\PhysicalBookController;
 use App\Http\Controllers\ResetPasswordController;
 use App\Http\Controllers\AdminDashboardController;
 use App\Http\Controllers\ForgotPasswordController;
 use App\Http\Controllers\AdminBorrowedBookController;
-use App\Http\Controllers\PhysicalBookController;
-use App\Http\Controllers\ChartController;
+use App\Http\Controllers\AdminBorrowRequestController;
 
 
 // Public Routes (No Authentication)
@@ -101,7 +102,6 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
 
     //Admin borrowed books management
     Route::controller(AdminBorrowedBookController::class)->name('borrow-books.')->group(function () {
-        Route::get('/borrowed-book/borrowRequests', 'borrowRequests')->name('borrowRequests');
         Route::get('borrowed-books/history', 'history')->name('history');
         Route::get('/borrow-books/index', 'index')->name('index');
         Route::put('/borrow-book/{id}/update', 'update')->name('update');
@@ -109,9 +109,17 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
         Route::post('/borrow-book/extendDueDate/{id}', 'extendDueDate')->name('extend');
         Route::get('/users/search', 'searchUsers')->name('users.search');
         Route::get('/borrowed-book/{book}', 'showForm')->name('create');
-
-
+        Route::post('/borrow-book/{book}', [AdminBorrowedBookController::class, 'store'])->name('store');
     });
+
+
+    // Admin Borrow Requests Management
+    Route::controller(AdminBorrowRequestController::class)->name('borrow-request.')->group(function () {
+        Route::get('/borrowed-books/requests', 'borrowRequestIndex')->name('index');
+        Route::put('/borrowed-books/requests/{id}/update', 'update')->name('update');
+        Route::delete('/borrowed-books/requests/{id}/delete', 'destroy')->name('delete');
+    });
+
     // Admin Physical Books Management
     Route::controller(PhysicalBookController::class)->prefix('physical-books')->name('physical-books.')->group(function () {
         Route::get('/create', 'create')->name('create');
@@ -123,9 +131,11 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
 });
 
 // User
-Route::middleware(['auth', 'user'])->prefix('user')->name('user.')->group(function () {
-    Route::get('/dashboard', [UserController::class, 'index'])->name('dashboard');
+Route::middleware(['auth', 'userOrAdmin'])->prefix('user')->name('user.')->group(function () {
+
+    // Online books management
     Route::resource('books', OnlineBookController::class);
+
 
     // Book Management
     Route::get('/books', [UserController::class, 'books'])->name('books');
@@ -148,9 +158,14 @@ Route::middleware(['auth', 'user'])->prefix('user')->name('user.')->group(functi
         Route::get('/books/{id}/read', 'read')->name('book.read');
         Route::get('/books/{id}/read/pdf', 'readPdf')->name('books.read.pdf');
     });
+});
 
-    // borrowed book store
-    Route::post('/borrow-book/{book}', [AdminBorrowedBookController::class, 'store'])->name('borrow-book.store');
+Route::middleware(['auth', 'user'])->prefix('user')->name('user.')->group(function () {
+    Route::get('/dashboard', [UserController::class, 'index'])->name('dashboard');
+
+    
+    // sending request to admin for borrowing book
+    Route::post('/borrowed-books/requests/{id}/store', [AdminBorrowRequestController::class, 'store'])->name('borrow-request.store');
 });
 
 // Api routes
@@ -160,13 +175,13 @@ Route::prefix('api')->group(function () {
 });
 
 
-// filepath: c:\xampp\htdocs\E_book_store\routes\web.php
+// // filepath: c:\xampp\htdocs\E_book_store\routes\web.php
 
-Route::get('/send-test-email', function () {
-    Mail::raw('This is a test email', function ($message) {
-        $message->to('test@example.com')
-                ->subject('Test Email');
-    });
+// Route::get('/send-test-email', function () {
+//     Mail::raw('This is a test email', function ($message) {
+//         $message->to('test@example.com')
+//             ->subject('Test Email');
+//     });
 
-    return 'Test email sent!';
-});
+//     return 'Test email sent!';
+// });

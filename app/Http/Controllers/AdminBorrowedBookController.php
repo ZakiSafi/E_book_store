@@ -168,33 +168,8 @@ class AdminBorrowedBookController extends Controller
     }
 
 
-    // notify user for overdue books
-    public function notifyOverdueUsers()
-    {
-        $overdueBooks = BorrowedBook::with('user', 'book')
-            ->whereNull('returned_at')
-            ->where('due_date', '<', now())
-            ->get();
 
-        foreach ($overdueBooks as $borrowedBook) {
-            // Send notification to the user
-            // Example: Mail::to($borrowedBook->user->email)->send(new OverdueBookNotification($borrowedBook));
-        }
-
-        return redirect()->back()->with('success', 'Notifications sent successfully!');
-    }
-
-
-    // method to show statistics about the borrowed books
-    public function borrowRequests()
-    {
-        $borrowedBooksRequests = BorrowedBook::with('user', 'book')
-            ->where('status', BorrowedBook::STATUS_PENDING)
-            ->latest()
-            ->simplePaginate(5);
-        return view('borrowed_books.requests',compact('borrowedBooksRequests'));
-    }
-
+    
 
 
     // Method to handle searching for users
