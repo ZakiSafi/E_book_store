@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\BorrowedBook;
+use App\Models\BorrowRequest;
 use App\Models\PhysicalBook;
 use Auth;
 use Carbon\Carbon;
@@ -18,10 +19,9 @@ class AdminBorrowedBookController extends Controller
     {
         $searchType = 'Borrowed Books';
         $borrowedBooks = BorrowedBook::with('user', 'book')
-        ->whereNull('returned_at')
-        ->where('status' , BorrowedBook::STATUS_BORROWED)
-        ->latest()
-        ->simplePaginate(10);
+            ->whereNull('returned_at')
+            ->latest()
+            ->simplePaginate(10);
         return view('borrowed_books.index', compact('borrowedBooks', 'searchType'));
     }
 
@@ -38,16 +38,23 @@ class AdminBorrowedBookController extends Controller
 
 
     // Method to display the form
-    public function showForm(PhysicalBook $book)
+    public function showForm(Request $request)
     {
+        $bookId = $request->query('book_id');
+        $userId = $request->query('user_id');
 
-        return view('borrowed_books.create', compact('book'));
+        // Fetch the book and user data
+        $book = PhysicalBook::find($bookId);
+        $user = User::find($userId);
+
+        return view('borrowed_books.create', compact('book', 'user'));
     }
 
 
 
-    public function store(Request $request, PhysicalBook $book)
+    public function store(Request $request)
     {
+        // Validate the request data
         $attributes = $request->validate([
             'user_id' => 'required|exists:users,id',
             'book_id' => 'required|exists:physical_books,id',
@@ -57,67 +64,49 @@ class AdminBorrowedBookController extends Controller
         // Ensure `due_in_days` is an integer
         $dueInDays = (int) $request->due_in_days;
 
+        // Fetch the book
+        $book = PhysicalBook::findOrFail($request->book_id);
+
         // Check if the book is available
         if ($book->available_copies <= 0) {
             return redirect()->back()->with(['error' => 'Sorry, the book is not available.']);
         }
 
-        // Check if the user has already borrowed the book or has a pending request
+        // Check if the user has already borrowed the book
         $existingBorrow = BorrowedBook::where('user_id', $request->user_id)
             ->where('book_id', $book->id)
             ->whereNull('returned_at')
             ->first();
 
+        // Updating status of user request
+        $existingRequest = BorrowRequest::where('user_id', $request->user_id)
+            ->where('book_id', $book->id)
+            ->where('status', BorrowRequest::STATUS_PENDING)
+            ->first();
+
         if ($existingBorrow) {
-            if ($existingBorrow->status === BorrowedBook::STATUS_BORROWED) {
-                return redirect()->back()->with(['error' => 'You have already borrowed this book.']);
-            } elseif ($existingBorrow->status === BorrowedBook::STATUS_PENDING) {
-                if (Auth::user()->role === 'user') {
-                    return redirect()->back()->with(['error' => 'You already have a pending request for this book.']);
-                } elseif (Auth::user()->role === 'admin') {
-                    // Admin can approve the pending request
-                    $existingBorrow->update([
-                        'status' => BorrowedBook::STATUS_BORROWED,
-                        'admin_id' => Auth::id(),
-                        'borrowed_at' => now(),
-                        'due_date' => now()->addDays($dueInDays),
-                    ]);
-
-                    $book->decrement('available_copies');
-
-                    return redirect()->back()->with('success', 'Book borrowed successfully!');
-                }
-            }
+            return redirect()->back()->with(['error' => 'You have already borrowed this book.']);
         }
 
-        // If the user is a regular user, set the status to pending
-        if (Auth::user()->role === 'user') {
-            $attributes['status'] = BorrowedBook::STATUS_PENDING;
-        } else {
-            // If the user is an admin, set the status to borrowed directly
-            $attributes['status'] = BorrowedBook::STATUS_BORROWED;
+        if($existingRequest){
+            $existingRequest->update([
+                'status' => BorrowRequest::STATUS_APPROVED,
+            ]);
         }
 
+
+        // Create the borrowed book record
         $attributes['admin_id'] = Auth::id();
         $attributes['borrowed_at'] = now();
         $attributes['due_date'] = now()->addDays($dueInDays);
 
         BorrowedBook::create($attributes);
 
-        // Decrement the available copies only if the status is borrowed
-        if ($attributes['status'] === BorrowedBook::STATUS_BORROWED) {
-            $book->decrement('available_copies');
-        }
+        // Decrement the available copies
+        $book->decrement('available_copies');
 
-        // make redirect messages based on the users role
-        if (Auth::user()->role === 'user') {
-            return redirect()->back()->with('success', 'Your request has been successfully sent to the admin.');
-        } else {
-            // If the user is an admin, set the status to borrowed directly
-            return redirect()->back()->with('success', 'Book borrowed successfully!');
-        }
-
-
+        // Redirect with success message
+        return redirect()->back()->with('success', 'Book borrowed successfully!');
     }
 
     public function extendDueDate(Request $request, $id)
@@ -135,7 +124,7 @@ class AdminBorrowedBookController extends Controller
     }
 
 
-
+    // Updating a borrow book record
     public function update($id)
     {
         $borrowedBook = BorrowedBook::findOrFail($id);
@@ -169,14 +158,13 @@ class AdminBorrowedBookController extends Controller
 
 
 
-    
 
 
-    // Method to handle searching for users
     public function searchUsers(Request $request)
     {
         $search = $request->get('q');
         $users = User::where('name', 'like', "%{$search}%")
+            ->orWhere('id', $search) // Allow searching by ID
             ->limit(20)
             ->get();
 

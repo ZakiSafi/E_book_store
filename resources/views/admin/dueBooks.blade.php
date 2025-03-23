@@ -92,15 +92,6 @@
                                         </button>
                                     </form>
 
-                                    <!-- Delete Form -->
-                                    <i class="fa-solid fa-trash-alt text-sm text-red-600"></i>
-                                    <form action="{{route('admin.borrow-books.delete',$book->id)}}" method="POST" class="inline-block">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="text-red-600 hover:text-red-800 text-sm transition duration-150 ease-in-out">
-                                            Delete
-                                        </button>
-                                    </form>
                                 </div>
                             </td>
                         </tr>

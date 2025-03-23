@@ -206,25 +206,24 @@
                             @endif
                             {{ $book->user->name }}
                         </td>
-                        <td class="px-6 py-4 whitespace-nowrap text-gray-700">{{ $book->borrowed_at }}</td>
-                        <td class="px-6 py-4 whitespace-nowrap text-gray-700">{{ $book->due_date }}</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-gray-700">{{ $book->borrowed_at->format('Y-m-d')  }}</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-gray-700">{{ $book->due_date->format('Y-m-d')  }}</td>
                         <td class="px-6 py-4 whitespace-nowrap relative">
                             <div class="action-toggle cursor-pointer">
                                 <p class="text-gray-700">action <i class="fa-solid fa-chevron-circle-down text-xs mt-1 text-gray-700"></i></p>
                             </div>
                             <div class="action-sideBar grid grid-cols-[20px,auto] justify-center items-center absolute z-50 right-4 bg-white shadow-md p-2 rounded-md hidden">
-                                <i class="fa-solid fa-edit text-sm text-blue-600"></i>
-                                <a href="#" class="text-blue-600 hover:text-blue-800 text-sm transition duration-150 ease-in-out">
-                                    Edit
-                                </a>
+
                                 <i class="fa-solid fa-trash-alt text-sm text-red-600"></i>
-                                <form action="#" method="POST" class="inline-block">
+                                <form action="{{route('admin.borrow-books.delete',$book->id)}}" method="POST" class="inline-block">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="text-red-600 hover:text-red-800 text-sm transition duration-150 ease-in-out">
                                         Delete
                                     </button>
                                 </form>
+
+
                                 <i class="fa-solid fa-check text-sm text-green-600"></i>
                                 <form action="{{ route('admin.borrow-books.update', $book->id) }}" method="POST" class="inline-block">
                                     @csrf
@@ -244,7 +243,7 @@
 
             @case('Borrowed Books History')
             <!-- Borrowed Books Page Style -->
-            <h2 class="text-2xl font-semibold text-gray-800 mb-6">Borrowed Books</h2>
+            <h2 class="text-2xl font-semibold text-gray-800 mb-6">Borrowed Books History</h2>
             <table class="min-w-full divide-y divide-gray-200">
                 <thead class="bg-gray-50">
                     <tr>
@@ -279,10 +278,10 @@
                             @endif
                             {{ $book->user->name }}
                         </td>
-                        <td class="px-6 py-4 whitespace-nowrap text-gray-700">{{ $book->borrowed_at }}</td>
-                        <td class="px-6 py-4 whitespace-nowrap text-gray-700">{{ $book->due_date }}</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-gray-700">{{ $book->borrowed_at->format('Y-m-d')  }}</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-gray-700">{{ $book->due_date->format('Y-m-d')  }}</td>
                         <td class="px-6 py-4 whitespace-nowrap text-gray-700">
-                            {{ $book->returned_at ? $book->returned_at : 'Not Returned' }}
+                            {{ $book->returned_at ? $book->returned_at->format('Y-m-d')  : 'Not Returned' }}
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap relative">
                             <div class="action-toggle cursor-pointer">
@@ -290,17 +289,14 @@
                             </div>
 
                             <div class="action-sideBar grid grid-cols-[20px,auto] justify-center items-center absolute z-50 right-4 bg-white shadow-md p-2 rounded-md hidden">
-                                <!-- Mark as Returned Form (if not already returned) -->
-                                @if (!$book->returned_at)
-                                <i class="fa-solid fa-check text-sm text-green-600"></i>
-                                <form action="{{ route('admin.borrow-books.update', $book->id) }}" method="POST" class="inline-block">
+                                <i class="fa-solid fa-trash-alt text-sm text-red-600"></i>
+                                <form action="{{route('admin.borrow-books.delete',$book->id)}}" method="POST" class="inline-block">
                                     @csrf
-                                    @method('PUT')
-                                    <button type="submit" class="text-green-600 hover:text-green-800 text-sm transition duration-150 ease-in-out">
-                                        Mark as Returned
+                                    @method('DELETE')
+                                    <button type="submit" class="text-red-600 hover:text-red-800 text-sm transition duration-150 ease-in-out">
+                                        Delete
                                     </button>
                                 </form>
-                                @endif
                             </div>
                         </td>
                     </tr>

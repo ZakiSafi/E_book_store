@@ -1,11 +1,22 @@
 <x-layout>
     <!-- session success message -->
-        <x-session />
-    <!-- main content -->
-    <div class="container w-full max-w-7xl mx-auto grid grid-cols-3 gap-4 p-12 rounded-lg shadow-lg">
-        <x-sideBar />
+    <x-session />
 
-        <div class="max-w-xl  col-span-2 self-start">
+    <!-- main content -->
+    <div class="container max-w-7xl mx-auto gap-4  rounded-lg shadow-lg grid grid-cols-[120px,auto] items-center ">
+        <!-- side bar -->
+        @auth
+        @if (Auth::user()->role == 'admin')
+        <x-admin-sidebar :user="Auth::user()" />
+
+        @elseif (Auth::user()->role == 'user')
+        <x-user-sidebar :user="Auth::user()" />
+
+        @endif
+        @endauth
+
+
+        <div class="max-w-xl  ml-64">
 
             <h2 class="text-2xl font-bold mb-4">Edit Profile</h2>
 

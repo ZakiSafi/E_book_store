@@ -102,14 +102,14 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
 
     //Admin borrowed books management
     Route::controller(AdminBorrowedBookController::class)->name('borrow-books.')->group(function () {
-        Route::get('borrowed-books/history', 'history')->name('history');
         Route::get('/borrow-books/index', 'index')->name('index');
+        Route::get('/borrowed-book/create', 'showForm')->name('create');
         Route::put('/borrow-book/{id}/update', 'update')->name('update');
+        Route::post('/borrow-book/{book}', [AdminBorrowedBookController::class, 'store'])->name('store');
         Route::delete('/borrow-book/{id}/delete', 'destroy')->name('delete');
+        Route::get('borrowed-books/history', 'history')->name('history');
         Route::post('/borrow-book/extendDueDate/{id}', 'extendDueDate')->name('extend');
         Route::get('/users/search', 'searchUsers')->name('users.search');
-        Route::get('/borrowed-book/{book}', 'showForm')->name('create');
-        Route::post('/borrow-book/{book}', [AdminBorrowedBookController::class, 'store'])->name('store');
     });
 
 
@@ -161,9 +161,10 @@ Route::middleware(['auth', 'userOrAdmin'])->prefix('user')->name('user.')->group
 });
 
 Route::middleware(['auth', 'user'])->prefix('user')->name('user.')->group(function () {
+
+    //User dashboard
     Route::get('/dashboard', [UserController::class, 'index'])->name('dashboard');
 
-    
     // sending request to admin for borrowing book
     Route::post('/borrowed-books/requests/{id}/store', [AdminBorrowRequestController::class, 'store'])->name('borrow-request.store');
 });

@@ -9,9 +9,12 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class BorrowRequest extends Model
 {
     use HasFactory, Notifiable;
-    protected $fillable = ['user_id','book_id','status'];
+    const STATUS_APPROVED = 'approved';
+    const STATUS_PENDING = 'pending';
+    protected $fillable = ['user_id', 'book_id', 'status'];
 
-    public function user(){
+    public function user()
+    {
         return $this->belongsTo(User::class);
     }
 
@@ -20,4 +23,3 @@ class BorrowRequest extends Model
         return $this->belongsTo(PhysicalBook::class);
     }
 }
-

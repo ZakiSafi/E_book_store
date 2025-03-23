@@ -6,8 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class BorrowedBook extends Model
 {
-    const STATUS_BORROWED = 'borrowed';
-    const STATUS_PENDING = 'pending';
+
     protected $fillable = ['user_id', 'book_id','admin_id', 'borrowed_at', 'due_date', 'returned_at','status'];
     public function user()
     {

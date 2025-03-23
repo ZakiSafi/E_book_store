@@ -4,7 +4,7 @@
     <!-- main content -->
 
     <div class="w-full h-auto flex justify-center items-center p-8">
-        <form action="{{ route('user.borrow-book.store', ['book' => $book->id]) }}" method="POST" enctype="multipart/form-data" class="w-full max-w-xl bg-white p-6 rounded-lg shadow-md">
+        <form action="{{ route('admin.borrow-books.store', ['book' => $book->id]) }}" method="POST" enctype="multipart/form-data" class="w-full max-w-xl bg-white p-6 rounded-lg shadow-md">
             @csrf
             <div class="flex flex-col gap-4">
                 <div class="col-span-2">
@@ -18,9 +18,10 @@
                         id="user_id"
                         required
                         class="mt-1 block w-full rounded-md border border-gray-300 bg-white px-2 py-1 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 select2">
-
                         <option value="">-- Choose a User --</option>
-
+                        @if(isset($user))
+                        <option value="{{ $user->id }}" selected>{{ $user->name }}</option>
+                        @endif
                     </select>
                     @error('user_id')
                     <span class="text-red-500 text-sm">{{ $message }}</span>
@@ -44,22 +45,6 @@
                     <span class="text-red-500 text-sm">{{ $message }}</span>
                     @enderror
                 </div>
-                <!-- <div class="flex flex-col">
-                    <label for="book_id" class="font-medium text-gray-700">Select Book:</label>
-                    <select
-                        name="book_id"
-                        id="book_id"
-                        value='{{$book->title}}'
-                        required
-                        class="mt-1 block w-full rounded-md border border-gray-300 bg-white px-2 py-1 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 select2">
-
-                        <option value="">-- Choose a book --</option>
-
-                    </select>
-                    @error('book_id')
-                    <span class="text-red-500 text-sm">{{ $message }}</span>
-                    @enderror
-                </div> -->
 
 
                 <!-- Due Date -->
@@ -101,7 +86,7 @@
     <script>
         $(document).ready(function() {
             // Initialize Select2 for user search
-            $('#user_id').select2({
+            var $userSelect = $('#user_id').select2({
                 ajax: {
                     url: "{{ route('admin.borrow-books.users.search') }}",
                     dataType: 'json',
@@ -136,6 +121,27 @@
                 }
             });
 
+            // Fetch and pre-select the user if user_id is available
+            var userId = "{{ request()->query('user_id') }}"; // Get user_id from query parameters
+            if (userId) {
+                // Fetch user data using an AJAX request
+                $.ajax({
+                    url: "{{ route('admin.borrow-books.users.search') }}",
+                    dataType: 'json',
+                    data: {
+                        q: userId, // Search by user ID
+                    },
+                    success: function(data) {
+                        if (data.length > 0) {
+                            var user = data[0]; // Get the first user from the response
+
+                            // Create a new option and pre-select it
+                            var newOption = new Option(user.name, user.id, true, true);
+                            $userSelect.append(newOption).trigger('change');
+                        }
+                    }
+                });
+            }
         });
     </script>
     @endpush

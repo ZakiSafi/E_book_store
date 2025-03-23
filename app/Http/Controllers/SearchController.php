@@ -81,6 +81,7 @@ class SearchController extends Controller
                     ->get();
                 break;
 
+
             case 'Borrowed Books':
                 $results = BorrowedBook::whereHas('book', function ($q) use ($query) {
                     $q->where('title', 'like', "%$query%")
@@ -91,20 +92,20 @@ class SearchController extends Controller
                             ->whereNull('returned_at');
                     })
                     ->get();
+
                 break;
 
             case 'Borrowed Books History':
-
                 $results = BorrowedBook::whereHas('book', function ($q) use ($query) {
-                    $q->where('title', 'like', "%$query%")
-                        ->where('returned_at', '>=', now()->subMonth());
+                    $q->where('title', 'like', "%$query%");
                 })
                     ->orWhereHas('user', function ($q) use ($query) {
-                        $q->where('name', 'like', "%$query%")
-                            ->where('returned_at', '>=', now()->subMonth());
+                        $q->where('name', 'like', "%$query%");
                     })
                     ->get();
+
                 break;
+
 
 
             default:

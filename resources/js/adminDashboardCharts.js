@@ -1,3 +1,19 @@
+document.addEventListener("DOMContentLoaded", () => {
+    setupChart("booksBorrowedChart", "/api/books-borrowed", "Books Borrowed");
+    setupChart(
+        "booksDownloadedChart",
+        "/api/books-downloaded",
+        "Books Downloaded"
+    );
+    setupModal("categoryModal", "openModal", "closePopup");
+    setupSubmenuToggles();
+});
+
+/**
+ * Fetches chart data from the API.
+ * @param {string} url - API endpoint for chart data.
+ * @returns {Promise<{labels: [], data: []}>}
+ */
 async function fetchChartData(url) {
     try {
         const response = await fetch(url);
@@ -6,29 +22,42 @@ async function fetchChartData(url) {
         return await response.json();
     } catch (error) {
         console.error("Error fetching chart data:", error);
-        return { labels: [], data: [] }; // Return empty data to prevent crashes
+        return { labels: [], data: [] }; // Return empty structure to prevent crashes
     }
 }
 
-async function initializeChart(chartId, url, label) {
+/**
+ * Initializes a chart with fetched data.
+ * @param {string} chartId - ID of the canvas element.
+ * @param {string} url - API endpoint for chart data.
+ * @param {string} label - Label for the dataset.
+ */
+async function setupChart(chartId, url, label) {
     const chartElement = document.getElementById(chartId);
-    if (!chartElement) return; // Prevent errors if the chart does not exist
+    if (!chartElement) return; // Prevents errors if the element doesn't exist
 
     const { labels, data } = await fetchChartData(url);
     const ctx = chartElement.getContext("2d");
 
+    // Destroy existing chart instance if exists
+    if (chartElement.chartInstance) {
+        chartElement.chartInstance.destroy();
+    }
+
+    // Create gradient background
     const gradient = ctx.createLinearGradient(0, 0, 0, 400);
     gradient.addColorStop(0, "rgba(99, 102, 241, 0.3)");
     gradient.addColorStop(1, "rgba(99, 102, 241, 0)");
 
-    new Chart(ctx, {
+    // Initialize Chart.js
+    chartElement.chartInstance = new Chart(ctx, {
         type: "line",
         data: {
-            labels: labels,
+            labels,
             datasets: [
                 {
-                    label: label,
-                    data: data,
+                    label,
+                    data,
                     borderColor: "#6366f1",
                     backgroundColor: gradient,
                     fill: true,
@@ -71,24 +100,9 @@ async function initializeChart(chartId, url, label) {
     });
 }
 
-document.addEventListener("DOMContentLoaded", () => {
-    document.querySelectorAll(".chart-container").forEach((container) => {
-        container.style.height = "400px";
-        container.style.width = "100%";
-    });
-
-    initializeChart(
-        "booksBorrowedChart",
-        "/api/books-borrowed",
-        "Books Borrowed"
-    );
-    initializeChart(
-        "booksDownloadedChart",
-        "/api/books-downloaded",
-        "Books Downloaded"
-    );
-});
-
+/**
+ * Sets up the sticky sidebar behavior.
+ */
 // Sidebar Sticky Behavior
 const sidebar = document.querySelector("aside");
 const footer = document.querySelector("footer");
@@ -111,26 +125,65 @@ if (sidebar && footer && header) {
     observer.observe(header);
 }
 
-// Modal Handling
-document.addEventListener("DOMContentLoaded", () => {
-    const modal = document.getElementById("categoryModal");
-    const openModalBtn = document.getElementById("openModal");
-    const closeModalBtn = document.getElementById("closePopup");
 
-    if (openModalBtn && modal) {
-        openModalBtn.addEventListener("click", () =>
-            modal.classList.toggle("hidden")
+/**
+ * Sets up modal functionality with smooth toggle.
+ * @param {string} modalId - ID of the modal element.
+ * @param {string} openButtonId - ID of the open modal button.
+ * @param {string} closeButtonId - ID of the close modal button.
+ */
+function setupModal(modalId, openButtonId, closeButtonId) {
+    const modal = document.getElementById(modalId);
+    const openButton = document.getElementById(openButtonId);
+    const closeButton = document.getElementById(closeButtonId);
+
+    if (!modal) return;
+
+    const toggleModal = () => modal.classList.toggle("hidden");
+
+    openButton?.addEventListener("click", toggleModal);
+    closeButton?.addEventListener("click", () => modal.classList.add("hidden"));
+}
+
+/**
+ * Handles submenu toggling with smooth animation.
+ */
+function setupSubmenuToggles() {
+    document.querySelectorAll(".submenu-toggle").forEach((toggle) => {
+        toggle.addEventListener("click", function () {
+            const submenuId = this.getAttribute("data-submenu-id");
+            if (submenuId) toggleSubmenu(submenuId);
+        });
+    });
+
+    document.addEventListener("click", function (event) {
+        ["userSubmenu", "bookSubmenu", "borrowedSubmenu"].forEach(
+            (submenuId) => {
+                const submenu = document.getElementById(submenuId);
+                const chevron = document.getElementById(
+                    submenuId.replace("Submenu", "Chevron")
+                );
+
+                if (
+                    submenu &&
+                    chevron &&
+                    !submenu.closest("li").contains(event.target)
+                ) {
+                    submenu.style.maxHeight = null;
+                    chevron.classList.replace(
+                        "fa-chevron-down",
+                        "fa-chevron-right"
+                    );
+                }
+            }
         );
-    }
+    });
+}
 
-    if (closeModalBtn && modal) {
-        closeModalBtn.addEventListener("click", () =>
-            modal.classList.add("hidden")
-        );
-    }
-});
-
-// Submenu Toggle
+/**
+ * Toggles a submenu open/closed with a sliding effect.
+ * @param {string} submenuId - ID of the submenu element.
+ */
 function toggleSubmenu(submenuId) {
     const submenu = document.getElementById(submenuId);
     const chevron = document.getElementById(
@@ -146,34 +199,3 @@ function toggleSubmenu(submenuId) {
         );
     }
 }
-
-document.addEventListener("DOMContentLoaded", function () {
-    document.querySelectorAll(".submenu-toggle").forEach((toggle) => {
-        toggle.addEventListener("click", function () {
-            const submenuId = this.getAttribute("data-submenu-id");
-            if (submenuId) toggleSubmenu(submenuId);
-        });
-    });
-
-    document.addEventListener("click", function (event) {
-        ["userSubmenu", "bookSubmenu", "borrowedSubmenu"].forEach(
-            (submenuId) => {
-                const submenu = document.getElementById(submenuId);
-                const chevron = document.getElementById(
-                    submenuId.replace("Submenu", "Chevron")
-                );
-                if (
-                    submenu &&
-                    chevron &&
-                    !submenu.closest("li").contains(event.target)
-                ) {
-                    submenu.style.maxHeight = null;
-                    chevron.classList.replace(
-                        "fa-chevron-down",
-                        "fa-chevron-right"
-                    );
-                }
-            }
-        );
-    });
-});

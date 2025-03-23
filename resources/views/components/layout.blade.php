@@ -191,8 +191,8 @@
         </div>
     </header>
     <!-- session success message -->
-    <x-session />
-    <x-session-error />
+    <x-session  class="z-50"/>
+    <x-session-error class="z-50" />
 
 
     <main>

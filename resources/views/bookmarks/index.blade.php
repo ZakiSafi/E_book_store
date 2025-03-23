@@ -1,7 +1,15 @@
 <x-layout>
-    <div class="container w-full max-w-7xl p-4 grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
-        <!-- Sidebar Navigation -->
-        <x-sideBar />
+    <div class="container w-full max-w-7xl grid grid-cols-1 md:grid-cols-3 gap-4">
+        @auth
+        @if (Auth::user()->role == 'admin')
+        <x-admin-sidebar :user="Auth::user()" />
+
+        @elseif (Auth::user()->role == 'user')
+        <x-user-sidebar :user="Auth::user()" />
+
+        @endif
+        @endauth
+
 
         <!-- Main Content Area -->
         <div class="col-span-2 p-4 rounded-lg shadow-lg bg-white">

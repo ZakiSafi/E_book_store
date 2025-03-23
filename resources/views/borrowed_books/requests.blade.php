@@ -56,14 +56,12 @@
                             <td class="px-6 py-4 whitespace-nowrap text-gray-700">{{ $book->user->name }}</td>
                             <td class="px-6 py-4 whitespace-nowrap relative">
                                 <div class="flex space-x-4">
-                                    <form action="{{ route('admin.books.updateStatus', $book->id) }}" method="POST">
+                                    <form action="{{ route('admin.borrow-books.create') }}" method="GET">
                                         @csrf
-                                        @method('PUT')
+                                        <input type="hidden" name="book_id" value="{{ $book->book->id }}">
+                                        <input type="hidden" name="user_id" value="{{ $book->user->id }}">
                                         <button type="submit" name="action" value="approve" class="bg-green-500 text-white px-3 py-1 rounded hover:bg-green-600">
                                             Approve
-                                        </button>
-                                        <button type="submit" name="action" value="reject" class="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600">
-                                            Reject
                                         </button>
                                     </form>
                                 </div>
@@ -75,7 +73,7 @@
             </div>
             @else
             <div class="flex items-center justify-center h-[70%] overflow-hidden">
-                <h1 class="text-3xl font-bold text-center"> No Books in Pending</h1>
+                <h1 class="text-3xl font-bold text-center"> No request found!</h1>
             </div>
             @endif
         </div>

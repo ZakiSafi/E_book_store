@@ -11,8 +11,8 @@ class AdminBorrowRequestController extends Controller
     // method to show statistics about the borrowed books
     public function borrowRequestIndex()
     {
-        $borrowedBooksRequests = BorrowedBook::with('user', 'book')
-            ->where('status', BorrowedBook::STATUS_PENDING)
+        $borrowedBooksRequests = BorrowRequest::with('user', 'book')
+            ->where('status', BorrowRequest::STATUS_PENDING)
             ->latest()
             ->simplePaginate(5);
         return view('borrowed_books.requests', compact('borrowedBooksRequests'));
@@ -25,8 +25,18 @@ class AdminBorrowRequestController extends Controller
             'book_id' => 'required|exists:physical_books,id',
         ]);
 
-        BorrowRequest::create($attributes);
+        // Check if user already made request for the book
+        // Check if the user has already borrowed the book or has a pending request
+        $existingBorrowRequest = BorrowRequest::where('user_id', $request->user_id)
+            ->where('book_id', $request->book_id)
+            ->where('status', BorrowRequest::STATUS_PENDING)
+            ->first();
 
-        return redirect()->route('borrowed_books.requests')->with('success', 'Your request sent to admin successfully');
+        if ($existingBorrowRequest) {
+            return redirect()->back()->with('error', 'You already made request for this book');
+        } else {
+            BorrowRequest::create($attributes);
+            return redirect()->back()->with('success', 'Your request sent to admin successfully');
+        }
     }
 }

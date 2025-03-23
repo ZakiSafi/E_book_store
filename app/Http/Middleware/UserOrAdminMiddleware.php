@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\Response;
 class UserOrAdminMiddleware
 {
     /**
-     * Handle an incoming request.
+     * Handle an incoming reques
      *
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */

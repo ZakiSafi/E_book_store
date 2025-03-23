@@ -32,29 +32,34 @@
                 <table class="min-w-full divide-y divide-gray-200">
                     <thead class="bg-gray-50">
                         <tr>
-                            <th class="py-3 text-left text-center text-xs font-medium text-gray-500 uppercase tracking-wider">Title</th>
-                            <th class="px-6 py-3 text-left text-center text-xs font-medium text-gray-500 uppercase tracking-wider">Cover Image</th>
-                            <th class="px-2 py-3 text-left text-center text-xs font-medium text-gray-500 uppercase tracking-wider">Borrowed By</th>
-                            <th class="px-2 py-3 text-left text-center text-xs font-medium text-gray-500 uppercase tracking-wider">Borrow Date</th>
-                            <th class="px-2 py-3 text-left text-center text-xs font-medium text-gray-500 uppercase tracking-wider">Due Date</th>
-                            <th class="px-2 py-3 text-left text-center text-xs font-medium text-gray-500 uppercase tracking-wider">Returned At</th>
-                            <th class="px-2 py-3 text-left text-center text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Admin</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Title</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Cover Image</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Borrowed By</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Borrow Date</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Due Date</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Returned At</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
                         </tr>
                     </thead>
 
                     <tbody class="bg-white divide-y divide-gray-200">
                         @foreach ($borrowedBooks as $book)
                         <tr class="hover:bg-gray-50 transition duration-150 ease-in-out p-2">
+                            <td class="px-6 py-4 whitespace-nowrap text-gray-700">{{ $book->admin->name}}</td>
+
                             <td class="px-6 text-center py-4 whitespace-nowrap">
                                 <a href="{{ route('physicalBooks.show', $book->book->id) }}" class="text-blue-600  hover:text-blue-800 font-medium">
                                     {{Str::limit( $book->book->title, 15) }}
                                 </a>
                             </td>
+
                             <td class="whitespace-nowrap">
                                 <a href="{{ route('physicalBooks.show', $book->book->id) }}">
                                     <img src="{{ asset('storage/' . $book->book->cover_image) }}" alt="Cover Image" class="w-32 h-32 object-cover rounded-lg shadow-sm hover:shadow-md transition-shadow duration-200">
                                 </a>
                             </td>
+
                             <td class="flex flex-col items-center justify-center gap-y-2 px-6 text-center py-4 whitespace-nowrap text-gray-700">
                                 @if ($book->user->profile_picture)
                                 <img src="{{ asset('storage/' . $book->user->profile_picture) }}" alt="Profile Picture" class="popup_profile rounded-full h-20 w-20 shadow-sm hover:shadow-md cursor-pointer">
@@ -63,10 +68,10 @@
                                 @endif
                                 {{ $book->user->name }}
                             </td>
-                            <td class="px-6 text-center py-4 whitespace-nowrap text-gray-700">{{ $book->borrowed_at }}</td>
-                            <td class="px-6 text-center py-4 whitespace-nowrap text-gray-700">{{ $book->due_date }}</td>
+                            <td class="px-6 text-center py-4 whitespace-nowrap text-gray-700">{{ $book->borrowed_at->format('Y-m-d') }}</td>
+                            <td class="px-6 text-center py-4 whitespace-nowrap text-gray-700">{{ $book->due_date->format('Y-m-d') }}</td>
                             <td class="px-6 text-center py-4 whitespace-nowrap text-gray-700">
-                                {{ $book->returned_at ? $book->returned_at : 'Not Returned' }}
+                                {{ $book->returned_at ? $book->returned_at->format('Y-m-d') : 'Not Returned' }}
                             </td>
                             <td class="px-6 text-center py-4 whitespace-nowrap relative">
                                 <div class="action-toggle cursor-pointer">
@@ -74,14 +79,13 @@
                                 </div>
 
                                 <div class="action-sideBar grid grid-cols-[20px,auto] justify-center items-center absolute z-50 right-2 bg-white shadow-md p-2 rounded-md hidden">
-                                    <!-- Mark as Returned Form (if not already returned) -->
-
-                                    <i class="fa-solid fa-trash text-sm text-red-600"></i>
-                                    <form action="{{ route('admin.borrow-books.delete', $book->id) }}" method="POST" class="inline-block">
+                                    <!-- deleting the record -->
+                                    <i class="fa-solid fa-trash-alt text-sm text-red-600"></i>
+                                    <form action="{{route('admin.borrow-books.delete',$book->id)}}" method="POST" class="inline-block">
                                         @csrf
-                                        @method('delete')
+                                        @method('DELETE')
                                         <button type="submit" class="text-red-600 hover:text-red-800 text-sm transition duration-150 ease-in-out">
-                                            delete
+                                            Delete
                                         </button>
                                     </form>
                                 </div>
