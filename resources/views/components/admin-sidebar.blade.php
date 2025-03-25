@@ -1,6 +1,6 @@
 @props(['user'])
 
-<aside class="w-64 bg-gradient-to-b from-blue-600 to-blue-700 text-white shadow-lg z-1">
+<aside class="w-64 bg-gradient-to-b  from-blue-600 to-blue-700 text-white shadow-lg z-1">
     <nav class="p-4">
         <div class="flex items-center space-x-4 p-4 bg-blue-800 rounded-lg shadow-lg">
             <div class="relative">

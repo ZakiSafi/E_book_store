@@ -4,145 +4,129 @@
         <x-admin-sidebar :user="Auth::user()" />
 
         <!-- Main Content -->
-        <main class="flex-1 bg-gray-100 p-8 ">
-
-            <!-- categories and book shelfs -->
-            <div class="flex flex-col md:flex-row gap-4 w-full">
-                <div id="categoriesButton" class="cursor-pointer w-full mb-8 md:w-1/2 p-4 bg-blue-500 text-white rounded-lg text-center">
-                    Books Categories
+        <main class="flex-1 bg-gray-50 p-6 md:p-8">
+            <!-- Categories and Shelves Buttons -->
+            <div class="flex flex-col md:flex-row gap-4 w-full mb-8">
+                <div id="categoriesButton" class="cursor-pointer w-full md:w-1/2 p-4 bg-blue-600 text-white rounded-lg text-center hover:bg-blue-700 transition-all duration-300">
+                    <span class="text-lg font-semibold">Books Categories</span>
                 </div>
-                <div id="shelvesButton" class="cursor-pointer w-full mb-8 md:w-1/2 p-4 bg-green-500 text-white rounded-lg text-center">
-                    Books Shelves
+                <div id="shelvesButton" class="cursor-pointer w-full md:w-1/2 p-4 bg-green-600 text-white rounded-lg text-center hover:bg-green-700 transition-all duration-300">
+                    <span class="text-lg font-semibold">Books Shelves</span>
                 </div>
             </div>
+
             <!-- Categories Bar -->
-            <div id="categoriesBar" class="hidden my-8 w-full max-w-5xl bg-gray-100 p-4 rounded-lg shadow-md">
-                <h3 class="text-lg font-bold mb-4">Categories</h3>
+            <div id="categoriesBar" class="hidden my-8 w-full max-w-5xl bg-white p-6 rounded-lg shadow-sm border border-gray-100">
+                <h3 class="text-xl font-bold text-gray-800 mb-4">Categories</h3>
                 <div class="flex flex-wrap gap-2">
                     @foreach ($categories as $cat)
-                    <a href="/categories/{{ $cat->id }}">
-                        <li class="list-none bg-blue-200 text-blue-800 px-3 py-1 rounded-full text-sm transition-all duration-300 hover:bg-blue-300 hover:text-blue-900 hover:shadow-md">
+                    <a href="/categories/{{ $cat->id }}" class="block">
+                        <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm hover:bg-blue-200 hover:text-blue-900 transition-all duration-300">
                             {{ $cat->name }}
-                        </li>
+                        </span>
                     </a>
                     @endforeach
                 </div>
-
             </div>
 
             <!-- Shelves Bar -->
-            <div id="shelvesBar" class="hidden my-8 w-full max-w-5xl bg-gray-100 p-4 rounded-lg shadow-md">
-                <h3 class="text-lg font-bold mb-4">Shelves</h3>
+            <div id="shelvesBar" class="hidden my-8  w-full max-w-5xl bg-white p-6 rounded-lg shadow-sm border border-gray-100">
+                <h3 class="text-xl font-bold text-gray-800 mb-4">Shelves</h3>
                 <div class="flex flex-wrap gap-2">
                     @foreach ($shelfs as $shelf)
-                    <a href="{{route('admin.books.shelfs', $shelf->shelf_no)}}">
-                        <span class="bg-green-200 text-green-800 px-3 py-1 rounded-full text-sm">{{ $shelf->shelf_no }}</span>
-
+                    <a href="{{ route('admin.books.shelfs', $shelf->shelf_no) }}" class="block">
+                        <span class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm hover:bg-green-200 hover:text-green-900 transition-all duration-300">
+                            {{ $shelf->shelf_no }}
+                        </span>
                     </a>
                     @endforeach
                 </div>
             </div>
 
-
-
-
             <!-- Quick Stats -->
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
-
-                <a href="{{route('admin.users.index')}}">
-                    <div class="flex items-center gap-4 group cursor-pointer bg-white hover:bg-blue-600 p-6 rounded-lg shadow-md transition-all duration-300">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+                <a href="{{ route('admin.users.index') }}">
+                    <div class="flex items-center gap-4 group cursor-pointer bg-white hover:bg-blue-600 p-4 rounded-lg shadow-sm border border-gray-100 transition-all duration-300">
                         <i class="fa-solid fa-users text-3xl text-blue-600 group-hover:text-white transition-all duration-300"></i>
                         <div>
                             <p class="text-gray-600 text-sm group-hover:text-white transition-all duration-300">Total Users</p>
-                            <p class="text-2xl font-bold group-hover:text-white transition-all duration-300">{{$users}}</p>
+                            <p class="text-xl font-bold group-hover:text-white transition-all duration-300">{{ $users }}</p>
                         </div>
                     </div>
                 </a>
 
-                <a href="{{route('admin.books.index')}}">
-                    <div class="flex items-center gap-4 group cursor-pointer bg-white hover:bg-blue-600 p-6 rounded-lg shadow-md transition-all duration-300">
+                <a href="{{ route('admin.books.index') }}">
+                    <div class="flex items-center gap-4 group cursor-pointer bg-white hover:bg-green-600 p-4 rounded-lg shadow-sm border border-gray-100 transition-all duration-300">
                         <i class="fa-solid fa-book text-3xl text-green-600 group-hover:text-white transition-all duration-300"></i>
                         <div>
-                            <p class="text-gray-600 text-sm group-hover:text-white transition-all duration-300">Digital Books </p>
-                            <p class="text-2xl font-bold group-hover:text-white transition-all duration-300">{{$digitalBooks}}</p>
+                            <p class="text-gray-600 text-sm group-hover:text-white transition-all duration-300">Digital Books</p>
+                            <p class="text-xl font-bold group-hover:text-white transition-all duration-300">{{ $digitalBooks }}</p>
                         </div>
                     </div>
                 </a>
 
-                <a href="{{route('admin.books.physicalBooks')}}">
-                    <div class="flex items-center gap-4 group cursor-pointer bg-white hover:bg-blue-600 p-6 rounded-lg shadow-md transition-all duration-300">
-                        <i class="fa-solid fa-book text-3xl text-green-600 group-hover:text-white transition-all duration-300"></i>
+                <a href="{{ route('admin.books.physicalBooks') }}">
+                    <div class="flex items-center gap-4 group cursor-pointer bg-white hover:bg-purple-600 p-4 rounded-lg shadow-sm border border-gray-100 transition-all duration-300">
+                        <i class="fa-solid fa-book text-3xl text-purple-600 group-hover:text-white transition-all duration-300"></i>
                         <div>
-                            <p class="text-gray-600 text-sm group-hover:text-white transition-all duration-300">Physical Books </p>
-                            <p class="text-2xl font-bold group-hover:text-white transition-all duration-300">{{$physicalBooks}}</p>
+                            <p class="text-gray-600 text-sm group-hover:text-white transition-all duration-300">Physical Books</p>
+                            <p class="text-xl font-bold group-hover:text-white transition-all duration-300">{{ $physicalBooks }}</p>
                         </div>
                     </div>
                 </a>
 
-                <a href="{{route('admin.borrow-books.index')}}">
-                    <div class="flex items-center gap-4 group cursor-pointer bg-white hover:bg-blue-600 p-6 rounded-lg shadow-md transition-all duration-300">
-                        <i class="fa-solid fa-exchange-alt text-3xl text-purple-600 group-hover:text-white transition-all duration-300"></i>
+                <a href="{{ route('admin.borrow-books.index') }}">
+                    <div class="flex items-center gap-4 group cursor-pointer bg-white hover:bg-red-600 p-4 rounded-lg shadow-sm border border-gray-100 transition-all duration-300">
+                        <i class="fa-solid fa-exchange-alt text-3xl text-red-600 group-hover:text-white transition-all duration-300"></i>
                         <div>
                             <p class="text-gray-600 text-sm group-hover:text-white transition-all duration-300">Active Borrowings</p>
-                            <p class="text-2xl font-bold group-hover:text-white transition-all duration-300">{{$borrowedBooks}}</p>
+                            <p class="text-xl font-bold group-hover:text-white transition-all duration-300">{{ $borrowedBooks }}</p>
                         </div>
                     </div>
                 </a>
             </div>
+
             <!-- Alerts Section (Conditional) -->
             @if ($overDueBooks->count() > 0 || $pendingBooks->count() > 0 || $requestForBorrowingBook->count() > 0)
             <div class="mb-8">
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <!-- Overdue Books -->
                     @if ($overDueBooks->count() > 0)
-                    <div class="bg-red-100 p-4 rounded-lg shadow-md">
+                    <div class="bg-red-50 p-4 rounded-lg shadow-sm border border-red-100">
                         <div class="flex items-center gap-4">
                             <i class="fa-solid fa-exclamation-circle text-3xl text-red-600"></i>
                             <div>
                                 <p class="text-red-600 font-semibold">Overdue Books</p>
-
-                                <p class="text-gray-600 text-sm">{{ $overDueBooks->count() > 1 ? $overDueBooks->count() . " books are overdue." : $overDueBooks->count() . " book is overdue." }} </p>
-                                <a href="{{route('admin.books.dueBooks')}}" class="text-red-600 hover:text-red-700 text-sm border-b border-red-600 hover:border-red-700">check it</a>
+                                <p class="text-gray-600 text-sm">{{ $overDueBooks->count() > 1 ? $overDueBooks->count() . " books are overdue." : $overDueBooks->count() . " book is overdue." }}</p>
+                                <a href="{{ route('admin.books.dueBooks') }}" class="text-red-600 hover:text-red-700 text-sm border-b border-red-600 hover:border-red-700">Check it</a>
                             </div>
-
                         </div>
-
                     </div>
                     @endif
 
                     <!-- Pending Books -->
                     @if ($pendingBooks->count() > 0)
-                    <div class="bg-yellow-100 p-4 rounded-lg shadow-md">
+                    <div class="bg-yellow-50 p-4 rounded-lg shadow-sm border border-yellow-100">
                         <div class="flex items-center gap-4">
                             <i class="fa-solid fa-clock text-3xl text-yellow-600"></i>
                             <div>
                                 <p class="text-yellow-600 font-semibold">Pending Books</p>
-                                @if ($pendingBooks->count() == 1)
-                                <p class="text-gray-600 text-sm">{{ $pendingBooks->count() }} book is pending to be approved!</p>
-                                @else
-                                <p class="text-gray-600 text-sm">{{ $pendingBooks->count() }} books are pending to be approved!</p>
-                                @endif
-                                <a href="{{route('admin.books.pending')}}" class="text-yellow-600 hover:text-yellow-700 text-sm border-b border-yellow-600 hover:border-yellow-700">check it</a>
-
+                                <p class="text-gray-600 text-sm">{{ $pendingBooks->count() > 1 ? $pendingBooks->count() . " books are pending." : $pendingBooks->count() . " book is pending." }}</p>
+                                <a href="{{ route('admin.books.pending') }}" class="text-yellow-600 hover:text-yellow-700 text-sm border-b border-yellow-600 hover:border-yellow-700">Check it</a>
                             </div>
                         </div>
                     </div>
                     @endif
 
-                    <!--  -->
+                    <!-- Pending Borrow Requests -->
                     @if ($requestForBorrowingBook->count() > 0)
-                    <div class="bg-yellow-100 p-4 rounded-lg shadow-md">
+                    <div class="bg-yellow-50 p-4 rounded-lg shadow-sm border border-yellow-100">
                         <div class="flex items-center gap-4">
                             <i class="fa-solid fa-clock text-3xl text-yellow-600"></i>
                             <div>
-                                <p class="text-yellow-600 font-semibold">Pending Book Borrow Requests</p>
-                                @if ($requestForBorrowingBook->count() == 1)
-                                <p class="text-gray-600 text-sm">{{ $requestForBorrowingBook->count() }} request for borrowing a book!</p>
-                                @else
-                                <p class="text-gray-600 text-sm">{{ $requestForBorrowingBook->count() }} requests for borrowing books!</p>
-                                @endif
-                                <a href="{{route('admin.borrow-request.index')}}" class="text-yellow-600 hover:text-yellow-700 text-sm border-b border-yellow-600 hover:border-yellow-700">check it</a>
-
+                                <p class="text-yellow-600 font-semibold">Pending Borrow Requests</p>
+                                <p class="text-gray-600 text-sm">{{ $requestForBorrowingBook->count() > 1 ? $requestForBorrowingBook->count() . " requests are pending." : $requestForBorrowingBook->count() . " request is pending." }}</p>
+                                <a href="{{ route('admin.borrow-request.index') }}" class="text-yellow-600 hover:text-yellow-700 text-sm border-b border-yellow-600 hover:border-yellow-700">Check it</a>
                             </div>
                         </div>
                     </div>
@@ -151,19 +135,17 @@
             </div>
             @endif
 
-            <!-- Books Borrowed Chart -->
-            <div class="chart-container">
-                <canvas id="booksBorrowedChart"></canvas>
+            <!-- Charts -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+                <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-100">
+                    <canvas id="booksBorrowedChart"></canvas>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-100">
+                    <canvas id="booksDownloadedChart"></canvas>
+                </div>
             </div>
 
-
-            <!-- Books Downloaded Chart -->
-            <div class="chart-container">
-                <canvas id="booksDownloadedChart"></canvas>
-            </div>
-
-            <!-- category cretion popup -->
-            <!-- Modal -->
+            <!-- Category Creation Modal -->
             <div id="categoryModal" class="fixed inset-0 z-50 hidden overflow-y-auto">
                 <div class="flex items-center justify-center min-h-screen px-4 pt-4 text-center sm:block sm:p-0">
                     <!-- Modal Overlay -->
@@ -191,24 +173,4 @@
             </div>
         </main>
     </div>
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const categoriesButton = document.getElementById('categoriesButton');
-            const shelvesButton = document.getElementById('shelvesButton');
-            const categoriesBar = document.getElementById('categoriesBar');
-            const shelvesBar = document.getElementById('shelvesBar');
-
-            // Show Categories Bar and hide Shelves Bar
-            categoriesButton.addEventListener('click', () => {
-                categoriesBar.classList.toggle('hidden');
-                shelvesBar.classList.add('hidden');
-            });
-
-            // Show Shelves Bar and hide Categories Bar
-            shelvesButton.addEventListener('click', () => {
-                shelvesBar.classList.toggle('hidden');
-                categoriesBar.classList.add('hidden');
-            });
-        });
-    </script>
 </x-layout>

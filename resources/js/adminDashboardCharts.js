@@ -100,31 +100,6 @@ async function setupChart(chartId, url, label) {
     });
 }
 
-/**
- * Sets up the sticky sidebar behavior.
- */
-// Sidebar Sticky Behavior
-const sidebar = document.querySelector("aside");
-const footer = document.querySelector("footer");
-const header = document.querySelector("header");
-
-if (sidebar && footer && header) {
-    const observer = new IntersectionObserver(
-        ([entry]) => {
-            if (entry.target === footer) {
-                sidebar.classList.toggle("at-footer", entry.isIntersecting);
-                sidebar.classList.toggle("sticky", !entry.isIntersecting);
-            } else if (entry.target === header) {
-                sidebar.classList.toggle("sticky", !entry.isIntersecting);
-            }
-        },
-        { rootMargin: "0px", threshold: 0 }
-    );
-
-    observer.observe(footer);
-    observer.observe(header);
-}
-
 
 /**
  * Sets up modal functionality with smooth toggle.
@@ -199,3 +174,52 @@ function toggleSubmenu(submenuId) {
         );
     }
 }
+
+
+
+/**
+ * Sets up the sticky sidebar behavior.
+ */
+// Sidebar Sticky Behavior
+const sidebar = document.querySelector("aside");
+const footer = document.querySelector("footer");
+const header = document.querySelector("header");
+
+if (sidebar && footer && header) {
+    const observer = new IntersectionObserver(
+        ([entry]) => {
+            if (entry.target === footer) {
+                sidebar.classList.toggle("at-footer", entry.isIntersecting);
+                sidebar.classList.toggle("sticky", !entry.isIntersecting);
+            } else if (entry.target === header) {
+                sidebar.classList.toggle("sticky", !entry.isIntersecting);
+            }
+        },
+        { rootMargin: "0px", threshold: 0 }
+    );
+
+    observer.observe(footer);
+    observer.observe(header);
+}
+
+
+// Code for toggling shelves and categories bar
+ document.addEventListener("DOMContentLoaded", function () {
+     const categoriesButton = document.getElementById("categoriesButton");
+     const shelvesButton = document.getElementById("shelvesButton");
+     const categoriesBar = document.getElementById("categoriesBar");
+     const shelvesBar = document.getElementById("shelvesBar");
+
+     // Show Categories Bar and hide Shelves Bar
+     categoriesButton.addEventListener("click", () => {
+         categoriesBar.classList.toggle("hidden");
+         shelvesBar.classList.add("hidden");
+     });
+
+     // Show Shelves Bar and hide Categories Bar
+     shelvesButton.addEventListener("click", () => {
+         shelvesBar.classList.toggle("hidden");
+         categoriesBar.classList.add("hidden");
+     });
+ });
+
