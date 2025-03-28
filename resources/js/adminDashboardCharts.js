@@ -34,7 +34,12 @@ async function fetchChartData(url) {
  */
 async function setupChart(chartId, url, label) {
     const chartElement = document.getElementById(chartId);
-    if (!chartElement) return; // Prevents errors if the element doesn't exist
+    if (!chartElement) return;
+
+    // Set the chart element to take full width of its container
+    chartElement.style.width = '100%';
+    chartElement.style.borderRadius = '12px';
+    chartElement.style.boxShadow = '0 4px 20px rgba(0, 0, 0, 0.08)';
 
     const { labels, data } = await fetchChartData(url);
     const ctx = chartElement.getContext("2d");
@@ -44,62 +49,128 @@ async function setupChart(chartId, url, label) {
         chartElement.chartInstance.destroy();
     }
 
-    // Create gradient background
-    const gradient = ctx.createLinearGradient(0, 0, 0, 400);
-    gradient.addColorStop(0, "rgba(99, 102, 241, 0.3)");
+    // Create more vibrant gradient
+    const gradient = ctx.createLinearGradient(0, 0, 0, chartElement.height);
+    gradient.addColorStop(0, "rgba(99, 102, 241, 0.5)");
+    gradient.addColorStop(0.7, "rgba(99, 102, 241, 0.2)");
     gradient.addColorStop(1, "rgba(99, 102, 241, 0)");
 
-    // Initialize Chart.js
+    // Create border gradient for more depth
+    const borderGradient = ctx.createLinearGradient(0, 0, chartElement.width, 0);
+    borderGradient.addColorStop(0, '#6366f1');
+    borderGradient.addColorStop(1, '#8b5cf6');
+
+    // Initialize Chart.js with modern styling
     chartElement.chartInstance = new Chart(ctx, {
-        type: "line",
+        type: "bar",
         data: {
             labels,
             datasets: [
                 {
                     label,
                     data,
-                    borderColor: "#6366f1",
+                    borderColor: borderGradient,
                     backgroundColor: gradient,
                     fill: true,
                     tension: 0.4,
-                    pointRadius: 5,
-                    pointBackgroundColor: "#6366f1",
-                    pointBorderColor: "#fff",
-                    pointHoverRadius: 7,
-                    pointHoverBackgroundColor: "#fff",
-                    pointHoverBorderColor: "#6366f1",
-                    borderWidth: 3,
+                    borderRadius: 6, // Rounded bar tops
+                    borderWidth: 2,
+                    hoverBackgroundColor: 'rgba(99, 102, 241, 0.7)',
+                    hoverBorderColor: '#fff',
+                    barPercentage: 0.7, // Makes bars slightly thinner for modern look
+                    categoryPercentage: 0.8
                 },
             ],
         },
         options: {
             responsive: true,
             maintainAspectRatio: false,
+            layout: {
+                padding: {
+                    top: 20,
+                    right: 20,
+                    bottom: 20,
+                    left: 20
+                }
+            },
             scales: {
-                x: { grid: { display: false }, ticks: { color: "#6b7280" } },
+                x: {
+                    grid: {
+                        display: false,
+                        drawBorder: false
+                    },
+                    ticks: {
+                        color: "#6b7280",
+                        font: {
+                            weight: '500'
+                        }
+                    }
+                },
                 y: {
                     beginAtZero: true,
-                    grid: { color: "#e5e7eb" },
-                    ticks: { color: "#6b7280" },
+                    grid: {
+                        color: "rgba(229, 231, 235, 0.5)",
+                        drawBorder: false
+                    },
+                    ticks: {
+                        color: "#6b7280",
+                        padding: 10,
+                        callback: function(value) {
+                            return value.toLocaleString();
+                        }
+                    },
                 },
             },
             plugins: {
                 legend: {
                     display: true,
                     position: "top",
-                    labels: { color: "#374151" },
+                    labels: {
+                        color: "#374151",
+                        font: {
+                            size: 14,
+                            weight: '600'
+                        },
+                        padding: 20,
+                        usePointStyle: true,
+                        pointStyle: 'circle'
+                    },
                 },
                 tooltip: {
-                    backgroundColor: "#1e293b",
+                    backgroundColor: "rgba(30, 41, 59, 0.95)",
                     titleColor: "#f3f4f6",
                     bodyColor: "#f3f4f6",
+                    titleFont: {
+                        size: 14,
+                        weight: '600'
+                    },
+                    bodyFont: {
+                        size: 13
+                    },
+                    padding: 12,
+                    cornerRadius: 8,
+                    displayColors: true,
+                    usePointStyle: true,
+                    callbacks: {
+                        label: function(context) {
+                            return `${context.dataset.label}: ${context.raw.toLocaleString()}`;
+                        }
+                    }
                 },
             },
-            animation: { duration: 1000, easing: "easeInOutQuart" },
+            animation: {
+                duration: 1000,
+                easing: "easeInOutQuart",
+                animateScale: true,
+                animateRotate: true
+            },
+            interaction: {
+                intersect: false,
+                mode: 'index'
+            }
         },
     });
 }
-
 
 /**
  * Sets up modal functionality with smooth toggle.

@@ -1,5 +1,5 @@
 <x-layout>
-    <div class="container w-full max-w-7xl grid grid-cols-1 md:grid-cols-3 gap-4">
+    <div class="container w-full max-w-7xl grid grid-cols-1 md:grid-cols-[20%,80%] md:gap-12 gap-4">
         @auth
         @if (Auth::user()->role == 'admin')
         <x-admin-sidebar :user="Auth::user()" />
@@ -12,11 +12,7 @@
 
 
         <!-- Main Content Area -->
-        <div class="col-span-2 p-4 rounded-lg shadow-lg bg-white">
-            <div class="mb-4">
-                <h1 class="text-2xl font-bold text-gray-800">Bookmarks</h1>
-                <p class="text-gray-500 text-sm italic">Browse through your personal selection of saved books.</p>
-            </div>
+        <div class=" p-4 rounded-lg shadow-lg bg-white">
 
             @if ($bookmarks->isNotEmpty())
             <div class="grid grid-cols-1 gap-4">
@@ -32,7 +28,8 @@
                     <!-- Book Details -->
                     <div class="flex flex-col gap-2">
                         <div>
-                            <h2 class="text-xl font-semibold text-gray-800 mb-1">{{ $bookmark->book->title }}</h2>
+                            <h2 class="text-xl font-semibold text-gray-800
+                            mb-1">{{ $bookmark->book->title }}</h2>
                             <p class="text-sm text-gray-600 mb-1">Author: {{ $bookmark->book->author }}</p>
                             <p class="text-sm text-gray-600">Category: {{ $bookmark->book->category->name }}</p>
                         </div>
@@ -57,8 +54,15 @@
             <div class="p-6 text-center">
                 <h2 class="text-xl font-semibold text-gray-700">No bookmarks yet.</h2>
                 <p class="text-gray-500 mt-2">Start bookmarking your favorite books to see them here!</p>
+
             </div>
             @endif
+            <div class="p-2 text-center">
+                <a href="{{ route('books.index') }}" class="inline-flex items-center px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 mt-2">
+                    <i class="fas fa-bookmark mr-2"></i> Find Books to Bookmark
+                </a>
+            </div>
+
         </div>
     </div>
 </x-layout>

@@ -2,13 +2,23 @@
     <!-- session success message -->
     <x-session />
     <!-- main content -->
-    <div class="container w-full max-w-7xl p-8 grid grid-cols-3 gap-4 mt-8">
+    <div class="container w-full max-w-7xl grid grid-cols-[20%,80%] gap-4">
         <!-- Sidebar -->
-        <h1 class="text-3xl font-bold font-sans col-span-3">Books Added by You</h1>
-        <x-sideBar />
+        @auth
+        @if (Auth::user()->role == 'admin')
+        <x-admin-sidebar :user="Auth::user()" class="col-span-auto" />
+
+        @elseif (Auth::user()->role == 'user')
+        <x-user-sidebar :user="Auth::user()" class="col-span-auto" />
+
+        @endif
+        @else
+        <div>
+        </div>
+        @endauth
 
         <!-- Main Content -->
-        <div class="shadow-md col-span-2 p-4 bg-white rounded-lg ">
+        <div class="shadow-md p-4 bg-white rounded-lg ">
 
             @if ($books->isNotEmpty())
             <div class="grid gap-4 rounded-lg">
@@ -16,8 +26,8 @@
                 <div class="flex gap-8 p-4 items-center rounded-lg shadow-lg">
                     <!-- Book Cover -->
                     <div>
-                        <a href="{{ route('books.show'), $book->id }}">
-                            <img src="{{ asset('storage/' . $book->cover_image) }}" alt="{{ $book->title }}" class="w-64 h-42 object-cover rounded-lg">
+                        <a href="{{ route('books.show',['book' => $book->id] )}}">
+                            <img src="{{ asset('storage/' . $book->cover_image) }}" alt="{{ $book->title }}" class="w-32 h-32 object-cover rounded-lg">
                         </a>
                     </div>
 
@@ -56,7 +66,7 @@
                                                 Delete
                                             </button>
                                         </form>
-                                    </div>
+                                    </div>s
                     </div>
                 </div>
                 @endforeach

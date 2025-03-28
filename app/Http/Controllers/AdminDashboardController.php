@@ -35,7 +35,8 @@ class AdminDashboardController extends Controller
             'overDueBooks' => $this->getOverdueBooks(),
             'shelfs' => $this->getShelfNumbers(),
             'categories' => $this->getCategories(),
-            'requestForBorrowingBook' => $this->requestForBorrowingBook()
+            'requestForBorrowingBook' => $this->requestForBorrowingBook(),
+
         ]);
     }
     private function getUsersCount()

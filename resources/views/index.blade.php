@@ -48,7 +48,7 @@
         </div>
         <div class="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-4">
             @foreach ($categories as $cat )
-            <a href="/categories/{{ $cat->id }}">
+            <a href="{{route('user.categories.show',['category' => $cat->id])}}">
                 <li class="list-none text-gray-500 bg-white p-4 rounded-lg shadow-lg hover:bg-blue-600 hover:text-white truncate">
                     {{ $cat->name }}
                 </li>

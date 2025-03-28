@@ -1,6 +1,13 @@
 <!-- resources/views/components/user-sidebar.blade.php -->
 @props(['user'])
-<aside class="w-64 bg-gradient-to-b from-blue-600 to-blue-700 text-white shadow-lg">
+@php
+$user = auth()->user();
+$lastLoginDate = $user->last_login_at
+? \Carbon\Carbon::parse($user->last_login_at)->diffForHumans()
+: 'Now';
+@endphp
+<aside
+    class=' hidden md:block w-full max-w-64  bg-gradient-to-b from-blue-600 to-blue-700 text-white shadow-lg'>
     <nav class="p-4">
         <div class="flex items-center space-x-4 p-4 bg-blue-800 rounded-lg shadow-lg">
             <div class="relative">
@@ -10,19 +17,15 @@
                     alt="profile picture"
                     class="h-16 w-16 rounded-full border-2 border-white shadow-lg transition-transform transform hover:scale-105 duration-300">
 
-                <!-- Edit Icon -->
-                <a
-                    href="{{ route('user.profile.edit', $user->id) }}"
-                    class="absolute bottom-0 right-0 bg-blue-400 rounded-lg  shadow-md transition-transform transform hover:scale-110 duration-300 text-center"
-                    aria-label="Edit Profile"
-                    style="transform: translate(25%, 5%);"
-                    title='Edit profile'>
-                    <i class="fa-solid fa-edit text-white text-xs mx-1.5 "></i>
-                </a>
             </div>
             <div>
                 <h2 class="text-lg font-semibold">{{ $user->name }}</h2>
                 <p class="text-[10px] text-blue-200 truncate">{{ $user->email }}</p>
+                <p class="text-[10px] text-blue-200">
+
+                    Last Login:
+                    {{ $lastLoginDate }}
+                </p>
             </div>
         </div>
         <ul class="space-y-1 mt-4">

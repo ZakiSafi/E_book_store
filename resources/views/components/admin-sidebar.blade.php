@@ -1,6 +1,13 @@
 @props(['user'])
 
-<aside class="w-64 bg-gradient-to-b  from-blue-600 to-blue-700 text-white shadow-lg z-1">
+@php
+$user = auth()->user();
+$lastLoginDate = $user->last_login_at
+? \Carbon\Carbon::parse($user->last_login_at)->diffForHumans()
+: 'Now';
+@endphp
+
+<aside class=' hidden md:block w-64 bg-gradient-to-b from-blue-600 to-blue-700 text-white shadow-lg' >
     <nav class="p-4">
         <div class="flex items-center space-x-4 p-4 bg-blue-800 rounded-lg shadow-lg">
             <div class="relative">
@@ -23,6 +30,10 @@
             <div>
                 <h2 class="text-lg font-semibold">{{ $user->name }}</h2>
                 <p class="text-[10px] text-blue-200 truncate">{{ $user->email }}</p>
+                <p class="text-[10px] text-blue-200">
+                    Last Login:
+                    {{ $lastLoginDate }}
+                </p>
             </div>
         </div>
         <ul class="space-y-1 mt-4">

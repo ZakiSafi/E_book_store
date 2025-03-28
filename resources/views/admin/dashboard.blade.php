@@ -1,27 +1,27 @@
 <x-layout>
     <div class="flex min-h-screen">
         <!-- Sidebar -->
-        <x-admin-sidebar :user="Auth::user()" />
+        <x-admin-sidebar :user="Auth::user()"/>
 
         <!-- Main Content -->
         <main class="flex-1 bg-gray-50 p-6 md:p-8">
             <!-- Categories and Shelves Buttons -->
-            <div class="flex flex-col md:flex-row gap-4 w-full mb-8">
-                <div id="categoriesButton" class="cursor-pointer w-full md:w-1/2 p-4 bg-blue-600 text-white rounded-lg text-center hover:bg-blue-700 transition-all duration-300">
-                    <span class="text-lg font-semibold">Books Categories</span>
+            <div class="flex flex-col sm:flex-row gap-3 sm:gap-4 w-full mb-6 sm:mb-8 px-2 sm:px-0">
+                <div id="categoriesButton" class="cursor-pointer w-full sm:w-1/2 p-3 sm:p-4 bg-indigo-600 text-white rounded-xl text-center hover:bg-indigo-700 transition-all duration-300 active:scale-95 shadow-md hover:shadow-lg">
+                    <span class="text-base sm:text-lg font-semibold">Books Categories</span>
                 </div>
-                <div id="shelvesButton" class="cursor-pointer w-full md:w-1/2 p-4 bg-green-600 text-white rounded-lg text-center hover:bg-green-700 transition-all duration-300">
-                    <span class="text-lg font-semibold">Books Shelves</span>
+                <div id="shelvesButton" class="cursor-pointer w-full sm:w-1/2 p-3 sm:p-4 bg-emerald-600 text-white rounded-xl text-center hover:bg-emerald-700 transition-all duration-300 active:scale-95 shadow-md hover:shadow-lg">
+                    <span class="text-base sm:text-lg font-semibold">Books Shelves</span>
                 </div>
             </div>
 
             <!-- Categories Bar -->
-            <div id="categoriesBar" class="hidden my-8 w-full max-w-5xl bg-white p-6 rounded-lg shadow-sm border border-gray-100">
-                <h3 class="text-xl font-bold text-gray-800 mb-4">Categories</h3>
-                <div class="flex flex-wrap gap-2">
+            <div id="categoriesBar" class="hidden my-6 sm:my-8 w-full max-w-5xl mx-auto bg-white p-4 sm:p-6 rounded-xl shadow-sm border border-gray-200">
+                <h3 class="text-lg sm:text-xl font-bold text-gray-800 mb-3 sm:mb-4">Categories</h3>
+                <div class="flex flex-wrap gap-2 sm:gap-3">
                     @foreach ($categories as $cat)
-                    <a href="/categories/{{ $cat->id }}" class="block">
-                        <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm hover:bg-blue-200 hover:text-blue-900 transition-all duration-300">
+                    <a href="{{route('user.categories.show',['category' => $cat->id])}}" class="block transform hover:scale-105 transition-transform duration-200">
+                        <span class="inline-flex items-center bg-indigo-50 text-indigo-800 px-3 py-1 sm:px-4 sm:py-2 rounded-full text-xs sm:text-sm font-medium hover:bg-indigo-100 hover:text-indigo-900 transition-all duration-300">
                             {{ $cat->name }}
                         </span>
                     </a>
@@ -30,19 +30,18 @@
             </div>
 
             <!-- Shelves Bar -->
-            <div id="shelvesBar" class="hidden my-8  w-full max-w-5xl bg-white p-6 rounded-lg shadow-sm border border-gray-100">
-                <h3 class="text-xl font-bold text-gray-800 mb-4">Shelves</h3>
-                <div class="flex flex-wrap gap-2">
+            <div id="shelvesBar" class="hidden my-6 sm:my-8 w-full max-w-5xl mx-auto bg-white p-4 sm:p-6 rounded-xl shadow-sm border border-gray-200">
+                <h3 class="text-lg sm:text-xl font-bold text-gray-800 mb-3 sm:mb-4">Shelves</h3>
+                <div class="flex flex-wrap gap-2 sm:gap-3">
                     @foreach ($shelfs as $shelf)
-                    <a href="{{ route('admin.books.shelfs', $shelf->shelf_no) }}" class="block">
-                        <span class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm hover:bg-green-200 hover:text-green-900 transition-all duration-300">
-                            {{ $shelf->shelf_no }}
+                    <a href="{{ route('admin.books.shelfs', $shelf->shelf_no) }}" class="block transform hover:scale-105 transition-transform duration-200">
+                        <span class="inline-flex items-center bg-emerald-50 text-emerald-800 px-3 py-1 sm:px-4 sm:py-2 rounded-full text-xs sm:text-sm font-medium hover:bg-emerald-100 hover:text-emerald-900 transition-all duration-300">
+                            Shelf #{{ $shelf->shelf_no }}
                         </span>
                     </a>
                     @endforeach
                 </div>
             </div>
-
             <!-- Quick Stats -->
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
                 <a href="{{ route('admin.users.index') }}">
@@ -136,12 +135,25 @@
             @endif
 
             <!-- Charts -->
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
-                <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-100">
-                    <canvas id="booksBorrowedChart"></canvas>
+            <div class="grid gap-4 sm:gap-6 mb-6 sm:mb-8">
+                <!-- Books Borrowed Chart -->
+                <div class="bg-white rounded-xl shadow-md border border-gray-200 overflow-hidden transition-all duration-300 hover:shadow-lg">
+                    <div class="px-4 sm:px-6 py-3 sm:py-4 border-b border-gray-100">
+                        <h3 class="text-lg sm:text-xl font-semibold text-gray-800">Books Borrowed</h3>
+                    </div>
+                    <div class="p-2 sm:p-4 h-[300px] sm:h-[400px]">
+                        <canvas id="booksBorrowedChart" class="w-full h-full"></canvas>
+                    </div>
                 </div>
-                <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-100">
-                    <canvas id="booksDownloadedChart"></canvas>
+
+                <!-- Books Downloaded Chart -->
+                <div class="bg-white rounded-xl shadow-md border border-gray-200 overflow-hidden transition-all duration-300 hover:shadow-lg">
+                    <div class="px-4 sm:px-6 py-3 sm:py-4 border-b border-gray-100">
+                        <h3 class="text-lg sm:text-xl font-semibold text-gray-800">Books Downloaded</h3>
+                    </div>
+                    <div class="p-2 sm:p-4 h-[300px] sm:h-[400px]">
+                        <canvas id="booksDownloadedChart" class="w-full h-full"></canvas>
+                    </div>
                 </div>
             </div>
 
@@ -156,7 +168,7 @@
                         <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
                             <h3 class="text-lg font-bold mb-4">Create New Category</h3>
                             <!-- Form -->
-                            <form action="{{ route('admin.category.store') }}" method="POST" class="max-w-lg mx-auto">
+                            <form action="{{ route('user.categories.store') }}" method="POST" class="max-w-lg mx-auto">
                                 @csrf
                                 <div class="mb-4">
                                     <label for="name" class="block text-gray-700 text-sm font-bold mb-2">Category Name:</label>
