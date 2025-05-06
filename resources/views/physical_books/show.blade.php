@@ -1,7 +1,7 @@
 <x-layout>
     <x-session />
     <div class="container mx-auto w-full max-w-7xl pr-4 sm:pr-6 lg:pr-8">
-        <div class="w-full grid grid-cols-1 md:grid-cols-[18%,82%] gap-4 md:gap-16">
+        <div class="w-full grid @auth grid-cols-1 md:grid-cols-[18%,82%] @else grid-cols-1 @endauth gap-4 md:gap-16">
             @auth
             @if (Auth::user()->role == 'admin')
             <x-admin-sidebar :user="Auth::user()" />
@@ -10,7 +10,7 @@
             @endif
             @endauth
 
-            <div class="w-full">
+            <div class="w-full @auth @else md:col-span-full @endauth">
                 <!-- Main Book Card -->
                 <div class="bg-white shadow-lg grid sm:grid-cols-1 md:grid-cols-[25%,70%] gap-5 rounded-lg p-4">
                     <!-- Book Cover Image -->

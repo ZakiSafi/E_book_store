@@ -47,7 +47,7 @@ class UserController extends Controller
             'bookmarkedBooks' => $user->bookmarks()
                 ->with('book')
                 ->latest()
-                ->take(5)
+                ->take(10)
                 ->get(),
 
             'lastUploadedBook' => OnlineBook::where('user_id', $user->id)

@@ -11,7 +11,9 @@ class BorrowRequest extends Model
     use HasFactory, Notifiable;
     const STATUS_APPROVED = 'approved';
     const STATUS_PENDING = 'pending';
-    protected $fillable = ['user_id', 'book_id', 'status'];
+    protected $fillable = ['user_id', 'book_id', 'status',
+        'requested_at','admin_id',
+        'processed_at',];
 
     public function user()
     {
@@ -21,5 +23,10 @@ class BorrowRequest extends Model
     public function book()
     {
         return $this->belongsTo(PhysicalBook::class);
+    }
+
+    public function admin()
+    {
+        return $this->belongsTo(User::class, 'admin_id');
     }
 }

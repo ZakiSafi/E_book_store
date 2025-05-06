@@ -42,7 +42,8 @@
                         <tr>
                             <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Title</th>
                             <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Cover Image</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Author</th>
+                            <th class="px-6 py-3  text-center text-xs font-medium text-gray-500 uppercase tracking-wider">Author</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
                             <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Uploaded By</th>
                             <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Bookmarks</th>
                             <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
@@ -54,7 +55,7 @@
                         <tr class="hover:bg-gray-50 transition duration-150 ease-in-out p-2">
                             <td class="px-6 py-4 whitespace-nowrap">
                                 <a href="{{route('books.show', $book->id)}}" class="text-blue-600 hover:text-blue-800 font-medium">
-                                    {{ $book->title }}
+                                    {{ Str::limit($book->title, 20) }}
                                 </a>
                             </td>
                             <td class=" whitespace-nowrap">
@@ -62,7 +63,8 @@
                                     <img src="{{ asset('storage/' . $book->cover_image) }}" alt="Cover Image" class="w-32 h-32 object-cover rounded-lg shadow-sm hover:shadow-md transition-shadow duration-200">
                                 </a>
                             </td>
-                            <td class="px-6 py-4 whitespace-nowrap text-gray-700">{{ $book->author }}</td>
+                            <td class="px-4 text-center py-4 whitespace-nowrap text-gray-700">{{ $book->author }}</td>
+                            <td class="px-2 py-4 whitespace-nowrap text-gray-700">{{ $book->status }}</td>
                             <td class="px-6 py-4 whitespace-nowrap text-gray-700">{{ $book->user->name }}</td>
                             <td class="px-6 py-4 whitespace-nowrap text-gray-700">{{ $book->bookmarks->count() }}</td>
                             <td class="px-6 py-4 whitespace-nowrap relative">

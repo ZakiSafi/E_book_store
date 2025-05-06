@@ -33,6 +33,7 @@ Route::get('/books/{book}', [OnlineBookController::class, 'show'])->name('books.
 Route::get('/search', [SearchController::class, 'search'])->name('search');
 Route::get('/physical-books', [PhysicalBookController::class, 'index'])->name('physicalBooks.index');
 Route::get('/physical-books/{id}', [PhysicalBookController::class, 'show'])->name('physicalBooks.show');
+Route::get('/categories/{category}', [CategoryController::class, 'show'])->name('categories.show');
 
 
 // Authentication Routes
@@ -71,11 +72,8 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
     // Admin Dashboard
     Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('dashboard');
 
-   
-
-
-
-
+    //Admin categories Management
+    Route::resource('/categories', CategoryController::class)->except('show');
 
     // Books Management
     Route::controller(AdminBookController::class)->prefix('books')->name('books.')->group(function () {
@@ -117,6 +115,7 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
     // Admin Borrow Requests Management
     Route::controller(AdminBorrowRequestController::class)->name('borrow-request.')->group(function () {
         Route::get('/borrowed-books/requests', 'borrowRequestIndex')->name('index');
+        Route::get('/borrowed-books/requests/history', 'borrowRequestHistory')->name('history');
         Route::put('/borrowed-books/requests/{id}/update', 'update')->name('update');
         Route::delete('/borrowed-books/requests/{id}/delete', 'destroy')->name('delete');
     });
@@ -134,11 +133,8 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
 // User
 Route::middleware(['auth', 'userOrAdmin'])->prefix('user')->name('user.')->group(function () {
 
-    // categories Management
-    Route::resource('/categories', CategoryController::class);
-
     // Online books management
-    Route::resource('books', OnlineBookController::class)->except('show');
+    Route::resource('books', OnlineBookController::class);
 
 
     // Book Management

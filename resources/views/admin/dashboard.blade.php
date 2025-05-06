@@ -20,7 +20,7 @@
                 <h3 class="text-lg sm:text-xl font-bold text-gray-800 mb-3 sm:mb-4">Categories</h3>
                 <div class="flex flex-wrap gap-2 sm:gap-3">
                     @foreach ($categories as $cat)
-                    <a href="{{route('user.categories.show',['category' => $cat->id])}}" class="block transform hover:scale-105 transition-transform duration-200">
+                    <a href="{{route('categories.show',['category' => $cat->id])}}" class="block transform hover:scale-105 transition-transform duration-200">
                         <span class="inline-flex items-center bg-indigo-50 text-indigo-800 px-3 py-1 sm:px-4 sm:py-2 rounded-full text-xs sm:text-sm font-medium hover:bg-indigo-100 hover:text-indigo-900 transition-all duration-300">
                             {{ $cat->name }}
                         </span>
@@ -168,7 +168,7 @@
                         <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
                             <h3 class="text-lg font-bold mb-4">Create New Category</h3>
                             <!-- Form -->
-                            <form action="{{ route('user.categories.store') }}" method="POST" class="max-w-lg mx-auto">
+                            <form action="{{ route('admin.categories.store') }}" method="POST" class="max-w-lg mx-auto">
                                 @csrf
                                 <div class="mb-4">
                                     <label for="name" class="block text-gray-700 text-sm font-bold mb-2">Category Name:</label>

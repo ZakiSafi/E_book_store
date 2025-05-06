@@ -28,10 +28,6 @@
             <span class="group-hover:border-b group-hover:border-black">Manage Users</span>
         </a>
 
-        <i class="fa-solid fa-cogs text-[#666] mr-2"></i>
-        <a href="/admin/settings" class="group">
-            <span class="group-hover:border-b group-hover:border-black">Settings</span>
-        </a>
         @else
 
         <i class="fa-solid fa-tachometer-alt text-[#666] mr-2"></i>

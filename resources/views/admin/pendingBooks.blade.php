@@ -9,12 +9,12 @@
             <div class="flex justify-between items-center mb-6">
                 <h2 class="text-3xl font-bold text-gray-800 border-b-2 border-blue-500 pb-2">Pending Books</h2>
                 <div class="flex items-center space-x-4">
-                
+
 
                     <!-- Sidebar Toggle Button  -->
                     <div class="relative">
                         <button id="sidebar-toggle" class="p-2 rounded-lg bg-gray-100 hover:bg-gray-200 focus:outline-none">
-                            <i class="fa-solid fa-bars text-gray-600"></i>
+                <i class="fa-solid fa-bars text-gray-600"></i>
                         </button>
                         <!-- Sidebar Dropdown -->
                         <div id="sidebar-dropdown" class="absolute right-0 mt-2 w-64 bg-white hidden z-50">

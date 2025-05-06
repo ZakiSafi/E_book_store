@@ -48,14 +48,25 @@
                     @if($uploadedBooks->isNotEmpty())
                     <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
                         @foreach($uploadedBooks as $book)
-                        <div class="w-full max-w-[200px]  flex flex-col items-center justify-center transform transition-transform duration-300 hover:scale-105">
+                        <div class="w-full max-w-[200px] flex flex-col items-center justify-center transform transition-transform duration-300 hover:scale-105">
                             <a href="{{ route('books.show', $book->id) }}" class="w-full">
-                                <div class="w-full flex flex-col  items-center text-center mt-2">
+                                <div class="w-full flex flex-col items-center text-center mt-2">
                                     <img src="{{ asset('storage/' . $book->cover_image) }}" alt="{{ $book->title }}" class="w-[90%] h-32 md:h-48 object-center rounded-lg mb-2">
 
                                     <h3 class="text-sm font-bold text-gray-800 w-full truncate">{{ Str::limit($book->title, 20) }}</h3>
                                     <p class="text-xs font-semibold text-gray-500">{{ $book->author }}</p>
                                     <p class="text-xs text-gray-600">{{ $book->language }}</p>
+
+                                    {{-- Status Tag --}}
+                                    <span class="text-[10px] font-semibold px-2 py-1 rounded-full
+    {{ $book->status === 'approved' ? 'bg-green-100 text-green-600' :
+       ($book->status === 'rejected' ? 'bg-red-100 text-red-600' :
+       'bg-yellow-100 text-yellow-600') }}">
+                                        {{ ucfirst($book->status) }}
+                                    </span>
+
+
+                                    {{-- Category Tag --}}
                                     <p class="text-[10px] font-medium text-blue-500 bg-blue-100 px-2 py-1 rounded-full mt-1">
                                         {{ $book->category->name }}
                                     </p>
@@ -72,18 +83,29 @@
                         </a>
                     </div>
                     @endif
+
                 </div>
 
                 <!-- Borrowed Books Section -->
                 <div class="bg-white rounded-lg shadow-md p-6">
-                    <div class="flex justify-between items-center mb-4">
-                        <h3 class="text-xl font-semibold text-gray-800">Currently Borrowed</h3>
-                        <a href="{{ route('user.books') }}" class="text-sm text-blue-600 hover:underline">View All</a>
-                    </div>
+
                     @if($borrowedBooks->isNotEmpty())
                     <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
                         @foreach($borrowedBooks as $borrow)
-                        Node js
+                        <div class="w-full max-w-[200px]  flex flex-col items-center justify-center transform transition-transform duration-300 hover:scale-105">
+                            <a href="{{ route('books.show', $borrow->book->id) }}" class="w-full">
+                                <div class="w-full flex flex-col  items-center text-center mt-2">
+                                    <img src="{{ asset('storage/' . $borrow->book->cover_image) }}" alt="{{ $borrow->book->title }}" class="w-[90%] h-32 md:h-48 object-center rounded-lg mb-2">
+
+                                    <h3 class="text-sm font-bold text-gray-800 w-full truncate">{{ Str::limit($borrow->book->title, 20) }}</h3>
+                                    <p class="text-xs font-semibold text-gray-500">{{ $borrow->book->author }}</p>
+                                    <p class="text-xs text-gray-600">{{ $borrow->book->language }}</p>
+                                    <p class="text-[10px] font-medium text-blue-500 bg-blue-100 px-2 py-1 rounded-full mt-1">
+                                        {{ $borrow->book->category->name }}
+                                    </p>
+                                </div>
+                            </a>
+                        </div>
                         @endforeach
                     </div>
                     @else

@@ -72,6 +72,7 @@ class SearchController extends Controller
             case 'Online Books':
                 $results = OnlineBook::where('title', 'like', "%$query%")
                     ->orWhere('author', 'like', "%$query%")
+                    ->orWhere('status', 'like', "%$query%")
                     ->get();
                 break;
 

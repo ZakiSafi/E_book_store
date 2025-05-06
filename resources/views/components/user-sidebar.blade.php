@@ -7,7 +7,7 @@ $lastLoginDate = $user->last_login_at
 : 'Now';
 @endphp
 <aside
-    class=' hidden md:block w-full max-w-64  bg-gradient-to-b from-blue-600 to-blue-700 text-white shadow-lg'>
+    class=' hidden md:block w-64  bg-gradient-to-b from-blue-600 to-blue-700 text-white shadow-lg'>
     <nav class="p-4">
         <div class="flex items-center space-x-4 p-4 bg-blue-800 rounded-lg shadow-lg">
             <div class="relative">

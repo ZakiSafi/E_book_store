@@ -91,9 +91,16 @@
                                         </button>
                                     </form>
                                     <i class="fa-solid fa-book-open text-sm text-green-600"></i>
-                                    <a href="{{ route('admin.borrow-books.create',$book->id) }}" class="text-green-600 hover:text-green-800 text-sm transition duration-150 ease-in-out">
-                                        Borrow
-                                    </a>
+                                    <form action="{{route('admin.borrow-books.create')}}" method="GET" class="text-green-600 hover:text-green-800 text-sm transition duration-150 ease-in-out">
+                                        @csrf
+                                        <input
+                                            type="hidden"
+                                            name="book_id"
+                                            value='{{$book->id}}'>
+
+                                        <button type="submit">Borrow</button>
+                                    </form>
+
                                 </div>
                             </td>
 

@@ -91,6 +91,8 @@ class AdminBorrowedBookController extends Controller
         if($existingRequest){
             $existingRequest->update([
                 'status' => BorrowRequest::STATUS_APPROVED,
+                'processed_at' => now(),
+                'admin_id' => Auth::user()->id,
             ]);
         }
 

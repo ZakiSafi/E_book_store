@@ -7,7 +7,7 @@ $lastLoginDate = $user->last_login_at
 : 'Now';
 @endphp
 
-<aside class=' hidden md:block w-64 bg-gradient-to-b from-blue-600 to-blue-700 text-white shadow-lg' >
+<aside class=' w-64 hidden md:block bg-gradient-to-b from-blue-600 to-blue-700 text-white shadow-lg'>
     <nav class="p-4">
         <div class="flex items-center space-x-4 p-4 bg-blue-800 rounded-lg shadow-lg">
             <div class="relative">
@@ -104,13 +104,25 @@ $lastLoginDate = $user->last_login_at
                             <i class="fa-solid fa-history mr-3"></i> History of Borrowed Books
                         </a>
                     </li>
+                    <li>
+                        <a href="{{ route('admin.borrow-request.history') }}" class="flex items-center p-2 hover:bg-blue-600/90 transition-all duration-300 rounded-lg text-sm">
+                            <i class="fa-solid fa-history mr-3"></i> History of Borrow Requests
+                        </a>
+                    </li>
                 </ul>
             </li>
         </ul>
         <a href="{{route('admin.create')}}" class="flex items-center cursor-pointer p-3 hover:bg-blue-500/90 transition-all duration-300 rounded-lg mx-2">
             <i class="fa-solid fa-user-shield mr-3"></i> Create New Admin
         </a>
-        <!-- Button to Open Modal -->
+
+        <!-- Manage  all categories -->
+
+        <a href="{{route('admin.categories.index')}}" class="flex items-center cursor-pointer p-3 hover:bg-blue-500/90 transition-all duration-300 rounded-lg mx-2">
+            <i class="fa-solid fa-folder-tree mr-3"></i> Manage Categories
+        </a>
+
+        <!-- Button to Open Modal for creating category -->
         <button id="openModal" class="flex items-center cursor-pointer p-3 hover:bg-blue-500/90 transition-all duration-300 rounded-lg mx-2">
             <i class="fa-solid fa-folder-plus mr-3"></i> Create Category
         </button>

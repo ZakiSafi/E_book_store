@@ -20,8 +20,6 @@
             padding: 0;
             background-color: #f9fafb;
         }
-
-
     </style>
     </style>
 </head>
@@ -46,7 +44,7 @@
                             <i class="fa-solid fa-house mr-1"></i> Home
                         </x-nav_link>
 
-                         @auth
+                        @auth
                         @if (Auth::user()->role === 'admin')
                         <x-nav_link href="{{route('admin.dashboard')}}" :active="request()->is('admin/dashboard')">
                             <i class="fa-solid fa-user-shield mr-1"></i> Dashboard
@@ -66,7 +64,7 @@
                             <i class="fa-solid fa-book-open mr-1"></i> Physical Books
                         </x-nav_link>
 
-                        <x-nav_link href="{{route('user.bookmarks.index')}}" :active="request()->is('bookmarks')">
+                        <x-nav_link href="{{route('user.bookmarks.index')}}" :active="request()->is('user/bookmarks')">
                             <i class="fa-solid fa-bookmark mr-1"></i> Bookmarks
                         </x-nav_link>
                     </nav>
@@ -191,7 +189,7 @@
         </div>
     </header>
     <!-- session success message -->
-    <x-session  class="z-50"/>
+    <x-session class="z-50" />
     <x-session-error class="z-50" />
 
 
@@ -283,11 +281,15 @@
                             <i class="fa-solid fa-plus-circle mr-2 w-5"></i>
                             <span class="group-hover:border-b group-hover:border-blue-600">Add digital Book</span>
                         </a>
-
+                        @auth
+                        @if (Auth::user()->role== 'admin')
                         <a href="{{ route('admin.physical-books.create') }}" class="group flex items-center transition-all hover:text-blue-600">
                             <i class="fa-solid fa-plus-circle mr-2 w-5"></i>
                             <span class="group-hover:border-b group-hover:border-blue-600">Add physical Book</span>
                         </a>
+
+                        @endif
+                        @endauth
                     </div>
                 </div>
 

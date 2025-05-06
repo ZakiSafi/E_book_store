@@ -18,12 +18,22 @@ class AdminBorrowRequestController extends Controller
         return view('borrowed_books.requests', compact('borrowedBooksRequests'));
     }
 
+    public function borrowRequestHistory()
+    {
+        $borrowedBooksRequestsHistory = BorrowRequest::with('user', 'book')
+            ->where('status', BorrowRequest::STATUS_APPROVED)
+            ->latest()
+            ->simplePaginate(10);
+        return view('borrowed_books.requestsHistory', compact('borrowedBooksRequestsHistory'));
+    }
+
     public function store(Request $request)
     {
         $attributes = $request->validate([
             'user_id' => 'required|exists:users,id',
             'book_id' => 'required|exists:physical_books,id',
         ]);
+
 
         // Check if user already made request for the book
         // Check if the user has already borrowed the book or has a pending request

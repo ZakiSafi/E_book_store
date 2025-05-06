@@ -42,26 +42,24 @@ class categoryController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Category $category)
     {
-        $category = Category::findOrFail($id);
         return view('categories.edit', compact('category'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    // CategoryController.php
+    public function update(Request $request, Category $category)
     {
         $request->validate([
-            'name' => 'required|string|max:255',
+            'name' => 'required|string|max:255'
         ]);
 
-        $category = Category::findOrFail($id);
-        $category->name = $request->input('name');
-        $category->save();
+        $category->update(['name' => $request->name]);
 
-        return redirect()->back()->with('success', 'Category ' . $request->name  . ' updated successfully.');
+        return response()->json(['success' => true]);
     }
 
     /**
